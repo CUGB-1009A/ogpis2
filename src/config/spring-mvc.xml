@@ -11,9 +11,7 @@
 
 	<mvc:annotation-driven />
 	<!-- 静态资源处理器，所有以【mapping】开头的请求都会视为是对静态资源的请求，请求url会将【mapping】的内容替换成【location】的内容，然后执行静态资源的获取 -->
-	<mvc:resources location="/assets/" mapping="/assets/**" />
-	<mvc:resources location="/planFileUpload/" mapping="/planFileUpload/**" />
-	<mvc:resources location="/temp/" mapping="/temp/**" />
+	<mvc:resources location="/easyui-1.5/" mapping="/easyui-1.5/**" />
 	<context:component-scan base-package="com.ogpis" />
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -29,20 +27,20 @@
 	<!-- <bean id="loginAction" class="com.niexiao.action.LoginAction"></bean> -->
 
 	<!-- 为了使Controller是可以通过注解授权 ，故在springmvc的配置文件中也添加这段配置，id要设置成不同的 -->
-	<bean id="controllerAdvisorAutoProxyCreator"
-		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-		depends-on="lifecycleBeanPostProcessor" />
-	<bean id="controllerAuthorizationAttributeSourceAdvisor"
-		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		<property name="securityManager" ref="securityManager" />
-	</bean>
+	<!-- <bean id="controllerAdvisorAutoProxyCreator" -->
+	<!-- class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" -->
+	<!-- depends-on="lifecycleBeanPostProcessor" /> -->
+	<!-- <bean id="controllerAuthorizationAttributeSourceAdvisor" -->
+	<!-- class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"> -->
+	<!-- <property name="securityManager" ref="securityManager" /> -->
+	<!-- </bean> -->
 
 	<!-- 捕获相关异常，并跳转的对应的页面 -->
 	<bean
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
 			<props>
-<!-- 				<prop key="java.lang.Exception">/error/exception</prop> -->
+				<!-- <prop key="java.lang.Exception">/error/exception</prop> -->
 				<prop key="org.apache.shiro.authz.AuthorizationException">/index</prop>
 			</props>
 		</property>

@@ -3,6 +3,7 @@ package com.ogpis.demo.entity.base;
 import javax.persistence.MappedSuperclass;
 
 import com.ogpis.base.entity.BaseEntity;
+import com.ogpis.base.entity.IBaseEntity;
 
 @MappedSuperclass
 public class DemoEntity extends BaseEntity {
@@ -16,4 +17,5 @@ public class DemoEntity extends BaseEntity {
 	public void setField1(String field1) {
 		this.field1 = field1;
 	}
+
 }
