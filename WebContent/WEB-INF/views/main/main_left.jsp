@@ -12,13 +12,7 @@
 				<span><a href="<%=path%>/demo" target=main_center>Demo</a></span>
 			</li>
 			<li>
-				<span><a href="<%=path%>/xtgl/listRes.jsp" target=main_center>资源管理</a></span>
-			</li>
-			<li>
-				<span><a href="<%=path%>/xtgl/listOper.jsp" target=main_center>权限管理</a></span>
-			</li>
-			<li>
-				<span><a href="<%=path%>/xtgl/listRole.jsp" target=main_center>角色管理</a></span>
+				<span><a href="<%=path%>/forecast" target=main_center>预测</a></span>
 			</li>
 		</ul>
 	</div>
