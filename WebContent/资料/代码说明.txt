@@ -1,0 +1,25 @@
+后台代码（src为源代码，test为测试代码）
+	com.ogpis.base基础公用相关代码
+	com.ogpis.demo示例代码
+	com.ogpis.system系统管理相关代码
+	config配置文件
+		application-context.xml spring核心配置文件
+		jdbc.properties 数据库相关配置（自己可以根据自己的数据库设置，此文件不用提交）
+		shiro-context.xml 权限相关配置文件
+		spring-mvc.xml springmvc相关配置文件
+前台代码（前台主要的修改都在WEB-INF的文件夹中）
+	css 除easyui外的css文件
+	easyui-1.5 easyui相关文件
+	images 图片文件
+	js 除easyui外的js文件
+	WEB-INF/lib 系统所需相关jar包，如有新引用jar添加进去即可
+	WEB-INF/taglib 标签文件
+	WEB-INF/views 前台jsp文件
+	WEB-INF/web.xml 系统配置文件（一般情况下不修改）
+	
+注意事项：
+1.Tocmat统一使用apache-tomcat-7.0.42以避免冲突，安装包在资料文件夹中，解压即可
+2.发现同一代码重复使用两遍以上则考虑重构
+3.一个方法的代码行数建议不超过200行
+4.文件夹，类文件和方法命名都参考示例原则，保证易读性，一致性原则
+

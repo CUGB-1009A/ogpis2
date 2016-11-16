@@ -3,7 +3,6 @@ package com.ogpis.demo.entity.base;
 import javax.persistence.MappedSuperclass;
 
 import com.ogpis.base.entity.BaseEntity;
-import com.ogpis.base.entity.IBaseEntity;
 
 @MappedSuperclass
 public class DemoEntity extends BaseEntity {
