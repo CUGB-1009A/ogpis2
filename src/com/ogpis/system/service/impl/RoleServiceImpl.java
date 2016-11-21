@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ogpis.base.common.hibernate3.Updater;
 import com.ogpis.system.dao.RoleDao;
@@ -14,6 +15,7 @@ import com.ogpis.system.entity.User;
 import com.ogpis.system.service.RoleService;
 
 @Service
+@Transactional
 public class RoleServiceImpl implements RoleService {
 
 	@Override

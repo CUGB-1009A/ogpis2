@@ -19,21 +19,22 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
-		<property name="defaultEncoding" value="utf-8"/> <property name="maxUploadSize" 
-		value="10240000000"/> <property name="maxInMemorySize" value="40960"/> </bean> -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="maxUploadSize" value="10240000000" />
+		<property name="maxInMemorySize" value="40960" />
+	</bean>
 
-
-	<!-- <bean id="loginAction" class="com.niexiao.action.LoginAction"></bean> -->
 
 	<!-- 为了使Controller是可以通过注解授权 ，故在springmvc的配置文件中也添加这段配置，id要设置成不同的 -->
-	<!-- <bean id="controllerAdvisorAutoProxyCreator" -->
-	<!-- class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" -->
-	<!-- depends-on="lifecycleBeanPostProcessor" /> -->
-	<!-- <bean id="controllerAuthorizationAttributeSourceAdvisor" -->
-	<!-- class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"> -->
-	<!-- <property name="securityManager" ref="securityManager" /> -->
-	<!-- </bean> -->
+	<bean id="controllerAdvisorAutoProxyCreator"
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor" />
+	<bean id="controllerAuthorizationAttributeSourceAdvisor"
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
 
 	<!-- 捕获相关异常，并跳转的对应的页面 -->
 	<bean

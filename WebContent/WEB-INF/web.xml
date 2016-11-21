@@ -11,6 +11,10 @@
 			classpath:config/shiro-context.xml
 		</param-value>
 	</context-param>
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>classpath:config/log4j.properties</param-value>
+	</context-param>
 	<servlet>
 		<servlet-name>ogpis</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
