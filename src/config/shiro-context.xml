@@ -23,14 +23,14 @@
 		</property>
 	</bean>
 
-	<bean id="authcFilter" class="com.ogpis.security.MyAuthenticationFilter" />
+	<bean id="authcFilter" class="com.ogpis.base.security.MyAuthenticationFilter" />
 
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="authorizingRealm" />
 <!-- 		<property name="sessionManager" ref="sessionManager" /> -->
 	</bean>
 
-	<bean id="authorizingRealm" class="com.ogpis.security.MyRealm" />
+	<bean id="authorizingRealm" class="com.ogpis.base.security.MyRealm" />
 	<bean id="sessionManager" class="org.apache.shiro.session.mgt.DefaultSessionManager" >
 		<property name="globalSessionTimeout" value="5000" />
 	</bean>
