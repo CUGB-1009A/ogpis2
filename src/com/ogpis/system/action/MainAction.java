@@ -12,7 +12,6 @@ public class MainAction {
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main() {
-		logger.info("message");
 		return "main/main";
 	}
 	
