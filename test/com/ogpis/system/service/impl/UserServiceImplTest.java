@@ -10,19 +10,21 @@ import com.ogpis.system.entity.User;
 import com.ogpis.system.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-//用于配置spring中测试的环境
+// 用于配置spring中测试的环境
 @ContextConfiguration(locations = { "classpath:config/application-context.xml" })
-//用于指定配置文件所在的位置
+// 用于指定配置文件所在的位置
 public class UserServiceImplTest {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Test
 	public void testSave() {
-		User user = new User();
-		user.setLoginId("test");
-		userService.save(user);
+		for (int i = 0; i < 50; i++) {
+			User user = new User();
+			user.setLoginId("test" + i);
+			userService.save(user);
+		}
 	}
 
 }

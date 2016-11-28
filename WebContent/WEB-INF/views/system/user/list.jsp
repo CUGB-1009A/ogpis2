@@ -8,18 +8,19 @@
 <title>用户管理</title>
 <script type="text/javascript">
 $(function() {
-	$('#datagrid')
-			.datagrid(
+	var datagrid = $('#datagrid');
+	var h = $('body').height() - $('#listTb').height() - 97;
+	alert(h);
+	datagrid.datagrid(
 					{
 						border : false,
-						height:600,
+						height:h,
 						fitColumns : true,
 						singleSelect : true,
 						rownumbers:true,
 						url : '<%=path%>/system/user/getData',
 						pagination:true,
 						toolbar: '#listTb',
-						resizable : true,
 						columns : [ [
 								{
 									field : 'loginId',
@@ -53,17 +54,16 @@ $(function() {
 								plain : true,
 								iconCls : 'icon-cancel'
 							});
+							$('#datagrid').datagrid('fixRowHeight');//为了对齐行号
 						}
 					});
 });
-
 
 </script>
 </head>
 <body class="easyui-layout">
 <div data-options="region:'center',iconCls:'icon-lock',title:'&nbsp系统管理&nbsp;&gt;&gt;&nbsp;用户管理'">
 	<div id="listTb">
-		<a id="btn" href="#" class="easyui-linkbutton" plain="true"  data-options="iconCls:'icon-search'">easyui</a> 
 		<a id="btn" href="#" class="easyui-linkbutton" plain="true"  data-options="iconCls:'icon-add'">添加用户</a> 
 	</div>
 	<!-- 列表区域 -->
