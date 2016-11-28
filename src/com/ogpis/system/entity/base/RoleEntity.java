@@ -14,11 +14,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 
 import com.ogpis.base.entity.BaseEntity;
+import com.ogpis.base.entity.PrimaryEntity;
 import com.ogpis.system.entity.Role;
 import com.ogpis.system.entity.User;
 
 @MappedSuperclass
-public class RoleEntity extends BaseEntity {
+public class RoleEntity extends PrimaryEntity {
 
 	/**
 	 * 角色名
@@ -43,7 +44,7 @@ public class RoleEntity extends BaseEntity {
 	/**
 	 * 该角色对应的权限url
 	 */
-	@ElementCollection(fetch=FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "ogpis_role_permission", joinColumns = @JoinColumn(name = "role_id"))
 	@Column(name = "perm_url")
 	protected Set<String> perms;
@@ -122,7 +123,7 @@ public class RoleEntity extends BaseEntity {
 	public void setPerms(Set<String> perms) {
 		this.perms = perms;
 	}
-	
+
 	public boolean equals(Object obj) {
 		if (null == obj)
 			return false;
@@ -136,7 +137,7 @@ public class RoleEntity extends BaseEntity {
 				return (this.getId().equals(role.getId()));
 		}
 	}
-	
+
 	private int hashCode = Integer.MIN_VALUE;
 
 	public int hashCode() {

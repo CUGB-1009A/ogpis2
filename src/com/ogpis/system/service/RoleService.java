@@ -3,6 +3,7 @@ package com.ogpis.system.service;
 import java.util.List;
 import java.util.Set;
 
+import com.ogpis.base.common.page.Pagination;
 import com.ogpis.system.entity.Role;
 
 public interface RoleService {
@@ -49,5 +50,9 @@ public interface RoleService {
 	 * @return
 	 */
 	public Role update(Role role, Set<String> perms);
+
+	public Pagination getRoleList(int pageNo, int pageSize);
+
+	public void deleteById(String id);
 
 }

@@ -10,7 +10,6 @@
 $(function() {
 	var datagrid = $('#datagrid');
 	var h = $('body').height() - $('#listTb').height() - 97;
-	alert(h);
 	datagrid.datagrid(
 					{
 						border : false,
@@ -37,7 +36,7 @@ $(function() {
 									title : '操作',
 									width : 50,
 									align : 'center',
-									formatter : function(value, rec) {
+									formatter : function(value,row,index) {
 										var btn = '<a class="editcls" onclick="" href="javascript:void(0)">编辑</a>'+
 												  '<a class="deletecls" onclick="" href="javascript:void(0)">删除</a>';
 										return btn;

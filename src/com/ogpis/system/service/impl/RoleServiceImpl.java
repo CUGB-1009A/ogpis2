@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ogpis.base.common.hibernate3.Updater;
+import com.ogpis.base.common.page.Pagination;
 import com.ogpis.system.dao.RoleDao;
 import com.ogpis.system.dao.UserDao;
 import com.ogpis.system.entity.Role;
@@ -62,12 +63,23 @@ public class RoleServiceImpl implements RoleService {
 	public List<Role> getList() {
 		return roleDao.getList();
 	}
+	
+	@Override
+	public Pagination getRoleList(int pageNo, int pageSize){
+		return roleDao.getRoleList(pageNo, pageSize);
+	}
 
+	@Override
+	public void deleteById(String id) {
+		roleDao.deleteById(id);
+	}
 
 	@Autowired
 	private RoleDao roleDao;
 
 	@Autowired
 	private UserDao userDao;
+
+	
 
 }

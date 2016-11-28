@@ -10,9 +10,11 @@
 	</div>
 	<div title="系统管理" iconCls="icon-tip" style="overflow:auto; padding:10px; height:100%;" selected="true" class="easyui-accordion" fit="true" border="false">
 		<ul>
-			
 			<li>
 				<span><a href="<%=path%>/system/user/list" target=main_center>用户管理</a></span>
+			</li>
+			<li>
+				<span><a href="<%=path%>/system/role/list" target=main_center>权限管理</a></span>
 			</li>
 		</ul>
 	</div>
