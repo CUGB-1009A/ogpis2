@@ -6,13 +6,24 @@
 	<div title="模块一" iconCls="icon-ok" style="overflow:auto;padding:10px; height:100%;"  >
 		
 	</div>
-	<div title="模块二" iconCls="icon-reload" style="overflow:auto; padding:10px; height:100%;" selected="true" class="easyui-accordion" fit="true" border="false">
+	<div title="模块二" iconCls="icon-reload" style="overflow:auto; padding:10px; height:100%;"  class="easyui-accordion" fit="true" border="false">
 		<ul>
 			<li>
 				<span><a href="<%=path%>/demo" target=main_center>Demo</a></span>
 			</li>
 			<li>
 				<span><a href="<%=path%>/forecast" target=main_center>预测</a></span>
+			</li>
+		</ul>
+	</div>
+	
+		<div title="趋势预测分析" iconCls="icon-reload" style="overflow:auto; padding:10px; height:100%;" selected="true" class="easyui-accordion" fit="true" border="false">
+		<ul>
+			<li>
+				<span><a href="<%=path%>/forecast/storagePrediction" target=main_center>储量产测</a></span>
+			</li>
+			<li>
+				<span><a href="<%=path%>/forecast/toOutputPredictionPage" target=main_center>产量预测</a></span>
 			</li>
 		</ul>
 	</div>

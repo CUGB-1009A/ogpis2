@@ -19,7 +19,7 @@ public class ForecastAlgorithmTest {
 	public void test() {
 		try {
 			// 第一种 配置成文件格式
-			File file = new File("C:\\Users\\Danny\\Desktop\\test.txt");
+			File file = new File("C:\\Users\\Danny\\Desktop\\test.jar");
 			BufferedReader in = new BufferedReader(new FileReader(file));
 			String s = new String();
 			while ((s = in.readLine()) != null) {
@@ -52,10 +52,15 @@ public class ForecastAlgorithmTest {
 		}
 	}
 
-	@Test
+/*	@Test
 	public void test1() {
+		InputParameter input = new InputParameter();
+		input.setYearNumber(10);
+		input.setVarNumber(2);
+		float[][] temp = new float[10][2];
+		input.setInput(temp);
 		ForecastUtil.compute("file:D:/工作/油气资源规划信息系统二期/jar/test.jar",
-				"com.ogpis.forecast.TestFA", new InputParameter());
-	}
+				"com.ogpis.forecast.TestFA", input);
+	}*/
 
 }
