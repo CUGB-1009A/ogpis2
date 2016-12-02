@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import net.sf.json.JSON;
-import net.sf.json.xml.XMLSerializer;
+
+import org.json.JSONObject;
+import org.json.XML;
 
 public class TempTools {
 	
@@ -32,8 +33,7 @@ public class TempTools {
 		return builder.toString();
 	}
 	
-	public static JSON parseXml(String xml){
-		XMLSerializer parse=new XMLSerializer();
-		return parse.read(xml);
+	public static JSONObject parseXml(String xml){
+		return XML.toJSONObject(xml);
 	}
 }

@@ -1,6 +1,7 @@
 package com.ogpis.track.test;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -60,9 +61,22 @@ public class XMLParse {
 			jsonBuilder.append("}");
 		} else {
 			String value = element.getText();
-			if (value == "")
+			if (value.equals("")||value.equals("null"))
 				value = null;
-			jsonBuilder.append("\"" + value + "\"");
+			try{
+				new BigDecimal(value);
+				jsonBuilder.append(value);
+			}catch(Exception e){
+				if(value.equals(null))
+					jsonBuilder.append(value);
+				else
+					jsonBuilder.append("\"" + value + "\"");
+				/*if(value==null)
+					jsonBuilder.append(value);
+				else
+					jsonBuilder.append("\"" + value + "\"");*/
+			}
+//			jsonBuilder.append("\"" + value + "\"");
 		}
 	}
 

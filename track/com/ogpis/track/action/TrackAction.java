@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSON;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +16,17 @@ import com.ogpis.track.tools.TempTools;
 @RequestMapping(value = "/track")
 public class TrackAction {
 	
+	@RequestMapping(value = "/index")
+	public String index(HttpServletRequest request,ModelMap model){
+		return "track/planTrack";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/json")
 	public String demo1(HttpServletRequest request, ModelMap model) {
 		System.out.println("track");
 		String xml=TempTools.loadFile();
-		JSON json=TempTools.parseXml(xml);
+		JSONObject json=TempTools.parseXml(xml);
 		return json.toString();
 	}
 	
