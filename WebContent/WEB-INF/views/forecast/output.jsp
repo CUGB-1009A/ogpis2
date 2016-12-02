@@ -8,7 +8,7 @@
 <title>123</title>
 </head>
 <body>
-<div style="width:20%;height:100%;float:left">
+<div style="width:15%;height:100%;float:left;border:1px solid red;padding:10px">
 		数据集选择：
 			<select name="mineType" id="mineType">
 				<option value="1" selected>石油产量</option>
@@ -40,9 +40,13 @@
 			<select name="futureEndYear" id="futureEndYear">
 				<option value="2025" selected>2025</option>
 			</select><br>
+		拟合参数：<br>
+		<c:forEach items="${modelParam}" var="item">
+			${item}: <input>
+		</c:forEach>	
 			<button onclick="outputPrediction()">预测</button>
 </div>
-<div style="width:80%;height:100%">
+<div style="width:85%;height:100%">
 
 </div>
 <script type="text/javascript">
@@ -58,9 +62,9 @@ $.ajax({
 	url:"<%=path%>/forecast/outputPrediction",
 	dataType:"json",
 	async:true,
-	data:{"modelName":modelName,"mineType":mineType,
+	data:{"modelName":modelName,"mineType":mineType,"PEM":PEM,
 		"historyBeginYear":historyBeginYear,"historyEndYear":historyEndYear,
-		"futrueBeginYear":futureBeginYear,"futureEndYear":futureEndYear},
+		"futureBeginYear":futureBeginYear,"futureEndYear":futureEndYear},
 	type:"GET",
 	success:function(result){
 
