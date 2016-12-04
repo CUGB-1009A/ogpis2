@@ -37,26 +37,6 @@ public class ForecastUtil {
 	public static String getForecastModelInfo(String key) {
 		return forecastModelInfos.getProperty(key).trim();
 	}
-	
-	public static Map getModelInfo(String jarName, String className) {
-			Map modelInfo = new HashMap();
-		try {
-			URL url1 = new URL(getForecastModelInfo("Poisson.JarName"));
-			URLClassLoader myClassLoader1 = new URLClassLoader(
-					new URL[] { url1 }, Thread.currentThread()
-							.getContextClassLoader());
-			Class<?> myClass1 = myClassLoader1
-					.loadClass(getForecastModelInfo("Poisson.ClassName"));
-			ForecastModel forecastModel = (ForecastModel) myClass1.newInstance();
-			 
-			 modelInfo.put("modelParam", forecastModel.getParam());
-			 modelInfo.put("modelName", forecastModel.getName());
-			return modelInfo;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 
 	public static OutputParameter compute(String jarName, String className,
 			InputParameter input) {

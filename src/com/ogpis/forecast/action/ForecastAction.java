@@ -1,20 +1,14 @@
 package com.ogpis.forecast.action;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.ogpis.forecast.entity.DataCollection;
 import com.ogpis.forecast.entity.ModelInfo;
 import com.ogpis.forecast.entity.PEM;
@@ -46,7 +40,8 @@ public class ForecastAction {
 		return "forecast/view";
 	}
 	
-	//产量预测
+	//到产量预测界面
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		@RequestMapping(value = "/forecast/toOutputPredictionPage")
 		public String toOutputPredictionPage(HttpServletRequest request, ModelMap model) {
 			//这里要获取数据集，数据集可以用的模型，模型又可以使用的参数拟合方法，获取数据集的起止年份，选择预测结果的起止年份，默认选择第一个！
@@ -84,28 +79,20 @@ public class ForecastAction {
 	//产量预测
 	@RequestMapping(value = "/forecast/outputPrediction")
 	public void outputPrediction(HttpServletRequest request, ModelMap model, HttpServletResponse response) {
-		String modelName = request.getParameter("modelName");
+		String dataCollectionId = request.getParameter("dataCollectionId");
+		DataCollection dataCollection = dataCollectionService.findById(dataCollectionId);
+		System.out.println("用到的数据集为:"+dataCollection.getDataCollectionName());
+		String modelId = request.getParameter("modelId");
+		ModelInfo modelInfo = modelInfoService.findById(modelId);
+		System.out.println("用到的模型为:"+modelInfo.getModelName());
 		Integer historyBeginYear = Integer.parseInt(request.getParameter("historyBeginYear"));
 		Integer historyEndYear = Integer.parseInt(request.getParameter("historyEndYear"));
+		System.out.println("用来预测的数据从"+historyBeginYear+"-----"+historyEndYear);
 		Integer futureBeginYear = Integer.parseInt(request.getParameter("futureBeginYear"));
 		Integer futureEndYear = Integer.parseInt(request.getParameter("futureEndYear"));
-		Integer PEM = Integer.parseInt(request.getParameter("PEM"));
-		Map modelInfo = ForecastUtil.getModelInfo(
-				ForecastUtil.getForecastModelInfo(modelName+".JarName"),
-				ForecastUtil.getForecastModelInfo(modelName+".ClassName"));
-		//model.addAttribute("modelInfo", modelInfo);
-		InputParameter input = new InputParameter();
-	
-		input.setPEM(PEM);
-		/*double[][] temp = new double[input.getVarNum()][input.getEndYear()-input.getBeginYear()+1];*/
-		double[][] temp = null; //获取历史数据
-		input.setHistoryData(temp);
-		OutputParameter output = new OutputParameter();
-		
-		output.setOutput(ForecastUtil.compute(modelName+".JarName", modelName+".ClassName", input).getOutput());
-		output.getOutput();
-		
-		
+		System.out.println("用来预测的数据从"+futureBeginYear+"-----"+futureEndYear);
+		Integer PEMNum = Integer.parseInt(request.getParameter("PEMNum"));	
+		System.out.println("用来拟合参数的方法编号为"+PEMNum);
 		String result = "{\"flag\":\"success\"}";
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("utf-8");
@@ -115,18 +102,12 @@ public class ForecastAction {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
-		System.out.println(modelName);
-
 	}
 	
 	//储量预测
 	@RequestMapping(value = "/forecast/storagePrediction")
 	public String storagePrediction(HttpServletRequest request, ModelMap model) {
-		System.out.println("forecast");
-		Map modelInfo = ForecastUtil.getModelInfo(
-				ForecastUtil.getForecastModelInfo("testFA.JarName"),
-				ForecastUtil.getForecastModelInfo("testFA.ClassName"));
-		model.addAttribute("modelInfo", modelInfo);
+
 		return "forecast/storage";
 	}
 	

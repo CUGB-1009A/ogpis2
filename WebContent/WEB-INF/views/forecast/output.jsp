@@ -6,13 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>123</title>
- 	<link rel="stylesheet" type="text/css" href="<%=path%>/thirdParty/easyui/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="<%=path%>/thirdParty/easyui/themes/icon.css">
-    <link rel="stylesheet" href="<%=path%>/css/base.css"/>
-    <link rel="stylesheet" href="<%=path%>/css/style.css"/>
-    <script src="<%=path%>/thirdParty/jquery/jquery-1.9.1.min.js"></script>
-    <script src="<%=path%>/thirdParty/easyui/jquery.easyui.min.js"></script>
-    <script src="<%=path%>/thirdParty/easyui/easyui-lang-zh_CN.js"></script>
 </head>
 <body>
 	<div style="width:20%;height:50%;float:left;">
@@ -33,7 +26,7 @@
 				拟合方法：
 					<select name="PEM" id="PEM">
 					<c:forEach items="${pemList}" var="item">
-						<option value="${item.id}">${item.pemName}</option>
+						<option value="${item.methodNum}">${item.pemName}</option>
 					</c:forEach>
 					</select><br>
 				历史数据起始年：
@@ -48,18 +41,18 @@
 						<option value="${item.key}" <c:if test="${status.last}">selected</c:if> >${item.key}</option>
 					</c:forEach>
 					</select><br>
-				预测区间：
-					
+				二选一：<br>
+				<input name="timeChoice" type="radio" value="1" checked/>预测区间：
 					<select name="futureBeginYear" id="futureBeginYear" disabled="disabled">
 						
 					</select> -- 
 					<select name="futureEndYear" id="futureEndYear">
 						
 					</select><br>
-				长中短：
+				<input name="timeChoice" type="radio" value="2"/>长中短：
 					<c:forEach items="${periodIntervalList}" var="item">
 						<input name="periodInterval" type="radio" value="${item.periodInterval}"/>${item.periodName}
-					</c:forEach>
+					</c:forEach><br>
 				<%-- 拟合参数：<br>
 				<c:forEach items="${modelParam}" var="item">
 					${item}: <input>
@@ -71,7 +64,7 @@
 	<div style="width:80%;height:50%;float:left;">
 		<div style="width:100%;height:100%;border-top:1px solid blue;border-bottom:1px solid blue;border-right:1px solid blue;">
 			<div class="queryList" style="padding:10px;overflow:auto">
-				<table class="easyui-datagrid" cellspacing="0" cellpadding="0" width="100px" height="245px">
+				<table class="easyui-datagrid" cellspacing="0" cellpadding="0" width="100px" height="200px">
 					<thead>
 						<tr class="listTit tabTh">
 							<th data-options="frozen:true,field:'year'">年份</th>
@@ -187,28 +180,36 @@ function historyEndYearChanged(){
 }
 
 function outputPrediction(){
-var modelName = $("#modelName option:selected").val();
-var mineType = $("#mineType option:selected").val();
-var historyBeginYear = $("#historyBeginYear option:selected").val();
-var historyEndYear = $("#historyEndYear option:selected").val();
-var futureBeginYear = $("#futureBeginYear option:selected").val();
-var futureEndYear = $("#futureEndYear option:selected").val();
-var PEM = $("#PEM option:selected").val();
-$.ajax({
-	url:"<%=path%>/forecast/outputPrediction",
-	dataType:"json",
-	async:true,
-	data:{"modelName":modelName,"mineType":mineType,"PEM":PEM,
-		"historyBeginYear":historyBeginYear,"historyEndYear":historyEndYear,
-		"futureBeginYear":futureBeginYear,"futureEndYear":futureEndYear},
-	type:"GET",
-	success:function(result){
-
-		alert(result.flag);
-	},
-	error:function(){
-		alert("出意外错误了");
+	var dataCollectionId = $("#mineType option:selected").val();
+	var modelId = $("#modelName option:selected").val();
+	var PEMNum = $("#PEM option:selected").val();
+	var historyBeginYear1 = $("#historyBeginYear option:selected").val();
+	var historyEndYear1 = $("#historyEndYear option:selected").val();
+	var timeChoice=$('input:radio[name="timeChoice"]:checked').val();
+	if(timeChoice==1){//预测区间通过下拉框自定义选择时间
+		var futureBeginYear = $("#futureBeginYear option:selected").val();
+		var futureEndYear = $("#futureEndYear option:selected").val();
 	}
+	if(timeChoice==2){//预测区间通过长中短期选择
+		var periodInterval=$('input:radio[name="periodInterval"]:checked').val();
+		var futureBeginYear = $("#historyBeginYear option:selected").val();
+		var futureEndYear = parseInt(historyEndYear) + parseInt(periodInterval);
+	}
+	$.ajax({
+		url:"<%=path%>/forecast/outputPrediction",
+		dataType:"json",
+		async:true,
+		data:{"modelId":modelId,"dataCollectionId":dataCollectionId,"PEMNum":PEMNum,
+			"historyBeginYear":historyBeginYear1,"historyEndYear":historyEndYear1,
+			"futureBeginYear":futureBeginYear,"futureEndYear":futureEndYear},
+		type:"GET",
+		success:function(result){
+	
+			alert(result.flag);
+		},
+		error:function(){
+			alert("出意外错误了");
+		}
 });
 }
 </script>
