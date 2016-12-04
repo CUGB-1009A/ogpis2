@@ -81,55 +81,71 @@
 </head>
 
 <body vlink=#0000ff link=#0000ff topmargin=4>
-<center>
+	<center>
 
-<table cols=4 border=0 width=100%>
-<col valign=top width=90>
-<col valign=top>
-<tr>
-<td align=center><img src='res/how.bmp'></td>
-<td><center>填入的JSON数据(相对URL): <input id='source' type=edit size=30 value="treelistdata/data2.json.txt"> <input type=button value=" 取数 " onClick="Retrieve()"></center>
-<b>1.</b>抛给页面的事件如下，表中“船名”、“城市”列是可以输入的，请任意作能触发如下事件的操作;<br>
-<b>2.</b>请将鼠标在任一行的"国家"单元格处停留，会触发事件, 你可以看到有国旗图标的浮动提示框；<br>
-<hr color=#2266ee size=1>
-<table width=100% border=0 cols=6 style="color:red">
-<col width=60>
-<col width=100>
-<col width=60>
-<col width=160>
-<col width=60>
-<col width=160>
-<tr>
-	<td style='color:black'>当前:</td><td><label id=CurSelStr>&nbsp;</label></td>
-	<td style='color:black'>单击:</td><td><label id=ClickStr>&nbsp;</label></td>
-	<td style='color:black'>双击:</td> <td><label id=DblClickStr>&nbsp;</label></td>
-</tr>
-<tr>
-	<td style='color:black'>按钮:</td><td><label id=ButtonStr>&nbsp;</label></td>
-	<td style='color:black'>超链接:</td><td><label id=HyperStr>&nbsp;</label></td>
-	<td style='color:black'>修改:</td> <td><label id=ModifiedStr>&nbsp;</label></td>
-</tr>
-<tr>
-	<td style='color:black'>离开单元格:</td><td><label id=LooseFocusStr>&nbsp;</label></td>
-	<td style='color:black'>键盘(非字符):</td><td><label id=EditKeydown>&nbsp;</label></td>
-	<td style='color:black'>键盘(字符):</td><td><label id=EditChar>&nbsp;</label></td>
-</tr>
-</table>
-</td>
-</tr>
-</table>
+		<table cols=4 border=0 width=100%>
+			<col valign=top width=90>
+			<col valign=top>
+			<tr>
+				<td align=center><img src='res/how.bmp'></td>
+				<td><center>
+						填入的JSON数据(相对URL): <input id='source' type=edit size=30
+							value="treelistdata/data2.json.txt"> <input type=button
+							value=" 取数 " onClick="Retrieve()">
+					</center> <b>1.</b>抛给页面的事件如下，表中“船名”、“城市”列是可以输入的，请任意作能触发如下事件的操作;<br> <b>2.</b>请将鼠标在任一行的"国家"单元格处停留，会触发事件,
+					你可以看到有国旗图标的浮动提示框；<br>
+					<hr color=#2266ee size=1>
+					<table width=100% border=0 cols=6 style="color: red">
+						<col width=60>
+						<col width=100>
+						<col width=60>
+						<col width=160>
+						<col width=60>
+						<col width=160>
+						<tr>
+							<td style='color: black'>当前:</td>
+							<td><label id=CurSelStr>&nbsp;</label></td>
+							<td style='color: black'>单击:</td>
+							<td><label id=ClickStr>&nbsp;</label></td>
+							<td style='color: black'>双击:</td>
+							<td><label id=DblClickStr>&nbsp;</label></td>
+						</tr>
+						<tr>
+							<td style='color: black'>按钮:</td>
+							<td><label id=ButtonStr>&nbsp;</label></td>
+							<td style='color: black'>超链接:</td>
+							<td><label id=HyperStr>&nbsp;</label></td>
+							<td style='color: black'>修改:</td>
+							<td><label id=ModifiedStr>&nbsp;</label></td>
+						</tr>
+						<tr>
+							<td style='color: black'>离开单元格:</td>
+							<td><label id=LooseFocusStr>&nbsp;</label></td>
+							<td style='color: black'>键盘(非字符):</td>
+							<td><label id=EditKeydown>&nbsp;</label></td>
+							<td style='color: black'>键盘(字符):</td>
+							<td><label id=EditChar>&nbsp;</label></td>
+						</tr>
+					</table></td>
+			</tr>
+		</table>
 
-<div style="position:relative;width:96%">
-	<script>insertTreeList('AF', '', '370px')</script>
-</div>
+		<div style="position: relative; width: 96%">
+			<script>insertTreeList('AF', '', '370px')</script>
+		</div>
 
 
-<!--  以下为技术分析区 -->
-<br><br><br>
-<table border=0 cols=1 border=0 width=97% style='line-height:21px'>
-<tr><td><img src='res/tech.jpg'></td></tr><tr><td>
-<b>1</b>.源码分析：js源码中的OnEvenet( )函数由Treelist触发:<br>
-<pre class='cpp'>
+		<!--  以下为技术分析区 -->
+		<br>
+		<br>
+		<br>
+		<table border=0 cols=1 border=0 width=97% style='line-height: 21px'>
+			<tr>
+				<td><img src='res/tech.jpg'></td>
+			</tr>
+			<tr>
+				<td><b>1</b>.源码分析：js源码中的OnEvenet( )函数由Treelist触发:<br> <pre
+						class='cpp'>
 function OnEvent(id, Event, p1, p2, p3, p4)
 {
  if(Event == "SelChanged") {  //事件：当前行或单元格切换
@@ -157,20 +173,19 @@ function OnEvent(id, Event, p1, p2, p3, p4)
  	var s = "Cursor \r\n" + "行号: " + p1 + "\\r\\n列名: " + p2 + "\\r\\n国家: " +country+ "&lt;br&gt;&lt;image&gt;treelistdata/flag-large/" +country+ ".png&lt;/image&gt;";
  	AF.func("MessageboxPoint", s);
  }
-}</pre>
-<br>
-<b>2</b>.Treelist的<a href="treelist/t6.xml" target=_blank>XML描述文件</a>中，当前选中行的颜色定义如下：
-<pre class='xml'>
+}</pre> <br> <b>2</b>.Treelist的<a href="treelist/t6.xml" target=_blank>XML描述文件</a>中，当前选中行的颜色定义如下：
+					<pre class='xml'>
 &lt;Properties curSelBackColor="#33aaccee;borderWidth=1;borderRound=6;borderColor=#55aaff" .../&gt;</pre>
-注：背景色 "#33aaccee" 中，"#33" 是Alpha(即透明度)，"#aaccee"是RGB，这就是所谓“ARGB”. <br>
-此外，XML中除了一个edittype="button"列、一个"EditWithButton"列，没别的特殊之处.<br>
-<br>
-<b>3</b>.本例填入了<a href="treelistdata/data2.json.txt" target=_blank>JSON格式的数据</a>.<br>
-</td></tr></table>
+					注：背景色 "#33aaccee" 中，"#33" 是Alpha(即透明度)，"#aaccee"是RGB，这就是所谓“ARGB”. <br>
+					此外，XML中除了一个edittype="button"列、一个"EditWithButton"列，没别的特殊之处.<br>
+					<br> <b>3</b>.本例填入了<a href="treelistdata/data2.json.txt"
+					target=_blank>JSON格式的数据</a>.<br></td>
+			</tr>
+		</table>
 
 
-<br>
-</center>
+		<br>
+	</center>
 </body>
 <script type='text/javascript' src='res/nstd.js'></script>
 </html>

@@ -30,32 +30,40 @@ function changedisp()
 </head>
 
 <body>
-<center>
+	<center>
 
-<table cols=2 border=0 width=100%>
-<col valign=top width=90>
-<col>
-<tr height=50>
-<td align=center><img src='res/how.bmp'></td>
-<td><b>1</b>.直接采用了上个例子的报表，工作表1和表2中一共有3个统计图;<br>
-<b>2</b>.请切换成统计图ImageFlow：<input type=button onClick="changedisp()" value="  切 换  ">, 看看效果如何;<br>
-<b>3</b>.鼠标点击统计图的数据项，查看事件.</td>
-</tr></table>
+		<table cols=2 border=0 width=100%>
+			<col valign=top width=90>
+			<col>
+			<tr height=50>
+				<td align=center><img src='res/how.bmp'></td>
+				<td><b>1</b>.直接采用了上个例子的报表，工作表1和表2中一共有3个统计图;<br> <b>2</b>.请切换成统计图ImageFlow：<input
+					type=button onClick="changedisp()" value="  切 换  ">,
+					看看效果如何;<br> <b>3</b>.鼠标点击统计图的数据项，查看事件.</td>
+			</tr>
+		</table>
 
-<div style="position:relative;width:80%;height:380px">
-	<script>insertReport('AF', 'collapseToolbar=true')</script>
-</div>
-<br>
-<table border=0 width="80%">
-<tr><td align="left">统计图的鼠标点击事件：<font color=red><label id="lbl1"></label></font></td></tr>
-</table>
+		<div style="position: relative; width: 80%; height: 380px">
+			<script>insertReport('AF', 'collapseToolbar=true')</script>
+		</div>
+		<br>
+		<table border=0 width="80%">
+			<tr>
+				<td align="left">统计图的鼠标点击事件：<font color=red><label
+						id="lbl1"></label></font></td>
+			</tr>
+		</table>
 
-<!--  以下为技术分析区 -->
-<br><br><br>
-<table border=0 cols=1 border=0 width=97% style='line-height:21px'>
-<tr><td><img src='res/tech.jpg'></td></tr><tr><td>
-<b>1</b>.这是全部的js代码；<br>
-<pre class='cpp'>
+		<!--  以下为技术分析区 -->
+		<br>
+		<br>
+		<br>
+		<table border=0 cols=1 border=0 width=97% style='line-height: 21px'>
+			<tr>
+				<td><img src='res/tech.jpg'></td>
+			</tr>
+			<tr>
+				<td><b>1</b>.这是全部的js代码；<br> <pre class='cpp'>
 var g_Disp = 0;
 function OnReady(id)
 {
@@ -79,18 +87,24 @@ function changedisp()
  else
   AF.func("DisplayAsChart", "");
 }
-</pre>
-<br>
-<b>2</b>.源码中的 chart0,chart1,chart2 分别是这三个统计图的别名，DisplayAsChart( )函数将这3个统计图交给freeform浏览，freeform的模板直接使用了自由表头演示页
-"18.炫酷ImageFlow(图像流)控件"中最下方的演示模板，请参考<a href="treelist/freeform9-2.xml" target=_blanl>该freeform的XML模板</a>；<br>
-</td></tr></table>
-<br>
-<table border=0 cols=2 border=0 width=97%>
-<tr valign=top><td align=right><img src='res/boy.gif'></td><td align=left>使用够简单吧！</td></tr>
-</table>
+</pre> <br> <b>2</b>.源码中的 chart0,chart1,chart2
+					分别是这三个统计图的别名，DisplayAsChart(
+					)函数将这3个统计图交给freeform浏览，freeform的模板直接使用了自由表头演示页
+					"18.炫酷ImageFlow(图像流)控件"中最下方的演示模板，请参考<a
+					href="treelist/freeform9-2.xml" target=_blanl>该freeform的XML模板</a>；<br>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<table border=0 cols=2 border=0 width=97%>
+			<tr valign=top>
+				<td align=right><img src='res/boy.gif'></td>
+				<td align=left>使用够简单吧！</td>
+			</tr>
+		</table>
 
-<br>
-</center>
+		<br>
+	</center>
 </body>
 <script type='text/javascript' src='res/nstd.js'></script>
 </HTML>

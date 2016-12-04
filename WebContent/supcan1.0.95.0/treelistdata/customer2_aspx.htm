@@ -1,33 +1,33 @@
-ï»¿<html>
+<html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=GB2312">
 <link rel="stylesheet" href="../res/temp1.css" type="text/css">
 </head>
 
 <body vlink=#0000ff link=#0000ff>
-<pre class='cpp'>
+	<pre class='cpp'>
 &lt;%@ Page Language="C#" %&gt;
 &lt;%@ Import namespace="System" %&gt;
 &lt;%@ Import namespace="System.Data" %&gt;
 &lt;%@ Import namespace="System.IO" %&gt;
 &lt;script language="C#" runat="server"&gt;
-//ç”¨æ•°ç»„æ¨¡æ‹Ÿæ•°æ®åº“
+//ÓÃÊı×éÄ£ÄâÊı¾İ¿â
 	String [] arrCol = {"customerid", "companyname", "contactname", "country", "city", "address", "phone"};
 	String [] arrCustomer = {
 "ALFKI	Alfreds Futterkiste	Maria Anders	Germany	Berlin	Obere Str. 57	030-0074321",
 "ANATR	Ana Trujillo Emparedados y helados	Ana Trujillo	Mexico	Mexico D.F.	Avda. de la Constitucion 2222	(5) 555-4729",
-"ANTON	Antonio Moreno TaquerÃ­a	Antonio Moreno	Mexico	Mexico D.F.	Mataderos  2312	(5) 555-3932",
+"ANTON	Antonio Moreno Taquer¨ªa	Antonio Moreno	Mexico	Mexico D.F.	Mataderos  2312	(5) 555-3932",
 "AROUT	Around the Horn	Thomas Hardy	UK	London	120 Hanover Sq.	(171) 555-7788",
 "BERGS	Berglunds snabbkp	Christina Berglund	Sweden	Lule	Berguvsvgen  8	0921-12 34 65",
-...(ç•¥)
+...(ÂÔ)
 };
 
 public void Page_Load(Object sender, EventArgs e) {
- //å–å¾—æœç´¢çš„å­ä¸²
+ //È¡µÃËÑË÷µÄ×Ó´®
  String substr = Request.Params["substr"];
  if(substr==null) return;
  
- //åŒæ—¶ä¹Ÿå…è®¸åˆ†é¡µ
+ //Í¬Ê±Ò²ÔÊĞí·ÖÒ³
  int nStart = -1;
  int nRows = -1;
  String StartRow = Request.QueryString["startRow"];
@@ -35,7 +35,7 @@ public void Page_Load(Object sender, EventArgs e) {
  if(StartRow!=null) nStart = Int32.Parse(StartRow);
  if(Rows!=null) nRows = Int32.Parse(Rows);
  
- //ä¸åˆ†é¡µçš„==================
+ //²»·ÖÒ³µÄ==================
  if(nStart == -1) {
   for(int i=0; i&lt;arrCustomer.Length; i++) {
    String s = arrCustomer[i];
@@ -46,8 +46,8 @@ public void Page_Load(Object sender, EventArgs e) {
   return;
  }
  
- //åˆ†é¡µçš„==================
- //æ€»è¡Œæ•°
+ //·ÖÒ³µÄ==================
+ //×ÜĞĞÊı
  int TotalRows = 0;
  for(int i=0; i&lt;arrCustomer.Length; i++) {
   String s = arrCustomer[i];

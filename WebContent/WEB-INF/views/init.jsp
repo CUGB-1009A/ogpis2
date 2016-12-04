@@ -5,22 +5,31 @@
 %>
 <!-- CSS -->
 <style type="text/css">
-    html, body{ margin:0; height:100%; color: #000;}
-    .contentDiv{
-        font-family: '宋体';
-    	font-size: 16px;
-    	font-weight: 300;
-    	color: #000;
-    	line-height: 30px;
-    	text-align: left; 
+html, body {
+	margin: 0;
+	height: 100%;
+	color: #000;
 }
-    }
+
+.contentDiv {
+	font-family: '宋体';
+	font-size: 16px;
+	font-weight: 300;
+	color: #000;
+	line-height: 30px;
+	text-align: left;
+}
+}
 </style>
-<link rel="stylesheet" type="text/css" href="<%=path %>/easyui-1.5/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="<%=path %>/easyui-1.5/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=path %>/easyui-1.5/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=path %>/easyui-1.5/themes/icon.css">
 <script type="text/javascript" src="<%=path %>/easyui-1.5/jquery.min.js"></script>
-<script type="text/javascript" src="<%=path %>/easyui-1.5/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="<%=path %>/supcan1.0.95.0/binary/dynaload.js"></script>
+<script type="text/javascript"
+	src="<%=path %>/easyui-1.5/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="<%=path %>/supcan1.0.95.0/binary/dynaload.js"></script>
 <script type="text/javascript" src="<%=path %>/echart/echarts.min.js"></script>
 <%@ taglib uri="/WEB-INF/taglib/c.tld" prefix="c"%>
 
@@ -33,4 +42,3 @@ $(function(){
 });
 </script>
 
- 

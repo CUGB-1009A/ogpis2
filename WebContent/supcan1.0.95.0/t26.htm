@@ -34,30 +34,35 @@
 </head>
 
 <body vlink=#0000ff link=#0000ff>
-<center>
+	<center>
 
-<table cols=4 border=0 width=100%>
-<col valign=top width=90>
-<col valign=top>
-<tr>
-<td align=center><img src='res/how.bmp'></td>
-<td>鼠标右键弹出菜单中，有和业务关联的菜单项，这些菜单项是完全自定义的.<br>注：鼠标点在不同的行，弹出菜单内容是不一样的；如果点在标题区或下方的空白区，菜单内容是disable的.</td>
-</tr>
-</table>
+		<table cols=4 border=0 width=100%>
+			<col valign=top width=90>
+			<col valign=top>
+			<tr>
+				<td align=center><img src='res/how.bmp'></td>
+				<td>鼠标右键弹出菜单中，有和业务关联的菜单项，这些菜单项是完全自定义的.<br>注：鼠标点在不同的行，弹出菜单内容是不一样的；如果点在标题区或下方的空白区，菜单内容是disable的.
+				</td>
+			</tr>
+		</table>
 
-<br>
-<div style="position:relative;width:876px;height:150px">
-	<script>insertTreeList('AF', '')</script>
-</div>
-<br>
+		<br>
+		<div style="position: relative; width: 876px; height: 150px">
+			<script>insertTreeList('AF', '')</script>
+		</div>
+		<br>
 
 
-<!--  以下为技术分析区 -->
-<br><br><br>
-<table border=0 cols=1 border=0 width=97% style='line-height:21px'>
-<tr><td><img src='res/tech.jpg'></td></tr><tr><td>
-<b>1</b>.源码分析：所有秘密全部在OnEvent事件中：<br>
-<pre class='cpp'>
+		<!--  以下为技术分析区 -->
+		<br>
+		<br>
+		<br>
+		<table border=0 cols=1 border=0 width=97% style='line-height: 21px'>
+			<tr>
+				<td><img src='res/tech.jpg'></td>
+			</tr>
+			<tr>
+				<td><b>1</b>.源码分析：所有秘密全部在OnEvent事件中：<br> <pre class='cpp'>
 function OnEvent(id, Event, p1, p2, p3, p4)
 {
  //右键菜单弹出前的事件
@@ -85,12 +90,13 @@ function OnEvent(id, Event, p1, p2, p3, p4)
  else if(Event=="MenuClicked") {
   AF.func("MessageBoxFloat", "触发了js事件！\\r\\n\\r\\n自定义功能号(id)：" + p1 + "\\r\\n\\r\\n行：" +p2+ ",  列："+p3);
  }
-}</pre>
-</td></tr></table>
+}</pre></td>
+			</tr>
+		</table>
 
 
-<br>
-</center>
+		<br>
+	</center>
 </body>
 <script type='text/javascript' src='res/nstd.js'></script>
 </html>

@@ -62,26 +62,27 @@ var xml2="<treelist><properties editable='true'/><cols>\
 
 
 <body vlink=#0000ff link=#0000ff>
-<center>
+	<center>
 
-<table cols=2 border=0 width=100%>
-<col valign=top width=90>
-<col valign=top>
-<tr>
-<td align=center><img src='res/how.bmp'></td>
-<td><b>演示功能1：如何取下拉选中行的其它列的数据</b>， 请选择下拉，观察下拉后的浮动提示窗，分析其js;<br>
-<b>演示功能2：设置某些行不可选</b></td>
-</tr>
-</table>
+		<table cols=2 border=0 width=100%>
+			<col valign=top width=90>
+			<col valign=top>
+			<tr>
+				<td align=center><img src='res/how.bmp'></td>
+				<td><b>演示功能1：如何取下拉选中行的其它列的数据</b>， 请选择下拉，观察下拉后的浮动提示窗，分析其js;<br>
+					<b>演示功能2：设置某些行不可选</b></td>
+			</tr>
+		</table>
 
-<table cols=1 border=0 width=500>
-<tr height=90>
-	<td height=90><script>insertTreeList('AF1', 'Border=single')</script></td>
-</tr>
-</table>
-</center>
-　　下面就是js源码中OnEvent( )事件的片段：<br>
-<pre class='cpp'>
+		<table cols=1 border=0 width=500>
+			<tr height=90>
+				<td height=90><script>insertTreeList('AF1', 'Border=single')</script></td>
+			</tr>
+		</table>
+	</center>
+	下面就是js源码中OnEvent( )事件的片段：
+	<br>
+	<pre class='cpp'>
 function OnEvent(id, Event, p1, p2, p3, p4)
 {
  if(id=='AF1') {
@@ -99,44 +100,54 @@ function OnEvent(id, Event, p1, p2, p3, p4)
   }
  }
 }</pre>
-<br>
+	<br>
 
-<hr color=#2266ee size=1>
-
-
-
-<center>
-<table cols=2 border=0 width=100%>
-<col valign=top width=90>
-<col valign=top>
-<tr>
-<td align=center><img src='res/how.bmp'></td>
-<td><b>演示功能3：下拉的显示列表达式</b>：下拉的<b><a href="treelistdata/person.xml" target=_blank>数据</a></b>是多列的，但 displayCol 采用了表达式，实现了同时显示下拉列表中多个列的功能;<br>
-关键点是XML中的<b> displayCol='<font color=#880000>=name+","+dis+"," + bdt+ "生于"+bornin</font>'</b></td>
-</tr>
-</table>
-
-<table cols=5 border=0 cellpadding=2 cellspacing=0>
-<col width=20>
-<col width=380>
-<col width=30>
-<col width=340>
-<col width=20>
-<tr><td/><td>Example1: 采用dropTreelist</td><td/><td>Example2: 采用DropList</td><td/><tr>
-<tr height=90>
-	<td/>
-	<td height=90><script>insertTreeList('AF2', 'Border=single')</script></td>
-	<td/>
-	<td height=90><script>insertTreeList('AF3', 'Border=single')</script></td>
-	<td/>
-</tr>
-</table>
-</center>
+	<hr color=#2266ee size=1>
 
 
-<br>
-Example1的XML描述文件:<br>
-<pre class='xml'>
+
+	<center>
+		<table cols=2 border=0 width=100%>
+			<col valign=top width=90>
+			<col valign=top>
+			<tr>
+				<td align=center><img src='res/how.bmp'></td>
+				<td><b>演示功能3：下拉的显示列表达式</b>：下拉的<b><a
+						href="treelistdata/person.xml" target=_blank>数据</a></b>是多列的，但
+					displayCol 采用了表达式，实现了同时显示下拉列表中多个列的功能;<br> 关键点是XML中的<b>
+						displayCol='<font color=#880000>=name+","+dis+"," + bdt+
+							"生于"+bornin</font>'
+				</b></td>
+			</tr>
+		</table>
+
+		<table cols=5 border=0 cellpadding=2 cellspacing=0>
+			<col width=20>
+			<col width=380>
+			<col width=30>
+			<col width=340>
+			<col width=20>
+			<tr>
+				<td />
+				<td>Example1: 采用dropTreelist</td>
+				<td />
+				<td>Example2: 采用DropList</td>
+				<td />
+			<tr>
+			<tr height=90>
+				<td />
+				<td height=90><script>insertTreeList('AF2', 'Border=single')</script></td>
+				<td />
+				<td height=90><script>insertTreeList('AF3', 'Border=single')</script></td>
+				<td />
+			</tr>
+		</table>
+	</center>
+
+
+	<br> Example1的XML描述文件:
+	<br>
+	<pre class='xml'>
 &lt;treelist&gt;
  &lt;properties editable='true'/&gt;
  &lt;cols&gt;
@@ -147,12 +158,12 @@ Example1的XML描述文件:<br>
   &lt;droplist id='person' treelistURL='treelist/t16_3.xml' dataCol='name' displayCol='=name+\",\"+dis+\",\" + bdt+ \"生于\"+bornin'/&gt;
  &lt;/droplists&gt;
 &lt;/treelist&gt;</pre>
-　　其中treelistURL指向的下拉Treelist的<a href="treelist/t16_3.xml" target=_blank>XML描述文件</a>.
-<br><br>
-
-
-Example2的XML描述文件:<br>
-<pre class='xml'>
+	其中treelistURL指向的下拉Treelist的
+	<a href="treelist/t16_3.xml" target=_blank>XML描述文件</a>.
+	<br>
+	<br> Example2的XML描述文件:
+	<br>
+	<pre class='xml'>
 &lt;treelist&gt;
  &lt;properties editable='true'/&gt;
  &lt;cols&gt;
@@ -164,7 +175,7 @@ Example2的XML描述文件:<br>
  &lt;/droplists&gt;
 &lt;/treelist&gt;</pre>
 
-<br>
+	<br>
 
 
 </body>

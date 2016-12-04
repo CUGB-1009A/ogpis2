@@ -74,21 +74,26 @@ function tomobile(srv)
 </script>
 </head>
 <body>
-<center>
+	<center>
 
-<table cols=2 border=0 width=100%>
-<col valign=top width=90>
-<col>
-<tr>
-	<td align=center><img src='res/how.bmp'></td>
-	<td><b>Step 1</b>. 本报表就是演示页“30.普通统计图”中的XML模板，请作简单的改动，但不要删除统计图和取数公式;<br><b>Step 2</b>. 发布该模板,  让服务器计算数据源，您的ipad、手机就能浏览数据了：  <input type=button id="btn1" disabled="disabled" value=" 发布到服务器 " onClick="tomobile(1)">	</td>
-</tr>
-</table><br>
+		<table cols=2 border=0 width=100%>
+			<col valign=top width=90>
+			<col>
+			<tr>
+				<td align=center><img src='res/how.bmp'></td>
+				<td><b>Step 1</b>.
+					本报表就是演示页“30.普通统计图”中的XML模板，请作简单的改动，但不要删除统计图和取数公式;<br>
+				<b>Step 2</b>. 发布该模板, 让服务器计算数据源，您的ipad、手机就能浏览数据了： <input type=button
+					id="btn1" disabled="disabled" value=" 发布到服务器 "
+					onClick="tomobile(1)"></td>
+			</tr>
+		</table>
+		<br>
 
-<div style="position:relative;width:99%;height:500px">
-	<script>insertReport('AF', '')</script>
-</div>
+		<div style="position: relative; width: 99%; height: 500px">
+			<script>insertReport('AF', '')</script>
+		</div>
 
-</center>
+	</center>
 </body>
 </html>

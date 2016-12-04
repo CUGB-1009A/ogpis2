@@ -13,35 +13,39 @@
 </head>
 
 <body vlink=#0000ff link=#0000ff>
-<center>
+	<center>
 
-<table cols=4 border=0 width=100%>
-<col valign=top width=90>
-<col valign=top>
-<tr>
-<td align=center><img src='res/how.bmp'></td>
-<td><b>1</b>.任意输入，感受日期型、数值型简洁高效的输入，且能屏蔽非法日期、非法字符(注：双击日期控件能打开日历)；<br>
-<b>2</b>.“生产日期”和“质检时间”的数据类型是date和datetime，其默认输入掩码分别是"YYYY.MM.DD"、 "YYYY.MM.DD hh:mm:ss"<br>
-<b>3</b>.“生产日期”被限定在 2010.01.01 至 2010.03.31 之间，请查看该XML描述文档;<br>
-<b>4</b>.“定价”的输入掩码是"+#,###.00"，表示只能输入正数、允许带千位符、小数点保留2位;<br>
-<b>5</b>.“产品名称”限定了最多只能输入10个字;<br>
-<b>6</b>.仿Excel的焦点区域选择，以及和Excel的交互复制、粘帖功能;
-</td>
-</tr>
-</table>
+		<table cols=4 border=0 width=100%>
+			<col valign=top width=90>
+			<col valign=top>
+			<tr>
+				<td align=center><img src='res/how.bmp'></td>
+				<td><b>1</b>.任意输入，感受日期型、数值型简洁高效的输入，且能屏蔽非法日期、非法字符(注：双击日期控件能打开日历)；<br>
+					<b>2</b>.“生产日期”和“质检时间”的数据类型是date和datetime，其默认输入掩码分别是"YYYY.MM.DD"、
+					"YYYY.MM.DD hh:mm:ss"<br> <b>3</b>.“生产日期”被限定在 2010.01.01 至
+					2010.03.31 之间，请查看该XML描述文档;<br> <b>4</b>.“定价”的输入掩码是"+#,###.00"，表示只能输入正数、允许带千位符、小数点保留2位;<br>
+					<b>5</b>.“产品名称”限定了最多只能输入10个字;<br> <b>6</b>.仿Excel的焦点区域选择，以及和Excel的交互复制、粘帖功能;
+				</td>
+			</tr>
+		</table>
 
-<br>
-<div style="position:relative;width:958px;height:330px">
-	<script>insertTreeList('AF', 'BorderColor=#BBBBBB')</script>
-</div>
+		<br>
+		<div style="position: relative; width: 958px; height: 330px">
+			<script>insertTreeList('AF', 'BorderColor=#BBBBBB')</script>
+		</div>
 
-<!--tr height=25 bgColor=#003366><td colspan=2 align=right><a href="treelist/t4.xml" target=_blank>查看创建该TreeList的XML描述文件</a>&nbsp;&nbsp;</td></tr-->
-<!--  以下为技术分析区 -->
-<br><br><br>
-<table border=0 cols=1 border=0 width=97% style='line-height:21px'>
-<tr><td><img src='res/tech.jpg'></td></tr><tr><td>
-<b>1</b>.分析创建该Treelist的<a href="treelist/t4.xml" target=_blank>XML描述文件</a>：<br>
-<pre class='xml'>
+		<!--tr height=25 bgColor=#003366><td colspan=2 align=right><a href="treelist/t4.xml" target=_blank>查看创建该TreeList的XML描述文件</a>&nbsp;&nbsp;</td></tr-->
+		<!--  以下为技术分析区 -->
+		<br>
+		<br>
+		<br>
+		<table border=0 cols=1 border=0 width=97% style='line-height: 21px'>
+			<tr>
+				<td><img src='res/tech.jpg'></td>
+			</tr>
+			<tr>
+				<td><b>1</b>.分析创建该Treelist的<a href="treelist/t4.xml"
+					target=_blank>XML描述文件</a>：<br> <pre class='xml'>
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;TreeList&gt;
  &lt;Properties curselmode="excel" editAble="true" rowHeight="29" Title="库存表" textColor="#777777" bgcolor="#ffffff,#F4F4F4"
@@ -64,13 +68,18 @@
  &lt;Col headerTextColor="#777777" name="price"       width="110" datatype="double" decimal="2" editmask="+#,###.00" alignHeader="right"&gt;定价&lt;/Col&gt;
  &lt;Col headerTextColor="#777777" name="stock"       width="100" datatype="int" editmask="#,###" alignHeader="right"&gt;库存箱数&lt;/Col&gt;
 &lt;/Cols&gt;
-&lt;/TreeList&gt;</pre></td></tr></table>
-<table border=0 cols=2 border=0 width=97%>
-<tr valign=top><td align=right><img src='res/boy.gif'></td><td align=left>使用够简单吧！</td></tr>
-</table>
+&lt;/TreeList&gt;</pre></td>
+			</tr>
+		</table>
+		<table border=0 cols=2 border=0 width=97%>
+			<tr valign=top>
+				<td align=right><img src='res/boy.gif'></td>
+				<td align=left>使用够简单吧！</td>
+			</tr>
+		</table>
 
-<br>
-</center>
+		<br>
+	</center>
 </body>
 <script type='text/javascript' src='res/nstd.js'></script>
 </html>

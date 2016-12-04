@@ -6,10 +6,10 @@
 		<CustomerID>VINET</CustomerID>
 		<OrderDate>2006.07.04</OrderDate>
 		<RequiredDate>2006.08.01</RequiredDate>
-		<Freight/>
-		<ShipName>Com Test&apos;c	5bc</ShipName>
+		<Freight />
+		<ShipName>Com Test&apos;c 5bc</ShipName>
 		<ShipCity>Reims</ShipCity>
-		<ShipAddress/>
+		<ShipAddress />
 	</row>
 	<row>
 		<Country>Germany</Country>
@@ -339,7 +339,7 @@
 		<Freight>92.69</Freight>
 		<ShipName>Berglunds snabbkp</ShipName>
 		<ShipCity>Lule</ShipCity>
-		<ShipAddress>Berguvsvgen  8</ShipAddress>
+		<ShipAddress>Berguvsvgen 8</ShipAddress>
 	</row>
 	<row>
 		<Country>Germany</Country>
@@ -361,7 +361,7 @@
 		<Freight>8.98</Freight>
 		<ShipName>Berglunds snabbkp</ShipName>
 		<ShipCity>Lule</ShipCity>
-		<ShipAddress>Berguvsvgen  8</ShipAddress>
+		<ShipAddress>Berguvsvgen 8</ShipAddress>
 	</row>
 	<row>
 		<Country>Spain</Country>
@@ -1296,7 +1296,7 @@
 		<Freight>22.00</Freight>
 		<ShipName>Antonio Moreno Taqueria</ShipName>
 		<ShipCity>Mexico D.F.</ShipCity>
-		<ShipAddress>Mataderos  2312</ShipAddress>
+		<ShipAddress>Mataderos 2312</ShipAddress>
 	</row>
 	<row>
 		<Country>Spain</Country>
@@ -1505,7 +1505,7 @@
 		<Freight>168.64</Freight>
 		<ShipName>Berglunds snabbkp</ShipName>
 		<ShipCity>Lule</ShipCity>
-		<ShipAddress>Berguvsvgen  8</ShipAddress>
+		<ShipAddress>Berguvsvgen 8</ShipAddress>
 	</row>
 	<row>
 		<Country>USA</Country>
@@ -2066,7 +2066,7 @@
 		<Freight>9.21</Freight>
 		<ShipName>Consolidated Holdings</ShipName>
 		<ShipCity>London</ShipCity>
-		<ShipAddress>Berkeley Gardens 12  Brewery</ShipAddress>
+		<ShipAddress>Berkeley Gardens 12 Brewery</ShipAddress>
 	</row>
 	<row>
 		<Country>France</Country>
@@ -2165,7 +2165,7 @@
 		<Freight>3.50</Freight>
 		<ShipName>Berglunds snabbkp</ShipName>
 		<ShipCity>Lule</ShipCity>
-		<ShipAddress>Berguvsvgen  8</ShipAddress>
+		<ShipAddress>Berguvsvgen 8</ShipAddress>
 	</row>
 	<row>
 		<Country>Sweden</Country>
@@ -2176,7 +2176,7 @@
 		<Freight>9.30</Freight>
 		<ShipName>Berglunds snabbkp</ShipName>
 		<ShipCity>Lule</ShipCity>
-		<ShipAddress>Berguvsvgen  8</ShipAddress>
+		<ShipAddress>Berguvsvgen 8</ShipAddress>
 	</row>
 	<row>
 		<Country>Germany</Country>
@@ -2363,7 +2363,7 @@
 		<Freight>6.17</Freight>
 		<ShipName>Consolidated Holdings</ShipName>
 		<ShipCity>London</ShipCity>
-		<ShipAddress>Berkeley Gardens 12  Brewery</ShipAddress>
+		<ShipAddress>Berkeley Gardens 12 Brewery</ShipAddress>
 	</row>
 	<row>
 		<Country>Belgium</Country>
@@ -2858,7 +2858,7 @@
 		<Freight>47.45</Freight>
 		<ShipName>Antonio Moreno Taqueria</ShipName>
 		<ShipCity>Mexico D.F.</ShipCity>
-		<ShipAddress>Mataderos  2312</ShipAddress>
+		<ShipAddress>Mataderos 2312</ShipAddress>
 	</row>
 	<row>
 		<Country>Germany</Country>
@@ -3045,7 +3045,7 @@
 		<Freight>244.79</Freight>
 		<ShipName>Berglunds snabbkp</ShipName>
 		<ShipCity>Lule</ShipCity>
-		<ShipAddress>Berguvsvgen  8</ShipAddress>
+		<ShipAddress>Berguvsvgen 8</ShipAddress>
 	</row>
 	<row>
 		<Country>France</Country>
@@ -3166,7 +3166,7 @@
 		<Freight>15.64</Freight>
 		<ShipName>Antonio Moreno Taqueria</ShipName>
 		<ShipCity>Mexico D.F.</ShipCity>
-		<ShipAddress>Mataderos  2312</ShipAddress>
+		<ShipAddress>Mataderos 2312</ShipAddress>
 	</row>
 	<row>
 		<Country>Germany</Country>
@@ -3573,7 +3573,7 @@
 		<Freight>116.43</Freight>
 		<ShipName>Berglunds snabbkp</ShipName>
 		<ShipCity>Lule</ShipCity>
-		<ShipAddress>Berguvsvgen  8</ShipAddress>
+		<ShipAddress>Berguvsvgen 8</ShipAddress>
 	</row>
 	<row>
 		<Country>Mexico</Country>
@@ -3584,7 +3584,7 @@
 		<Freight>84.84</Freight>
 		<ShipName>Antonio Moreno Taqueria</ShipName>
 		<ShipCity>Mexico D.F.</ShipCity>
-		<ShipAddress>Mataderos  2312</ShipAddress>
+		<ShipAddress>Mataderos 2312</ShipAddress>
 	</row>
 	<row>
 		<Country>USA</Country>
@@ -4167,7 +4167,7 @@
 		<Freight>138.69</Freight>
 		<ShipName>Berglunds snabbkp</ShipName>
 		<ShipCity>Lule</ShipCity>
-		<ShipAddress>Berguvsvgen  8</ShipAddress>
+		<ShipAddress>Berguvsvgen 8</ShipAddress>
 	</row>
 	<row>
 		<Country>USA</Country>
@@ -4475,7 +4475,7 @@
 		<Freight>55.26</Freight>
 		<ShipName>Berglunds snabbkp</ShipName>
 		<ShipCity>Lule</ShipCity>
-		<ShipAddress>Berguvsvgen  8</ShipAddress>
+		<ShipAddress>Berguvsvgen 8</ShipAddress>
 	</row>
 	<row>
 		<Country>Italy</Country>
@@ -4673,7 +4673,7 @@
 		<Freight>95.75</Freight>
 		<ShipName>Berglunds snabbkp</ShipName>
 		<ShipCity>Lule</ShipCity>
-		<ShipAddress>Berguvsvgen  8</ShipAddress>
+		<ShipAddress>Berguvsvgen 8</ShipAddress>
 	</row>
 	<row>
 		<Country>Finland</Country>
@@ -4728,7 +4728,7 @@
 		<Freight>4.03</Freight>
 		<ShipName>Antonio Moreno Taqueria</ShipName>
 		<ShipCity>Mexico D.F.</ShipCity>
-		<ShipAddress>Mataderos  2312</ShipAddress>
+		<ShipAddress>Mataderos 2312</ShipAddress>
 	</row>
 	<row>
 		<Country>USA</Country>
@@ -4783,7 +4783,7 @@
 		<Freight>36.13</Freight>
 		<ShipName>Antonio Moreno Taqueria</ShipName>
 		<ShipCity>Mexico D.F.</ShipCity>
-		<ShipAddress>Mataderos  2312</ShipAddress>
+		<ShipAddress>Mataderos 2312</ShipAddress>
 	</row>
 	<row>
 		<Country>France</Country>
@@ -4860,7 +4860,7 @@
 		<Freight>13.42</Freight>
 		<ShipName>Berglunds snabbkp</ShipName>
 		<ShipCity>Lule</ShipCity>
-		<ShipAddress>Berguvsvgen  8</ShipAddress>
+		<ShipAddress>Berguvsvgen 8</ShipAddress>
 	</row>
 	<row>
 		<Country>Brazil</Country>
@@ -5344,7 +5344,7 @@
 		<Freight>110.11</Freight>
 		<ShipName>Berglunds snabbkp</ShipName>
 		<ShipCity>Lule</ShipCity>
-		<ShipAddress>Berguvsvgen  8</ShipAddress>
+		<ShipAddress>Berguvsvgen 8</ShipAddress>
 	</row>
 	<row>
 		<Country>Brazil</Country>

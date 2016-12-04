@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--By Supcan TreeList -->
 <TreeList>
-	<Properties disableRowFlag="deleteline" dataURL='../treelistdata/person.xml'/>
+	<Properties disableRowFlag="deleteline" dataURL='../treelistdata/person.xml' />
 	<Cols>
 		<Col name="name" width="140">姓名</Col>
 		<Col name="dis" width="50">性别</Col>

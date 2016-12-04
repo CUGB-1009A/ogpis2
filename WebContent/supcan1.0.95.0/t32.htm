@@ -112,42 +112,59 @@
 </head>
 
 <body vlink=#0000ff link=#0000ff>
-<center>
+	<center>
 
-<table cols=2 border=0 width=100%>
-<col valign=top width=90>
-<col valign=top>
-<tr>
-<td align=center><img src='res/how.bmp'></td>
-<td>
-<b>1</b>.实时查询、分页、以及后端排序的完整例子;<br>
-<b>2</b>.这是单个Treelist组件，同时开启了topBar和bottomBar，其中树列表的XML、查询条件 和 分页器的freeform XML直接采用了以前的例子;<br>
-</td>
-</tr>
-<tr height=8><td colspan=2></td></tr>
-</table>
+		<table cols=2 border=0 width=100%>
+			<col valign=top width=90>
+			<col valign=top>
+			<tr>
+				<td align=center><img src='res/how.bmp'></td>
+				<td><b>1</b>.实时查询、分页、以及后端排序的完整例子;<br> <b>2</b>.这是单个Treelist组件，同时开启了topBar和bottomBar，其中树列表的XML、查询条件
+					和 分页器的freeform XML直接采用了以前的例子;<br></td>
+			</tr>
+			<tr height=8>
+				<td colspan=2></td>
+			</tr>
+		</table>
 
-<div style="position:relative;width:97%;height:360px">
-	<script>insertTreeList('AF', 'borderColor=#7f9db9')</script>
-</div>
-<br>
-</center>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>3</b>.分页器另一种外观样式： <input type="button" value=" 更换样式 " onClick="changeStyle()">, 点击该按钮后，请查看分页器的模样;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>4</b>.前后页切换淡入淡出方式：<input type="radio" name="fadeInGroup" onClick="changeFadeIn()" value="none" />无 &nbsp;&nbsp;&nbsp; <input type="radio" name="fadeInGroup" value="cross" onClick="changeFadeIn()" checked="checked"/>交替渐变 &nbsp;&nbsp;&nbsp; <input type="radio" name="fadeInGroup" onClick="changeFadeIn()" value="flash" />快速点亮<br>
+		<div style="position: relative; width: 97%; height: 360px">
+			<script>insertTreeList('AF', 'borderColor=#7f9db9')</script>
+		</div>
+		<br>
+	</center>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<b>3</b>.分页器另一种外观样式：
+	<input type="button" value=" 更换样式 " onClick="changeStyle()">,
+	点击该按钮后，请查看分页器的模样;
+	<br>
+	<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<b>4</b>.前后页切换淡入淡出方式：
+	<input type="radio" name="fadeInGroup" onClick="changeFadeIn()"
+		value="none" />无 &nbsp;&nbsp;&nbsp;
+	<input type="radio" name="fadeInGroup" value="cross"
+		onClick="changeFadeIn()" checked="checked" />交替渐变 &nbsp;&nbsp;&nbsp;
+	<input type="radio" name="fadeInGroup" onClick="changeFadeIn()"
+		value="flash" />快速点亮
+	<br>
 
-<!--  以下为技术分析区 -->
-<br><br><br>
-<center>
-<table border=0 cols=1 border=0 width=97% style='line-height:21px'>
-<tr><td><img src='res/tech.jpg'></td></tr><tr><td>
-<b>1</b>.XML描述文件、数据库都采用了前面的例子，这是全部的资源：<br>
-<a href="treelist/t1.xml" target=_Blank>Treelist的XML描述文件</a>、 <a href="treelist/query2.xml" target=_Blank>topBar的XML描述文件</a>、
-<a href="treelist/pager2.xml" target=_Blank>freeform分页器的XML描述文件</a>、<a href="http://www.supcan.cn/dotnet/access.mdb.zip" target=_Blank>后端的access数据库文件(access.mdb)</a>、
-<a href="treelistdata/access.aspx.txt" target=_Blank>后端的C#源码</a>.<br>
-<br>
-<b>2</b>.在OnReady( )中开启了tBar和bBar：<br>
-<pre class='cpp'>
+	<!--  以下为技术分析区 -->
+	<br>
+	<br>
+	<br>
+	<center>
+		<table border=0 cols=1 border=0 width=97% style='line-height: 21px'>
+			<tr>
+				<td><img src='res/tech.jpg'></td>
+			</tr>
+			<tr>
+				<td><b>1</b>.XML描述文件、数据库都采用了前面的例子，这是全部的资源：<br> <a
+					href="treelist/t1.xml" target=_Blank>Treelist的XML描述文件</a>、 <a
+					href="treelist/query2.xml" target=_Blank>topBar的XML描述文件</a>、 <a
+					href="treelist/pager2.xml" target=_Blank>freeform分页器的XML描述文件</a>、<a
+					href="http://www.supcan.cn/dotnet/access.mdb.zip" target=_Blank>后端的access数据库文件(access.mdb)</a>、
+					<a href="treelistdata/access.aspx.txt" target=_Blank>后端的C#源码</a>.<br>
+					<br> <b>2</b>.在OnReady( )中开启了tBar和bBar：<br> <pre
+						class='cpp'>
 function OnReady(id)
 {
  AF.func("Build", "treelist/t1.xml");
@@ -162,10 +179,7 @@ function OnReady(id)
  AF.func("bBar.BindPager", h + "\r\n ID0");
  //设置分页器的dataURL (将自动加载Treelist数据)
  AF.func("bBar.SetObjectProp", "ID0\r\n dataURL  \r\n" + genUrl() + "\r\n mode=asynch");	//让Treelist异步加载数据
-}</pre>
-<br>
-<b>3</b>.在OnEvent( )事件的源码：
-<pre class='cpp'>
+}</pre> <br> <b>3</b>.在OnEvent( )事件的源码： <pre class='cpp'>
 function OnEvent(id, Event, p1, p2, p3, p4)
 {
  //按钮事件============
@@ -213,13 +227,14 @@ function OnEvent(id, Event, p1, p2, p3, p4)
  else if(Event == "Sort") {
   AF.func("bBar.SetObjectProp", "ID0\r\ndataURL\r\n" + genUrl() + "\r\n mode=Asynch; isResetPage=true");
  }
-}</pre>
-<br>
-<b>4</b>.关于事件部分，对Treelist而言，topBar、bottomBar并无区别，只要保证二者内部的输入对象id不重复就行，请自行参考页面的js源码.<br>
-</td></tr></table>
+}</pre> <br> <b>4</b>.关于事件部分，对Treelist而言，topBar、bottomBar并无区别，只要保证二者内部的输入对象id不重复就行，请自行参考页面的js源码.<br>
+				</td>
+			</tr>
+		</table>
 
-<br><br>
-</center>
+		<br>
+		<br>
+	</center>
 </body>
 <script type='text/javascript' src='res/nstd.js'></script>
 </html>

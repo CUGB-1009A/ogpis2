@@ -31,14 +31,15 @@
 				<para dataType="string">产品代码</para>
 				<para dataType="string">部门代码</para>
 				<para edittype="droplist" droplistID="month">月份</para>
-				<example>=income('kd1-2', 'dept01', 10), 表示取kd1-2产品、dept01部门、10月份的销售收入</example>
+				<example>=income('kd1-2', 'dept01', 10),
+					表示取kd1-2产品、dept01部门、10月份的销售收入</example>
 			</function>
 		</category>
 	</functions>
 
 	<DropLists>
 		<DropList id="kmdm" treelist="../treelist/t2.xml" dataURL="../treelistdata/km.json.txt"
-			isTreeNodeSelectAble="true" DataCol="kmdm" DisplayCol="=kmdm+ ' - ' +kmmc"/>
+			isTreeNodeSelectAble="true" DataCol="kmdm" DisplayCol="=kmdm+ ' - ' +kmmc" />
 		<DropList id="month">
 			<item key="1">1月份</item>
 			<item key="2">2月份</item>

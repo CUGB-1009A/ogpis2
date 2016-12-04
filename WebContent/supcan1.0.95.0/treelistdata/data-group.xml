@@ -5,10 +5,10 @@
 		<OrderID>10248</OrderID>
 		<CustomerID>VINET</CustomerID>
 		<dts>2006.07.04/2006.08.01</dts>
-		<Freight/>
-		<ShipName>Com Test&apos;c	5bc</ShipName>
+		<Freight />
+		<ShipName>Com Test&apos;c 5bc</ShipName>
 		<ShipCity>Reims</ShipCity>
-		<ShipAddress/>
+		<ShipAddress />
 	</row>
 	<row>
 		<Country>Germany</Country>

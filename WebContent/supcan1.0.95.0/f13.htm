@@ -120,37 +120,45 @@ function demo2(bModel)
 </head>
 
 <body vlink=#0000ff link=#0000ff>
-<center>
+	<center>
 
-<table cols=4 border=0 width=100%>
-<col valign=top width=90>
-<col valign=top>
-<tr>
-<td align=center><img src='res/how.bmp'></td>
-<td><b>1</b>.这是html的&lt;input&gt;按钮，请试着点击:  <input type=button value=" 弹出模式对话框 " onClick="demo1(true)"> 或 <input type=button value=" 弹出非模式对话框 " onClick="demo1(false)">;<br>
-<b>2</b>.点击下面Treelist中的"审核"按钮，能弹出自定义<b>模式对话框</b>；点击或“船名”输入框内的按钮，能弹出自定义<b>非模式对话框</b>;<br>
-<b>3</b>.在对话框中输入后，点“确认”保存，内容将更新到Treelist中;<br>
-<b>4</b>.测试验证效果：在对话框中，将“单证号”清除，再点“确认”;
-</td>
-</tr>
-</table>
-<br>
-<div style="position:relative;width:90%">
-	<script>insertTreeList('AF', '', '300px')</script>
-</div>
-
-
-<!--  以下为技术分析区 -->
-<br><br><br>
-<table border=0 cols=1 border=0 width=97% style='line-height:21px'>
-<tr><td><img src='res/tech.jpg'></td></tr><tr><td>
-<b>1</b>.本源码略为复杂，请自行分析html的源代码.<br>
-<b>2</b>.源码中有 Firefox 浏览器的区分，如果您的项目支持 Firefox 浏览器，请关注源码中和 Firefox 相关的部分，因为 Firefox 必须在单独的线程中打开模式对话框.<br>
-</td></tr></table>
+		<table cols=4 border=0 width=100%>
+			<col valign=top width=90>
+			<col valign=top>
+			<tr>
+				<td align=center><img src='res/how.bmp'></td>
+				<td><b>1</b>.这是html的&lt;input&gt;按钮，请试着点击: <input type=button
+					value=" 弹出模式对话框 " onClick="demo1(true)"> 或 <input
+					type=button value=" 弹出非模式对话框 " onClick="demo1(false)">;<br>
+					<b>2</b>.点击下面Treelist中的"审核"按钮，能弹出自定义<b>模式对话框</b>；点击或“船名”输入框内的按钮，能弹出自定义<b>非模式对话框</b>;<br>
+					<b>3</b>.在对话框中输入后，点“确认”保存，内容将更新到Treelist中;<br> <b>4</b>.测试验证效果：在对话框中，将“单证号”清除，再点“确认”;
+				</td>
+			</tr>
+		</table>
+		<br>
+		<div style="position: relative; width: 90%">
+			<script>insertTreeList('AF', '', '300px')</script>
+		</div>
 
 
-<br>
-</center>
+		<!--  以下为技术分析区 -->
+		<br>
+		<br>
+		<br>
+		<table border=0 cols=1 border=0 width=97% style='line-height: 21px'>
+			<tr>
+				<td><img src='res/tech.jpg'></td>
+			</tr>
+			<tr>
+				<td><b>1</b>.本源码略为复杂，请自行分析html的源代码.<br> <b>2</b>.源码中有
+					Firefox 浏览器的区分，如果您的项目支持 Firefox 浏览器，请关注源码中和 Firefox 相关的部分，因为
+					Firefox 必须在单独的线程中打开模式对话框.<br></td>
+			</tr>
+		</table>
+
+
+		<br>
+	</center>
 </body>
 <script type='text/javascript' src='res/nstd.js'></script>
 </html>

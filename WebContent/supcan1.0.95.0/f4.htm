@@ -58,37 +58,50 @@
 </head>
 
 <body onLoad='cooper( )' vlink=#0000ff link=#0000ff>
-<center>
+	<center>
 
-<table cols=2 border=0 width=100%>
-<col valign=top width=90>
-<col valign=top>
-<tr>
-<td align=center><img src='res/how.bmp'></td>
-<td>“省份”和“城市”有关联性，以下是两种关联处理方案：</td>
-</tr>
-</table>
+		<table cols=2 border=0 width=100%>
+			<col valign=top width=90>
+			<col valign=top>
+			<tr>
+				<td align=center><img src='res/how.bmp'></td>
+				<td>“省份”和“城市”有关联性，以下是两种关联处理方案：</td>
+			</tr>
+		</table>
 
-<table cols=1 border=0 width=700>
-<tr><td>方案一：“城市”采用客户端过滤，在选择“省份”的触发事件中对“城市”内容作过滤</td></tr>
-<tr height=49><td align=center>
-	<script>insertFreeForm('AF1', '', 49)</script>
-</td></tr>
-<tr height=20><td/></tr>
-<tr><td>方案二：“城市”采用服务器过滤，在选择“省份”的触发事件中修改“城市”的dataURL，强制刷新</td></tr>
-<tr height=49><td align=center>
-	<script>insertFreeForm('AF2', '', 49)</script>
-</td></tr>
-</table>
+		<table cols=1 border=0 width=700>
+			<tr>
+				<td>方案一：“城市”采用客户端过滤，在选择“省份”的触发事件中对“城市”内容作过滤</td>
+			</tr>
+			<tr height=49>
+				<td align=center><script>insertFreeForm('AF1', '', 49)</script>
+				</td>
+			</tr>
+			<tr height=20>
+				<td />
+			</tr>
+			<tr>
+				<td>方案二：“城市”采用服务器过滤，在选择“省份”的触发事件中修改“城市”的dataURL，强制刷新</td>
+			</tr>
+			<tr height=49>
+				<td align=center><script>insertFreeForm('AF2', '', 49)</script>
+				</td>
+			</tr>
+		</table>
 
-<!--  以下为技术分析区 -->
-<br><br><br>
-<table border=0 cols=1 border=0 width=97% style='line-height:21px'>
-<tr><td><img src='res/tech.jpg'></td></tr><tr><td>
-<b>1</b>.创建该Freeform的<a href='treelist/freeform5.xml' target=_blank>XML描述文件</a>；<br>
-<b>2</b>.引用的到的省份和城市的Treelist<a href='treelist/prov_city.xml' target=_blank>XML描述文件</a>(方案二实际上并没有用到)；<br>
-<b>3</b>.源码分析：以下为本页面的js，可对照注释：<br>
-<pre class='cpp'>
+		<!--  以下为技术分析区 -->
+		<br>
+		<br>
+		<br>
+		<table border=0 cols=1 border=0 width=97% style='line-height: 21px'>
+			<tr>
+				<td><img src='res/tech.jpg'></td>
+			</tr>
+			<tr>
+				<td><b>1</b>.创建该Freeform的<a href='treelist/freeform5.xml'
+					target=_blank>XML描述文件</a>；<br> <b>2</b>.引用的到的省份和城市的Treelist<a
+					href='treelist/prov_city.xml' target=_blank>XML描述文件</a>(方案二实际上并没有用到)；<br>
+					<b>3</b>.源码分析：以下为本页面的js，可对照注释：<br> <pre class='cpp'>
 &lt;script language="JavaScript"&gt;
  //“省份”下拉Treelist的XML描述文档串，用于动态创建
  var xml_prov = '&lt;TreeList&gt;\
@@ -146,11 +159,12 @@
 &lt;/script&gt;
  
 &lt;body onLoad='cooper( )' ...&gt;
-...</pre>
-</td></tr></table>
+...</pre></td>
+			</tr>
+		</table>
 
-<br>
-</center>
+		<br>
+	</center>
 </body>
 <script type='text/javascript' src='res/nstd.js'></script>
 </html>

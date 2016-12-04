@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--By Supcan TreeList -->
 <TreeList>
-	<Properties editAble="false" rowHeight="30" isAutoFitWidth="true" bgColor="#ffffff">
+	<Properties editAble="false" rowHeight="30" isAutoFitWidth="true"
+		bgColor="#ffffff">
 	</Properties>
 	<Cols>
 		<Col name="id" width="80">ID</Col>

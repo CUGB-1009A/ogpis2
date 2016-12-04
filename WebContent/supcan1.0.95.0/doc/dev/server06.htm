@@ -4,36 +4,46 @@
 <link rel="stylesheet" href="temp1.css" type="text/css">
 </head>
 <body bgcolor=#ffffff vlink=#0000ff>
-<div id="Tag1"/>
-<br>
-<p class="sz1">6.演示页分析</p><hr color=#2266ee size=1>
-　　硕正主页的在线演示中有移动应用的示例，每个示例解决的问题不尽相同，下面我们对其进行分析。<br>
-<br>
-　　在线演示都是以aspx书写的，C#源码用到了前面的非托管代码的封装类，这里不再分析了。<br>
-<br>
-<p class="sz3">6.1 ASPX的返回值</p>
-　　这几个示例都有些相同的地方，例如它们都是把计算结果转换输出到临时目录下的某个临时的HTML文件，就算大功告成了.<br>
-　　在例一和例二中，aspx仅返回这个临时文件对应的URL, 浏览器获得这个URL后，将其以二维码方式在页面中展现，以便手机访问；<br>
-　　在例三中，aspx用 Response.Redirect( )重定位函数，引导手机指向这个URL.<br>
-　　所以，我们可以在aspx中设定Content-Type为纯文本就行，不需要返回HTML:<br>
-<pre class='cpp'>
+	<div id="Tag1" />
+	<br>
+	<p class="sz1">6.演示页分析</p>
+	<hr color=#2266ee size=1>
+	硕正主页的在线演示中有移动应用的示例，每个示例解决的问题不尽相同，下面我们对其进行分析。
+	<br>
+	<br> 在线演示都是以aspx书写的，C#源码用到了前面的非托管代码的封装类，这里不再分析了。
+	<br>
+	<br>
+	<p class="sz3">6.1 ASPX的返回值</p>
+	这几个示例都有些相同的地方，例如它们都是把计算结果转换输出到临时目录下的某个临时的HTML文件，就算大功告成了.
+	<br> 在例一和例二中，aspx仅返回这个临时文件对应的URL,
+	浏览器获得这个URL后，将其以二维码方式在页面中展现，以便手机访问；
+	<br> 在例三中，aspx用 Response.Redirect( )重定位函数，引导手机指向这个URL.
+	<br> 所以，我们可以在aspx中设定Content-Type为纯文本就行，不需要返回HTML:
+	<br>
+	<pre class='cpp'>
 Response.ContentType = "text/plain";</pre>
-<br>
-<p class="sz3">6.2 临时目录</p>
-　　在示例中，报表服务将结果输出到Temp目录，和其自身的缓存目录处于同一个位置，试想一下，如果用的次数多了，垃圾文件就越来越多，服务器磁盘空间会被耗尽，为此我们专门增加了一个全局函数：CacheDirUtility，当您报表服务创建成功后，可以调用这个函数:<br>
+	<br>
+	<p class="sz3">6.2 临时目录</p>
+	在示例中，报表服务将结果输出到Temp目录，和其自身的缓存目录处于同一个位置，试想一下，如果用的次数多了，垃圾文件就越来越多，服务器磁盘空间会被耗尽，为此我们专门增加了一个全局函数：CacheDirUtility，当您报表服务创建成功后，可以调用这个函数:
+	<br>
 
-<pre class='cpp'>
+	<pre class='cpp'>
  String ReportFilename = dll.func("CacheDirUtility", "isCreateTempFile=true;ext=htm;DeleteEarlierFile=15m;KeepMB=10");</pre>
-　　这个函数的详细文档在 "Supcan Treelist组件\12.全局函数"中，参数中的 "DeleteEarlierFile=15m;KeepMB=10" 就是表示清理垃圾，它将删除15分钟前的文件、并保证缓存垃圾不超过10MB; "isCreateTempFile=true;ext=htm" 表示生成一个唯一的.htm文件，并返回全文件名.<br>
-<br>
-<img src='image/glass.bmp' class="imgleft"><p class="glass">清理缓存需要消耗一定 CPU，建议您产生一个随机数，随机清理，不需要每次都清理.</p>
-<br>
-<img src='image/glass.bmp' class="imgleft"><p class="glass">KeepMB建议不要设得太大, 数字越大则缓存清理过程越慢.</p>
-<br>
-<br>
+	这个函数的详细文档在 "Supcan Treelist组件\12.全局函数"中，参数中的
+	"DeleteEarlierFile=15m;KeepMB=10" 就是表示清理垃圾，它将删除15分钟前的文件、并保证缓存垃圾不超过10MB;
+	"isCreateTempFile=true;ext=htm" 表示生成一个唯一的.htm文件，并返回全文件名.
+	<br>
+	<br>
+	<img src='image/glass.bmp' class="imgleft">
+	<p class="glass">清理缓存需要消耗一定 CPU，建议您产生一个随机数，随机清理，不需要每次都清理.</p>
+	<br>
+	<img src='image/glass.bmp' class="imgleft">
+	<p class="glass">KeepMB建议不要设得太大, 数字越大则缓存清理过程越慢.</p>
+	<br>
+	<br>
 
-<p class="sz3">6.3 示例3中分类汇总表查询的aspx源码分析</p>
-<pre class='cpp'>
+	<p class="sz3">6.3 示例3中分类汇总表查询的aspx源码分析</p>
+	<pre class='cpp'>
 public void Page_Load(Object sender, EventArgs e) {
  //仅返回平面的串, 可用于简单的错误提示
  Response.ContentType = "text/plain";
@@ -91,6 +101,9 @@ public void Page_Load(Object sender, EventArgs e) {
 }</pre>
 
 
-<br><br><br>
-<script type='text/javascript' src='nstd.js'></script>
-</body></html>
+	<br>
+	<br>
+	<br>
+	<script type='text/javascript' src='nstd.js'></script>
+</body>
+</html>

@@ -47,42 +47,59 @@
 </head>
 
 <body vlink=#0000ff link=#0000ff>
-<center>
+	<center>
 
-<table cols=2 border=0 width=100%>
-<col valign=top width=150>
-<col valign=top>
-<tr>
-<td align=center><img src='res/how.bmp'></td>
-<td><b>说明：</b> 该优化是针对 <Font color=red>Firefox、Chrome</font> 浏览器的，对 IE 浏览器效果不大.<br>
-<b>目的：</b> 通过js调用API，对表格中的500条记录作如此操作：如果货重大于40，则打上勾.<br>
-<b>方案：</b> 为了实现这个目的，我们准备了4个方案，记录了需要耗费的时间, 单位毫秒.</td>
-</tr>
-</table>
-<table cols=4 cellpadding=2 width=90% cellspacing=0 border=1 align="center" borderColorLight=#999999 borderColorDark=#999999 style="text-align:center">
-<tr bgcolor=#eaeaea><td>未优化的原始方案</td><td>方案1: 优化重画</td><td>方案2: 开启LoadMask</td><td>方案3: 启用表达式</td></tr>
-<tr><td><input type=button value=" 执行 " onClick="run(1)"></td><td><input type=button value=" 执行 " onClick="run(2)"></td><td><input type=button value=" 执行 " onClick="run(3)"></td><td><input type=button value=" 执行 " onClick="run(4)"></td></tr>
-<tr>
-	<td><font color=red><Label id="Label1">&nbsp;</Label></font></td>
-	<td><font color=red><Label id="Label2">&nbsp;</Label></font></td>	
-	<td><font color=red><Label id="Label3">&nbsp;</Label></font></td>
-	<td><font color=red><Label id="Label4">&nbsp;</Label></font></td>	
-</tr>
-</table>
+		<table cols=2 border=0 width=100%>
+			<col valign=top width=150>
+			<col valign=top>
+			<tr>
+				<td align=center><img src='res/how.bmp'></td>
+				<td><b>说明：</b> 该优化是针对 <Font color=red>Firefox、Chrome</font>
+					浏览器的，对 IE 浏览器效果不大.<br> <b>目的：</b>
+					通过js调用API，对表格中的500条记录作如此操作：如果货重大于40，则打上勾.<br> <b>方案：</b>
+					为了实现这个目的，我们准备了4个方案，记录了需要耗费的时间, 单位毫秒.</td>
+			</tr>
+		</table>
+		<table cols=4 cellpadding=2 width=90% cellspacing=0 border=1
+			align="center" borderColorLight=#999999 borderColorDark=#999999
+			style="text-align: center">
+			<tr bgcolor=#eaeaea>
+				<td>未优化的原始方案</td>
+				<td>方案1: 优化重画</td>
+				<td>方案2: 开启LoadMask</td>
+				<td>方案3: 启用表达式</td>
+			</tr>
+			<tr>
+				<td><input type=button value=" 执行 " onClick="run(1)"></td>
+				<td><input type=button value=" 执行 " onClick="run(2)"></td>
+				<td><input type=button value=" 执行 " onClick="run(3)"></td>
+				<td><input type=button value=" 执行 " onClick="run(4)"></td>
+			</tr>
+			<tr>
+				<td><font color=red><Label id="Label1">&nbsp;</Label></font></td>
+				<td><font color=red><Label id="Label2">&nbsp;</Label></font></td>
+				<td><font color=red><Label id="Label3">&nbsp;</Label></font></td>
+				<td><font color=red><Label id="Label4">&nbsp;</Label></font></td>
+			</tr>
+		</table>
 
 
-<br>
-<div style="position:relative;width:90%;height:350px">
-	<script>insertTreeList('AF', 'Bordercolor=#ffcccc')</script>
-</div>
+		<br>
+		<div style="position: relative; width: 90%; height: 350px">
+			<script>insertTreeList('AF', 'Bordercolor=#ffcccc')</script>
+		</div>
 
-<!--tr height=25 bgColor=#003366><td colspan=2 align=right><a href="treelist/t17.xml" target=_blank>查看创建该TreeList的XML描述文件</a>&nbsp;&nbsp;</td></tr-->
-<!--  以下为技术分析区 -->
-<br><br><br>
-<table border=0 cols=1 border=0 width=97% style='line-height:21px'>
-<tr><td><img src='res/tech.jpg'></td></tr><tr><td>
-<b>1</b>.原始的方法是：<br>
-<pre class='cpp'>
+		<!--tr height=25 bgColor=#003366><td colspan=2 align=right><a href="treelist/t17.xml" target=_blank>查看创建该TreeList的XML描述文件</a>&nbsp;&nbsp;</td></tr-->
+		<!--  以下为技术分析区 -->
+		<br>
+		<br>
+		<br>
+		<table border=0 cols=1 border=0 width=97% style='line-height: 21px'>
+			<tr>
+				<td><img src='res/tech.jpg'></td>
+			</tr>
+			<tr>
+				<td><b>1</b>.原始的方法是：<br> <pre class='cpp'>
 function method()
 {
  var rows = AF.func("GetRows", "");
@@ -90,10 +107,7 @@ function method()
   var fr = AF.func("GetCellData", row + "\r\n Freight"); //取得货重
   if(fr 〉 40) AF.func("SetCellData", row + "\r\n checked \r\n1");
  }
-}</pre>
-<br>
-<b>2</b>.4个按钮执行的js：<br>
-<pre class='cpp'>
+}</pre> <br> <b>2</b>.4个按钮执行的js：<br> <pre class='cpp'>
 function run(num)
 {
  AF.func("Load", "treelistdata/data.txt");  //刷新数据
@@ -116,13 +130,13 @@ function run(num)
  
  var dt2 = new Date;
  document.getElementById("Label" + num).innerHTML = dt2.getTime() - dt1.getTime();
-}</pre>
-<br>
-</td></tr></table>
+}</pre> <br></td>
+			</tr>
+		</table>
 
 
-<br>
-</center>
+		<br>
+	</center>
 </body>
 <script type='text/javascript' src='res/nstd.js'></script>
 </html>

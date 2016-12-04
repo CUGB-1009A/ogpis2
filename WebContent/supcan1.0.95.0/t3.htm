@@ -29,44 +29,66 @@
 </head>
 
 <body topmargin=4 vlink=#0000ff link=#0000ff>
-<center>
+	<center>
 
-<table cols=3 border=0 width=100%>
-<col valign=top width=90>
-<col width=250>
-<col>
-<tr><td align=center rowspan=2><img src='res/how.bmp'></td><td/><td>上下2个表填入相同的 TSV-Ex 格式数据(相对URL): <input id='source' type=edit size=35 value="treelistdata/data60.tsv-ex.txt"> <input type=button value=" 取数 " onClick="Retrieve()"></td></tr>
-<tr><td><b>方式一. 表头的列以分组形式显示</b></td><td>操作提示：1.列的拖动被限制在组内；2.点击列以排序；3.切换到以树展现；4.打印预览；</td></tr>
-</table>
+		<table cols=3 border=0 width=100%>
+			<col valign=top width=90>
+			<col width=250>
+			<col>
+			<tr>
+				<td align=center rowspan=2><img src='res/how.bmp'></td>
+				<td />
+				<td>上下2个表填入相同的 TSV-Ex 格式数据(相对URL): <input id='source' type=edit
+					size=35 value="treelistdata/data60.tsv-ex.txt"> <input
+					type=button value=" 取数 " onClick="Retrieve()"></td>
+			</tr>
+			<tr>
+				<td><b>方式一. 表头的列以分组形式显示</b></td>
+				<td>操作提示：1.列的拖动被限制在组内；2.点击列以排序；3.切换到以树展现；4.打印预览；</td>
+			</tr>
+		</table>
 
-<div style="position:relative;width:97%">
-	<script>insertTreeList('AF1', '', '270px')</script>
-</div>
+		<div style="position: relative; width: 97%">
+			<script>insertTreeList('AF1', '', '270px')</script>
+		</div>
 
-<table border=0><tr height=8><td/></tr>
-</table>
+		<table border=0>
+			<tr height=8>
+				<td />
+			</tr>
+		</table>
 
-<table cols=3 border=0 width=100%>
-<col valign=top width=90>
-<col width=250>
-<col>
-<tr>
-<td align=center><img src='res/how.bmp'></td>
-<td><b>方式二. 表头、数据行都折行显示</b></td><td> 操作提示：可随意拖动列到其它列的上方、下方、左侧、右侧，并且也不影响排序、以树展示。</td></tr>
-</table>
-<div style="position:relative;width:97%">
-	<script>insertTreeList('AF2', '', 250)</script>
-</div>
+		<table cols=3 border=0 width=100%>
+			<col valign=top width=90>
+			<col width=250>
+			<col>
+			<tr>
+				<td align=center><img src='res/how.bmp'></td>
+				<td><b>方式二. 表头、数据行都折行显示</b></td>
+				<td>操作提示：可随意拖动列到其它列的上方、下方、左侧、右侧，并且也不影响排序、以树展示。</td>
+			</tr>
+		</table>
+		<div style="position: relative; width: 97%">
+			<script>insertTreeList('AF2', '', 250)</script>
+		</div>
 
 
 
-<!--  以下为技术分析区 -->
-<br><br><br>
-<table border=0 cols=1 border=0 width=97% style='line-height:21px'>
-<tr><td><img src='res/tech.jpg'></td></tr><tr><td>
-<b>1</b>.这2个Treelist的XML描述文件是在前面的demo基础上稍作修改的，分别为<a href="treelist/t3_1.xml" target=_blank>t3_1.xml</a>、<a href="treelist/t3_2.xml" target=_blank>t3_2.xml</a>. 填入了TSV-EX格式的<a href="treelistdata/data60.tsv-ex.txt" target=_blank>数据</a>.<br>
-<b>2</b>.第一个XML描述文件，表头分组的诀窍在于&lt;Group&gt;，&lt;Group&gt;可以层层相套、级次自定，并可包含&lt;col&gt;，或与&lt;col&gt;并列：<br>
-<pre class='xml'>
+		<!--  以下为技术分析区 -->
+		<br>
+		<br>
+		<br>
+		<table border=0 cols=1 border=0 width=97% style='line-height: 21px'>
+			<tr>
+				<td><img src='res/tech.jpg'></td>
+			</tr>
+			<tr>
+				<td><b>1</b>.这2个Treelist的XML描述文件是在前面的demo基础上稍作修改的，分别为<a
+					href="treelist/t3_1.xml" target=_blank>t3_1.xml</a>、<a
+					href="treelist/t3_2.xml" target=_blank>t3_2.xml</a>. 填入了TSV-EX格式的<a
+					href="treelistdata/data60.tsv-ex.txt" target=_blank>数据</a>.<br>
+					<b>2</b>.第一个XML描述文件，表头分组的诀窍在于&lt;Group&gt;，&lt;Group&gt;可以层层相套、级次自定，并可包含&lt;col&gt;，或与&lt;col&gt;并列：<br>
+					<pre class='xml'>
 //底色改为白色、表头改为浅灰单色
 &lt;Properties Title="订单明细表" bgColor="white" headerColor="#f0f0f0"&gt;&lt;/Properties&gt;
 &lt;Fonts&gt;
@@ -89,23 +111,23 @@
     &lt;Col name="ShipCity" width="130"&gt;城市&lt;/Col&gt;
     &lt;Col name="ShipAddress" width="240"&gt;地址&lt;/Col&gt;
   &lt;/Group&gt;
-&lt;/Cols&gt;</pre>
-<b>3</b>.第二个XML描述文件，分层的诀窍在于"atLayer"属性，表示处于第几层：<br>
-<pre class='xml'>
+&lt;/Cols&gt;</pre> <b>3</b>.第二个XML描述文件，分层的诀窍在于"atLayer"属性，表示处于第几层：<br> <pre
+						class='xml'>
 &lt;Cols&gt;
  ...
  &lt;Col name="ShipName" width="240" <font color=red>atlayer</font>="1"&gt;船名&lt;/Col&gt;
  &lt;Col name="ShipCity" width="130" <font color=red>atlayer</font>="1"&gt;城市&lt;/Col&gt;
  &lt;Col name="ShipAddress" width="340" <font color=red>atlayer</font>="1"&gt;地址&lt;/Col&gt;
-&lt;/Cols&gt;</pre>
-</td></tr></table>
-<br><br>
+&lt;/Cols&gt;</pre></td>
+			</tr>
+		</table>
+		<br>
+		<br>
 
-<table border=0 cols=1 border=0 width=97% style='line-height:21px'>
-<tr><td>
-<b>4.Group 的 Id 的用途</b><br>
-　　假如某个&lt;group&gt; 含有id，例如：<br>
-<pre class='xml'>
+		<table border=0 cols=1 border=0 width=97% style='line-height: 21px'>
+			<tr>
+				<td><b>4.Group 的 Id 的用途</b><br> 假如某个&lt;group&gt; 含有id，例如：<br>
+					<pre class='xml'>
 &lt;Cols&gt;
   ...
   &lt;Group <font color=red>id="dts"</font> title="日期"&gt;
@@ -114,8 +136,8 @@
   &lt;/Group&gt;
   ...
 &lt;/Cols&gt;</pre>
-　　那么它加载的XML格式数据，允许直接采用分组名“dts”来代替它下属的“OrderDate”和“RequiredDate”， 数据默认以斜杠("/")分隔下属的各个列，例如：<br>
-<pre class='xml'>
+					那么它加载的XML格式数据，允许直接采用分组名“dts”来代替它下属的“OrderDate”和“RequiredDate”，
+					数据默认以斜杠("/")分隔下属的各个列，例如：<br> <pre class='xml'>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;table&gt;
  &lt;row&gt;
@@ -138,16 +160,17 @@
   &lt;ShipCity&gt;Munster&lt;/ShipCity&gt;
   &lt;ShipAddress&gt;Luisenstr. 48&lt;/ShipAddress&gt;
  &lt;/row&gt;
- ...</pre>
-　　这是采用了这种方式的实例(<a href="treelist/t3_3.xml" target=_blank>xml模版文件</a>、<a href="treelistdata/data-group.xml" target=_blank>xml数据</a>)：<br>
-</td></tr>
-</table>
-<div style="position:relative;width:97%">
-	<script>insertTreeList('AF3', '', 200)</script>
-</div>
+ ...</pre> 这是采用了这种方式的实例(<a href="treelist/t3_3.xml" target=_blank>xml模版文件</a>、<a
+					href="treelistdata/data-group.xml" target=_blank>xml数据</a>)：<br>
+				</td>
+			</tr>
+		</table>
+		<div style="position: relative; width: 97%">
+			<script>insertTreeList('AF3', '', 200)</script>
+		</div>
 
-<br>
-</center>
+		<br>
+	</center>
 </body>
 <script type='text/javascript' src='res/nstd.js'></script>
 </html>

@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--By Supcan TreeList -->
 <TreeList>
-	<Properties editAble="true" rowHeight="22" addRowAble="false" ListTreeSwitchAble="false" sortAble="false" >
+	<Properties editAble="true" rowHeight="22" addRowAble="false"
+		ListTreeSwitchAble="false" sortAble="false">
 		<expresses>
 			<express>sumje = j1 + j2 + j3 + j4</express>
 		</expresses>
@@ -9,7 +10,8 @@
 	<Cols>
 		<Col name="fl" VColSep="/" editable="false" align="center">统计范围</Col>
 		<group name="资金计划">
-			<col name="status" vcolSep="/" width="200" editAble="false" align="center">资金状况</col>
+			<col name="status" vcolSep="/" width="200" editAble="false"
+				align="center">资金状况</col>
 			<Col name="sumje" editable="false" datatype="double" decimal="2">资金总额</Col>
 			<group name="2011年度">
 				<Col name="j1" datatype="double" decimal="2">一季度</Col>

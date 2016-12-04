@@ -1,96 +1,191 @@
-﻿&lt;%@ Page Language="C#" %&gt;<br>
-&lt;%@ Import namespace="System" %&gt;<br>
-&lt;%@ Import namespace="System.Data" %&gt;<br>
-&lt;%@ Import namespace="System.IO" %&gt;<br>
-&lt;%@ Import namespace="System.Threading" %&gt;<br>
-&lt;script language="C#" runat="server"&gt;<br>
-	static String [] arrField = {"kmdm", "kmmc", "jd", "qcye", "jfe", "dfe"};<br>
-	static String [] arrField_PID = {"id", "kmmc", "jd", "qcye", "jfe", "dfe"};<br>
-	static String [] arrData = {<br>
-"101	现金	1	392093.12	223399.1	98300",<br>
-"102	银行存款	1",<br>
-"10201	招商银行	1	339888.23		200000",<br>
-"10202	工商银行	1",<br>
-"1020201	工商银行垭口支行	1	209000	200000",<br>
-"1020202	工商银行柳沿支行	1	1000	20000.23",<br>
-"141	长期投资	1",<br>
-"14101	乡村基地项目	1	482025.06",<br>
-"14102	合作社项目	1	100000.00		20220",<br>
-"201	短期借款	2",<br>
-"20101	农经站	2	80000.00		39300",<br>
-"20105	员工借款	2",<br>
-"2010501	农经部	2",<br>
-"201050101	章军	2	100	2000",<br>
-"201050102	盛科	2	3092.02		2000",<br>
-"201050103	高俊杰	2",<br>
-"2010502	维修部	2",<br>
-"201050201	张思亮	2	30000		30000",<br>
-"201050202	陈倩倩	2	200	100",<br>
-"2010503	综合部	2",<br>
-"541	管理费用	3",<br>
-"54101	干部报酬	3		451660.00",<br>
-"54102	办公费	3		12255.30"<br>
-};<br>
+&lt;%@ Page Language="C#" %&gt;
 <br>
-public void Page_Load(Object sender, EventArgs e) {<br>
-　　Response.ContentType = "text/xml";<br>
-　　String url = HttpContext.Current.Request.Url.OriginalString;<br>
-　　int i = url.IndexOf('?');<br>
-　　if(i &gt; 0) url = url.Substring(0, i);<br>
+&lt;%@ Import namespace="System" %&gt;
 <br>
-　　String format = Request.Params["format"];<br>
-　　String kmdm = Request.Params["kmdm"];<br>
-　　int leftLen = (kmdm == null) ? 0 : kmdm.Length;<br>
-　　if(leftLen&gt;0) Thread.Sleep(500);  //故意延缓0.5秒响应<br>
+&lt;%@ Import namespace="System.Data" %&gt;
 <br>
-　　Response.Write("&lt;records&gt;");<br>
-　　int rows = arrData.Length;<br>
-　　for(i=0; i&lt;rows; i++) {<br>
-　　　　String [] arr = arrData[i].Split('\t');<br>
-　　　　if(leftLen == 0) {<br>
-　　　　　　if(arr[0].Length != 3) continue;<br>
-　　　　}<br>
-　　　　else {<br>
-　　　　　　if(arr[0].Length != leftLen+2) continue;<br>
-　　　　　　if(!arr[0].StartsWith(kmdm)) continue;<br>
-　　　　}<br>
+&lt;%@ Import namespace="System.IO" %&gt;
 <br>
-　　　　//main: 3种format<br>
-　　　　if(format == "byid") {<br>
-　　　　　　Response.Write("&lt;record&gt;");<br>
-　　　　　　for(int j=0; j&lt;6; j++) {<br>
-　　　　　　　　if(j &gt;= arr.Length) break;<br>
-　　　　　　　　Response.Write("&lt;" +arrField[j]+ "&gt;" +arr[j]+ "&lt;/" +arrField[j]+ "&gt;");<br>
-　　　　　　}<br>
-　　　　　　Response.Write("&lt;/record&gt;");<br>
-　　　　}<br>
-　　　　else if(format == "bypid") {<br>
-　　　　　　Response.Write("&lt;record ");<br>
-　　　　　　for(int j=0; j&lt;6; j++) {<br>
-　　　　　　　　if(j &gt;= arr.Length) break;<br>
-　　　　　　　　Response.Write(arrField_PID[j]+ "='" +arr[j]+ "' ");<br>
-　　　　　　}<br>
-　　　　　　if(leftLen &gt; 0) Response.Write("pid='" +kmdm+ "'");<br>
-　　　　　　Response.Write("/&gt;");<br>
-　　　　}<br>
-　　　　else if(format == "bydata") {<br>
-　　　　　　Response.Write("&lt;record ");<br>
-　　　　　　for(int j=0; j&lt;6; j++) {<br>
-　　　　　　　　if(j &gt;= arr.Length) break;<br>
-　　　　　　　　Response.Write(arrField[j]+ "='" +arr[j]+ "' ");<br>
-　　　　　　}<br>
-　　　　　　if(i &lt; rows-1) {<br>
-　　　　　　　　String ID = arr[0];<br>
-　　　　　　　　arr = arrData[i+1].Split('\t');<br>
-　　　　　　　　if(arr[0].StartsWith(ID)) {<br>
-　　　　　　　　　　String s = "LazyLoad='" +url + "?format=bydata&amp;kmdm=" + ID + "'";<br>
-　　　　　　　　　　Response.Write(s);<br>
-　　　　　　　　}<br>
-　　　　　　}<br>
-　　　　　　Response.Write("/&gt;");<br>
-　　　　}<br>
-　　}<br>
-　　Response.Write("&lt;/records&gt;");<br>
-　　Response.End();<br>
-}<br>
-&lt;/script&gt;<br>
+&lt;%@ Import namespace="System.Threading" %&gt;
+<br>
+&lt;script language="C#" runat="server"&gt;
+<br>
+static String [] arrField = {"kmdm", "kmmc", "jd", "qcye", "jfe",
+"dfe"};
+<br>
+static String [] arrField_PID = {"id", "kmmc", "jd", "qcye", "jfe",
+"dfe"};
+<br>
+static String [] arrData = {
+<br>
+"101 �ֽ� 1 392093.12 223399.1 98300",
+<br>
+"102 ���д�� 1",
+<br>
+"10201 �������� 1 339888.23 200000",
+<br>
+"10202 �������� 1",
+<br>
+"1020201 �����������֧�� 1 209000 200000",
+<br>
+"1020202 ������������֧�� 1 1000 20000.23",
+<br>
+"141 ����Ͷ�� 1",
+<br>
+"14101 ��������Ŀ 1 482025.06",
+<br>
+"14102 ��������Ŀ 1 100000.00 20220",
+<br>
+"201 ���ڽ�� 2",
+<br>
+"20101 ũ��վ 2 80000.00 39300",
+<br>
+"20105 Ա����� 2",
+<br>
+"2010501 ũ���� 2",
+<br>
+"201050101 �¾� 2 100 2000",
+<br>
+"201050102 ʢ�� 2 3092.02 2000",
+<br>
+"201050103 �߿��� 2",
+<br>
+"2010502 ά�޲� 2",
+<br>
+"201050201 ��˼�� 2 30000 30000",
+<br>
+"201050202 ��ٻٻ 2 200 100",
+<br>
+"2010503 �ۺϲ� 2",
+<br>
+"541 �������� 3",
+<br>
+"54101 �ɲ����� 3 451660.00",
+<br>
+"54102 �칫�� 3 12255.30"
+<br>
+};
+<br>
+<br>
+public void Page_Load(Object sender, EventArgs e) {
+<br>
+Response.ContentType = "text/xml";
+<br>
+String url = HttpContext.Current.Request.Url.OriginalString;
+<br>
+int i = url.IndexOf('?');
+<br>
+if(i &gt; 0) url = url.Substring(0, i);
+<br>
+<br>
+String format = Request.Params["format"];
+<br>
+String kmdm = Request.Params["kmdm"];
+<br>
+int leftLen = (kmdm == null) ? 0 : kmdm.Length;
+<br>
+if(leftLen&gt;0) Thread.Sleep(500); //�����ӻ�0.5����Ӧ
+<br>
+<br>
+Response.Write("&lt;records&gt;");
+<br>
+int rows = arrData.Length;
+<br>
+for(i=0; i&lt;rows; i++) {
+<br>
+String [] arr = arrData[i].Split('\t');
+<br>
+if(leftLen == 0) {
+<br>
+if(arr[0].Length != 3) continue;
+<br>
+}
+<br>
+else {
+<br>
+if(arr[0].Length != leftLen+2) continue;
+<br>
+if(!arr[0].StartsWith(kmdm)) continue;
+<br>
+}
+<br>
+<br>
+//main: 3��format
+<br>
+if(format == "byid") {
+<br>
+Response.Write("&lt;record&gt;");
+<br>
+for(int j=0; j&lt;6; j++) {
+<br>
+if(j &gt;= arr.Length) break;
+<br>
+Response.Write("&lt;" +arrField[j]+ "&gt;" +arr[j]+ "&lt;/"
++arrField[j]+ "&gt;");
+<br>
+}
+<br>
+Response.Write("&lt;/record&gt;");
+<br>
+}
+<br>
+else if(format == "bypid") {
+<br>
+Response.Write("&lt;record ");
+<br>
+for(int j=0; j&lt;6; j++) {
+<br>
+if(j &gt;= arr.Length) break;
+<br>
+Response.Write(arrField_PID[j]+ "='" +arr[j]+ "' ");
+<br>
+}
+<br>
+if(leftLen &gt; 0) Response.Write("pid='" +kmdm+ "'");
+<br>
+Response.Write("/&gt;");
+<br>
+}
+<br>
+else if(format == "bydata") {
+<br>
+Response.Write("&lt;record ");
+<br>
+for(int j=0; j&lt;6; j++) {
+<br>
+if(j &gt;= arr.Length) break;
+<br>
+Response.Write(arrField[j]+ "='" +arr[j]+ "' ");
+<br>
+}
+<br>
+if(i &lt; rows-1) {
+<br>
+String ID = arr[0];
+<br>
+arr = arrData[i+1].Split('\t');
+<br>
+if(arr[0].StartsWith(ID)) {
+<br>
+String s = "LazyLoad='" +url + "?format=bydata&amp;kmdm=" + ID + "'";
+<br>
+Response.Write(s);
+<br>
+}
+<br>
+}
+<br>
+Response.Write("/&gt;");
+<br>
+}
+<br>
+}
+<br>
+Response.Write("&lt;/records&gt;");
+<br>
+Response.End();
+<br>
+}
+<br>
+&lt;/script&gt;
+<br>

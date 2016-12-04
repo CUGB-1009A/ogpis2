@@ -4,10 +4,13 @@
 <link rel="stylesheet" href="temp1.css" type="text/css">
 </head>
 <body bgcolor=#ffffff vlink=#0000ff>
-<br>
-<p class="sz1">3.Load的数据格式</p><hr color=#2266ee size=1>
-　　Chart组件除了用AddSeries( )函数设置数据，也可以用Load( )函数一次性加载数据，数据的格式必须是XML或JSON格式，比如:<br>
-<pre class='xml'>
+	<br>
+	<p class="sz1">3.Load的数据格式</p>
+	<hr color=#2266ee size=1>
+	Chart组件除了用AddSeries( )函数设置数据，也可以用Load(
+	)函数一次性加载数据，数据的格式必须是XML或JSON格式，比如:
+	<br>
+	<pre class='xml'>
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;root&gt;
  &lt;serieses&gt;
@@ -25,16 +28,18 @@
   &lt;/series&gt;
  &lt;/serieses&gt;
 &lt;/root&gt;</pre>
-　　该例子有2个系列，数据项ID是城市.  如果采用JSON格式，则应该是类似这样的：<br>
-<pre class='xml'>
+	该例子有2个系列，数据项ID是城市. 如果采用JSON格式，则应该是类似这样的：
+	<br>
+	<pre class='xml'>
 [
  {"series":"一季度", "data":{"北京市":3902, "沈阳市":1080} },
  {"series":"二季度", "data":{"北京市":1902, "沈阳市":80} }
 ]</pre>
-<br>
-　　这例子比较简单，更复杂的例子请看 <a href="chartdata.xml" target=_blank>chartdata.xml</a>. <br>
-　　XML数据的书写规则如下：<br>
-<pre class='xml'>
+	<br> 这例子比较简单，更复杂的例子请看
+	<a href="chartdata.xml" target=_blank>chartdata.xml</a>.
+	<br> XML数据的书写规则如下：
+	<br>
+	<pre class='xml'>
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;root&gt;
  &lt;!-- Properties是可选的节点，用于设定统计图的外观  --&gt;
@@ -61,9 +66,9 @@
   &lt;/series&gt;
  &lt;/serieses&gt;
 &lt;/root&gt;</pre>
-<br>
-　　如果采用JSON, 则应该类似如下：<br>
-<pre class='xml'>
+	<br> 如果采用JSON, 则应该类似如下：
+	<br>
+	<pre class='xml'>
 {"properties": {"chart":"bar", "Caption":"上半年各市销售额(万元)", "itemtext": {"city1":"合肥市", "city2":"哈尔滨市"} } },
 {"serieses":
  [
@@ -71,8 +76,11 @@
   {"series":"二季度", "data": {"city1":3112, "city2":5000}, "chart":"line" }
  ]
 }</pre>
-<br>
+	<br>
 
-<br><br><br>
-<script type='text/javascript' src='nstd.js'></script>
-</body></html>
+	<br>
+	<br>
+	<br>
+	<script type='text/javascript' src='nstd.js'></script>
+</body>
+</html>

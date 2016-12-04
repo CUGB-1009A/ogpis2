@@ -1,24 +1,24 @@
-锘�<html>
+<html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=GB2312">
 <link rel="stylesheet" href="../res/temp1.css" type="text/css">
 </head>
 
 <body vlink=#0000ff link=#0000ff>
-<pre class='cpp'>
+	<pre class='cpp'>
 &lt;%@ Page Language="C#" %&gt;
 &lt;%@ Import namespace="System" %&gt;
 &lt;%@ Import namespace="System.Data" %&gt;
 &lt;%@ Import namespace="System.IO" %&gt;
 &lt;script language="C#" runat="server"&gt;
-//鐢ㄦ暟缁勬ā鎷熸暟鎹簱
+//用数组模拟数据库
 	String [] arrCustomer = {
 "ALFKI	Alfreds Futterkiste	Maria Anders	Germany	Berlin	Obere Str. 57	030-0074321",
 "ANATR	Ana Trujillo Emparedados y helados	Ana Trujillo	Mexico	Mexico D.F.	Avda. de la Constitucion 2222	(5) 555-4729",
-"ANTON	Antonio Moreno Taquer铆a	Antonio Moreno	Mexico	Mexico D.F.	Mataderos  2312	(5) 555-3932",
+"ANTON	Antonio Moreno Taquería	Antonio Moreno	Mexico	Mexico D.F.	Mataderos  2312	(5) 555-3932",
 "AROUT	Around the Horn	Thomas Hardy	UK	London	120 Hanover Sq.	(171) 555-7788",
 "BERGS	Berglunds snabbkp	Christina Berglund	Sweden	Lule	Berguvsvgen  8	0921-12 34 65",
-...(鐣�)
+...(略)
 };
 
 public void Page_Load(Object sender, EventArgs e) {

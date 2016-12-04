@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--By Supcan TreeList -->
 <TreeList>
-	<Properties editAble="true" rowHeight="22" addRowAble="false" FadeInStep="0"></Properties>
+	<Properties editAble="true" rowHeight="22" addRowAble="false"
+		FadeInStep="0"></Properties>
 	<Cols>
 		<Col name="productID" align="center" editable="false">物料代码</Col>
 		<Col name="provId" edittype="Droplist" droplistID="drop_prov">省份</Col>
 		<Col name="cityId" edittype="Droptreelist" droplistID="drop_city">城市</Col>
-		<Col name="num"  datatype="double" decimal="2">发货数量</Col>
-		<Col name="by1"  edittype="radio" datatype="int">海运</Col>
-		<Col name="by2"  edittype="radio" datatype="int">空运</Col>
+		<Col name="num" datatype="double" decimal="2">发货数量</Col>
+		<Col name="by1" edittype="radio" datatype="int">海运</Col>
+		<Col name="by2" edittype="radio" datatype="int">空运</Col>
 	</Cols>
 	<DropLists>
 		<Droplist id="drop_prov">
@@ -17,7 +18,8 @@
 			<item key="3">福建省</item>
 			<item key="4">江苏省</item>
 		</Droplist>
-		<Droplist id="drop_city" treelistURL="prov_city.xml" DataCol="cityId" DisplayCol="cityText"/>
+		<Droplist id="drop_city" treelistURL="prov_city.xml" DataCol="cityId"
+			DisplayCol="cityText" />
 	</DropLists>
 	<Table>
 		<TR>
