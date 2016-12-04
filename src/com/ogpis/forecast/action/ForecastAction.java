@@ -2,6 +2,7 @@ package com.ogpis.forecast.action;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ogpis.forecast.entity.DataCollection;
 import com.ogpis.forecast.entity.ModelInfo;
 import com.ogpis.forecast.entity.PEM;
+import com.ogpis.forecast.entity.PeriodDefinition;
 import com.ogpis.forecast.parameter.InputParameter;
 import com.ogpis.forecast.parameter.OutputParameter;
 import com.ogpis.forecast.service.DataCollectionService;
 import com.ogpis.forecast.service.ModelInfoService;
+import com.ogpis.forecast.service.PeriodDefinitionService;
 import com.ogpis.forecast.util.ForecastUtil;
 
 @Controller
@@ -30,6 +33,8 @@ public class ForecastAction {
 	private DataCollectionService dataCollectionService;
 	@Autowired 
 	private ModelInfoService modelInfoService;
+	@Autowired 
+	private PeriodDefinitionService periodDefinitionService;
 	
 	@RequestMapping(value = "/forecast")
 	public String demo(HttpServletRequest request, ModelMap model) {
@@ -61,6 +66,14 @@ public class ForecastAction {
 			List<DataCollection> dataCollectionList= dataCollectionService.findByDataCollectionType(dataCollectionType);
 			List<ModelInfo> modelInfoList =  dataCollectionList.get(0).getModelInfo();
 			List<PEM> pemList = modelInfoList.get(0).getPem();
+			List<PeriodDefinition> periodIntervalList = periodDefinitionService.findAll();
+			//将数据集转为map的形式，key为年份，value为具体的值,假定数据集为1949--2014年产量随机数据,其中1949、2015和数据集是通过服务接口取得的
+			LinkedHashMap dataCollectionMap = new LinkedHashMap();
+			for(int i=1949;i<2015;i++){
+				dataCollectionMap.put(i+"",Math.round(i*Math.random()));
+			}
+			model.addAttribute("periodIntervalList",periodIntervalList);
+			model.addAttribute("dataCollectionMap",dataCollectionMap);
 			model.addAttribute("dataCollectionList", dataCollectionList);
 			model.addAttribute("modelInfoList", modelInfoList);
 			model.addAttribute("pemList", pemList);
