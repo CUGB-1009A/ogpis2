@@ -7,12 +7,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>123</title>
  	<link rel="stylesheet" type="text/css" href="<%=path%>/thirdParty/easyui/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="<%=path%>thirdParty/easyui/themes/icon.css">
-    <link rel="stylesheet" href="<%=path%>css/base.css"/>
-    <link rel="stylesheet" href="<%=path%>css/style.css"/>
-    <script src="<%=path%>thirdParty/jquery/jquery-1.9.1.min.js"></script>
-    <script src="<%=path%>thirdParty/easyui/jquery.easyui.min.js"></script>
-    <script src="<%=path%>thirdParty/easyui/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=path%>/thirdParty/easyui/themes/icon.css">
+    <link rel="stylesheet" href="<%=path%>/css/base.css"/>
+    <link rel="stylesheet" href="<%=path%>/css/style.css"/>
+    <script src="<%=path%>/thirdParty/jquery/jquery-1.9.1.min.js"></script>
+    <script src="<%=path%>/thirdParty/easyui/jquery.easyui.min.js"></script>
+    <script src="<%=path%>/thirdParty/easyui/easyui-lang-zh_CN.js"></script>
 </head>
 <body>
 	<div style="width:20%;height:50%;float:left;">
@@ -57,6 +57,9 @@
 						
 					</select><br>
 				长中短：
+					<c:forEach items="${periodIntervalList}" var="item">
+						<input name="periodInterval" type="radio" value="${item.periodInterval}"/>${item.periodName}
+					</c:forEach>
 				<%-- 拟合参数：<br>
 				<c:forEach items="${modelParam}" var="item">
 					${item}: <input>
