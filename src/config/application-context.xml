@@ -45,6 +45,7 @@
 		<property name="packagesToScan">
 			<list>
 				<value>com.ogpis.demo.entity</value>
+				<value>com.ogpis.forecast.entity</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

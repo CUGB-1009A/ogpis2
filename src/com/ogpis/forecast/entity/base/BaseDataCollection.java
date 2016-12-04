@@ -1,6 +1,8 @@
 package com.ogpis.forecast.entity.base;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -25,9 +27,9 @@ public class BaseDataCollection extends BaseEntity{
 	@Column(name = "数据集类别")
 	private String dataCollectionType;
 	
-	@ManyToMany(targetEntity = ModelInfo.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = ModelInfo.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "ogpis_DataCollection_ModelInfo", joinColumns = @JoinColumn(name = "DataCollection_ID"), inverseJoinColumns = @JoinColumn(name = "ModelInfo_ID"))
-	protected Set<ModelInfo> modelInfo = new HashSet<ModelInfo>();
+	protected List<ModelInfo> modelInfo = new ArrayList<ModelInfo>();
 
 	public String getDataCollectionName() {
 		return dataCollectionName;
@@ -53,11 +55,11 @@ public class BaseDataCollection extends BaseEntity{
 		this.dataCollectionType = dataCollectionType;
 	}
 
-	public Set<ModelInfo> getModelInfo() {
+	public List<ModelInfo> getModelInfo() {
 		return modelInfo;
 	}
 
-	public void setModelInfo(Set<ModelInfo> modelInfo) {
+	public void setModelInfo(List<ModelInfo> modelInfo) {
 		this.modelInfo = modelInfo;
 	}
 	

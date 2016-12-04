@@ -1,6 +1,8 @@
 package com.ogpis.forecast.entity.base;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,9 +20,9 @@ public class BasePEM extends BaseEntity{
 	@Column(name = "参数拟合方法名")
 	private String pemName;
 	
-	@ManyToMany(targetEntity = ModelInfo.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = ModelInfo.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "ogpis_ModelInfo_PEM", joinColumns = @JoinColumn(name = "PEM_ID"), inverseJoinColumns = @JoinColumn(name = "ModelInfo_ID"))
-	protected Set<ModelInfo> modelInfo = new HashSet<ModelInfo>();
+	protected List<ModelInfo> modelInfo = new ArrayList<ModelInfo>();
 
 	public String getPemName() {
 		return pemName;
@@ -30,11 +32,11 @@ public class BasePEM extends BaseEntity{
 		this.pemName = pemName;
 	}
 
-	public Set<ModelInfo> getModelInfo() {
+	public List<ModelInfo> getModelInfo() {
 		return modelInfo;
 	}
 
-	public void setModelInfo(Set<ModelInfo> modelInfo) {
+	public void setModelInfo(List<ModelInfo> modelInfo) {
 		this.modelInfo = modelInfo;
 	}
 }

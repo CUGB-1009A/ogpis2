@@ -2,21 +2,35 @@ package com.ogpis.forecast.action;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ogpis.forecast.entity.DataCollection;
+import com.ogpis.forecast.entity.ModelInfo;
+import com.ogpis.forecast.entity.PEM;
 import com.ogpis.forecast.parameter.InputParameter;
 import com.ogpis.forecast.parameter.OutputParameter;
+import com.ogpis.forecast.service.DataCollectionService;
+import com.ogpis.forecast.service.ModelInfoService;
 import com.ogpis.forecast.util.ForecastUtil;
 
 @Controller
 public class ForecastAction {
+	
+	@Autowired 
+	private DataCollectionService dataCollectionService;
+	@Autowired 
+	private ModelInfoService modelInfoService;
+	
 	@RequestMapping(value = "/forecast")
 	public String demo(HttpServletRequest request, ModelMap model) {
 		System.out.println("forecast");
@@ -36,12 +50,20 @@ public class ForecastAction {
 			 *第三步，看每个具体预测项可以用到的模型，把第一个可用模型作为默认值放入select中
 			 *第四步，看每个模型具体用到的参数拟合方法，把第一个拟合方法作为默认值放入select中，
 			 *第五步，查看该模型用到的
-*/			Map modelInfo = ForecastUtil.getModelInfo(
+*/			/*Map modelInfo = ForecastUtil.getModelInfo(
 				ForecastUtil.getForecastModelInfo("Poisson.JarName"),
 				ForecastUtil.getForecastModelInfo("Poisson.ClassName"));
 				String[] modelParam = modelInfo.get("modelParam").toString().split(";");
 				model.addAttribute("modelParam", modelParam);
-				System.out.println(modelParam);
+				System.out.println(modelParam);*/
+			String dataCollectionType = request.getParameter("dataCollectionType");
+			System.out.println(dataCollectionType);
+			List<DataCollection> dataCollectionList= dataCollectionService.findByDataCollectionType(dataCollectionType);
+			List<ModelInfo> modelInfoList =  dataCollectionList.get(0).getModelInfo();
+			List<PEM> pemList = modelInfoList.get(0).getPem();
+			model.addAttribute("dataCollectionList", dataCollectionList);
+			model.addAttribute("modelInfoList", modelInfoList);
+			model.addAttribute("pemList", pemList);
 			return "forecast/output";
 		}
 	
@@ -60,15 +82,13 @@ public class ForecastAction {
 				ForecastUtil.getForecastModelInfo(modelName+".ClassName"));
 		//model.addAttribute("modelInfo", modelInfo);
 		InputParameter input = new InputParameter();
-		input.setBeginYear(historyBeginYear);
-		input.setEndYear(historyEndYear);
+	
 		input.setPEM(PEM);
 		/*double[][] temp = new double[input.getVarNum()][input.getEndYear()-input.getBeginYear()+1];*/
 		double[][] temp = null; //获取历史数据
 		input.setHistoryData(temp);
 		OutputParameter output = new OutputParameter();
-		output.setBeginYear(futureBeginYear);
-		output.setEndYear(futureEndYear);
+		
 		output.setOutput(ForecastUtil.compute(modelName+".JarName", modelName+".ClassName", input).getOutput());
 		output.getOutput();
 		
@@ -96,4 +116,63 @@ public class ForecastAction {
 		model.addAttribute("modelInfo", modelInfo);
 		return "forecast/storage";
 	}
+	
+	//数据集改变了，对应模型得变，对应模型的参数拟合方法得变，对应数据起始终止年份得变化
+	@RequestMapping(value = "/forecast/dataCollectionChanged")
+	public void dataCollectionChanged(HttpServletRequest request, ModelMap model,HttpServletResponse response) {
+		String dataCollectionId = request.getParameter("dataCollectionId");
+		DataCollection dataCollection = dataCollectionService.findById(dataCollectionId);
+		List<ModelInfo> modelInfoList = dataCollection.getModelInfo();
+		List<PEM> pemList = modelInfoList.get(0).getPem();
+		StringBuilder result = new StringBuilder(); 
+		result.append("{\"model\":[");
+		for(ModelInfo tempModel:modelInfoList)
+		{
+			result.append("{\"name\":\""+tempModel.getModelName()+"\",\"id\":\""+tempModel.getId()+"\"},");
+		}
+		result.deleteCharAt(result.length()-1);
+		result.append("],");
+		result.append("\"pem\":[");
+		for(PEM tempPEM:pemList)
+		{
+			result.append("{\"name\":\""+tempPEM.getPemName()+"\",\"id\":\""+tempPEM.getId()+"\"},");
+		}
+		result.deleteCharAt(result.length()-1);
+		result.append("]}");
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("utf-8");
+		try {
+			response.getWriter().write(result.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+		
+		//模型变了，对应模型的参数拟合方法得变，对应数据起始终止年份得变化
+		@RequestMapping(value = "/forecast/modelChanged")
+		public void modelChanged(HttpServletRequest request, ModelMap model,HttpServletResponse response) {
+			String modelId = request.getParameter("modelId");
+			ModelInfo modelInfo = modelInfoService.findById(modelId);
+			List<PEM> pemList = modelInfo.getPem();
+			StringBuilder result = new StringBuilder(); 
+			result.append("{\"pem\":[");
+			for(PEM tempPEM:pemList)
+			{
+				result.append("{\"name\":\""+tempPEM.getPemName()+"\",\"id\":\""+tempPEM.getId()+"\"},");
+			}
+			result.deleteCharAt(result.length()-1);
+			result.append("]}");
+			System.out.println(result);
+			response.setContentType("application/json");
+		    response.setCharacterEncoding("utf-8");
+			try {
+				response.getWriter().write(result.toString());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
 }

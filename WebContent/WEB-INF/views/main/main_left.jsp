@@ -20,10 +20,10 @@
 		<div title="趋势预测分析" iconCls="icon-reload" style="overflow:auto; padding:10px; height:100%;" selected="true" class="easyui-accordion" fit="true" border="false">
 		<ul>
 			<li>
-				<span><a href="<%=path%>/forecast/storagePrediction" target=main_center>储量产测</a></span>
+				<span><a href="<%=path%>/forecast/storagePrediction?dataCollectionType=storage" target=main_center>储量产测</a></span>
 			</li>
 			<li>
-				<span><a href="<%=path%>/forecast/toOutputPredictionPage" target=main_center>产量预测</a></span>
+				<span><a href="<%=path%>/forecast/toOutputPredictionPage?dataCollectionType=output" target=main_center>产量预测</a></span>
 			</li>
 		</ul>
 	</div>

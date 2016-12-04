@@ -1,6 +1,8 @@
 package com.ogpis.forecast.entity.base;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -26,13 +28,13 @@ public class BaseModelInfo extends BaseEntity{
 	@Column(name = "类名")
 	private String className;
 	
-	@ManyToMany(targetEntity = DataCollection.class, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = DataCollection.class, fetch = FetchType.LAZY)
 	@JoinTable(name = "ogpis_DataCollection_ModelInfo", joinColumns = @JoinColumn(name = "ModelInfo_ID"), inverseJoinColumns = @JoinColumn(name = "DataCollection_ID"))
-	protected Set<DataCollection> dataCollection = new HashSet<DataCollection>();
+	protected List<DataCollection> dataCollection = new ArrayList<DataCollection>();
 	
-	@ManyToMany(targetEntity = PEM.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = PEM.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "ogpis_ModelInfo_PEM", joinColumns = @JoinColumn(name = "ModelInfo_ID"), inverseJoinColumns = @JoinColumn(name = "PEM_ID"))
-	protected Set<PEM> pem = new HashSet<PEM>();
+	protected List<PEM> pem = new ArrayList<PEM>();
 
 	public String getModelName() {
 		return modelName;
@@ -58,19 +60,19 @@ public class BaseModelInfo extends BaseEntity{
 		this.className = className;
 	}
 
-	public Set<DataCollection> getDataCollection() {
+	public List<DataCollection> getDataCollection() {
 		return dataCollection;
 	}
 
-	public void setDataCollection(Set<DataCollection> dataCollection) {
+	public void setDataCollection(List<DataCollection> dataCollection) {
 		this.dataCollection = dataCollection;
 	}
 
-	public Set<PEM> getPem() {
+	public List<PEM> getPem() {
 		return pem;
 	}
 
-	public void setPem(Set<PEM> pem) {
+	public void setPem(List<PEM> pem) {
 		this.pem = pem;
 	}
 	

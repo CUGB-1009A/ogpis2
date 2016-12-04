@@ -2,9 +2,13 @@ package com.ogpis.forecast.parameter;
 
 public class InputParameter {
 	
-	private int beginYear ;//起始年份
+	private int historyBeginYear ;//历史数据起始年份
 	
-	private int endYear;//结束年份
+	private int historyEndYear;//历史数据结束年份
+	
+	private int futureBeginYear ;//预测的起始年份
+	
+	private int futureEndYear;//预测的结束年份
 	
 	private double historyData[][] ;//历史数据
 	
@@ -12,20 +16,36 @@ public class InputParameter {
 	
 	private int varNum ; //自变量个数
 
-	public int getBeginYear() {
-		return beginYear;
+	public int getHistoryBeginYear() {
+		return historyBeginYear;
 	}
 
-	public void setBeginYear(int beginYear) {
-		this.beginYear = beginYear;
+	public void setHistoryBeginYear(int historyBeginYear) {
+		this.historyBeginYear = historyBeginYear;
 	}
 
-	public int getEndYear() {
-		return endYear;
+	public int getHistoryEndYear() {
+		return historyEndYear;
 	}
 
-	public void setEndYear(int endYear) {
-		this.endYear = endYear;
+	public void setHistoryEndYear(int historyEndYear) {
+		this.historyEndYear = historyEndYear;
+	}
+	
+	public int getFutureBeginYear() {
+		return futureBeginYear;
+	}
+
+	public void setFutureBeginYear(int futureBeginYear) {
+		this.futureBeginYear = futureBeginYear;
+	}
+
+	public int getFutureEndYear() {
+		return futureEndYear;
+	}
+
+	public void setFutureEndYear(int futureEndYear) {
+		this.futureEndYear = futureEndYear;
 	}
 
 	public double[][] getHistoryData() {

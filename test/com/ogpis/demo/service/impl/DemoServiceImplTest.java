@@ -2,6 +2,8 @@ package com.ogpis.demo.service.impl;
 
 import static org.junit.Assert.fail;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ogpis.demo.entity.Demo;
 import com.ogpis.demo.service.DemoService;
+import com.ogpis.forecast.entity.DataCollection;
+import com.ogpis.forecast.entity.ModelInfo;
+import com.ogpis.forecast.service.DataCollectionService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 // 用于配置spring中测试的环境
@@ -19,6 +24,16 @@ public class DemoServiceImplTest {
 
 	@Autowired
 	private DemoService demoService;
+	
+	@Autowired
+	private DataCollectionService dataCollectionService;
+	
+	@Test
+	public void testhaha(){
+		DataCollection dataCollection = dataCollectionService.findById("2");
+		List<ModelInfo> modelInfo = dataCollection.getModelInfo();
+		System.out.println(modelInfo.size());
+	}
 
 	@Test
 	public void testSave() {
