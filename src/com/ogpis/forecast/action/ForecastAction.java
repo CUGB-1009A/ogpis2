@@ -93,7 +93,17 @@ public class ForecastAction {
 		System.out.println("用来预测的数据从"+futureBeginYear+"-----"+futureEndYear);
 		Integer PEMNum = Integer.parseInt(request.getParameter("PEMNum"));	
 		System.out.println("用来拟合参数的方法编号为"+PEMNum);
-		String result = "{\"flag\":\"success\"}";
+		InputParameter input = new InputParameter();
+		
+		//input.setHistoryData(historyData);
+		input.setPEM(PEMNum);
+		input.setFutureBeginYear(futureBeginYear);
+		input.setFutureEndYear(futureEndYear);
+		input.setHistoryBeginYear(historyBeginYear);
+		input.setHistoryEndYear(historyEndYear);
+		OutputParameter output = ForecastUtil.compute(modelInfo.getJarName(), modelInfo.getClassName(), input);
+		System.out.println("Action中的output"+output.getOutput());
+		String result = "{\"output\":"+output.getOutput()+"}";
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("utf-8");
 		try {

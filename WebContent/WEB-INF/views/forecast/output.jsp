@@ -50,8 +50,8 @@
 						
 					</select><br>
 				<input name="timeChoice" type="radio" value="2"/>长中短：
-					<c:forEach items="${periodIntervalList}" var="item">
-						<input name="periodInterval" type="radio" value="${item.periodInterval}"/>${item.periodName}
+					<c:forEach items="${periodIntervalList}" var="item" varStatus="status">
+						<input name="periodInterval" type="radio" value="${item.periodInterval}"<c:if test="${status.first}">checked</c:if>/>${item.periodName}
 					</c:forEach><br>
 				<%-- 拟合参数：<br>
 				<c:forEach items="${modelParam}" var="item">
@@ -85,15 +85,30 @@
 	</div>
 	<div style="width:20%;height:50%;float:left;">
 		<div style="width:100%;height:100%;border-bottom:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;">
-			<div style="padding:10px">
-				拟合参数结果
+			<div style="padding:10px" id="paramDiv">
+				
 			</div>
 		</div>
 	</div>
 	<div style="width:80%;height:50%;float:left;">
 		<div style="width:100%;height:100%;border-bottom:1px solid blue;border-right:1px solid blue;">
-			<div style="padding:10px">
-				预测结果
+			<div class="queryList" style="padding:10px;overflow:auto">
+				<table>
+					<thead>
+						<tr>
+							<th>年份</th>
+							<th>预测结果</th>
+						</tr>
+					</thead>
+					<tbody id="predictResult">
+						<%-- <c:forEach items="${dataCollectionMap}" var="item">
+								<tr class="listTr">
+									<td>${item.key}</td>
+									<td>${item.value}</td>
+								</tr>
+						    </c:forEach> --%>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -204,8 +219,14 @@ function outputPrediction(){
 			"futureBeginYear":futureBeginYear,"futureEndYear":futureEndYear},
 		type:"GET",
 		success:function(result){
-	
-			alert(result.flag);
+			$("#predictResult").empty();
+			for(var i=0;i<result.output.year.length;i++){
+				$("#predictResult").append("<tr><td>"+result.output.year[i]+"</td><td>"+result.output.futureData[i]+"</td></tr>");
+			}	
+			$("#paramDiv").empty();
+			for(var i=0;i<result.output.param.length;i++){
+				$("#paramDiv").append(result.output.param[i]+":<input value='"+result.output.value[i]+"'/><br>")
+			}
 		},
 		error:function(){
 			alert("出意外错误了");

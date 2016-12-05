@@ -18,17 +18,4 @@ public class TestFA implements ForecastModel {
 		// TODO Auto-generated method stub
 		return new OutputParameter();
 	}
-
-	@Override
-	public String getParam() {
-		// TODO Auto-generated method stub
-		return "K;a;b";
-	}
-	
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "TestFA";
-	}
-
 }

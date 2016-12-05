@@ -41,12 +41,12 @@ public class ForecastUtil {
 	public static OutputParameter compute(String jarName, String className,
 			InputParameter input) {
 		try {			
-			URL url1 = new URL(getForecastModelInfo(jarName));
+			URL url1 = new URL(jarName);
 			URLClassLoader myClassLoader1 = new URLClassLoader(
 					new URL[] { url1 }, Thread.currentThread()
 							.getContextClassLoader());
 			Class<?> myClass1 = myClassLoader1
-					.loadClass(getForecastModelInfo(className));
+					.loadClass(className);
 			ForecastModel forecastModel = (ForecastModel) myClass1.newInstance();
 			OutputParameter output = forecastModel.compute(input);
 			System.out.println(output);
