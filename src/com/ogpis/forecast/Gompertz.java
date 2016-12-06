@@ -1,12 +1,12 @@
 package com.ogpis.forecast;
 
 import java.util.LinkedHashMap;
+
 import com.ogpis.forecast.parameter.InputParameter;
 import com.ogpis.forecast.parameter.OutputParameter;
 
-public class Poisson implements ForecastModel {
-
-
+public class Gompertz implements ForecastModel{
+	
 	@Override
 	public String test() {
 		return "test";
@@ -19,7 +19,7 @@ public class Poisson implements ForecastModel {
 		LinkedHashMap map = new LinkedHashMap();
 		map.put("最小二乘法",1);
 		map.put("三段估计法",2);
-		map.put("翁氏特有拟合方法",3);
+		map.put("冈珀茨特有拟合方法",3);
 		return map;
 	}
 
@@ -73,5 +73,6 @@ public class Poisson implements ForecastModel {
 		}
 		return output;
 	}
+
 
 }

@@ -1,8 +1,11 @@
 package com.ogpis.forecast.action;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,25 +129,30 @@ public class ForecastAction {
 	}
 	
 	//数据集改变了，对应模型得变，对应模型的参数拟合方法得变，对应数据起始终止年份得变化
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/forecast/dataCollectionChanged")
 	public void dataCollectionChanged(HttpServletRequest request, ModelMap model,HttpServletResponse response) {
+		List<ModelInfo> modelInfoList = null ;
 		String dataCollectionId = request.getParameter("dataCollectionId");
 		DataCollection dataCollection = dataCollectionService.findById(dataCollectionId);
-		List<ModelInfo> modelInfoList = dataCollection.getModelInfo();
-		List<PEM> pemList = modelInfoList.get(0).getPem();
+		modelInfoList = dataCollection.getModelInfo();
+		ModelInfo tempModel = modelInfoList.get(0);
+		LinkedHashMap pemList = ForecastUtil.getPEM(tempModel.getJarName(), tempModel.getClassName());
 		StringBuilder result = new StringBuilder(); 
 		result.append("{\"model\":[");
-		for(ModelInfo tempModel:modelInfoList)
+		for(ModelInfo temp:modelInfoList)
 		{
-			result.append("{\"name\":\""+tempModel.getModelName()+"\",\"id\":\""+tempModel.getId()+"\"},");
+			result.append("{\"name\":\""+temp.getModelName()+"\",\"id\":\""+temp.getId()+"\"},");
 		}
 		result.deleteCharAt(result.length()-1);
 		result.append("],");
 		result.append("\"pem\":[");
-		for(PEM tempPEM:pemList)
+		Iterator<Map.Entry> it= pemList.entrySet().iterator();
+		while(it.hasNext())
 		{
-			result.append("{\"name\":\""+tempPEM.getPemName()+"\",\"id\":\""+tempPEM.getId()+"\"},");
-		}
+			Map.Entry entry = it.next(); 
+			result.append("{\"name\":\""+entry.getKey()+"\",\"id\":\""+entry.getValue()+"\"},");
+		}		
 		result.deleteCharAt(result.length()-1);
 		result.append("]}");
 		response.setContentType("application/json");
@@ -157,18 +165,21 @@ public class ForecastAction {
 		}
 	}
 		
-		//模型变了，对应模型的参数拟合方法得变，对应数据起始终止年份得变化
+		//模型变了，对应模型的参数拟合方法得变
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		@RequestMapping(value = "/forecast/modelChanged")
 		public void modelChanged(HttpServletRequest request, ModelMap model,HttpServletResponse response) {
 			String modelId = request.getParameter("modelId");
 			ModelInfo modelInfo = modelInfoService.findById(modelId);
-			List<PEM> pemList = modelInfo.getPem();
+			LinkedHashMap pemList = ForecastUtil.getPEM(modelInfo.getJarName(), modelInfo.getClassName());
 			StringBuilder result = new StringBuilder(); 
 			result.append("{\"pem\":[");
-			for(PEM tempPEM:pemList)
+			Iterator<Map.Entry> it= pemList.entrySet().iterator();
+			while(it.hasNext())
 			{
-				result.append("{\"name\":\""+tempPEM.getPemName()+"\",\"id\":\""+tempPEM.getId()+"\"},");
-			}
+				Map.Entry entry = it.next(); 
+				result.append("{\"name\":\""+entry.getKey()+"\",\"id\":\""+entry.getValue()+"\"},");
+			}	
 			result.deleteCharAt(result.length()-1);
 			result.append("]}");
 			System.out.println(result);
@@ -181,6 +192,4 @@ public class ForecastAction {
 				e.printStackTrace();
 			}
 		}
-		
-		
 }
