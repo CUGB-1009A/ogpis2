@@ -1,14 +1,11 @@
 package com.ogpis.forecast.util;
 
-import java.awt.List;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.Properties;
-
 import com.ogpis.forecast.ForecastModel;
 import com.ogpis.forecast.parameter.InputParameter;
 import com.ogpis.forecast.parameter.OutputParameter;
@@ -36,6 +33,24 @@ public class ForecastUtil {
 	 */
 	public static String getForecastModelInfo(String key) {
 		return forecastModelInfos.getProperty(key).trim();
+	}
+	
+	@SuppressWarnings({ "resource", "rawtypes" })
+	public static LinkedHashMap getPEM(String jarName, String className){
+		try {			
+			URL url1 = new URL(jarName);
+			URLClassLoader myClassLoader1 = new URLClassLoader(
+					new URL[] { url1 }, Thread.currentThread()
+							.getContextClassLoader());
+			Class<?> myClass1 = myClassLoader1
+					.loadClass(className);
+			ForecastModel forecastModel = (ForecastModel) myClass1.newInstance();
+			LinkedHashMap map = forecastModel.getPEM();
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public static OutputParameter compute(String jarName, String className,

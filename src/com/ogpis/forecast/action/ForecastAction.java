@@ -56,11 +56,15 @@ public class ForecastAction {
 				String[] modelParam = modelInfo.get("modelParam").toString().split(";");
 				model.addAttribute("modelParam", modelParam);
 				System.out.println(modelParam);*/
+			List<DataCollection> dataCollectionList = null;
+			List<ModelInfo> modelInfoList = null ;
 			String dataCollectionType = request.getParameter("dataCollectionType");
-			System.out.println(dataCollectionType);
-			List<DataCollection> dataCollectionList= dataCollectionService.findByDataCollectionType(dataCollectionType);
-			List<ModelInfo> modelInfoList =  dataCollectionList.get(0).getModelInfo();
-			List<PEM> pemList = modelInfoList.get(0).getPem();
+			 dataCollectionList= dataCollectionService.findByDataCollectionType(dataCollectionType);
+			if(dataCollectionList!=null){
+				modelInfoList =  dataCollectionList.get(0).getModelInfo();
+			}
+			ModelInfo tempModel =  dataCollectionList.get(0).getModelInfo().get(0);
+			LinkedHashMap pemList = ForecastUtil.getPEM(tempModel.getJarName(),tempModel.getClassName());
 			List<PeriodDefinition> periodIntervalList = periodDefinitionService.findAll();
 			//将数据集转为map的形式，key为年份，value为具体的值,假定数据集为1949--2014年产量随机数据,其中1949、2015和数据集是通过服务接口取得的
 			LinkedHashMap dataCollectionMap = new LinkedHashMap();

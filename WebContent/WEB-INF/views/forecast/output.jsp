@@ -26,7 +26,7 @@
 				拟合方法：
 					<select name="PEM" id="PEM">
 					<c:forEach items="${pemList}" var="item">
-						<option value="${item.methodNum}">${item.pemName}</option>
+						<option value="${item.value}">${item.key}</option>
 					</c:forEach>
 					</select><br>
 				历史数据起始年：
@@ -178,7 +178,7 @@ function historyBeginYearChanged(){
 			$("#historyEndYear").append("<option value='"+i+"'>"+i+"</option>");
 	}
 	$("#futureBeginYear").empty(); 
-	$("#futureBeginYear").append("<option value='"+tempBegin+"' selected>"+tempBegin+"</option>"); 
+	$("#futureBeginYear").append("<option value='"+tempBegin+"' selected>"+tempBegin+"</option>");
 }
 
 //历史数据终止年份改变了
