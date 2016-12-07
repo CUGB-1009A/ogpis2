@@ -6,6 +6,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>123</title>
+<script type="text/javascript">
+var historyData = ${historyData};
+function OnReady(id){
+	if(id=='AF')
+		{
+		AF.func("Build", "http://localhost:8080/ogpis2/sz/historyData.xml");
+		AF.func("setSource","ds1 \r\n "+JSON.stringify(historyData));
+		AF.func("Calc",'');
+		}
+	if(id=='AF1')
+		AF1.func("Build", "http://localhost:8080/ogpis2/sz/futureData.xml");
+}
+</script>
 </head>
 <body>
 	<div style="width:20%;height:50%;float:left;">
@@ -29,13 +42,13 @@
 						<option value="${item.value}">${item.key}</option>
 					</c:forEach>
 					</select><br>
-				历史数据起始年：
+				历史数据区间：<br>
 					<select name="historyBeginYear" id="historyBeginYear" onchange="historyBeginYearChanged()">
 					<c:forEach items="${dataCollectionMap}" var="item">
 						<option value="${item.key}" <c:if test="${status.first}">selected</c:if> >${item.key}</option>
 					</c:forEach>
-					</select><br>
-				历史数据终止年：
+					</select>
+				--
 					<select name="historyEndYear" id="historyEndYear" onchange="historyEndYearChanged()">
 					<c:forEach items="${dataCollectionMap}" var="item" varStatus="status">
 						<option value="${item.key}" <c:if test="${status.last}">selected</c:if> >${item.key}</option>
@@ -53,34 +66,15 @@
 					<c:forEach items="${periodIntervalList}" var="item" varStatus="status">
 						<input name="periodInterval" type="radio" value="${item.periodInterval}"<c:if test="${status.first}">checked</c:if>/>${item.periodName}
 					</c:forEach><br>
-				<%-- 拟合参数：<br>
-				<c:forEach items="${modelParam}" var="item">
-					${item}: <input>
-				</c:forEach> --%>	
 					<button onclick="outputPrediction()">预测</button>
 			</div>
 		</div>
 	</div>
 	<div style="width:80%;height:50%;float:left;">
-		<div style="width:100%;height:100%;border-top:1px solid blue;border-bottom:1px solid blue;border-right:1px solid blue;">
-			<div class="queryList" style="padding:10px;overflow:auto">
-				<table class="easyui-datagrid" cellspacing="0" cellpadding="0" width="100px" height="200px">
-					<thead>
-						<tr class="listTit tabTh">
-							<th data-options="frozen:true,field:'year'">年份</th>
-							<th data-options="frozen:true,field:'historyData'">历史数据</th>
-						</tr>
-					</thead>
-					<tbody class="easyui-panel" style="height:100%">
-						<c:forEach items="${dataCollectionMap}" var="item">
-								<tr class="listTr">
-									<td>${item.key}</td>
-									<td>${item.value}</td>
-								</tr>
-						    </c:forEach>
-					</tbody>
-				</table>
-			</div>
+		<div>
+			<script type="text/javascript">
+			insertReport('AF', "Rebar='Font,print,Main'");
+			</script>
 		</div>
 	</div>
 	<div style="width:20%;height:50%;float:left;">
@@ -91,25 +85,10 @@
 		</div>
 	</div>
 	<div style="width:80%;height:50%;float:left;">
-		<div style="width:100%;height:100%;border-bottom:1px solid blue;border-right:1px solid blue;">
-			<div class="queryList" style="padding:10px;overflow:auto">
-				<table>
-					<thead>
-						<tr>
-							<th>年份</th>
-							<th>预测结果</th>
-						</tr>
-					</thead>
-					<tbody id="predictResult">
-						<%-- <c:forEach items="${dataCollectionMap}" var="item">
-								<tr class="listTr">
-									<td>${item.key}</td>
-									<td>${item.value}</td>
-								</tr>
-						    </c:forEach> --%>
-					</tbody>
-				</table>
-			</div>
+	<div>
+			<script type="text/javascript">
+				insertReport('AF1', "Rebar='Font,print,Main'");
+			</script>
 		</div>
 	</div>
 </body>
@@ -220,13 +199,16 @@ function outputPrediction(){
 		type:"GET",
 		success:function(result){
 			$("#predictResult").empty();
-			for(var i=0;i<result.output.year.length;i++){
-				$("#predictResult").append("<tr><td>"+result.output.year[i]+"</td><td>"+result.output.futureData[i]+"</td></tr>");
+			for(var i=0;i<result.output.predictData.length;i++){
+				$("#predictResult").append("<tr><td>"+result.output.predictData[i].year+"</td><td>"+result.output.predictData[i].value+"</td></tr>");
 			}	
 			$("#paramDiv").empty();
-			for(var i=0;i<result.output.param.length;i++){
-				$("#paramDiv").append(result.output.param[i]+":<input value='"+result.output.value[i]+"'/><br>")
+			for(var i=0;i<result.output.pemValue.length;i++){
+				$("#paramDiv").append(result.output.pemValue[i].param+":<input value='"+result.output.pemValue[i].value+"'/><br>")
 			}
+			
+			AF1.func("setSource","ds1 \r\n "+JSON.stringify(result));
+			AF1.func("Calc",'');
 		},
 		error:function(){
 			alert("出意外错误了");

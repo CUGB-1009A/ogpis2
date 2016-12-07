@@ -1,5 +1,6 @@
 package com.ogpis.forecast.parameter;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class OutputParameter {
@@ -7,10 +8,10 @@ public class OutputParameter {
 	private String output ;//json（包含模型参数名、拟合参数值和预测结果）
 
 	@SuppressWarnings("rawtypes")
-	private Map pemMap;//key-value（参数名-参数值）
+	private LinkedHashMap paramValueMap;//key-value（参数名-参数值）
 	
 	@SuppressWarnings("rawtypes")
-	private Map predictData;
+	private LinkedHashMap predictData;
 	
 	public String getOutput() {
 		return output;
@@ -21,22 +22,23 @@ public class OutputParameter {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public Map getPemMap() {
-		return pemMap;
+	public LinkedHashMap getParamValueMap() {
+		return paramValueMap;
 	}
 
 	@SuppressWarnings("rawtypes")
-	public void setPemMap(Map pemMap) {
-		this.pemMap = pemMap;
+	public void setParamVauleMap(LinkedHashMap paramValueMap) {
+		this.paramValueMap = paramValueMap;
 	}
 
+
 	@SuppressWarnings("rawtypes")
-	public Map getPredictData() {
+	public LinkedHashMap getPredictData() {
 		return predictData;
 	}
 
 	@SuppressWarnings("rawtypes")
-	public void setPredictData(Map predictData) {
+	public void setPredictData(LinkedHashMap predictData) {
 		this.predictData = predictData;
 	}
 }

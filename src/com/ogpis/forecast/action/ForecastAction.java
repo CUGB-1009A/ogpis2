@@ -72,10 +72,22 @@ public class ForecastAction {
 			//将数据集转为map的形式，key为年份，value为具体的值,假定数据集为1949--2014年产量随机数据,其中1949、2015和数据集是通过服务接口取得的
 			LinkedHashMap dataCollectionMap = new LinkedHashMap();
 			for(int i=1949;i<2015;i++){
-				dataCollectionMap.put(i+"",Math.round(i*Math.random()));
+				dataCollectionMap.put(i,Math.round(i*Math.random()));
 			}
+			StringBuilder historyData = new StringBuilder();
+			historyData.append("{\"historyData\":[");
+			Iterator<Map.Entry> it= dataCollectionMap.entrySet().iterator();
+			while(it.hasNext())
+			{
+				Map.Entry entry = it.next(); 
+				historyData.append("{\"year\":"+entry.getKey()+",\"value\":"+entry.getValue()+"},");
+			}
+			historyData.deleteCharAt(historyData.length()-1);
+			historyData.append("]}");
+			System.out.println("HistoryData:"+historyData);
 			model.addAttribute("periodIntervalList",periodIntervalList);
 			model.addAttribute("dataCollectionMap",dataCollectionMap);
+			model.addAttribute("historyData",historyData);
 			model.addAttribute("dataCollectionList", dataCollectionList);
 			model.addAttribute("modelInfoList", modelInfoList);
 			model.addAttribute("pemList", pemList);
@@ -84,6 +96,7 @@ public class ForecastAction {
 	
 	
 	//产量预测
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/forecast/outputPrediction")
 	public void outputPrediction(HttpServletRequest request, ModelMap model, HttpServletResponse response) {
 		String dataCollectionId = request.getParameter("dataCollectionId");
@@ -97,7 +110,7 @@ public class ForecastAction {
 		System.out.println("用来预测的数据从"+historyBeginYear+"-----"+historyEndYear);
 		Integer futureBeginYear = Integer.parseInt(request.getParameter("futureBeginYear"));
 		Integer futureEndYear = Integer.parseInt(request.getParameter("futureEndYear"));
-		System.out.println("用来预测的数据从"+futureBeginYear+"-----"+futureEndYear);
+		System.out.println("预测的结果从"+futureBeginYear+"-----"+futureEndYear);
 		Integer PEMNum = Integer.parseInt(request.getParameter("PEMNum"));	
 		System.out.println("用来拟合参数的方法编号为"+PEMNum);
 		InputParameter input = new InputParameter();
@@ -109,12 +122,29 @@ public class ForecastAction {
 		input.setHistoryBeginYear(historyBeginYear);
 		input.setHistoryEndYear(historyEndYear);
 		OutputParameter output = ForecastUtil.compute(modelInfo.getJarName(), modelInfo.getClassName(), input);
-		System.out.println("Action中的output"+output.getOutput());
-		String result = "{\"output\":"+output.getOutput()+"}";
+		StringBuilder result = new StringBuilder(); 
+		result.append("{\"output\":{\"predictData\":[");
+		Iterator<Map.Entry> it= output.getPredictData().entrySet().iterator();
+		while(it.hasNext())
+		{
+			Map.Entry entry = it.next(); 
+			result.append("{\"year\":"+entry.getKey()+",\"value\":"+entry.getValue()+"},");
+		}
+		result.deleteCharAt(result.length()-1);
+		result.append("],\"pemValue\":[");
+		Iterator<Map.Entry> it1= output.getParamValueMap().entrySet().iterator();
+		while(it1.hasNext())
+		{
+			Map.Entry entry1 = it1.next(); 
+			result.append("{\"param\":\""+entry1.getKey()+"\",\"value\":"+entry1.getValue()+"},");
+		}
+		result.deleteCharAt(result.length()-1);
+		result.append("]}}");
+		System.out.println(result);
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("utf-8");
 		try {
-			response.getWriter().write(result);
+			response.getWriter().write(result.toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

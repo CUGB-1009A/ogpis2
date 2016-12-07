@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--By Supcan Report -->
+<Report>
+	<WorkSheet name="Sheet">
+		<Properties>
+			<BackGround bgColor="#FFFFFF"/>
+			<DefaultTD>
+				<TD fontIndex="0" textColor="#000000" transparent="true" leftBorder="1" topBorder="1" leftBorderColor="#C0C0C0" leftBorderStyle="solid" topBorderColor="#C0C0C0" topBorderStyle="solid" decimal="2" align="left" vAlign="middle" isProtected="false" isThousandSeparat="true" isRound="true" isPrint="true"/>
+			</DefaultTD>
+			<Other isShowZero="true" isRefOriPrecision="true" LineDistance="0" isRowHeightAutoExtendAble="true"/>
+		</Properties>
+		<Fonts>
+			<Font faceName="Microsoft YaHei UI" charSet="134" height="-14" weight="400"/>
+		</Fonts>
+		<Table>
+			<Col width="100"/>
+			<Col width="100"/>
+			<Col width="15"/>
+			<TR height="24" sequence="0">
+				<TD datatype="1" formula="=headrow(&apos;ds1&apos;)">年份</TD>
+				<TD datatype="1">历史数据</TD>
+				<TD topBorder="0"/>
+			</TR>
+			<TR height="24" sequence="1">
+				<TD datatype="1" formula="=datarow(&apos;ds1&apos;)"/>
+				<TD datatype="1"/>
+				<TD topBorder="0"/>
+			</TR>
+			<TR height="15" sequence="2">
+				<TD leftBorder="0"/>
+				<TD leftBorder="0"/>
+				<TD leftBorder="0" topBorder="0"/>
+			</TR>
+		</Table>
+		<PrintPage>
+			<Paper>
+				<Margin left="19" top="25" right="19" bottom="25"/>
+			</Paper>
+			<Page isIgnoreValidBorder="false">
+				<PageCode>
+					<Font faceName="Microsoft YaHei UI" charSet="134" height="-14" weight="400"/>
+				</PageCode>
+			</Page>
+		</PrintPage>
+	</WorkSheet>
+	<DataSources Version="255" isAutoCalculateWhenOpen="false" isSaveCalculateResult="false">
+		<DataSource type="4"><!-- Desc: Supcan Report Component DataSource Specification -->
+<Data>
+	<ID>ds1</ID>
+	<Version>2</Version>
+	<Type>4</Type>
+	<TypeMeaning>JSON</TypeMeaning>
+	<Source></Source>
+	<XML_RecordAble_Nodes>
+		<Node>
+			<name>jsonobject</name>
+		</Node>
+	</XML_RecordAble_Nodes>
+	<Columns>
+		<Column>
+			<name>jsonobject\year</name>
+			<text>年份</text>
+			<type>string</type>
+			<visible>true</visible>
+			<sequence>1</sequence>
+		</Column>
+		<Column>
+			<name>jsonobject\value</name>
+			<text>历史数据</text>
+			<type>string</type>
+			<visible>true</visible>
+			<sequence>2</sequence>
+		</Column>
+	</Columns>
+</Data>
+
+		</DataSource>
+	</DataSources>
+</Report>
