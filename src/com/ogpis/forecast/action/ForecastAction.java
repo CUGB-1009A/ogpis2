@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.ogpis.forecast.entity.DataCollection;
 import com.ogpis.forecast.entity.ModelInfo;
-import com.ogpis.forecast.entity.PEM;
 import com.ogpis.forecast.entity.PeriodDefinition;
 import com.ogpis.forecast.parameter.InputParameter;
 import com.ogpis.forecast.parameter.OutputParameter;
@@ -114,8 +112,6 @@ public class ForecastAction {
 		Integer PEMNum = Integer.parseInt(request.getParameter("PEMNum"));	
 		System.out.println("用来拟合参数的方法编号为"+PEMNum);
 		InputParameter input = new InputParameter();
-		
-		//input.setHistoryData(historyData);
 		input.setPEM(PEMNum);
 		input.setFutureBeginYear(futureBeginYear);
 		input.setFutureEndYear(futureEndYear);
@@ -146,7 +142,6 @@ public class ForecastAction {
 		try {
 			response.getWriter().write(result.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}
@@ -190,7 +185,6 @@ public class ForecastAction {
 		try {
 			response.getWriter().write(result.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -218,7 +212,6 @@ public class ForecastAction {
 			try {
 				response.getWriter().write(result.toString());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

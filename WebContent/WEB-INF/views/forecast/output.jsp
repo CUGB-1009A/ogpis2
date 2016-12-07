@@ -6,19 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>123</title>
-<script type="text/javascript">
-var historyData = ${historyData};
-function OnReady(id){
-	if(id=='AF')
-		{
-		AF.func("Build", "http://localhost:8080/ogpis2/sz/historyData.xml");
-		AF.func("setSource","ds1 \r\n "+JSON.stringify(historyData));
-		AF.func("Calc",'');
-		}
-	if(id=='AF1')
-		AF1.func("Build", "http://localhost:8080/ogpis2/sz/futureData.xml");
-}
-</script>
+<script type="text/javascript" src="<%=path %>/sz/binary/dynaload.js"></script>
+<script type="text/javascript" src="<%=path%>/Echarts2/dist/echarts.js"></script>
+ 
 </head>
 <body>
 	<div style="width:20%;height:50%;float:left;">
@@ -71,10 +61,13 @@ function OnReady(id){
 		</div>
 	</div>
 	<div style="width:80%;height:50%;float:left;">
-		<div>
+		<div style="width:30%;height:100%;float:left">
 			<script type="text/javascript">
-			insertReport('AF', "Rebar='Font,print,Main'");
+				insertReport('AF', "Rebar=Main");
 			</script>
+		</div>
+		<div id="historyDataChart" style="width:900px;height:400px;float:left">
+			
 		</div>
 	</div>
 	<div style="width:20%;height:50%;float:left;">
@@ -85,16 +78,109 @@ function OnReady(id){
 		</div>
 	</div>
 	<div style="width:80%;height:50%;float:left;">
-	<div>
+		<div style="width:30%;height:100%;float:left">
 			<script type="text/javascript">
-				insertReport('AF1', "Rebar='Font,print,Main'");
+				insertReport('AF1', "Rebar='Main'");
 			</script>
 		</div>
+		<div id="futureDataChart" style="width:900px;height:400px;float:left">
+			
+		</div>
 	</div>
-</body>
 <script type="text/javascript">
-var historyBeginYear = $("#historyBeginYear option:selected").val();
-var historyEndYear = $("#historyEndYear option:selected").val();
+function OnReady(id){ //添历史数据表格，并显示预测数据表格模板
+	if(id=='AF')
+		{
+		AF.func("Build", "<%=path%>/sz/historyData.xml");
+		AF.func("setSource","ds1 \r\n "+historyDataString);
+		AF.func("Calc",'');
+		}
+	if(id=='AF1')
+		AF1.func("Build", "<%=path%>/sz/futureData.xml");
+}
+
+var historyBeginYear = $("#historyBeginYear option:selected").val();//数据集历史数据的起始年份，不变的
+var historyEndYear = $("#historyEndYear option:selected").val();//数据集历史数据的终止年份，不变的
+var historyData = ${historyData};//object格式的历史数据，不变的
+var historyDataString = JSON.stringify(historyData);
+var historyDataJson = historyData.historyData ;
+
+	var historyYear="{\"year\":[";
+	var historyValue="{\"value\":[";
+	for(i=0;i<historyDataJson.length;i++){
+		historyYear = historyYear + historyDataJson[i].year+",";
+		historyValue = historyValue + historyDataJson[i].value+",";
+	}
+	historyYear = historyYear.substring(0,historyYear.length-1);
+	historyValue = historyValue.substring(0,historyValue.length-1);
+	historyYear = historyYear + "]}";
+	historyValue = historyValue + "]}";
+	
+	var option = {
+		    title : {
+		        text: ''
+		    },
+		    tooltip : {
+		        trigger: 'axis'
+		    },
+		    legend: {
+		        data:[]
+		    },
+		    toolbox: {
+		        show : true,
+		        feature : {
+		            mark : {show: true},
+		            dataView : {show: true, readOnly: false},
+		            magicType : {show: true, type: ['line', 'bar']},
+		            restore : {show: true},
+		            saveAsImage : {show: true}
+		        }
+		    },
+		    xAxis : [
+		        {
+		            type : 'category',
+		            boundaryGap : false,
+		            data : []
+		        }
+		    ],
+		    yAxis : [
+		        {
+		            type : 'value'
+		        }
+		    ],
+		    series : [
+		        {
+		            name:'',
+		            type:'line',
+		            data:[]
+		        }
+		    ]
+		};
+	        require.config({
+	            paths: {
+	                echarts: '<%=path%>/Echarts2/dist'
+	            }
+	        });
+	        require(
+	            [
+	                'echarts',
+	                'echarts/chart/line',   // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
+	                'echarts/chart/bar'
+	            ],
+	            function (ec) {
+	            	var myHistoryChart = ec.init($("#historyDataChart")[0]);
+	
+	            	//图表使用-------------------
+	            	
+	            		option.title.text = '石油产量历史数据';
+	            		option.legend.data[0] = '历史数据';
+	            		option.series[0].name = '历史数据';
+	            		option.xAxis[0].data = eval("(" + historyYear + ")").year;
+	            		option.series[0].data = eval("(" + historyValue + ")").value;
+	            		myHistoryChart.setOption(option);
+	            });
+
+
 $(function(){
 	$("#futureBeginYear").append("<option value='"+historyBeginYear+"' selected>"+historyBeginYear+"</option>");	
 	for(var i=parseInt(historyEndYear);i<parseInt(historyEndYear)+50;i++){
@@ -158,6 +244,15 @@ function historyBeginYearChanged(){
 	}
 	$("#futureBeginYear").empty(); 
 	$("#futureBeginYear").append("<option value='"+tempBegin+"' selected>"+tempBegin+"</option>");
+	for(var j=parseInt(historyBeginYear);j<parseInt(historyEndYear)+1;j++){
+		var temp = j-parseInt(historyBeginYear)+1;
+		if(j>parseInt(tempBegin)-1&&j<parseInt(tempEnd)+1){//显示出来
+			AF.func("HideRow",temp+" \r\n 1 \r\n false");
+		}
+		else{
+			AF.func("HideRow",temp+" \r\n 1 \r\n true");
+		}
+	} 
 }
 
 //历史数据终止年份改变了
@@ -170,6 +265,15 @@ function historyEndYearChanged(){
 			$("#historyBeginYear").append("<option value='"+i+"'selected>"+i+"</option>"); 
 		else
 			$("#historyBeginYear").append("<option value='"+i+"'>"+i+"</option>");
+	}
+	for(var j=parseInt(historyBeginYear);j<parseInt(historyEndYear)+1;j++){
+		var temp = j-parseInt(historyBeginYear)+1;
+		if(j>parseInt(tempBegin)-1&&j<parseInt(tempEnd)+1){//显示出来
+			AF.func("HideRow",temp+" \r\n 1 \r\n false");
+		}
+		else{
+			AF.func("HideRow",temp+" \r\n 1 \r\n true");
+		}
 	}
 }
 
@@ -209,12 +313,49 @@ function outputPrediction(){
 			
 			AF1.func("setSource","ds1 \r\n "+JSON.stringify(result));
 			AF1.func("Calc",'');
+			
+			var historyYear1="{\"year\":[";
+			var historyValue1="{\"value\":[";
+			for(i=0;i<result.output.predictData.length;i++){
+				historyYear1 = historyYear1 + result.output.predictData[i].year+",";
+				historyValue1 = historyValue1 + result.output.predictData[i].value+",";
+			}
+			historyYear1 = historyYear1.substring(0,historyYear1.length-1);
+			historyValue1 = historyValue1.substring(0,historyValue1.length-1);
+			historyYear1 = historyYear1 + "]}";
+			historyValue1 = historyValue1 + "]}";
+			require.config({
+		            paths: {
+		                echarts: '<%=path%>/Echarts2/dist'
+		            }
+		        });
+		        require(
+		            [
+		                'echarts',
+		                'echarts/chart/line',   // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
+		                'echarts/chart/bar'
+		            ],
+		            function (ec) {
+		            	var myfutureChart = ec.init($("#futureDataChart")[0]);
+		
+		            	//图表使用-------------------
+		            	
+		            		option.title.text = '石油产量预测数据';
+		            		option.legend.data[0] = '预测数据';
+		            		option.series[0].name = '预测数据';
+		            		option.xAxis[0].data = eval("(" + historyYear1 + ")").year;
+		            		option.series[0].data = eval("(" + historyValue1 + ")").value;
+		            		myfutureChart.setOption(option);
+		            });
+			
 		},
 		error:function(){
 			alert("出意外错误了");
 		}
 });
 }
-</script>
 
+
+</script>
+</body>
 </html>

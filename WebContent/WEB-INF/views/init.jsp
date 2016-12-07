@@ -18,9 +18,9 @@
 </style>
 <link rel="stylesheet" type="text/css" href="<%=path %>/easyui-1.5/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="<%=path %>/easyui-1.5/themes/icon.css">
+<script type="text/javascript" src="<%=path %>/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="<%=path %>/easyui-1.5/jquery.min.js"></script>
-<script type="text/javascript" src="<%=path %>/easyui-1.5/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="<%=path %>/sz/binary/dynaload.js"></script>
+<script type="text/javascript" src="<%=path %>/easyui-1.5/jquery.easyui.min.js"></script> 
 <%@ taglib uri="/WEB-INF/taglib/c.tld" prefix="c"%>
 
 <script type="text/javascript">
