@@ -21,6 +21,7 @@
 			<option>中联煤</option>
 			<option>其他</option>
 		</select>
+		<a href="<%=path%>/index/add?type=${type}">添加指标</a>
 	</div>
 	<div class="easyui-panle">
 		<table class="easyui-datagrid" title="指标项管理" data-options="iconCls:'icon-save',collapsible:true,maximizable:true">

@@ -21,4 +21,22 @@ public class IndexManagementServiceImpl implements IndexManagementService {
 		return indexManagementDao.findAllIndexByPrority(type);
 	}
 
+	@Override
+	public IndexManagement save(IndexManagement indexManagement) {
+		// TODO Auto-generated method stub
+		return indexManagementDao.save(indexManagement);
+	}
+
+	@Override
+	public IndexManagement update(IndexManagement indexManagement) {
+		// TODO Auto-generated method stub
+		return indexManagementDao.update(indexManagement);
+	}
+
+	@Override
+	public IndexManagement findById(String id) {
+		
+		return indexManagementDao.findById(id);
+	}
+
 }

@@ -25,7 +25,7 @@
 	<div title="规划管理" iconCls="icon-reload" style="overflow:auto; padding:10px; height:100%;" selected="true" border="false">
 		<ul>
 			<li>
-				<span><a href="<%=path%>/index/list" target=main_center>规划指标管理</a></span>
+				<span><a href="<%=path%>/index/list?type=QG" target=main_center>规划指标管理</a></span>
 			</li>
 			<li>
 				<span><a href="<%=path%>/xtgl/listRes.jsp" target=main_center>预测模型管理</a></span>

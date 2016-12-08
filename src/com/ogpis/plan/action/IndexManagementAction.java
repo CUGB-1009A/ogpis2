@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ogpis.plan.entity.IndexManagement;
 import com.ogpis.plan.entity.PlanType;
@@ -20,15 +21,51 @@ public class IndexManagementAction {
 	IndexManagementService indexManagementService;
 
 	@RequestMapping(value = "/list")
-	public String demo(HttpServletRequest request, ModelMap model) {
+	public String findAllIndexByPriority(HttpServletRequest request, ModelMap model) {
 		
-		//String type=request.getParameter("type");
-		String type="QG";
+		String type=request.getParameter("type");
+		//String type="QG";
 		List<IndexManagement> indexList = indexManagementService.findAllIndexByPriority(type);
 		model.addAttribute("planType", PlanType.values());
 		model.addAttribute("indexList", indexList);
 		model.addAttribute("type", type);
 		System.out.println("index/list");
 		return "plan/index/list";
+	}
+	
+	@RequestMapping("/add")
+	public String add(HttpServletRequest request,ModelMap model){
+		String type="QG";
+		model.addAttribute("type", type);
+		return "plan/index/indexEdit";
+	}
+	
+	@RequestMapping(value="/save",method=RequestMethod.POST )
+	public String save(HttpServletRequest request,ModelMap model,boolean isAdd,IndexManagement indexManagement){
+		IndexManagement bean=null;
+		String id=request.getParameter("id");
+		if(isAdd){
+			bean=new IndexManagement();
+			bean.setPlanType(indexManagement.getPlanType());
+			bean.setMineType(indexManagement.getMineType());
+			bean.setIndexName(indexManagement.getIndexName());
+			bean.setIndexType(indexManagement.getIndexType());;
+			bean.setIndexUnit(indexManagement.getIndexUnit());
+			bean.setTrack(indexManagement.getTrack());;
+			bean.setPriority(indexManagement.getPriority());
+			indexManagementService.save(bean);
+		}else{
+			bean=indexManagementService.findById(id);
+			bean.setPlanType(indexManagement.getPlanType());
+			bean.setMineType(indexManagement.getMineType());
+			bean.setIndexName(indexManagement.getIndexName());
+			bean.setIndexType(indexManagement.getIndexType());;
+			bean.setIndexUnit(indexManagement.getIndexUnit());
+			bean.setTrack(indexManagement.getTrack());;
+			bean.setPriority(indexManagement.getPriority());
+			indexManagementService.update(bean);
+		}
+		model.addAttribute("type",indexManagement.getPlanType());
+		return "redirect:/plan/index/list";
 	}
 }

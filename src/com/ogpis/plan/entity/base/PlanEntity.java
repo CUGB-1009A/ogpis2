@@ -1,5 +1,6 @@
 package com.ogpis.plan.entity.base;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,17 +49,17 @@ public class PlanEntity extends BaseEntity {
 	 * 发布时间
 	 */
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	protected String ReleasedDate;
+	protected Date ReleasedDate;
 	/**
 	 * 规划开始时间
 	 */
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	protected String StartTime;
+	protected Date StartTime;
 	/**
 	 * 规划结束时间
 	 */
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	protected String Endtime;
+	protected Date Endtime;
 	/**
 	 * 规划类型：指全国、石油公司、其他规划等
 	 */
@@ -143,27 +144,27 @@ public class PlanEntity extends BaseEntity {
 		this.released = released;
 	}
 
-	public String getReleasedDate() {
+	public Date getReleasedDate() {
 		return ReleasedDate;
 	}
 
-	public void setReleasedDate(String releasedDate) {
+	public void setReleasedDate(Date releasedDate) {
 		ReleasedDate = releasedDate;
 	}
 
-	public String getStartTime() {
+	public Date getStartTime() {
 		return StartTime;
 	}
 
-	public void setStartTime(String startTime) {
+	public void setStartTime(Date startTime) {
 		StartTime = startTime;
 	}
 
-	public String getEndtime() {
+	public Date getEndtime() {
 		return Endtime;
 	}
 
-	public void setEndtime(String endtime) {
+	public void setEndtime(Date endtime) {
 		Endtime = endtime;
 	}
 
