@@ -19,11 +19,6 @@ public class DemoDaoImpl extends HibernateBaseDao<Demo, String> implements
 	}
 	
 	@Override
-	protected Class<Demo> getEntityClass() {
-		return Demo.class;
-	}
-
-	@Override
 	public Demo deleteById(String id) {
 		Demo entity = super.get(id);
 		if (entity != null) {
@@ -36,6 +31,11 @@ public class DemoDaoImpl extends HibernateBaseDao<Demo, String> implements
 	public Demo findById(String id) {
 		Demo entity = get(id);
 		return entity;
+	}
+	
+	@Override
+	protected Class<Demo> getEntityClass() {
+		return Demo.class;
 	}
 
 }
