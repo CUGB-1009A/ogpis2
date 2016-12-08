@@ -11,7 +11,7 @@ import org.json.XML;
 public class TempTools {
 	
 	public static String loadFile(){
-		InputStream in=TempTools.class.getClassLoader().getResourceAsStream("./resources/data.xml");
+		InputStream in=TempTools.class.getClassLoader().getResourceAsStream("./config/data.xml");
 		InputStreamReader reder=new InputStreamReader(in);
 		BufferedReader readerBuffer = new BufferedReader(reder);
 		StringBuilder builder=new StringBuilder();

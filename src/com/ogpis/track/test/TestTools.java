@@ -2,12 +2,9 @@ package com.ogpis.track.test;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-
 import com.ogpis.track.tools.TempTools;
-
 import org.dom4j.Document;
 import org.json.JSONObject;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestTools {

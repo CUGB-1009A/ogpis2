@@ -18,7 +18,7 @@ public class XMLParse {
 	// 获取输入流
 	public static InputStream loadXmlFile(String path) {
 		if (path == "" || path == null)
-			path = "./resources/data.xml";
+			path = "./config/data.xml";
 		return XMLParse.class.getClassLoader().getResourceAsStream(path);
 	}
 
@@ -67,14 +67,10 @@ public class XMLParse {
 				new BigDecimal(value);
 				jsonBuilder.append(value);
 			}catch(Exception e){
-				if(value.equals(null))
+				if(value==null)
 					jsonBuilder.append(value);
 				else
 					jsonBuilder.append("\"" + value + "\"");
-				/*if(value==null)
-					jsonBuilder.append(value);
-				else
-					jsonBuilder.append("\"" + value + "\"");*/
 			}
 //			jsonBuilder.append("\"" + value + "\"");
 		}
