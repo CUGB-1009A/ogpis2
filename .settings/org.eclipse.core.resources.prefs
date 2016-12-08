@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/views/forecast/output.jsp=UTF-8
+encoding//WebContent/WEB-INF/views/forecast/storage.jsp=UTF-8
 encoding//WebContent/WEB-INF/views/main/main_left.jsp=UTF-8
 encoding//WebContent/WEB-INF/views/main/main_top.jsp=UTF-8
 encoding//src/config/forecastModel.properties=UTF-8

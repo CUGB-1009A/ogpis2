@@ -5,6 +5,10 @@ import com.ogpis.forecast.parameter.InputParameter;
 import com.ogpis.forecast.parameter.OutputParameter;
 
 public class Poisson implements ForecastModel {
+	
+	private double K;
+	private double a;
+	private double b;
 
 
 	@Override
@@ -30,34 +34,35 @@ public class Poisson implements ForecastModel {
 		OutputParameter output = new OutputParameter();
 		LinkedHashMap pemValueMap = new LinkedHashMap();
 		LinkedHashMap predictDataMap = new LinkedHashMap();
+		LinkedHashMap historyDataMap = input.getHistoryDataMap();
+		double[] Y = null ;
+		
 		if(input.getPEM()==0){//直接用修改后的参数进行预测结果
 			
 		}
-		if(input.getPEM()==1){//参数拟合方法用最小二乘法			
-			pemValueMap.put("K", input.getPEM());
-			pemValueMap.put("a", input.getPEM());
-			pemValueMap.put("b", input.getPEM());
+		if(input.getPEM()==1){//参数拟合方法用最小二乘法 
+		
+			
+
 			for(int i=input.getFutureBeginYear();i<input.getFutureEndYear()+1;i++){
 				predictDataMap.put(i,Math.floor(Math.random()*1000));
 			}
 		}
 			
 		if(input.getPEM()==2){//参数拟合方法用三段法
-			pemValueMap.put("K", input.getPEM());
-			pemValueMap.put("a", input.getPEM());
-			pemValueMap.put("b", input.getPEM());
 			for(int i=input.getFutureBeginYear();i<input.getFutureEndYear()+1;i++){
 				predictDataMap.put(i,Math.floor(Math.random()*1000));
 			}
 		}
 		if(input.getPEM()==3){//冈珀茨特有拟合方法
-			pemValueMap.put("K", input.getPEM());
-			pemValueMap.put("a", input.getPEM());
-			pemValueMap.put("b", input.getPEM());
+
 			for(int i=input.getFutureBeginYear();i<input.getFutureEndYear()+1;i++){
 				predictDataMap.put(i,Math.floor(Math.random()*1000));
 			}
 		}
+		pemValueMap.put("K", K);
+		pemValueMap.put("a", a);
+		pemValueMap.put("b", b);
 		output.setParamVauleMap(pemValueMap);
 		output.setPredictData(predictDataMap);
 		return output;

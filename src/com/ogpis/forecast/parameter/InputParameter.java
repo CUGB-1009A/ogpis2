@@ -1,8 +1,12 @@
 package com.ogpis.forecast.parameter;
 
+import java.util.LinkedHashMap;
+
 public class InputParameter {
+	@SuppressWarnings("rawtypes")
+	private LinkedHashMap historyDataMap;
 	
-	private int historyBeginYear ;//历史数据起始年份
+	private int historyBeginYear ;//历史数据起始年份 
 	
 	private int historyEndYear;//历史数据结束年份
 	
@@ -15,6 +19,16 @@ public class InputParameter {
 	private int PEM ; //参数拟合方法Parameter estimation method缩写
 	
 	private int varNum ; //自变量个数
+
+	@SuppressWarnings("rawtypes")
+	public LinkedHashMap getHistoryDataMap() {
+		return historyDataMap;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void setHistoryDataMap(LinkedHashMap historyDataMap) {
+		this.historyDataMap = historyDataMap;
+	}
 
 	public int getHistoryBeginYear() {
 		return historyBeginYear;

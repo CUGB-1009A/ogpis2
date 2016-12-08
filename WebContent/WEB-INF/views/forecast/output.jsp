@@ -66,7 +66,7 @@
 				insertReport('AF', "Rebar=Main");
 			</script>
 		</div>
-		<div id="historyDataChart" style="width:900px;height:400px;float:left">
+		<div id="historyDataChart" style="width:70%;height:300px;float:left">
 			
 		</div>
 	</div>
@@ -83,7 +83,7 @@
 				insertReport('AF1', "Rebar='Main'");
 			</script>
 		</div>
-		<div id="futureDataChart" style="width:900px;height:400px;float:left">
+		<div id="futureDataChart" style="width:70%;height:300px;float:left">
 			
 		</div>
 	</div>
@@ -164,11 +164,12 @@ var historyDataJson = historyData.historyData ;
 	        require(
 	            [
 	                'echarts',
+	                'echarts/theme/macarons',
 	                'echarts/chart/line',   // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
 	                'echarts/chart/bar'
 	            ],
-	            function (ec) {
-	            	var myHistoryChart = ec.init($("#historyDataChart")[0]);
+	            function (ec,theme) {
+	            	var myHistoryChart = ec.init($("#historyDataChart")[0],'macarons');
 	
 	            	//图表使用-------------------
 	            	
@@ -311,6 +312,7 @@ function outputPrediction(){
 				$("#paramDiv").append(result.output.pemValue[i].param+":<input value='"+result.output.pemValue[i].value+"'/><br>")
 			}
 			
+			//预测数据填充到硕正报表里面
 			AF1.func("setSource","ds1 \r\n "+JSON.stringify(result));
 			AF1.func("Calc",'');
 			
@@ -332,22 +334,19 @@ function outputPrediction(){
 		        require(
 		            [
 		                'echarts',
+		                'echarts/theme/macarons',
 		                'echarts/chart/line',   // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
 		                'echarts/chart/bar'
 		            ],
-		            function (ec) {
-		            	var myfutureChart = ec.init($("#futureDataChart")[0]);
-		
-		            	//图表使用-------------------
-		            	
-		            		option.title.text = '石油产量预测数据';
-		            		option.legend.data[0] = '预测数据';
-		            		option.series[0].name = '预测数据';
-		            		option.xAxis[0].data = eval("(" + historyYear1 + ")").year;
-		            		option.series[0].data = eval("(" + historyValue1 + ")").value;
-		            		myfutureChart.setOption(option);
+		            function (ec,theme) {
+		            	var myfutureChart = ec.init($("#futureDataChart")[0],'macarons');
+	            		option.title.text = '石油产量预测数据';
+	            		option.legend.data[0] = '预测数据';
+	            		option.series[0].name = '预测数据';
+	            		option.xAxis[0].data = eval("(" + historyYear1 + ")").year;
+	            		option.series[0].data = eval("(" + historyValue1 + ")").value;
+	            		myfutureChart.setOption(option);
 		            });
-			
 		},
 		error:function(){
 			alert("出意外错误了");

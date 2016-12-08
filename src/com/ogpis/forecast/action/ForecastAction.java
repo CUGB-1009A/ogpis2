@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.ogpis.forecast.HistoryData;
 import com.ogpis.forecast.entity.DataCollection;
 import com.ogpis.forecast.entity.ModelInfo;
 import com.ogpis.forecast.entity.PeriodDefinition;
@@ -72,7 +74,7 @@ public class ForecastAction {
 			for(int i=1949;i<2015;i++){
 				dataCollectionMap.put(i,Math.round(i*Math.random()));
 			}
-			StringBuilder historyData = new StringBuilder();
+			/*StringBuilder historyData = new StringBuilder();
 			historyData.append("{\"historyData\":[");
 			Iterator<Map.Entry> it= dataCollectionMap.entrySet().iterator();
 			while(it.hasNext())
@@ -81,7 +83,8 @@ public class ForecastAction {
 				historyData.append("{\"year\":"+entry.getKey()+",\"value\":"+entry.getValue()+"},");
 			}
 			historyData.deleteCharAt(historyData.length()-1);
-			historyData.append("]}");
+			historyData.append("]}");*/
+			String historyData = HistoryData.historyData;
 			System.out.println("HistoryData:"+historyData);
 			model.addAttribute("periodIntervalList",periodIntervalList);
 			model.addAttribute("dataCollectionMap",dataCollectionMap);
