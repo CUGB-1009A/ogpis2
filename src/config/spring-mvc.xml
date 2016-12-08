@@ -14,11 +14,17 @@
 	<mvc:annotation-driven />
 	<!-- 静态资源处理器，所有以【mapping】开头的请求都会视为是对静态资源的请求，请求url会将【mapping】的内容替换成【location】的内容，然后执行静态资源的获取 -->
 	<mvc:resources location="/easyui-1.5/" mapping="/easyui-1.5/**" />
+
 	<mvc:resources location="/sz/" mapping="/sz/**" />
 	<mvc:resources location="/js/" mapping="/js/**" />
 	<mvc:resources location="/EasyUITable/" mapping="/EasyUITable/**" />
 	<mvc:resources location="/Echarts2/" mapping="/Echarts2/**" />
 	<mvc:resources location="/arcgis/" mapping="/arcgis/**" />
+
+	<mvc:resources location="/supcan1.0.95.0/" mapping="/supcan1.0.95.0/**" />
+	<mvc:resources location="/echart/" mapping="/echart/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
+
 	<context:component-scan base-package="com.ogpis" />
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
