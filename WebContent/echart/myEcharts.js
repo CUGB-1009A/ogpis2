@@ -1,5 +1,6 @@
 function CreatChart(id,data){
-	this.id=id;
+	this.id=id;//
+	
 	this.title=data.title;
 	this.xAxis=data.xAxis;
 	this.yAxisName=data.yAxisName;
