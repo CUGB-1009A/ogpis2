@@ -17,23 +17,15 @@ import org.hibernate.cfg.ImprovedNamingStrategy;
  *
  */
 @MappedSuperclass
-public abstract class BaseEntity  implements
-		Serializable {
+public abstract class BaseEntity  extends PrimaryEntity {
 
 	public BaseEntity() {
 		super();
-		this.id = UUID.randomUUID().toString();
 		this.remark = "";
 		this.deleted = false;
 		this.modifiedTime = new Timestamp(System.currentTimeMillis());
 		this.createTime = this.modifiedTime;
 	}
-
-	@Id
-	/**
-	 * 主键
-	 */
-	protected String id;
 
 	/**
 	 * 备注
@@ -54,10 +46,7 @@ public abstract class BaseEntity  implements
 	 */
 	protected Timestamp createTime;
 
-	public String getId() {
-		return id;
-	}
-
+	
 	public String getRemark() {
 		return remark;
 	}

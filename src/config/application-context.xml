@@ -46,6 +46,8 @@
 			<list>
 				<value>com.ogpis.demo.entity</value>
 				<value>com.ogpis.forecast.entity</value>
+				<value>com.ogpis.system.entity</value>
+
 			</list>
 		</property>
 		<property name="hibernateProperties">

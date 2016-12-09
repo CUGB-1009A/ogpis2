@@ -16,5 +16,4 @@ public class DemoEntity extends BaseEntity {
 	public void setField1(String field1) {
 		this.field1 = field1;
 	}
-
 }
