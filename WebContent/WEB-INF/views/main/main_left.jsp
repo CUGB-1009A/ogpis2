@@ -19,39 +19,18 @@
 		</ul>
 	</div>
 	
-		<div title="趋势预测分析" iconCls="icon-reload" style="overflow:auto; padding:10px; height:100%;" selected="true" class="easyui-accordion" fit="true" border="false">
-		<ul>
-			<li>
-				<span><a href="<%=path%>/forecast/storagePrediction?dataCollectionType=storage" target=main_center>储量产测</a></span>
-
-			<li><span><a href="<%=path%>/xtgl/listRes.jsp"
-					target=main_center>资源管理</a></span></li>
-			<li><span><a href="<%=path%>/xtgl/listOper.jsp"
-					target=main_center>权限管理</a></span></li>
-			<li><span><a href="<%=path%>/xtgl/listRole.jsp"
-					target=main_center>角色管理</a></span></li>
-		</ul>
-	</div>
 	<div title="模块三" iconCls="icon-reload"
 		style="overflow: auto; padding: 10px; height: 100%;">
 		<ul>
-			<li><span><a href="<%=path%>/demo" target=main_center>Demo</a></span>
-
-			</li>
-
-			<li>
-				<span><a href="<%=path%>/forecast/toOutputPredictionPage?dataCollectionType=output" target=main_center>产量预测</a></span>
-
-			<li><span><a href="<%=path%>/" target=main_center>资源管理</a></span>
-			</li>
-			<li><span><a href="<%=path%>/xtgl/listOper.jsp"
-					target=main_center>权限管理</a></span></li>
-			<li><span><a href="<%=path%>/xtgl/listRole.jsp"
-					target=main_center>角色管理</a></span></li>
+			<li><span><a href="<%=path%>/demo" target=main_center>Demo</a></span></li>
+			
+			<li><span><a href="<%=path%>/" target=main_center>资源管理</a></span></li>
+			<li><span><a href="<%=path%>/xtgl/listOper.jsp" target=main_center>权限管理</a></span></li>
+			<li><span><a href="<%=path%>/xtgl/listRole.jsp" target=main_center>角色管理</a></span></li>
 		</ul>
 	</div>
 	<!-- 数据要览 -->
-	<div title="数据要览" data-options="iconCls:'icon-reload',selected:true"
+	<div title="数据要览" data-options="iconCls:'icon-reload'"
 		style="overflow: auto; padding: 10px; height: 100%;">
 		<ul>
 			<li><span><a href="<%=path%>/dataBrowse"
@@ -63,6 +42,14 @@
 					target=main_center>储量专题</a></span></li>
 			<li><span><a href="<%=path%>/xtgl/listRole.jsp"
 					target=main_center>勘探开发专题</a></span></li>
+		</ul>
+	</div>
+	
+	<!-- 趋势预测分析 -->
+	<div title="趋势预测分析" iconCls="icon-reload" style="overflow:auto; padding:10px; height:100%;" selected="true" class="easyui-accordion" fit="true" border="false">
+		<ul>
+			<li><span><a href="<%=path%>/forecast/toOutputPredictionPage?dataCollectionType=output"" target=main_center>产量预测-old</a></span>
+			<li><span><a href="<%=path%>/forecast/toOutputPredictionPage1?dataCollectionType=output" target=main_center>产量预测-new</a></span></li>
 		</ul>
 	</div>
 </div>

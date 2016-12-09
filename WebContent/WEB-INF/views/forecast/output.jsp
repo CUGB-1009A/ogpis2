@@ -6,8 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>123</title>
-<script type="text/javascript" src="<%=path %>/sz/binary/dynaload.js"></script>
-<script type="text/javascript" src="<%=path%>/Echarts2/dist/echarts.js"></script>
+<script type="text/javascript" src="<%=path %>/resource/supcan1.0.95.0/binary/dynaload.js"></script>
  
 </head>
 <body>
