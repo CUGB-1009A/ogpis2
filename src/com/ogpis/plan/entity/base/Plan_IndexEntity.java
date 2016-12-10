@@ -2,11 +2,13 @@ package com.ogpis.plan.entity.base;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.plan.entity.IndexManagement;
 import com.ogpis.plan.entity.Plan;
 
+@MappedSuperclass
 public class Plan_IndexEntity extends BaseEntity{
 	@ManyToOne
     @JoinColumn(name = "Plan_Id")
@@ -20,6 +22,12 @@ public class Plan_IndexEntity extends BaseEntity{
 	 * 目标值
 	 */
 	private float targetValue;
+	
+
+	/**
+	 * 指标完成情况
+	 */
+	private String indexPerformance;
 	
 	public Plan getPlan() {
 		return plan;
@@ -53,8 +61,4 @@ public class Plan_IndexEntity extends BaseEntity{
 		this.indexPerformance = indexPerformance;
 	}
 
-	/**
-	 * 指标完成情况
-	 */
-	private String indexPerformance;
 }

@@ -19,7 +19,7 @@
 			<option>中海油</option>
 			<option>延长石油</option>
 			<option>中联煤</option>
-			<option>其他   </option>
+			<option>其他 </option>
 		</select>
 		<a href="<%=path%>/index/add?type=${type}">添加指标</a>
 	</div>

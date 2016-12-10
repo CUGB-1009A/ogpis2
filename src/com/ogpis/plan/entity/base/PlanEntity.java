@@ -14,7 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
-import org.apache.catalina.User;
+
 import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,6 +22,7 @@ import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.plan.entity.IndexManagement;
 import com.ogpis.plan.entity.PlanDocument;
 import com.ogpis.plan.entity.Plan_Index;
+import com.ogpis.system.entity.User;
 /**
  * 规划信息的基类，定义了规划信息的公有字段
  * @author AA
@@ -67,27 +68,27 @@ public class PlanEntity extends BaseEntity {
 	/**
 	 * 规划概述
 	 */
-	@Column(columnDefinition="CLOB")
+	@Column(columnDefinition="TEXT")
 	protected String PlanShortDescription;
 	/**
 	 * 目标和总体完成情况
 	 */
-	@Column(columnDefinition="CLOB")
+	@Column(columnDefinition="TEXT")
 	protected String TargetAndFinished;
 	/**
 	 * 规划描述
 	 */
-	@Column(columnDefinition="CLOB")
+	@Column(columnDefinition="TEXT")
 	protected String PlanDescription;
 	/**
 	 * 储量完成情况描述
 	 */
-	@Column(columnDefinition="CLOB")
+	@Column(columnDefinition="TEXT")
 	protected String StorageDescription;
 	/**
 	 * 产量完成情况描述
 	 */
-	@Column(columnDefinition="CLOB")
+	@Column(columnDefinition="TEXT")
 	protected String OutputDescription;
 	/**
 	 * 规划文档
@@ -97,6 +98,7 @@ public class PlanEntity extends BaseEntity {
 	/**
 	 * 规划对应的指标
 	 */
+	@Deprecated
 	@OneToMany(fetch=FetchType.LAZY,cascade={CascadeType.ALL},mappedBy="plan")
 	protected List<IndexManagement> index;
 	/**

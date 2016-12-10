@@ -5,10 +5,13 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.plan.entity.Plan;
+import com.ogpis.system.entity.User;
 
+@MappedSuperclass
 public class PlanDocumentEntity extends BaseEntity {
 	/**
 	 * 文档名称
@@ -41,10 +44,10 @@ public class PlanDocumentEntity extends BaseEntity {
 	@Column(columnDefinition="DATE")
 	private Date uploadDate;
 
-//	/**
-//	 * 文档上传用户
-//	 */
-//	private User uploadUser;
+	/**
+	 * 文档上传用户
+	 */
+	private User uploadUser;
 	
 	@ManyToOne
 	@JoinColumn(name = "Plan_Id")

@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
 
@@ -15,6 +16,7 @@ import com.ogpis.plan.entity.IndexDataManagement;
 import com.ogpis.plan.entity.Plan;
 import com.ogpis.plan.entity.Plan_Index;
 
+@MappedSuperclass
 public class IndexManagementEntity extends BaseEntity{
 	public static final String FREQUENCY_YEAR = "year";
 	public static final String FREQUENCY_QUARTER="quarter";
