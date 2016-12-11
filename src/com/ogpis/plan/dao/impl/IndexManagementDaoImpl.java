@@ -20,7 +20,8 @@ public class IndexManagementDaoImpl extends HibernateBaseDao<IndexManagement, St
 
 	@Override
 	public List<IndexManagement> findAllIndexByPrority(String type) {
-		String hql="from IndexManagement m where m.type='"+type+"'order by priority asc";
+		//String hql="from IndexManagement m where m.type='"+type+"'order by priority asc";
+		String hql="from IndexManagement m where m.deleted=false and m.PlanType='"+type+"' order by priority asc";
 		List<IndexManagement> items=this.find(hql, null);
 		return items;
 	}
@@ -38,7 +39,7 @@ public class IndexManagementDaoImpl extends HibernateBaseDao<IndexManagement, St
 
 	@Override
 	public IndexManagement update(IndexManagement indexManagement) {
-		getSession().update(indexManagement);
+		getSession().merge(indexManagement);
 		return indexManagement;
 	}
 

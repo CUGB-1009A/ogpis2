@@ -9,9 +9,9 @@
 		</li>
 	</div>
 
-	<div title="模块二" iconCls="icon-reload" style="overflow:auto; padding:10px; height:100%;"  border="false">
+	<div title="模块二" iconCls="icon-reload" style="overflow:auto; padding:10px; height:100%;"  border="false"></div>
 
-	<div title="系统管理" iconCls="icon-tip" style="overflow:auto; padding:10px; height:100%;" selected="true" class="easyui-accordion" fit="true" border="false">
+	<div title="系统管理" iconCls="icon-tip" style="overflow:auto; padding:10px; height:100%;" class="easyui-accordion" border="false">
 
 		<ul>
 			<li>
@@ -22,7 +22,7 @@
 			</li>
 		</ul>
 	</div>
-	<div title="规划管理" iconCls="icon-reload" style="overflow:auto; padding:10px; height:100%;" selected="true" border="false">
+	<div title="规划管理" iconCls="icon-reload" style="overflow:auto; padding:10px; height:100%;" selected="true" class="easyui-accordion" border="false">
 		<ul>
 			<li>
 				<span><a href="<%=path%>/index/list?type=QG" target=main_center>规划指标管理</a></span>

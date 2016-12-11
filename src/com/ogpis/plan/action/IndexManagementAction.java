@@ -29,7 +29,6 @@ public class IndexManagementAction {
 		model.addAttribute("planType", PlanType.values());
 		model.addAttribute("indexList", indexList);
 		model.addAttribute("type", type);
-		System.out.println("index/list");
 		return "plan/index/list";
 	}
 	
@@ -49,9 +48,9 @@ public class IndexManagementAction {
 			bean.setPlanType(indexManagement.getPlanType());
 			bean.setMineType(indexManagement.getMineType());
 			bean.setIndexName(indexManagement.getIndexName());
-			bean.setIndexType(indexManagement.getIndexType());;
+			bean.setIndexType(indexManagement.getIndexType());
 			bean.setIndexUnit(indexManagement.getIndexUnit());
-			bean.setTrack(indexManagement.getTrack());;
+			bean.setTrack(indexManagement.getTrack());
 			bean.setPriority(indexManagement.getPriority());
 			indexManagementService.save(bean);
 		}else{
@@ -59,13 +58,21 @@ public class IndexManagementAction {
 			bean.setPlanType(indexManagement.getPlanType());
 			bean.setMineType(indexManagement.getMineType());
 			bean.setIndexName(indexManagement.getIndexName());
-			bean.setIndexType(indexManagement.getIndexType());;
+			bean.setIndexType(indexManagement.getIndexType());
 			bean.setIndexUnit(indexManagement.getIndexUnit());
-			bean.setTrack(indexManagement.getTrack());;
+			bean.setTrack(indexManagement.getTrack());
 			bean.setPriority(indexManagement.getPriority());
 			indexManagementService.update(bean);
 		}
 		model.addAttribute("type",indexManagement.getPlanType());
-		return "redirect:/plan/index/list";
+		return "redirect:/index/list";
+	}
+	
+	@RequestMapping("/edit")
+	public String edit(HttpServletRequest request,ModelMap model,String id){
+		IndexManagement index=indexManagementService.findById(id);
+		model.addAttribute("index",index);
+		model.addAttribute("type", index.getPlanType());
+		return "plan/index/indexEdit";
 	}
 }
