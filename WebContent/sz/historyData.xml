@@ -11,27 +11,54 @@
 		</Properties>
 		<Fonts>
 			<Font faceName="Microsoft YaHei UI" charSet="134" height="-14" weight="400"/>
+			<Font faceName="Microsoft YaHei UI" charSet="134" height="-29" weight="400"/>
 		</Fonts>
 		<Table>
-			<Col width="100"/>
-			<Col width="100"/>
+			<Col width="18"/>
+			<Col width="140"/>
+			<Col width="140"/>
 			<Col width="15"/>
-			<TR height="24" sequence="0">
-				<TD datatype="1" formula="=headrow(&apos;ds1&apos;)">年份</TD>
-				<TD datatype="1">历史数据</TD>
+			<TR height="50" sequence="0">
+				<TD/>
+				<TD fontIndex="1" align="center" alias="title"/>
+				<TD/>
 				<TD topBorder="0"/>
 			</TR>
 			<TR height="24" sequence="1">
-				<TD datatype="1" formula="=datarow(&apos;ds1&apos;)"/>
+				<TD/>
+				<TD align="right" alias="unit"/>
+				<TD align="right"/>
+				<TD topBorder="0"/>
+			</TR>
+			<TR height="24" sequence="2">
+				<TD/>
+				<TD align="center" datatype="1" formula="=headrow(&apos;ds1&apos;)" alias="col1">年份</TD>
+				<TD datatype="1" alias="col2">完成量</TD>
+				<TD topBorder="0"/>
+			</TR>
+			<TR height="24" sequence="3">
+				<TD/>
+				<TD align="center" datatype="1" formula="=datarow(&apos;ds1&apos;)"/>
 				<TD datatype="1"/>
 				<TD topBorder="0"/>
 			</TR>
-			<TR height="15" sequence="2">
+			<TR height="24" sequence="4">
+				<TD/>
+				<TD/>
+				<TD/>
+				<TD topBorder="0"/>
+			</TR>
+			<TR height="15" sequence="5">
+				<TD leftBorder="0"/>
 				<TD leftBorder="0"/>
 				<TD leftBorder="0"/>
 				<TD leftBorder="0" topBorder="0"/>
 			</TR>
 		</Table>
+		<Merges>
+			<Range row1="0" col1="1" row2="0" col2="2"/>
+			<Range row1="1" col1="1" row2="1" col2="2"/>
+		</Merges>
 		<PrintPage>
 			<Paper>
 				<Margin left="19" top="25" right="19" bottom="25"/>
@@ -50,7 +77,7 @@
 	<Version>2</Version>
 	<Type>4</Type>
 	<TypeMeaning>JSON</TypeMeaning>
-	<Source></Source>
+	<Source>C:\Users\Tu\Desktop\temp.json</Source>
 	<XML_RecordAble_Nodes>
 		<Node>
 			<name>jsonobject</name>
@@ -66,7 +93,7 @@
 		</Column>
 		<Column>
 			<name>jsonobject\value</name>
-			<text>历史数据</text>
+			<text>完成量</text>
 			<type>string</type>
 			<visible>true</visible>
 			<sequence>2</sequence>

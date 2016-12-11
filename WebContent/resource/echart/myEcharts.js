@@ -1,29 +1,56 @@
-function CreatChart(id,data){//id是"main"  data={"title":"",}
-	this.id=id;
-	this.title=data.title;
-	this.xAxis=data.xAxis;
-	this.yAxisName=data.yAxisName;
-	this.xAxisName=data.xAxisName;
-	this.series=data.series;
-	//基于准备好的dom，初始化echarts实例
-	this.creatChart=function(){
-		var myChart = echarts.init(document.getElementById('main'));
-		//绘制图表
-		myChart.setOption({
-		 title: { text: 'ECharts 入门示例' },
-		 tooltip: {},
-		 xAxis: {
-		     data:this.xAxis, //["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-		     name:this.xAxisName
-		 },
-		 yAxis: {
-			 0
-		 },
-		 series: [{
-		     name: '销量',
-		     type: 'bar',
-		     data: this.series//[5, 20, 36, 10, 10, 20]
-		 }]
-		});
+function CreatChart(id,title,unit,data){
+	var myChart = echarts.init(document.getElementById(id));
+	//解析data:将{["year":1949,"value":1],["year":1950,"value":2],["year":1951,"value":3]}
+	//                        ||
+	//         解析为{"year":[1949,1950,1951],"value":[1,2,3]}
+	var historyYear="{\"year\":[";
+	var historyValue="{\"value\":[";
+	for(i=0;i<data.length;i++){
+		historyYear = historyYear + data[i].year+",";
+		historyValue = historyValue + data[i].value+",";
 	}
+	historyYear = historyYear.substring(0,historyYear.length-1);
+	historyValue = historyValue.substring(0,historyValue.length-1);
+	historyYear = historyYear + "]}";
+	historyValue = historyValue + "]}";
+	var x = eval("(" + historyYear + ")").year;
+	var y = eval("(" + historyValue + ")").value;
+	var option = {
+	 title: { 
+				 text: title,
+				 left:'center'
+			 },
+	 tooltip: {
+		 		 trigger: 'axis'
+	 },
+	 toolbox: {
+       show : true,
+       feature : {
+           saveAsImage : {show: true},
+           dataView:{show:true}
+       }
+   },
+	 xAxis : [
+		        {
+		            type : 'category',
+		            boundaryGap : false,
+		            name:"年份",
+		            data : x
+		        }
+		    ],
+		    yAxis : [
+				        {
+				            type : 'value',
+				            name:unit
+				        }
+				    ],
+	 series: [
+		          {
+				     type: 'line',
+				     data: y
+		          }
+	          ]
+	}
+	myChart.setOption(option);
+
 }

@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>123</title>
 <script type="text/javascript" src="<%=path %>/resource/supcan1.0.95.0/binary/dynaload.js"></script>
+<script src="<%=path %>/resource/dist/echarts.js"></script>
  
 </head>
 <body>
@@ -88,14 +89,14 @@
 	</div>
 <script type="text/javascript">
 function OnReady(id){ //添历史数据表格，并显示预测数据表格模板
-	if(id=='AF')
+	<%-- if(id=='AF')
 		{
 		AF.func("Build", "<%=path%>/sz/historyData.xml");
 		AF.func("setSource","ds1 \r\n "+historyDataString);
 		AF.func("Calc",'');
 		}
 	if(id=='AF1')
-		AF1.func("Build", "<%=path%>/sz/futureData.xml");
+		AF1.func("Build", "<%=path%>/sz/futureData.xml"); --%>
 }
 
 var historyBeginYear = $("#historyBeginYear option:selected").val();//数据集历史数据的起始年份，不变的
@@ -157,7 +158,7 @@ var historyDataJson = historyData.historyData ;
 		};
 	        require.config({
 	            paths: {
-	                echarts: '<%=path%>/Echarts2/dist'
+	                echarts: '<%=path%>/resource/dist'
 	            }
 	        });
 	        require(

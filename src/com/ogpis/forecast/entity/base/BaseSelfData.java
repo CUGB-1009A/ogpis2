@@ -40,4 +40,12 @@ public class BaseSelfData extends BaseEntity {
 		this.data = data;
 	}
 
+	public SelfDataCollection getSelfDataCollection() {
+		return selfDataCollection;
+	}
+
+	public void setSelfDataCollection(SelfDataCollection selfDataCollection) {
+		this.selfDataCollection = selfDataCollection;
+	}
+
 }
