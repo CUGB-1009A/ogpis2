@@ -196,13 +196,14 @@ var option = {
 					    			dataType:"json",
 					    			async:true,
 					    			data:{
-					    				"selfDataCollectionName":name,
+					    				"selfDataCollectionName":encodeURIComponent(name),
 					    				"year":option1.option.xAxis[0].data+"",
 					    				"value":option1.option.series[0].data+""
 					    				},
 					    			type:"GET",
 					    			success:function(result){
-					    				alert(result.result)
+					    				$("#unshared").append("<span id='"+result.id+"'><a href=''>"+name+"</a><button onclick=share('"+result.id+"')>共享</button><button onclick=deleteUnshared('"+result.id+"')>删除</button><br></span>");
+					    				alert("保存数据成功");
 					    			},
 					    			error:function(){
 					    				alert("保存数据失败");

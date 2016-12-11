@@ -1,6 +1,8 @@
 package com.ogpis.forecast.action;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -250,9 +252,8 @@ public class ForecastAction {
 		}
 		
 		@RequestMapping(value = "/forecast/saveSelfDataCollection")
-		public void saveSelfDataCollection(HttpServletRequest request, ModelMap model,HttpServletResponse response){
-			response.setCharacterEncoding("utf-8");
-			String selfDataCollectionName = request.getParameter("selfDataCollectionName");
+		public void saveSelfDataCollection(HttpServletRequest request, ModelMap model,HttpServletResponse response) throws UnsupportedEncodingException {
+			String selfDataCollectionName = URLDecoder.decode(request.getParameter("selfDataCollectionName"), "UTF-8");
 			System.out.println(selfDataCollectionName);
 			String[] year = request.getParameter("year").split(",");
 			String[] value = request.getParameter("value").split(",");
@@ -273,7 +274,7 @@ public class ForecastAction {
 			response.setContentType("application/json");
 		    response.setCharacterEncoding("utf-8");
 			try {
-				response.getWriter().write("{\"result\":\"success\"}");
+				response.getWriter().write("{\"id\":\""+selfDataCollection.getId()+"\"}");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

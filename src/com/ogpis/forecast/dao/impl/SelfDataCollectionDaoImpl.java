@@ -38,13 +38,14 @@ public class SelfDataCollectionDaoImpl extends HibernateBaseDao<SelfDataCollecti
 	public SelfDataCollection findById(String id) {
 		
 		SelfDataCollection entity = get(id);
-		//getSession().close();
 		return entity;
 	}
 
 	@Override
 	public void deleteSelfDataCollection(SelfDataCollection selfDataCollection) {
-		getSession().delete(selfDataCollection);
+		selfDataCollection.setUser(null);
+		getSession().merge(selfDataCollection);
+		getSession().delete(super.get(selfDataCollection.getId()));
 		
 	}
 }

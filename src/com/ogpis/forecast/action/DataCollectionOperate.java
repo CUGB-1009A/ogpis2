@@ -72,12 +72,9 @@ public class DataCollectionOperate {
 	public void deleteUnshared(HttpServletRequest request, ModelMap model , HttpServletResponse response) {
 		String id = request.getParameter("id");
 		SelfDataCollection selfDataCollection = selfDataCollectionService.findById(id);
-		System.out.println(selfDataCollection.getId());
 		List<SelfData> selfDataList = selfDataCollection.getSelfData();
 		selfDataService.delete(selfDataList);
-		SelfDataCollection selfDataCollection2 = selfDataCollectionService.findById(id);
-		System.out.println(selfDataCollection2.getId());
-		selfDataCollectionService.deleteSelfDataCollection(selfDataCollectionService.findById(id));
+		selfDataCollectionService.deleteSelfDataCollection(selfDataCollection);
 		String result = "{\"selfDataCollectionId\":\""+selfDataCollection.getId()+"\",\"selfDataCollectionName\":\""+selfDataCollection.getDataCollectionName()+"\"}";
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("utf-8");
