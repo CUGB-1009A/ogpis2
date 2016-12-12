@@ -17,6 +17,7 @@
 	<mvc:resources location="/sz/" mapping="/sz/**" />
 	<mvc:resources location="/js/" mapping="/js/**" />
 	<mvc:resources location="/image/" mapping="/image/**" />
+	<mvc:resources location="/planFileUpload/" mapping="/planFileUpload/**" />
 
 	<context:component-scan base-package="com.ogpis" />
 	<bean

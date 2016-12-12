@@ -1,5 +1,7 @@
 package com.ogpis.forecast.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,11 @@ public class ModelInfoServiceImpl implements ModelInfoService{
 	@Override
 	public ModelInfo findById(String modelId) {
 		return modelInfoDao.findById(modelId);
+	}
+
+	@Override
+	public List<ModelInfo> findAll() {
+		return modelInfoDao.findAll();
 	}
 
 }

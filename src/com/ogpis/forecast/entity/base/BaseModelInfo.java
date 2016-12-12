@@ -28,10 +28,15 @@ public class BaseModelInfo extends BaseEntity{
 	@Column(name = "类名")
 	private String className;
 	
+	@Column(name = "模型描述",columnDefinition="Text")
+	private String modelDescription;
+	
+	@Deprecated
 	@ManyToMany(targetEntity = DataCollection.class, fetch = FetchType.LAZY)
 	@JoinTable(name = "ogpis_DataCollection_ModelInfo", joinColumns = @JoinColumn(name = "ModelInfo_ID"), inverseJoinColumns = @JoinColumn(name = "DataCollection_ID"))
 	protected List<DataCollection> dataCollection = new ArrayList<DataCollection>();
 	
+	@Deprecated
 	@ManyToMany(targetEntity = PEM.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "ogpis_ModelInfo_PEM", joinColumns = @JoinColumn(name = "ModelInfo_ID"), inverseJoinColumns = @JoinColumn(name = "PEM_ID"))
 	protected List<PEM> pem = new ArrayList<PEM>();
@@ -74,6 +79,14 @@ public class BaseModelInfo extends BaseEntity{
 
 	public void setPem(List<PEM> pem) {
 		this.pem = pem;
+	}
+
+	public String getModelDescription() {
+		return modelDescription;
+	}
+
+	public void setModelDescription(String modelDescription) {
+		this.modelDescription = modelDescription;
 	}
 	
 }

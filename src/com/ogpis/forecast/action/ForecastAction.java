@@ -59,20 +59,27 @@ public class ForecastAction {
 	}
 	
 	//到产量预测界面---new
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/forecast/toOutputPredictionPage1")
 	public String toOutputPredictionPage1(HttpServletRequest request, ModelMap model) {
 		String dataCollectionType = request.getParameter("dataCollectionType");
 		String historyData = HistoryData.historyData;
-		List<DataCollection> dataCollectionList =dataCollectionService.findByDataCollectionType(dataCollectionType);;
+		List<DataCollection> dataCollectionList =dataCollectionService.findByDataCollectionType(dataCollectionType);
 		String userId = "1";
 		User user = userService.findById(userId);
 		List<SelfDataCollection> selfDataCollection = user.getSelfDataCollections();
 		List<SelfDataCollection> otherDataCollection = selfDataCollectionService.findOthersShared();
+		List<ModelInfo> modelInfoList = modelInfoService.findAll();
+		ModelInfo tempModel = modelInfoList.get(0);
+		LinkedHashMap pemList = ForecastUtil.getPEM(tempModel.getJarName(),tempModel.getClassName());
+		model.addAttribute("tempModel",tempModel);
+		model.addAttribute("modelInfoList",modelInfoList);
+		model.addAttribute("pemList",pemList);
 		model.addAttribute("otherDataCollection",otherDataCollection);
 		model.addAttribute("dataCollectionList",dataCollectionList);
 		model.addAttribute("selfDataCollection",selfDataCollection);
 		model.addAttribute("historyData",historyData);
-		return "forecast/output1";
+		return "forecast/forecast";
 	}
 	
 	//到产量预测界面--old

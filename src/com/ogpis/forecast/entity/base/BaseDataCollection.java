@@ -27,6 +27,7 @@ public class BaseDataCollection extends BaseEntity{
 	@Column(name = "数据集类别")
 	private String dataCollectionType;
 	
+	@Deprecated
 	@ManyToMany(targetEntity = ModelInfo.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "ogpis_DataCollection_ModelInfo", joinColumns = @JoinColumn(name = "DataCollection_ID"), inverseJoinColumns = @JoinColumn(name = "ModelInfo_ID"))
 	protected List<ModelInfo> modelInfo = new ArrayList<ModelInfo>();

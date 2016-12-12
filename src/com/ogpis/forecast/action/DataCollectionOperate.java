@@ -30,8 +30,26 @@ public class DataCollectionOperate {
 	}
 	
 	@RequestMapping(value = "/dataShow/selfDataShow")
-	public void selfDataShow(HttpServletRequest request, ModelMap model) {
-
+	public void selfDataShow(HttpServletRequest request, ModelMap model,HttpServletResponse response) {
+		String id = request.getParameter("id");
+		StringBuilder result = new StringBuilder();
+		result.append("{\"historyData\":[");
+		SelfDataCollection selfDataCollection = selfDataCollectionService.findById(id);
+		List<SelfData> selfDataList = selfDataCollection.getOrderedSelfData();
+		for(SelfData temp:selfDataList){
+			result.append("{\"year\":"+temp.getYear()+",\"value\":"+temp.getData()+"},");
+		}
+		result.deleteCharAt(result.length()-1);
+		result.append("]}");
+		System.out.println(result.toString());
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("utf-8");
+	    
+		try {
+			response.getWriter().write(result.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 	}
 	
 	@RequestMapping(value = "/dataShow/dataShare")

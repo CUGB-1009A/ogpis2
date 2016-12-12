@@ -15,7 +15,7 @@ import com.ogpis.forecast.entity.SelfDataCollection;
 public class BaseSelfData extends BaseEntity {
 	
 	@Column(name = "年份")
-	private int year;
+	private Integer year;
 	
 	@Column(name = "历史数据")
 	private double data;
@@ -24,11 +24,11 @@ public class BaseSelfData extends BaseEntity {
 	@JoinTable(name = "ogpis_SelfDataCollection_SelfData",joinColumns = @JoinColumn(name = "SelfDataId"),inverseJoinColumns = @JoinColumn(name = "SelfDataCollectionId"))
 	protected SelfDataCollection selfDataCollection ;
 	
-	public int getYear() {
+	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 

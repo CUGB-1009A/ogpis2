@@ -12,6 +12,7 @@ import javax.persistence.MappedSuperclass;
 import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.forecast.entity.ModelInfo;
 
+@Deprecated
 @MappedSuperclass
 public class BasePEM extends BaseEntity{
 	
