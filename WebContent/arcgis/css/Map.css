@@ -8,25 +8,25 @@ html, body, .fullBox, #map {
 #zoomPan {
 	width: 32px;
 	height: 32px;
-	background-image: url(icon/zoomPan.ico)
+	background-image: url(icon/PanTool_B_32.png)
 }
 
 #zoomIn {
 	width: 32px;
 	height: 32px;
-	background-image: url(icon/zoomIn.bmp)
+	background-image: url(icon/ZoomInTool_B_32.png)
 }
 
 #zoomOut {
 	width: 32px;
 	height: 32px;
-	background-image: url(icon/zoomOut.bmp)
+	background-image: url(icon/ZoomOutTool_B_32.png)
 }
 
 #zoomHome {
 	width: 32px;
 	height: 32px;
-	background-image: url(icon/zoomHome.bmp)
+	background-image: url(icon/ZoomFullExtent32.png)
 }
 
 .mapToolDiv {
@@ -37,28 +37,72 @@ html, body, .fullBox, #map {
 	/* right:360px; */
 	display: flex;
 	/* width:400px; */
-	border: 1px solid;
-	border-radius: 10px;
 	flex-direction: row;
 }
+
 .mapToolItem {
 	display: inline-block
 }
-.select{
-	width:150px
+
+.select {
+	width: 150px
 }
-.myTabItem{
+
+.myTabItem {
 	font-size: 20px;
 }
-.inline-block{
+
+.inline-block {
 	display: inline-block;
 }
-.border{
-	border:1px solid #95B8E7
+
+.border {
+	border: 1px solid #95B8E7;
+	border-radius: 10px;
 }
-.margin{
-	margin:0px
+
+.border-2 {
+	border: 1px solid black;
+	border-radius: 0px;
 }
-.padding{
-	padding:10px
+
+.margin {
+	margin: -4px
+}
+
+.padding {
+	padding: 10px
+}
+
+.padding-lr {
+	padding-left: 10px;
+	padding-right: 10px
+}
+
+.padding-tb {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
+.lable {
+	text-decoration: none;
+	color: black;
+}
+
+.toolBar {
+	position: static;
+	left: 0px;
+	top: 0px;
+}
+
+.children-block *{
+	display: block
 }

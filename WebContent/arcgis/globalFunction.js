@@ -1,5 +1,6 @@
 //拖动工具条
 function onDrag(e) {
+	var height=parseInt($("#tab1").css("height"));
 	var d = e.data;
 	if (d.left < 0) {
 		d.left = 0;
@@ -13,6 +14,20 @@ function onDrag(e) {
 	if (d.top + d.target.scrollHeight > d.parent.scrollHeight) {
 		d.top = d.parent.scrollHeight - d.target.scrollHeight
 	}
+	/*var height=parseInt($("#tab1").css("height"));
+	var d = e.data;
+	if (d.left < 0) {
+		d.left = 0;
+	}
+	if (d.top < height) {
+		d.top = height;
+	}
+	if (d.left + d.target.scrollWidth > d.parent.scrollWidth) {
+		d.left = d.parent.scrollWidth - d.target.scrollWidth;
+	}
+	if (d.top + d.target.scrollHeight > d.parent.scrollHeight+height) {
+		d.top = d.parent.scrollHeight+height - d.target.scrollHeight
+	}*/
 }
 // 禁用地图导航工具条
 function deNavBar() {
@@ -67,11 +82,14 @@ function ZoomOut() {
 	})
 }
 // 右键快捷菜单
-/*
- * function mapContextMenu() { var toolbar = $("#mapToolsDiv").parent();
- * toolbar.css("left", event.clientX); toolbar.css("top", event.clientY);
- * toolbar.show(); }
- */
+function mapContextMenu() {
+	var toolbar = $("#mapToolsDiv").parent();
+	console.log(event);
+	toolbar.css("left", event.offsetX);
+	toolbar.css("top", event.offsetY);
+	toolbar.show();
+}
+
 // 地图点击响应
 function mapClick(e) {
 	var g = e.graphic;
@@ -110,77 +128,79 @@ function pointIdentifyTask(point, url, layerId) {
 // 条件查询
 function queryTask(url, layerId, sql) {
 	require([ "esri/tasks/query", "esri/tasks/QueryTask",
-			"esri/symbols/SimpleMarkerSymbol", "esri/Color",
-			"esri/graphic" ], function(Query, QueryTask, Symbol,
-			Color, Graphic) {
-		var task = new QueryTask(url + "/" + layerId);
-		var query = new Query();
-		// 返回要素
-		query.returnGeometry = true;
-		// 返回字段
-		query.outFileds = [ "*" ];
-		// 查询条件
-		query.where = sql;
-		// 执行查询
-		task.execute(query, function(results) {
-			if (results.features && results.features.length > 0) {
-				/* console.log(map.graphicsLayerIds); */
-				map.getLayer("graphicsLayer1").hide();
-				map.graphics.clear();
-				var symbol = new Symbol(Symbol.STYLE_SQUARE, 10, new Symbol(
-						Symbol.STYLE_SOLID, new Color([ 255, 0, 0 ]), 1),
-						new Color([ 0, 255, 0, 0.25 ]));
-				for (var i = 0; i < results.features.length; ++i) {
-					var feature = results.features[i];
-					var g = new Graphic(feature.geometry, symbol);
-					map.graphics.add(g);
-				}
-				/*
-				 * var data=results.features[0].attributes; var
-				 * geometry=results.features[0].geometry; for(var i in data){ }
-				 */
-			}
-		})
-	});
+			"esri/symbols/SimpleMarkerSymbol", "esri/Color", "esri/graphic" ],
+			function(Query, QueryTask, Symbol, Color, Graphic) {
+				var task = new QueryTask(url + "/" + layerId);
+				var query = new Query();
+				// 返回要素
+				query.returnGeometry = true;
+				// 返回字段
+				query.outFileds = [ "*" ];
+				// 查询条件
+				query.where = sql;
+				// 执行查询
+				task.execute(query, function(results) {
+					if (results.features && results.features.length > 0) {
+						/* console.log(map.graphicsLayerIds); */
+						map.getLayer("graphicsLayer1").hide();
+						map.graphics.clear();
+						var symbol = new Symbol(Symbol.STYLE_SQUARE, 10,
+								new Symbol(Symbol.STYLE_SOLID, new Color([ 255,
+										0, 0 ]), 1), new Color([ 0, 255, 0,
+										0.25 ]));
+						for (var i = 0; i < results.features.length; ++i) {
+							var feature = results.features[i];
+							var g = new Graphic(feature.geometry, symbol);
+							map.graphics.add(g);
+						}
+						/*
+						 * var data=results.features[0].attributes; var
+						 * geometry=results.features[0].geometry; for(var i in
+						 * data){ }
+						 */
+					}
+				})
+			});
 }
-//空间查询
+// 空间查询
 function queryTaskByGeometry(url, layerId, geometry) {
-	var data=new Array();
+	var data = new Array();
 	require([ "esri/tasks/query", "esri/tasks/QueryTask",
-			"esri/symbols/SimpleMarkerSymbol", "esri/Color",
-			"esri/graphic" ], function(Query, QueryTask, Symbol,
-			Color, Graphic) {
-		var task = new QueryTask(url + "/" + layerId);
-		var query = new Query();
-		// 返回要素
-		query.returnGeometry = true;
-		// 返回字段
-		query.outFileds = [ "*" ];
-		// 查询元素
-		query.geometry = geometry;
-		// 执行查询
-		task.execute(query, function(results) {
-			if (results.features && results.features.length > 0) {
-				/* console.log(map.graphicsLayerIds); */
-				map.getLayer("graphicsLayer1").hide();
-				map.graphics.clear();
-				var symbol = new Symbol(Symbol.STYLE_SQUARE, 10, new Symbol(
-						Symbol.STYLE_SOLID, new Color([ 255, 0, 0 ]), 1),
-						new Color([ 0, 255, 0, 0.25 ]));
-				for (var i = 0; i < results.features.length; ++i) {
-					var feature = results.features[i];
-					data.push(feature.attributes);
-					var g = new Graphic(feature.geometry, symbol);
-					map.graphics.add(g);
-				}
-				console.log(data);
-				/*
-				 * var data=results.features[0].attributes; var
-				 * geometry=results.features[0].geometry; for(var i in data){ }
-				 */
-			}
-		})
-	});
+			"esri/symbols/SimpleMarkerSymbol", "esri/Color", "esri/graphic" ],
+			function(Query, QueryTask, Symbol, Color, Graphic) {
+				var task = new QueryTask(url + "/" + layerId);
+				var query = new Query();
+				// 返回要素
+				query.returnGeometry = true;
+				// 返回字段
+				query.outFileds = [ "*" ];
+				// 查询元素
+				query.geometry = geometry;
+				// 执行查询
+				task.execute(query, function(results) {
+					if (results.features && results.features.length > 0) {
+						/* console.log(map.graphicsLayerIds); */
+						map.getLayer("graphicsLayer1").hide();
+						map.graphics.clear();
+						var symbol = new Symbol(Symbol.STYLE_SQUARE, 10,
+								new Symbol(Symbol.STYLE_SOLID, new Color([ 255,
+										0, 0 ]), 1), new Color([ 0, 255, 0,
+										0.25 ]));
+						for (var i = 0; i < results.features.length; ++i) {
+							var feature = results.features[i];
+							data.push(feature.attributes);
+							var g = new Graphic(feature.geometry, symbol);
+							map.graphics.add(g);
+						}
+						console.log(data);
+						/*
+						 * var data=results.features[0].attributes; var
+						 * geometry=results.features[0].geometry; for(var i in
+						 * data){ }
+						 */
+					}
+				})
+			});
 }
 // 显示信息
 function showTip(e) {
@@ -210,8 +230,8 @@ function showMapMenu(e) {
 	toolbar.css("top", event.clientY);
 	toolbar.show();
 }
-//获取绘画的结果
-function getDrawResult(e){
+// 获取绘画的结果
+function getDrawResult(e) {
 	var url = "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer";
 	var layerId = 0
 	var geometry = e.geometry;
