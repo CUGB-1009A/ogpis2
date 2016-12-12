@@ -25,89 +25,79 @@
 			</c:if>
 		</ul>
 	</div>
-	<div>
+	<div class="easyui-panel" title="规划指标项" style="padding:10px 60px 20px 60px">
 		<form action="<%=path %>/index/save" method="post" onsubmit="return check()">
-			<input type="hidden" value="<%=isAdd %>" name="isAdd"/>
-			<input type="hidden" value="${index.id }" name="id"/>
-			<div>
-				<label>指标项名称</label>
-				<div>
-					<input class="easyui-validatebox" type="text" id="indexName" placeholder="指标项名称" name="indexName" value="${index.indexName }">
-				</div>
-			</div><br/>
-			<div>
-				<label>指标单位</label>
-				<div>
-					<input type="text" id="indexUnit" placeholder="指标单位" name="indexUnit" value="${index.indexUnit}">
-				</div>
-			</div><br/>
-			<div>
-				<label>指标类型</label>
-				<div>
-					<select id="selectType" name="planType" <c:if test="<%=!isAdd %>">disabled</c:if>>
-						<option value='QG' <c:if test="${type.equals('QG') }">selected</c:if>>全国</option>
-						<option value='ZSH' <c:if test="${type.equals('ZSH') }">selected</c:if>>中石化</option>
-						<option value='ZSY' <c:if test="${type.equals('ZSY') }">selected</c:if>>中石油</option>
-						<option value='ZHY' <c:if test="${type.equals('ZHY') }">selected</c:if>>中海油</option>
-						<option value='YC' <c:if test="${type.equals('YC') }">selected</c:if>>延长石油</option>
-						<option value='ZLM' <c:if test="${type.equals('ZLM') }">selected</c:if>>中联煤</option>
-						<option value='QT' <c:if test="${type.equals('QT') }">selected</c:if>>其他</option>
-					</select>
-				</div>
-			</div><br/>
-			<div>
-				<label>矿种类型</label>
-				<div>
-					<select id="selectMineType" name="mineType">
-						<option value='1' <c:if test="${index.mineType.equals('1') }">selected</c:if>>石油</option>
-						<option value='2' <c:if test="${index.mineType.equals('2') }">selected</c:if>>天然气</option>
-						<option value='3' <c:if test="${index.mineType.equals('3') }">selected</c:if>>煤层气</option>
-						<option value='4' <c:if test="${index.mineType.equals('4') }">selected</c:if>>页岩气</option>
-						<option value='5' <c:if test="${index.mineType.equals('5') }">selected</c:if>>其他</option>
-					</select>
-				</div>
-			</div><br/>
-			<div>
-				<label>储产量</label>
-				<div>
-					<select id="selectIndexType" name="indexType">
-						<option value='1' <c:if test="${index.indexType.equals('1') }">selected</c:if>>新增探明地质储量</option>
-						<option value='2' <c:if test="${index.indexType.equals('2') }">selected</c:if>>产量</option>
-						<option value='3' <c:if test="${index.indexType.equals('3') }">selected</c:if>>其他</option>
-					</select>
-				</div>
-			</div><br/>
-			<div>
-				<label>是否跟踪</label>
-				<div>
-					<label>
+				<input type="hidden" value="<%=isAdd %>" name="isAdd"/>
+				<input type="hidden" value="${index.id }" name="id"/>
+			<table cellpadding="5">
+				<tr>
+					<td>指标项名称</td>
+					<td><input class="easyui-textbox" type="text" id="indexName" data-options="prompt:'指标项名称'" name="indexName" value="${index.indexName }"></td>
+				</tr>
+				<tr>
+					<td>指标单位</td>
+					<td><input class="easyui-textbox" type="text" id="indexUnit" data-options="prompt:'指标单位'" name="indexUnit" value="${index.indexUnit}"></td>
+				</tr>
+				<tr>
+					<td>指标类型</td>
+					<td>
+						<select  id="selectType" name="planType" <c:if test="<%=!isAdd %>"></c:if>>
+							<option value='QG' <c:if test="${type.equals('QG') }">selected</c:if>>全国</option>
+							<option value='ZSH' <c:if test="${type.equals('ZSH') }">selected</c:if>>中石化</option>
+							<option value='ZSY' <c:if test="${type.equals('ZSY') }">selected</c:if>>中石油</option>
+							<option value='ZHY' <c:if test="${type.equals('ZHY') }">selected</c:if>>中海油</option>
+							<option value='YC' <c:if test="${type.equals('YC') }">selected</c:if>>延长石油</option>
+							<option value='ZLM' <c:if test="${type.equals('ZLM') }">selected</c:if>>中联煤</option>
+							<option value='QT' <c:if test="${type.equals('QT') }">selected</c:if>>其他</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>矿种类型</td>
+					<td>
+						<select id="selectMineType" name="mineType">
+							<option value='1' <c:if test="${index.mineType.equals('1') }">selected</c:if>>石油</option>
+							<option value='2' <c:if test="${index.mineType.equals('2') }">selected</c:if>>天然气</option>
+							<option value='3' <c:if test="${index.mineType.equals('3') }">selected</c:if>>煤层气</option>
+							<option value='4' <c:if test="${index.mineType.equals('4') }">selected</c:if>>页岩气</option>
+							<option value='5' <c:if test="${index.mineType.equals('5') }">selected</c:if>>其他</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>储产量</td>
+					<td>
+						<select id="selectIndexType" name="indexType">
+							<option value='1' <c:if test="${index.indexType.equals('1') }">selected</c:if>>新增探明地质储量</option>
+							<option value='2' <c:if test="${index.indexType.equals('2') }">selected</c:if>>产量</option>
+							<option value='3' <c:if test="${index.indexType.equals('3') }">selected</c:if>>其他</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>是否跟踪</td>
+					<td>
 						<input type="radio" name="track" value="<%=true %>" <c:if test="${index.track }">checked</c:if>>是
-					</label>					
-					<label>
 						<input type="radio" name="track" value="<%=false %>" <c:if test="${!index.track }">checked</c:if>>否
-					</label>					
-				</div>
-			</div><br/>
-			<div>
-				<label>优先级</label>
-				<div>
-					<input type="text" id="priority" placeholder="优先级" name="priority" value="${index.priority}">
-				</div>
-			</div><br/>
-			
-			<div>
-				<button type="submit">
-					确认
-				</button>
-			</div>
-			<div>
-				<button type="button" onclick=window.location.href=<%=path %>/index/list?type=${type}>
-					返回
-				</button>
-			</div>
+					</td>
+				</tr>
+				<tr>
+					<td>优先级</td>
+					<td><input class="easyui-textbox" type="text" id="priority" data-options="prompt:'优先级'" name="priority" value="${index.priority}"></td>
+				</tr>
+				<tr>
+					<td><button type="submit" class="easyui-linkbutton" data-options="iconCls:'icon-save'">确认</button></td>
+					<td><button class="easyui-linkbutton" type="button" onclick="back()" data-options="iconCls:'icon-back'">返回</button></td>
+				</tr>
+			</table>
 		</form>
 	</div>
 	<script type="text/javascript">
+	
+		function back(){
+			window.location.href="<%=path%>/index/list?type=${type}";
+		}
+		
 		function check(){
 			var indexName=$('#indexName').val();
 			var indexUnit=$('#indexUnit').val();

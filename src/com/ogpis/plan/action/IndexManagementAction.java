@@ -24,7 +24,6 @@ public class IndexManagementAction {
 	public String findAllIndexByPriority(HttpServletRequest request, ModelMap model) {
 		
 		String type=request.getParameter("type");
-		//String type="QG";
 		List<IndexManagement> indexList = indexManagementService.findAllIndexByPriority(type);
 		model.addAttribute("planType", PlanType.values());
 		model.addAttribute("indexList", indexList);
@@ -75,4 +74,14 @@ public class IndexManagementAction {
 		model.addAttribute("type", index.getPlanType());
 		return "plan/index/indexEdit";
 	}
+	
+	@RequestMapping("/delete")
+	public String delete(HttpServletRequest request,ModelMap model,String id){
+		IndexManagement bean=indexManagementService.findById(id);
+		bean.setDeleted(true);
+		indexManagementService.update(bean);
+		model.addAttribute("type",bean.getPlanType());
+		return "redirect:/index/list";
+	}
+	
 }

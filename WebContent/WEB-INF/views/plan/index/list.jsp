@@ -14,15 +14,15 @@
 			<c:if test="${item.key.equals(type) }"><h3><b>${item }规划指标项定制</b></h3></c:if>
 		</c:forEach>
 	</div>
-	<div style="text-align:right;">
+	<div style="text-align:right;margin:0 10px 0 10px">
 		<select id="selectType" name="planType">
 			<c:forEach items="${planType }" var="item">
 				<option value="${item.key }"<c:if test="${item.key.equals(type) }">selected</c:if>>${item}</option>
 			</c:forEach>
-		</select>
-		<a href="<%=path%>/index/add?type=${type}">添加指标</a>
+		</select>&nbsp;&nbsp;
+		<a class="easyui-linkbutton" data-options="iconCls:'icon-add',size:'large'" href="<%=path%>/index/add?type=${type}">添加指标</a>
 	</div>
-	<div>
+	<div style="text-align:right;margin:0 10px 0 10px">
 		<table class="easyui-datagrid" title="指标项管理">
 			<thead>
 				<tr>
@@ -54,8 +54,8 @@
 						<td>${item1.priority }</td>
 						<td>
 							<p>
-							<a href="<%=path %>/index/edit?id=${item1.id}">编辑</a>&nbsp;
-							<a>删除</a>
+							<a class="easyui-linkbutton" data-options="iconCls:'icon-edit'" href="<%=path %>/index/edit?id=${item1.id}">编辑</a>&nbsp;
+							<a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" href="javascript:deleteIndex('${item1.id }','${item1.plan_indexs.size() }')">删除</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -72,8 +72,8 @@
 	
 		function deleteIndex(id,isDelete){
 			var isDel=confirm('确定删除该指标吗？删除后将不在提供给新的规划使用','确认对话框');
-			if(idDel){
-				if(isDeleted==0){
+			if(isDel){
+				if(isDelete==0){
 					
 					window.location.href="<%=path%>/index/delete?id="+id;
 				}else{

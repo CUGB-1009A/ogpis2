@@ -103,7 +103,7 @@ public class IndexManagementEntity extends BaseEntity{
 	}
 
 	public void setPlanType(String planType) {
-		PlanType = planType;
+		this.PlanType = planType;
 	}
 
 	public String getPriority() {

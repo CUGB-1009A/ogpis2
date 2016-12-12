@@ -23,13 +23,11 @@ public class IndexManagementServiceImpl implements IndexManagementService {
 
 	@Override
 	public IndexManagement save(IndexManagement indexManagement) {
-		// TODO Auto-generated method stub
 		return indexManagementDao.save(indexManagement);
 	}
 
 	@Override
 	public IndexManagement update(IndexManagement indexManagement) {
-		// TODO Auto-generated method stub
 		return indexManagementDao.update(indexManagement);
 	}
 
