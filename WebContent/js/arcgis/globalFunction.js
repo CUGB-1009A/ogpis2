@@ -1,6 +1,6 @@
 //拖动工具条
 function onDrag(e) {
-	var height=parseInt($("#tab1").css("height"));
+	var height = parseInt($("#tab1").css("height"));
 	var d = e.data;
 	if (d.left < 0) {
 		d.left = 0;
@@ -14,89 +14,94 @@ function onDrag(e) {
 	if (d.top + d.target.scrollHeight > d.parent.scrollHeight) {
 		d.top = d.parent.scrollHeight - d.target.scrollHeight
 	}
-	/*var height=parseInt($("#tab1").css("height"));
-	var d = e.data;
-	if (d.left < 0) {
-		d.left = 0;
-	}
-	if (d.top < height) {
-		d.top = height;
-	}
-	if (d.left + d.target.scrollWidth > d.parent.scrollWidth) {
-		d.left = d.parent.scrollWidth - d.target.scrollWidth;
-	}
-	if (d.top + d.target.scrollHeight > d.parent.scrollHeight+height) {
-		d.top = d.parent.scrollHeight+height - d.target.scrollHeight
-	}*/
 }
 // 禁用地图导航工具条
-function deNavBar() {
-	navToolbar.deactivate();
+function deNavBar(mapManager) {
+	mapManager.navToolbar.deactivate();
 }
 // 地图全图
-function Home() {
-	map.setExtent(initExtent);
+function Home(mapManager) {
+	mapManager.map.setExtent(mapManager.extent);
 }
 // 平移
-function ZoomPan() {
-	navToolbar.deactivate();
+function ZoomPan(mapManager) {
+	mapManager.navToolbar.deactivate();
+}
+//地图放大
+function ZoomIn(mapManager) {
+	require([ "esri/toolbars/navigation" ], function(Navigation) {
+		mapManager.navToolbar.activate(Navigation.ZOOM_IN);
+	})
+}
+// 地图放大
+function ZoomOut(mapManager) {
+	require([ "esri/toolbars/navigation" ], function(Navigation) {
+		mapManager.navToolbar.activate(Navigation.ZOOM_OUT);
+	})
 }
 // 开启画点模式
-function DrawPoint() {
+function DrawPoint(drawToolBar) {
 	require([ "esri/toolbars/draw" ], function(Draw) {
 		drawToolBar.activate(Draw.POINT);
 	})
 }
 // 禁用画图供给条
-function deDrawBar() {
+function deDrawBar(drawToolBar) {
 	drawToolBar.deactivate();
 }
 // 开启画线模式
-function DrawLine() {
+function DrawLine(drawToolBar) {
 	require([ "esri/toolbars/draw" ], function(Draw) {
 		drawToolBar.activate(Draw.POLYLINE);
 	})
 }
 // 开启画线多边形模式
-function DrawLine() {
+function DrawPloygon(drawToolBar) {
 	require([ "esri/toolbars/draw" ], function(Draw) {
 		drawToolBar.activate(Draw.POLYGON);
 	})
 }
 // 开启画线多边形模式
-function DrawLine() {
+function DrawRectangle(drawToolBar) {
 	require([ "esri/toolbars/draw" ], function(Draw) {
 		drawToolBar.activate(Draw.RECTANGLE);
 	})
 }
-// 地图放大
-function ZoomIn() {
-	require([ "esri/toolbars/navigation" ], function(Navigation) {
-		navToolbar.activate(Navigation.ZOOM_IN);
-	})
-}
-// 地图放大
-function ZoomOut() {
-	require([ "esri/toolbars/navigation" ], function(Navigation) {
-		navToolbar.activate(Navigation.ZOOM_OUT);
-	})
-}
 // 右键快捷菜单
 function mapContextMenu() {
-	var toolbar = $("#mapToolsDiv").parent();
-	console.log(event);
-	toolbar.css("left", event.offsetX);
-	toolbar.css("top", event.offsetY);
-	toolbar.show();
+	var toolbar = $("#contextMenu");
+	var parent = toolbar.parent();
+	var x=event.offsetX;
+	var y=event.offsetY;
+	parent.css("left", x);
+	parent.css("top", y);
+	parent.show();
+	toolbar.one("click", "input[type='checkbox']", function() {
+		var target = $(event.target);
+		if (target[0].checked) {// 为什么能拿到target对象呢？闭包
+			console.log(target.attr("value"));
+			if(target.attr("value")=="toolbar11"){
+				console.log(11);
+				var toolbar=$("#mapToolDiv").parent();
+				toolbar.css("left", x);
+				toolbar.css("top", y);
+				toolbar.show();
+			}
+		} else {
+			if(target.attr("value")=="toolbar11"){
+				$("#mapToolDiv").parent().hide();
+			}
+		}
+		parent.hide();
+	});
 }
 
 // 地图点击响应
 function mapClick(e) {
 	var g = e.graphic;
-	console.log(g.attributes)
-	map.infoWindow.setContent("<a>hello</a>");
-	map.infoWindow.setTitle("test");
-	map.infoWindow.show(g.geometry, map.getInfoWindowAnchor(g.geometry));
+	mapManager.map.infoWindow.setContent("<a>hello</a>");
+	mapManager.map.infoWindow.setTitle("test");
+	mapManager.map.infoWindow.show(g.geometry, mapManager.map.getInfoWindowAnchor(g.geometry));
 }
 // 显示infoWindow
 function showInfoWin(data) {// data中要包含标题、内容、和点坐标
@@ -238,4 +243,83 @@ function getDrawResult(e) {
 	console.log(geometry);
 	queryTaskByGeometry(url, layerId, geometry);
 	drawToolBar.deactivate();
+}
+//初始化符号
+function initSymbol() {
+	require([ "esri/symbols/SimpleMarkerSymbol",
+			"esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol",
+			"esri/symbols/PictureMarkerSymbol" ], function(SimpleMarkerSymbol,
+			SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol) {
+		this.pointSymbol = new SimpleMarkerSymbol();
+		this.lineSymbol = new SimpleLineSymbol();
+		this.plolyLineSymbol = new SimpleLineSymbol();
+		this.polygonSymbol = new SimpleFillSymbol();
+	});
+}
+//初始化地图
+function initMap() {
+	require(
+			[ "dojo/parser", "esri/map", "esri/geometry/Point",
+					"esri/geometry/Polyline", "esri/geometry/Polygon",
+					"esri/geometry/Extent", "esri/geometry/Geometry",
+					"esri/layers/GraphicsLayer", "esri/layers/FeatureLayer",
+					"esri/layers/ArcGISTiledMapServiceLayer",
+					"esri/layers/ArcGISDynamicMapServiceLayer",
+					"esri/layers/ArcGISImageServiceLayer",
+					"esri/layers/ImageParameters",
+					"esri/symbols/SimpleMarkerSymbol",
+					"esri/symbols/SimpleLineSymbol",
+					"esri/symbols/SimpleFillSymbol",
+					"esri/symbols/PictureMarkerSymbol", "esri/tasks/query",
+					"esri/tasks/QueryTask", "esri/tasks/FindTask",
+					"esri/tasks/FindParameters", "esri/tasks/FindResult",
+					"esri/tasks/IdentifyTask", "esri/tasks/IdentifyParameters",
+					"esri/toolbars/navigation", "esri/toolbars/draw",
+					"dijit/layout/BorderContainer", "dijit/layout/ContentPane",
+					"dojo/domReady!" ],
+			function(Parser, Map, Point, Polyline, Polygon, Extent, Geometry,
+					GraphicsLayer, FeatureLayer, ArcGISTiledMapServiceLayer,
+					ArcGISDynamicMapServiceLayer, ArcGISImageServiceLayer,
+					ImageParameters, SimpleMarkerSymbol, SimpleLineSymbol,
+					SimpleFillSymbol, PictureMarkerSymbol, Query, QueryTask,
+					FindTask, FindParameters, FindResult, IdentifyTask,
+					IdentifyParameters, Navigation, Draw, BorderContainer,
+					ContentPane, Dom) {
+				Parser.parse();
+				mapManager.map = new Map(mapManager.mapDom, {
+					logo : false,
+					wrapAround180 : false,
+					/* basemap : "hybrid", */
+					center : [ -82.44109, 35.6122 ],
+					zoom : 17
+				});
+				console.log(mapManager.map);
+				var tiledLayer = new ArcGISTiledMapServiceLayer(
+						"http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer");
+				mapManager.extent = tiledLayer.initialExtent;
+				var dynLayer = new ArcGISDynamicMapServiceLayer(
+						"http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/Energy/Geology/MapServer");
+				var featureLayer = new FeatureLayer(
+						"https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
+						{
+							definitionExpression : "FID = 900"
+						});
+				mapManager.map.addLayer(tiledLayer);
+				mapManager.map.addLayer(featureLayer);
+				// 去掉esri官方数据的Resource标签
+				/*
+				 * window.onload = function() {
+				 * $(".esriAttributionLastItem").hide(); }
+				 */
+				mapManager.map.on("load", function() {
+					mapManager.navToolbar = new Navigation(mapManager.map);
+					mapManager.drawToolBar = new Draw(mapManager.map);
+					mapManager.drawToolBar.on("draw-end", getDrawResult);
+					mapManager.layers = mapManager.map.graphicsLayerIds
+							.concat(mapManager.map.layerIds);
+					mapManager.setLayers(MapManager.layers);
+					featureLayer.on("click", mapClick)
+					mapManager.init();
+				});
+			});
 }

@@ -12,7 +12,7 @@
 	var dojoConfig = {
 		packages : [ {
 			name : "myDojo",
-			location : "/ogpis2/arcgis"
+			location : "/ogpis2/js/arcgis"
 		} ]
 	};
 </script>
@@ -31,12 +31,11 @@
 <link rel="stylesheet" type="text/css"
 	href="/arcgis/library/3.9/3.9/esri/css/esri.css"></link>
 <!-- 加载自定义ArcGIS API  -->
-<script type="text/javascript" src="../arcgis/initMap.js"></script>
-<script type="text/javascript" src="../arcgis/globalFunction.js"></script>
-<script type="text/javascript" src="../arcgis/globalVariable.js"></script>
+<script type="text/javascript" src="../js/arcgis/globalFunction.js"></script>
+<script type="text/javascript" src="../js/arcgis/globalVariable.js"></script>
+<script type="text/javascript" src="../js/arcgis/initPage.js"></script>
 <!-- 加载自定义样式 -->
-<link rel="stylesheet" type="text/css" href="../arcgis/css/Map.css">
-<script type="text/javascript" src="../arcgis/initPage.js"></script>
+<link rel="stylesheet" type="text/css" href="../js/arcgis/css/Map.css">
 </head>
 <body>
 	<div style="width: 100%; height: 100%">
@@ -119,10 +118,18 @@
 						<div id="map" data-options="fit:true,region:'center',border:false"
 							onContextMenu="mapContextMenu()"></div>
 						<div class="easyui-draggable"
-							data-options="handle:'#mapToolsDiv',onDrag:onDrag"
+							data-options="handle:'#contextMenu',onDrag:onDrag"
 							style="position: absolute; display: none">
-							<div id="mapToolsDiv" class="mapToolDiv">
+							<div id="contextMenu">
 								<div>
+									<input type="checkbox" value="toolbar11"/>
+									<label>工具条</label>
+								</div>
+								<div>
+									<input type="checkbox" value="toolbar22"/>
+									<label>工具条2</label>
+								</div>
+								<!-- <div>
 									<div id="zoomPan" title="漫游" onclick="ZoomPan();"></div>
 								</div>
 								<div>
@@ -133,26 +140,29 @@
 								</div>
 								<div>
 									<div id="zoomHome" title="全图" onClick="Home();"></div>
+								</div> -->
+							</div>
+						</div>
+						<div class="easyui-draggable"
+							data-options="handle:'#mapToolDiv',onDrag:onDrag"
+							style="position: absolute; display: none">
+							<div id="mapToolDiv" class="mapToolDiv">
+								<div>
+									<div id="zoomPan" title="漫游" onclick="ZoomPan(mapManager);"></div>
+								</div>
+								<div>
+									<div id="zoomIn" title="放大" onClick="ZoomIn(mapManager);"></div>
+								</div>
+								<div>
+									<div id="zoomOut" title="缩小" onClick="ZoomOut(mapManager);"></div>
+								</div>
+								<div>
+									<div id="zoomHome" title="全图" onClick="Home(mapManager);"></div>
 								</div>
 							</div>
 						</div>
 						<div id="layers" style="position:absolute;right:50px;top:30px">
-							<div>
-								<input type="checkbox" value="layer1" checked/>
-								<label>layer1</label>
-							</div>
-							<div>
-								<input type="checkbox" value="layer1" checked/>
-								<label>layer1</label>
-							</div>
-							<div>
-								<input type="checkbox" value="layer1" checked/>
-								<label>layer1</label>
-							</div>
-							<div>
-								<input type="checkbox" value="layer1" checked/>
-								<label>layer1</label>
-							</div>
+							
 						</div>
 					</div>
 					<div class="toolBar" style="width: 100%; height: auto">
@@ -227,7 +237,7 @@
 	$(function() {
 		/* var map = new MapManager({map:"map"});
 		map.init(); */
-		initMap();
+		 /* initMap();  */
 	})
 	/* function tabChange(title, index) {
 		if (title == "查询统计") {

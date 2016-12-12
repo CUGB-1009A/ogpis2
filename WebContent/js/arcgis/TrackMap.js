@@ -1,5 +1,6 @@
 define(function() {
 	return new MapManager({
-		map : "map"
+		map : "map",
+		layers:$("#layers")
 	});
 })
