@@ -20,6 +20,11 @@ public class IndexDataManagementServiceImpl implements IndexDataManagementServic
 		
 		return indexDataManagementDao.findByIndexId(indexId);
 	}
+	@Override
+	public IndexDataManagement findOneById(String indexId) {
+		
+		return indexDataManagementDao.findOneByIndexId(indexId);
+	}
 
 	@Override
 	public List<IndexDataManagement> sumTheIndex(String id, Date startTime, Date endTime) {
@@ -41,6 +46,12 @@ public class IndexDataManagementServiceImpl implements IndexDataManagementServic
 	@Override
 	public IndexDataManagement update(IndexDataManagement indexDataManagement) {
 		return indexDataManagementDao.update(indexDataManagement);
+	}
+
+	@Override
+	public void delete(String id) {
+		 indexDataManagementDao.delete(id);
+		
 	}
 
 }

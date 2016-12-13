@@ -30,7 +30,7 @@
 			<select id="selectIndex" name="selectCondition">
 				<c:if test="${id.equals('0') }"><option value='0' selected>没有指标项</option></c:if>
 				<c:forEach items="${indexList }" var="item" varStatus="status">
-					<option value="${item.id }"><c:if test="${item.id==id }">selected</c:if>${item.indexName }</option>
+					<option value="${item.id }"<c:if test="${item.id==id }">selected</c:if>>${item.indexName }</option>
 				</c:forEach>
 			</select>
 			&nbsp;&nbsp;
@@ -43,7 +43,7 @@
 		
 		<div>
 			<div style="text-align:right;margin:0 10px 0 10px">
-				<table class="easyui-datagrid" title="完成情况">
+				<table id="indexDataGrid" class="easyui-datagrid" title="完成情况" data-options="striped:true,singleSelect:true">
 					<thead>
 						<tr>
 							<th field='indexYear'>年度</th>
@@ -61,17 +61,17 @@
 								<td><input id="input_${item1.id }" class="input_${item1.id }" type="text" value="${item1.finishedWorkload }" lastValue="${item1.finishedWorkload }" disabled="true"></td>
 								<td>
 									<p>
-										<a href="javascript:void(0)" id="ok_${item1.id }" style="display:none">
+										<a href="javascript:saveEditIndexData('${item1.id }')" id="ok_${item1.id }" style="display:none" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">
 											<i>ok</i>
 										</a>&nbsp;
-										<a href="javascript:void(0)" id="cancle_${item1.id }" style="display:none">
+										<a href="javascript:cancleIndexData('${item1.id }')" id="cancle_${item1.id }" style="display:none" class="easyui-linkbutton" data-options="iconCls:'icon-no'">
 											<i>cancle</i>
 										</a>&nbsp;
-										<a href="javascript:void(0)" id="edit_${item1.id }">
-											<i>编辑</i>
+										<a href="javascript:editIndexData('${item1.id }')" id="edit_${item1.id }" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">
+											编辑
 										</a>&nbsp;
-										<a href="javascript:void(0)" id="delete_${item1.id }">
-											<i>删除</i>
+										<a href="javascript:deleteIndexData('${item1.id }');" id="delete_${item1.id }" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">
+											删除
 										</a>&nbsp;
 									</p>
 								</td>
@@ -130,6 +130,82 @@
 			}
 		}
 		
+		
+		$('#selectIndex').change(function(){
+			var id=$('#selectIndex').val();
+			window.location.href="<%=path%>/indexData/list?type=${type}&&id="+id;
+		});
+		$('#selectType').change(function(){
+			var type=$('#selectType').val();
+			window.location.href="<%=path%>/indexData/list?id=0&&type="+type;
+		});
+		
+		//编辑按钮
+		function editIndexData(id){
+			$('.input_'+id).attr("disabled",false);
+			$('.input_'+id).focus();
+			document.getElementById('ok_'+id).style.display=" ";
+			document.getElementById('cancle_'+id).style.display=" ";
+			document.getElementById('edit_'+id).style.display="none";
+			document.getElementById('delete_'+id).style.display="none";
+		}
+		//取消按钮
+		function cancleIndexData(id){
+			var lastValue=$('.input_'+id).attr("lastValue");
+			$('#input_'+id).val(lastValue);
+			document.getElementById('ok_'+id).style.display="none";
+			document.getElementById('cancle_'+id).style.display="none";
+			document.getElementById('edit_'+id).style.display="";
+			document.getElementById('delete_'+id).style.display="";
+			$('.input_'+id).attr("disabled",true);
+		}
+		//确定编辑按钮
+		function saveEditIndexData(id){
+			var value=$('#input_'+id).val();
+			$.ajax({
+				url:"<%=path%>/indexData/save",
+				type:"get",
+				async:true,
+				data:{"id":id,"value":value},
+				dataType:"json",
+				contentType:"application/json",
+				success:function(){
+					$('.input_'+id).attr("lastValue",value);
+					document.getElementById('ok_'+id).style.display="none";
+					document.getElementById('cancle_'+id).style.display="none";
+					document.getElementById('edit_'+id).style.display="";
+					document.getElementById('delete_'+id).style.display="";
+					$('.input_'+id).attr("disabled",true);
+					alert('修改成功');
+				},
+				error:function(){
+					alert('修改失败');
+				}
+			});
+		}
+		//删除按钮
+		function deleteIndexData(id){
+			var type=$('#selectType').val();
+			var index=$('#selectIndex').val();
+			var isDel=confirm("确定删除该条记录？","确认对话框");
+			if(isDel){
+				$.ajax({
+					url:"<%=path%>/indexData/delete",
+					type:"get",
+					async:true,
+					data:{"id":id},
+					dataType:"json",
+					contentType:"application/json",
+					success:function(){
+						window.location.href="<%=path%>/indexData/list?id="+index+"&&type="+type;
+						alert('删除成功');
+					},
+					error:function(){
+						alert('删除失败');
+					}
+				});
+			}
+		}
 		
 		//为id=id的指标添加完成情况
 		function addIndexData(id){

@@ -58,5 +58,22 @@ public class IndexDataManagementDaoImpl extends HibernateBaseDao<IndexDataManage
 		return indexDataManagement;
 	}
 
+	@Override
+	public IndexDataManagement findOneByIndexId(String indexId) {
+		String hql="from IndexDataManagement where deleted=false and id='"+indexId+"' order by collectedTime asc";
+		@SuppressWarnings("unchecked")
+		List<IndexDataManagement> items=this.find(hql,null);
+		IndexDataManagement indexDataManagement=items.get(0);
+		return indexDataManagement;
+	}
+	
+	@Override
+	public void delete(String id) {
+		IndexDataManagement item=this.get(id);
+		getSession().delete(item);
+		
+		
+	}
+
 	
 }

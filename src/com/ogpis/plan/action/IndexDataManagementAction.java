@@ -78,8 +78,28 @@ public class IndexDataManagementAction {
 			result="{\"result\":\"failed\"}";
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
-		response.getWriter().write(result);
+		response.getWriter().write(result);		
+	}
+	@RequestMapping("/delete")
+	public void delete(HttpServletRequest request,HttpServletResponse response,ModelMap model) throws IOException{
+		String id=request.getParameter("id");
+		indexDataManagementService.delete(id);
+		String result="{\"result\":\"success\"}";
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().write(result);	
+	}
+	@RequestMapping("/save")
+	public void save(HttpServletRequest request,HttpServletResponse response,ModelMap model) throws IOException{
+		String id=request.getParameter("id");
+		String value=request.getParameter("value");
+		IndexDataManagement indexDataManagement=indexDataManagementService.findOneById(id);
+		indexDataManagement.setFinishedWorkload(Float.parseFloat(value));
+		indexDataManagementService.update(indexDataManagement);
+		String result="{\"result\":\"success\"}";
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().write(result);	
 		
 	}
-	
 }
