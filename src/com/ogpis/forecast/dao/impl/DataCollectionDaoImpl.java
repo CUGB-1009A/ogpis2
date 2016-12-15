@@ -29,4 +29,42 @@ public class DataCollectionDaoImpl extends HibernateBaseDao<DataCollection, Stri
 		return entity;
 	}
 
+	@Override
+	public List<DataCollection> findOriginData() {
+		String hql = "From DataCollection where deleted=false and isOrigin=true";
+		@SuppressWarnings("unchecked")
+		List<DataCollection> dataCollectionList = this.find(hql, null);
+		return dataCollectionList;
+	}
+
+	@Override
+	public List<DataCollection> findAllSharedDataCollection() {
+		String hql = "From DataCollection where deleted=false and isOrigin=false and isShared=true";
+		@SuppressWarnings("unchecked")
+		List<DataCollection> dataCollectionList = this.find(hql, null);
+		return dataCollectionList;
+	}
+
+	@Override
+	public DataCollection save(DataCollection dataCollection) {
+		getSession().merge(dataCollection);
+		return dataCollection;
+	}
+
+	@Override
+	public void delete(DataCollection dataCollection) {
+		DataCollection temp = super.get(dataCollection.getId());
+		temp.setUser(null);
+		getSession().merge(temp);
+		getSession().delete(super.get(dataCollection.getId()));
+	}
+
+	@Override
+	public List<DataCollection> findMyData(String userId) {
+		String hql = "From DataCollection d where d.deleted=false and d.user.id='"+userId+"'";
+		@SuppressWarnings("unchecked")
+		List<DataCollection> dataCollectionList = this.find(hql, null);
+		return dataCollectionList;
+	}
+
 }

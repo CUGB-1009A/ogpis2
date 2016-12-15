@@ -27,9 +27,9 @@ public void save(List<SelfData> selfDataList) {
 @Override
 public void delete(List<SelfData> selfDataList) {
 	for(SelfData temp:selfDataList){
-		temp.setSelfDataCollection(null);
-		getSession().update(temp);
-		getSession().delete(temp);
+		temp.setDataCollection(null);
+		getSession().merge(temp);
+		getSession().delete(super.get(temp.getId()));
 	}	
 }
 

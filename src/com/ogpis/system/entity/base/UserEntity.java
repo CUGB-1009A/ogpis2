@@ -4,15 +4,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
-
 import com.ogpis.base.entity.BaseEntity;
-import com.ogpis.forecast.entity.SelfDataCollection;
+import com.ogpis.forecast.entity.DataCollection;
 import com.ogpis.system.entity.Role;
 import com.ogpis.system.entity.User;
 
@@ -36,9 +36,9 @@ public abstract class UserEntity extends BaseEntity {
 	@JoinTable(name = "ogpis_user_role", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
 	protected Set<Role> roles = new HashSet<Role>();
 	
-	@OneToMany(targetEntity = SelfDataCollection.class, fetch = FetchType.EAGER)
-	@JoinTable(name = "ogpis_User_SelfDataCollection",joinColumns = @JoinColumn(name = "User_Id"),inverseJoinColumns = @JoinColumn(name = "SelfDataCollection_Id"))
-	protected List<SelfDataCollection> selfDataCollections  ;
+	@OneToMany(targetEntity = DataCollection.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "ogpis_User_DataCollection",joinColumns = @JoinColumn(name = "User_ID"),inverseJoinColumns = @JoinColumn(name = "DataCollection_ID"))
+	protected List<DataCollection> dataCollections  ;
 	
 	
 	
@@ -111,12 +111,13 @@ public abstract class UserEntity extends BaseEntity {
 		return this.hashCode;
 	}
 
-	public List<SelfDataCollection> getSelfDataCollections() {
-		return selfDataCollections;
+	public List<DataCollection> getDataCollections() {
+		return dataCollections;
 	}
 
-	public void setSelfDataCollections(List<SelfDataCollection> selfDataCollections) {
-		this.selfDataCollections = selfDataCollections;
+	public void setDataCollections(List<DataCollection> dataCollections) {
+		this.dataCollections = dataCollections;
 	}
+
 
 }

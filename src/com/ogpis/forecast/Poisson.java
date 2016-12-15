@@ -67,4 +67,18 @@ public class Poisson implements ForecastModel {
 		output.setPredictData(predictDataMap);
 		return output;
 	}
+
+
+	@Override
+	public boolean isSelfCorrelation() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+
+	@Override
+	public boolean isMultiSource() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

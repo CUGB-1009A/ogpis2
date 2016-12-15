@@ -28,4 +28,16 @@ public class TestFA implements ForecastModel {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean isSelfCorrelation() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isMultiSource() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

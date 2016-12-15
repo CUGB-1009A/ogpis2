@@ -8,4 +8,14 @@ public interface DataCollectionService {
 
 	public DataCollection findById(String dataCollectionId);
 
+	public List<DataCollection> findOriginData();
+
+	public List<DataCollection> findOthersSharedData(String userId);//查找他人（非userId）共享的数据集
+
+	public DataCollection save(DataCollection dataCollection);
+
+	public void delete(DataCollection dataCollection);
+
+	public List<DataCollection> findMyData(String userId);
+
 }

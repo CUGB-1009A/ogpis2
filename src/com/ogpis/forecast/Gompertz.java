@@ -64,4 +64,16 @@ public class Gompertz implements ForecastModel{
 	}
 
 
+	@Override
+	public boolean isSelfCorrelation() {
+		return true;
+	}
+
+
+	@Override
+	public boolean isMultiSource() {
+		return false;
+	}
+
+
 }

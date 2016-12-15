@@ -9,4 +9,14 @@ public interface DataCollectionDao {
 
 	public DataCollection findById(String dataCollectionId);
 
+	public List<DataCollection> findOriginData();
+
+	public List<DataCollection> findAllSharedDataCollection();
+
+	public DataCollection save(DataCollection dataCollection);
+
+	public void delete(DataCollection dataCollection);
+
+	public List<DataCollection> findMyData(String userId);
+
 }

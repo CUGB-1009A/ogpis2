@@ -12,4 +12,8 @@ public interface ForecastModel {
 	
 	@SuppressWarnings("rawtypes")
 	public LinkedHashMap getPEM();
+	
+	public boolean isSelfCorrelation();//所用数据是否自相关
+	
+	public boolean isMultiSource();//是否需要多个数据用作支撑
 }

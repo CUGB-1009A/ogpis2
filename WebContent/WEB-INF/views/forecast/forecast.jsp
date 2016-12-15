@@ -39,6 +39,7 @@ function testSupcan(){
  myChart:历史数据展示曲线图
  option:画图的option
  */
+var dataCollectionId ;//图标显示的数据集的id
 var historyData;
 var historyDataString;
 var historyDataJson;
@@ -65,18 +66,20 @@ var option = {
 		                      onclick:function(option1) {
 		                       var name = prompt("请输入数据集名", ""); 
 							   if(name){
+								   console.log(option1.option.dataCollectionId)
 								  $.ajax({
 						    			url:"<%=path%>/forecast/saveSelfDataCollection",
 						    			dataType:"json",
 						    			async:true,
 						    			data:{
-						    				"selfDataCollectionName":encodeURIComponent(name),
+						    				"dataCollectionName":encodeURIComponent(name),
 						    				"year":option1.option.xAxis[0].data+"",
-						    				"value":option1.option.series[0].data+""
+						    				"value":option1.option.series[0].data+"",
+						    				"dataCollectionId":option1.option.dataCollectionId
 						    				},
 						    			type:"GET",
 						    			success:function(result){
-						    				$("#unshared").append("<span id='"+result.id+"'><a href=\"javascript:selfDataShow('"+result.id+"')\">"+name+"</a><button onclick=share('"+result.id+"')>共享</button><button onclick=deleteUnshared('"+result.id+"')>删除</button><br></span>");
+						    				$("#unshared").append("<span id='"+result.id+"'><a href=\"javascript:dataShow('"+result.id+"')\">"+name+"</a><button onclick=share('"+result.id+"')>共享</button><button onclick=deleteUnshared('"+result.id+"')>删除</button><br></span>");
 						    				alert("保存数据成功");
 						    			},
 						    			error:function(){
@@ -116,7 +119,8 @@ var option = {
 					     type: 'line',
 					     data: []
 			          }
-		          ]
+		          ],
+		 dataCollectionId:''
 		}
 
 function Chart2Report(){//将
@@ -146,8 +150,8 @@ function share(id){//共享我的数据集
 				},
 			type:"GET",
 			success:function(result){
-				$("#"+result.selfDataCollectionId).remove();
-				$("#shared").append("<span id='"+result.selfDataCollectionId+"'><a href=\"javascript:selfDataShow('"+result.selfDataCollectionId+"')\">"+result.selfDataCollectionName+"</a><button onclick=disshare('"+result.selfDataCollectionId+"')>取消共享</button><br></span>");
+				$("#"+result.dataCollectionId).remove();
+				$("#shared").append("<span id='"+result.dataCollectionId+"'><a href=\"javascript:dataShow('"+result.dataCollectionId+"')\">"+result.dataCollectionName+"</a><button onclick=disshare('"+result.dataCollectionId+"')>取消共享</button><br></span>");
 				alert("共享成功");
 			},
 			error:function(){
@@ -166,8 +170,8 @@ function disshare(id){//取消共享我的数据集
 				},
 			type:"GET",
 			success:function(result){
-				$("#"+result.selfDataCollectionId).remove();
-				$("#unshared").append("<span id='"+result.selfDataCollectionId+"'><a href=\"javascript:selfDataShow('"+result.selfDataCollectionId+"')\">"+result.selfDataCollectionName+"</a><button onclick=share('"+result.selfDataCollectionId+"')>共享</button><button onclick=deleteUnshared('"+result.selfDataCollectionId+"')>删除</button><br></span>");
+				$("#"+result.dataCollectionId).remove();
+				$("#unshared").append("<span id='"+result.dataCollectionId+"'><a href=\"javascript:dataShow('"+result.dataCollectionId+"')\">"+result.dataCollectionName+"</a><button onclick=share('"+result.dataCollectionId+"')>共享</button><button onclick=deleteUnshared('"+result.dataCollectionId+"')>删除</button><br></span>");
 				alert("取消共享成功");
 			},
 			error:function(){
@@ -186,7 +190,7 @@ function deleteUnshared(id){//删除未共享的数据集
 				},
 			type:"GET",
 			success:function(result){
-				$("#"+result.selfDataCollectionId).remove();
+				$("#"+result.dataCollectionId).remove();
 				alert("删除成功");
 			},
 			error:function(){
@@ -195,9 +199,9 @@ function deleteUnshared(id){//删除未共享的数据集
 		});
 }
 
-function selfDataShow(id){//显示自定义数据，包括我的数据集和他人共享数据集
+function dataShow(id){//显示自定义数据，包括我的数据集和他人共享数据集
 	$.ajax({
-		url:"<%=path%>/dataShow/selfDataShow",
+		url:"<%=path%>/dataShow/dataShow",
 		dataType:"json",
 		async:true,
 		data:{
@@ -209,7 +213,8 @@ function selfDataShow(id){//显示自定义数据，包括我的数据集和他�
 			Chart2Report();
 			fillReportData('AF','全国石油产量','unit',historyDataString);
 			option.xAxis[0].data = x;
-			option.series[0].data = y;	
+			option.series[0].data = y;
+			option.dataCollectionId = id;
 			myChart.setOption(option);
 		},
 		error:function(){
@@ -219,12 +224,13 @@ function selfDataShow(id){//显示自定义数据，包括我的数据集和他�
 }
 
 $(function(){//首次进入
+	dataCollectionId = ${dataCollectionId};
 	historyData = ${historyData};
 	Chart2Report();
-	/* resizeContainer(); */
 	myChart = echarts.init(document.getElementById("historyDataChart"))
 	option.xAxis[0].data = x;
 	option.series[0].data = y;	
+	option.dataCollectionId = dataCollectionId;
 	myChart.setOption(option);
 });
 
@@ -260,5 +266,32 @@ function OnEvent(id,Event,p1,p2){
 	myChart.resize;
 } */
 
+
+/*
+ * 第二个模型选择页面的事件处理函数
+ */
+ $(function(){
+	 $("input[name='modelId']").change(function(){
+		 var id = $("input[name='modelId']:checked").val();//选中的模型id 
+		 $.ajax({
+				url:"<%=path%>/model/modelChanged",
+				dataType:"json",
+				async:true,
+				data:{
+					"id":id
+					},
+				type:"GET", 
+				success:function(result){
+					$('#pemList').datagrid('loadData',result.pemList);  
+					UE.getEditor('container').setContent(result.modelDescription);
+				},
+				error:function(){
+					alert("模型查看失败");
+				}
+			});   
+	 });
+	   });
+
+ 
 </script>
 </html>

@@ -7,9 +7,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-
 import com.ogpis.base.entity.BaseEntity;
-import com.ogpis.forecast.entity.SelfDataCollection;
+import com.ogpis.forecast.entity.DataCollection;
+
 
 @MappedSuperclass
 public class BaseSelfData extends BaseEntity {
@@ -20,9 +20,9 @@ public class BaseSelfData extends BaseEntity {
 	@Column(name = "历史数据")
 	private double data;
 	
-	@ManyToOne(targetEntity = SelfDataCollection.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinTable(name = "ogpis_SelfDataCollection_SelfData",joinColumns = @JoinColumn(name = "SelfDataId"),inverseJoinColumns = @JoinColumn(name = "SelfDataCollectionId"))
-	protected SelfDataCollection selfDataCollection ;
+	@ManyToOne(targetEntity = DataCollection.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinTable(name = "ogpis_DataCollection_SelfData",joinColumns = @JoinColumn(name = "SelfData_ID"),inverseJoinColumns = @JoinColumn(name = "DataCollection_ID"))
+	protected DataCollection dataCollection ;
 	
 	public Integer getYear() {
 		return year;
@@ -40,12 +40,11 @@ public class BaseSelfData extends BaseEntity {
 		this.data = data;
 	}
 
-	public SelfDataCollection getSelfDataCollection() {
-		return selfDataCollection;
+	public DataCollection getDataCollection() {
+		return dataCollection;
 	}
 
-	public void setSelfDataCollection(SelfDataCollection selfDataCollection) {
-		this.selfDataCollection = selfDataCollection;
+	public void setDataCollection(DataCollection dataCollection) {
+		this.dataCollection = dataCollection;
 	}
-
 }

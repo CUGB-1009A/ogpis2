@@ -62,4 +62,16 @@ public class Hubbert implements ForecastModel{
 		output.setPredictData(predictDataMap);
 		return output;
 	}
+
+
+	@Override
+	public boolean isSelfCorrelation() {
+		return true;
+	}
+
+
+	@Override
+	public boolean isMultiSource() {
+		return false;
+	}
 }

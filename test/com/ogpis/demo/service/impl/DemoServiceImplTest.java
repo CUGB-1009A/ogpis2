@@ -33,9 +33,7 @@ public class DemoServiceImplTest {
 	
 	@Test
 	public void testhaha(){
-		DataCollection dataCollection = dataCollectionService.findById("2");
-		List<ModelInfo> modelInfo = dataCollection.getModelInfo();
-		System.out.println(modelInfo.size());
+
 	}
 
 	private Logger logger = LoggerFactory.getLogger(DemoServiceImplTest.class);

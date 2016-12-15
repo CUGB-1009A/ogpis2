@@ -56,9 +56,9 @@
 	<div title="趋势预测分析" iconCls="icon-reload" style="overflow:auto; padding:10px; height:100%;" selected="true" class="easyui-accordion" fit="true" border="false">
 		<ul>
 			<li><span><a href="" target=main_center>数据管理</a></span></li>
-			<li><span><a href="" target=main_center>模型管理</a></span></li>
+			<li><span><a href="<%=path%>/model/list" target=main_center>模型管理</a></span></li>
 			<%-- <li><span><a href="<%=path%>/forecast/toOutputPredictionPage?dataCollectionType=output" target=main_center>产量预测-old</a></span></li> --%>
-			<li><span><a href="<%=path%>/forecast/toOutputPredictionPage1?dataCollectionType=output" target=main_center>趋势预测</a></span></li>
+			<li><span><a href="<%=path%>/forecast/toPredictionPage" target=main_center>趋势预测</a></span></li>
 		</ul>
 	</div>
 </div>
