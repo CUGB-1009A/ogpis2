@@ -16,7 +16,8 @@
 }
     }
 </style>
-<link rel="stylesheet" type="text/css" href="<%=path %>/easyui-1.5/themes/default/easyui.css">
+<!-- <link rel="stylesheet" type="text/css" href="<%=path %>/easyui-1.5/themes/default/easyui.css"> -->
+<link rel="stylesheet" type="text/css" href="<%=path %>/easyui-1.5/themes/bootstrap/easyui.css">
 <link rel="stylesheet" type="text/css" href="<%=path %>/easyui-1.5/themes/icon.css">
 <script type="text/javascript" src="<%=path %>/easyui-1.5/jquery.min.js"></script>
 <script type="text/javascript" src="<%=path %>/easyui-1.5/jquery.easyui.min.js"></script>
