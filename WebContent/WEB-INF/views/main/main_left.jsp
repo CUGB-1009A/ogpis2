@@ -2,13 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<<<<<<< HEAD
-<div class="easyui-accordion" style="height: 100%;">
-	<div title="模块一" iconCls="icon-ok" style="overflow:auto;padding:10px; height:100%;">
-		<ul>
-			<li>
-				<span><a href="<%=path%>/demo" target=main_center>Demo</a></span>
-=======
+
 <style>
 li{
 	height: 38px;
@@ -74,76 +68,55 @@ text-align: left;}
 
 </style>
 <div class="easyui-accordion" style="height: 100%;" >
-	<div title="历史数据查询分析" iconCls="" style="overflow:auto; height:100%;" >
+	<div title="历史数据查询分析" iconCls="" style="overflow:auto;" >
 		<ul class="sider-nav">
 			<li >
 				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>资源量专题</a></span>
 			</li>
-		</ul>
-	</div>
-	<div title="系统管理" iconCls="icon-tip" style="overflow:auto; padding:10px; height:100%;" class="easyui-accordion" fit="true" border="false">
-
-		<ul>
-
-			<li><span><a href="<%=path%>/demo" target=main_center>Demo</a></span>
-
-			<li>
-				<span><a href="<%=path%>/system/user/list" target=main_center>用户管理</a></span>
-			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>储量专题</a></span>
-				
+			<li >
+				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>储量专题</a></span>
 			</li>
-			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>产量专题</a></span>
-				
+			<li >
+				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>产量专题</a></span>
 			</li>
-			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>勘探专题</a></span>
-				
+			<li >
+				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>勘探专题</a></span>
 			</li>
-			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>油气贸易专题</a></span>
-				
+			<li >
+				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>油气贸易专题</a></span>
 			</li>
 		</ul>
 	</div>
-	<div title="趋势预测分析" iconCls="" style="overflow:auto; height:100%;" >
+	<div title="趋势预测分析" iconCls="" style="overflow:auto;" >
 		<ul class="sider-nav">
 			<li >
 				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>资源量预测</a></span>
-				
 			</li>
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>储量预测</a></span>
-				
 			</li>
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>产量预测</a></span>
-				
 			</li>
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>勘探预测</a></span>
-				
 			</li>
 		</ul>
 	</div>
-    <div title="规划成果管理" iconCls="" style="overflow:auto; height:100%;" >
+    <div title="规划成果管理" iconCls="" style="overflow:auto;" >
 		<ul class="sider-nav">
 			<li >
 				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>资料规划录入</a></span>
-				
 			</li>
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>规划查询统计</a></span>
-				
 			</li>
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>规划展示</a></span>
-				
 			</li>
 		</ul>
 	</div>
-	<div title="规划实施跟踪评估" iconCls="" style="overflow:auto; height:100%;" >
+	<div title="规划实施跟踪评估" iconCls="" style="overflow:auto;" >
 		<ul class="sider-nav">
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>规划实施跟踪评估</a></span>				
@@ -154,32 +127,8 @@ text-align: left;}
 			</li>
 		</ul>
 	</div>
-	
-	<div title="模块三" iconCls="icon-reload"
-		style="overflow: auto; padding: 10px; height: 100%;">
-		<ul>
-			<li><span><a href="<%=path%>/demo" target=main_center>Demo</a></span></li>
-			
-			<li><span><a href="<%=path%>/" target=main_center>资源管理</a></span></li>
-			<li><span><a href="<%=path%>/xtgl/listOper.jsp" target=main_center>权限管理</a></span></li>
-			<li><span><a href="<%=path%>/xtgl/listRole.jsp" target=main_center>角色管理</a></span></li>
-		</ul>
-	</div>
-	<!-- 数据要览 -->
-	<div title="数据要览" data-options="iconCls:'icon-reload'"
-		style="overflow: auto; padding: 10px; height: 100%;">
-		<ul>
-			<li><span><a href="<%=path%>/dataBrowse"
-					target=main_center>资源量专题</a></span></li>
-			<li><span><a href="<%=path%>/" target=main_center>储量专题</a></span>
 
-			</li>
-			<li><span><a href="<%=path%>/xtgl/listOper.jsp"
-					target=main_center>储量专题</a></span></li>
-			<li><span><a href="<%=path%>/xtgl/listRole.jsp"
-					target=main_center>勘探开发专题</a></span></li>
-		</ul>
-	</div>
+
 </div>
 <script>
 $(document).on('click', '.sider-nav li', function() {
