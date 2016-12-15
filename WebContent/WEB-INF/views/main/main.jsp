@@ -19,7 +19,7 @@
 	</div>
 	<div data-options="region:'south',border:false"
 		style="height: 32px;">
-		<IFRAME width="100%" height="100%" frameBorder=0 id=main_bottom
+		<IFRAME width="100%" height="100%" frameBorder=1 id=main_bottom
 			name=main_bottom src="<%=path%>/main/bottom"></IFRAME>
 	</div>
 </body>
