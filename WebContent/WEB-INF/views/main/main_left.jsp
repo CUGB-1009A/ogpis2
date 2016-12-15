@@ -28,10 +28,10 @@
 				<span><a href="<%=path%>/index/list?type=QG" target=main_center>规划指标管理</a></span>
 			</li>
 			<li>
-				<span><a href="<%=path%>/indexData/list?type=QG&id=0" target=main_center>规划指标管理</a></span>
+				<span><a href="<%=path%>/indexData/list?type=QG&id=0" target=main_center>规划完成情况管理</a></span>
 			</li>
 			<li>
-				<span><a href="<%=path%>/xtgl/listRes.jsp" target=main_center>预测模型管理</a></span>
+				<span><a href="<%=path%>/plan/list?type=All&&condition=" target=main_center>规划管理</a></span>
 			</li>
 		</ul>
 	</div>
