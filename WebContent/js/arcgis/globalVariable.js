@@ -3,7 +3,7 @@ function MapSymbol() {
 	this.lineSymbol;
 	this.plolyLineSymbol;
 	this.polygonSymbol;
-	this.init = initSymbol;// 初始化符号
+	initSymbol.call(this);// 初始化符号
 }
 function MapManager(options) {
 	this.map;
@@ -12,13 +12,13 @@ function MapManager(options) {
 	this.layersDom;
 	this.symbol = new MapSymbol();
 	this.navToolbar;
-	/*this.navDom;*/
+	/* this.navDom; */
 	this.extent;
 	this.drawToolBar;
-	/*this.drawDom;*/
+	/* this.drawDom; */
 	this.queryGeometry;
 	this.init = init;// 初始化地图及工具
-	this.setLayers = setLayers;
+	this.setLayers = setLayers;// 设计思路：在创建图层Layer时指定Layer的className属性，通过className属性来标识Layer
 	initMapManager.call(this, options);
 }
 
@@ -29,9 +29,21 @@ function setLayers(array) {
 			array = array || this.layers;
 			if (array)
 				for (var i = 0; i < array.length; ++i) {
-					this.layersDom.append("<div><input type='checkbox' value='"
-							+ array[i] + "' checked/><label>" + array[i]
-							+ "</label></div>")
+					var layerID = array[i];
+					var content = "<div><input type='checkbox' value='"
+							+ layerID;
+					var layer;
+					if (layerID == "graphics")
+						layer = this.map.graphics;
+					else
+						layer = this.map.getLayer(layerID);
+					if (layer.visible == true)
+						content += "' checked/><label>";
+					else
+						content += "' /><label>";
+					content += layer.className ? layer.className : layer.id
+							+ "</label></div>";
+					this.layersDom.append(content);
 				}
 		} else {
 			return;
@@ -58,15 +70,36 @@ function initMapManager(options) {
 		}
 	}
 }
-function init(){
-	this.layersDom.on("click", "input[type='checkbox']",{map:this.map},function(event) {
+function init() {
+	this.layersDom.on("click", "input[type='checkbox']", {
+		map : this.map
+	}, function(event) {
 		var target = $(event.target);
-		var map=event.data.map;
+		var map = event.data.map;
+		var layerID = target.attr("value");
 		if (target[0].checked) {// 为什么能拿到target对象呢？闭包
-			console.log("111");
-			map.getLayer(target.attr("value")).show();
+			if (layerID == "graphics")
+				map.graphics.show();
+			else
+				map.getLayer(layerID).show();
 		} else {
-			map.getLayer(target.attr("value")).hide();
+			if (layerID == "graphics")
+				map.graphics.hide();
+			else
+				map.getLayer(layerID).hide();
 		}
+	});
+	this.layersDom.on("dblclick","div>label",{map:this.map},function(e){
+		var map=e.data["map"];
+		var layerID=$(this).siblings("input").attr("value");
+		var extent;
+		if (layerID == "graphics"){
+			extent=map.graphics.fullExtent;
+		}
+		else{
+			extent=map.getLayer(layerID).fullExtent;
+		}
+		if(extent)
+			map.setExtent(extent);
 	})
 }

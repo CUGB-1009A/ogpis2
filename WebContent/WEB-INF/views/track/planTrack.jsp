@@ -107,6 +107,9 @@
 					<div class="inline-block">
 						<button onclick="recQuery();">框选</button>
 					</div>
+					<div class="inline-block">
+						<button onclick="render();">渲染</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -116,18 +119,16 @@
 				<div style="width: 100%; height: 88%;">
 					<div style="width: 100%; height: 100%; position: relative;">
 						<div id="map" data-options="fit:true,region:'center',border:false"
-							onContextMenu="mapContextMenu()"></div>
+							onContextMenu="mapContextMenu('#contextMenu')"></div>
 						<div class="easyui-draggable"
 							data-options="handle:'#contextMenu',onDrag:onDrag"
 							style="position: absolute; display: none">
-							<div id="contextMenu">
+							<div id="contextMenu" class="contextMenu">
 								<div>
-									<input type="checkbox" value="toolbar11"/>
-									<label>工具条</label>
+									<input type="checkbox" value="#mapToolDiv" /> <label>工具条</label>
 								</div>
 								<div>
-									<input type="checkbox" value="toolbar22"/>
-									<label>工具条2</label>
+									<input type="checkbox" value="#mapToolDiv2" /> <label>工具条2</label>
 								</div>
 								<!-- <div>
 									<div id="zoomPan" title="漫游" onclick="ZoomPan();"></div>
@@ -161,12 +162,13 @@
 								</div>
 							</div>
 						</div>
-						<div id="layers" style="position:absolute;right:50px;top:30px">
-							
+						<div class="layers" style="position: absolute; right: 50px; top: 30px">
+							<div class="layers-title"><label>图层</label></div>
+							<div id="layers"></div>
 						</div>
 					</div>
 					<div class="toolBar" style="width: 100%; height: auto">
-						<div class="float-right" style="margin:1px">
+						<div class="float-right" style="margin: 1px">
 							<div class="inline-block margin padding-lr border-2">
 								<a id="btn" href="#" class="lable">保存图片</a>
 							</div>
@@ -194,7 +196,7 @@
 							<th data-options="field:'CustomerID'">CustomerID</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="zwx">
 						<tr>
 							<td>001</td>
 							<td>name1</td>
@@ -231,32 +233,21 @@
 	</div>
 </body>
 <script type="text/javascript">
-	/* require([ "myDojo/MyModel" ], function(myModel) {
-		console.log(myModel);
-	}) */
-	$(function() {
-		/* var map = new MapManager({map:"map"});
-		map.init(); */
-		 /* initMap();  */
-	})
-	/* function tabChange(title, index) {
-		if (title == "查询统计") {
-			$("#tt").find(".tabs").css("width", window.innerWidth - 8 + "px")
-					.css("padding-right", "4px");
-			$("#tt").find(".tabs").find("li").css("float", "right").css(
-					"margin-right", "4px");
-		}
-	} */
 	function queryTest() {
-		var url = "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer";
-		var layerId = 0
-		var sql = "FID < 900 and FID > 890";
-		queryTask(url, layerId, sql);
+		var options = {
+			url : "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer",
+			layerId : 0,
+			sql : "FID < 900 and FID > 890"
+		}
+		queryTask(mapManager, options);
 	}
 	function recQuery() {
 		require([ "esri/toolbars/draw" ], function(Draw) {
-			drawToolBar.activate(Draw.RECTANGLE);
+			mapManager.drawToolBar.activate(Draw.RECTANGLE);
 		})
+	}
+	function render() {
+		initRender(mapManager);
 	}
 </script>
 </html>
