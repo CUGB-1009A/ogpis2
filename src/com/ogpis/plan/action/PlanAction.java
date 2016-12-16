@@ -31,6 +31,7 @@ public class PlanAction {
 		model.addAttribute("type", type);
 		model.addAttribute("condition", condition);
 		model.addAttribute("planType", PlanType.values());
+		
 		return "/plan/planAdmin/list";
 	}
 	
@@ -56,15 +57,18 @@ public class PlanAction {
 		bean.setTargetAndFinished(plan.getTargetAndFinished());
 		bean.setOutputDescription(plan.getOutputDescription());
 		bean.setStorageDescription(plan.getStorageDescription());
+		bean.setPlanCode(plan.getPlanCode());
+		bean.setPlanDescription(plan.getPlanDescription());
+		bean.setReleaseUnit(plan.getReleaseUnit());
 		bean.setStartTime(plan.getStartTime());
-		bean.setEndtime(plan.getEndtime());
-		bean.setReleasedDate(plan.getReleasedDate());
+		bean.setEndTime(plan.getEndTime());
+		bean.setReleaseDate(plan.getReleaseDate());
 		bean.setModifiedTime(new Timestamp(System.currentTimeMillis()));
 		model.addAttribute("type",planType);
 		model.addAttribute("condition","");
 		if(isAdd){
 			planService.save(bean);
-			return "redirect:list";
+			return "redirect:/plan/list";
 		}else{
 			planService.update(bean);
 			model.addAttribute("id", bean.getId());

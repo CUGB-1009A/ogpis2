@@ -12,6 +12,9 @@
 	<div>
 		<div class="easyui-panel" title="新建规划">
 			<form method="post" action="<%=path%>/plan/save" id="planFrom">
+			
+				<input type="hidden" value="true" name="isAdd">
+				<input type="hidden" name="indexIds">
 				<table cellpadding="5" style="margin:0 auto;text-align:center">
 					<tr>
 						<td>规划名称</td>
@@ -23,12 +26,13 @@
 					</tr>
 					<tr>
 						<td>发布单位</td>
-						<td><input class="easyui-textbox" type="text" data-options="prompt:'发布单位'" id="releaseUnit" name="releaseUnit" style="width: 50%;height:32px"></td>
+						<td><input class="easyui-textbox" type="text" data-options="prompt:'发布单位'" 
+							id="releaseUnit" name="ReleaseUnit" style="width: 50%;height:32px"></td>
 					</tr>
 					<tr>
 						<td>发布时间</td>
 						<td>
-							<input id="releaseTime" class="easyui-datebox" name="releaseTime" 
+							<input id="releaseDate" class="easyui-datebox" name="releaseDate" 
 								data-options="formatter:myformatter,parser:myparser,prompt:'发布时间'"
 								style="width: 50%;height:32px">
 						</td>
@@ -50,7 +54,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>矿种类型</td>
+						<td>规划类型</td>
 						<td>
 							<select id="planType" name="planType">
 								<c:forEach items="${planType }" var="item">
@@ -80,15 +84,39 @@
 					</tr>
 				</table>
 				<div style="margin:0 auto;text-align:center">
-					<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" iconCls="icon-ok">确定</a>&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="<%=path%>/plan/list?type=All&&condition=" class="easyui-linkbutton" iconCls="icon-back">返回</a>
+					<button type="submit" class="easyui-linkbutton" data-options="iconCls:'icon-save'">确认</button>&nbsp;&nbsp;&nbsp;&nbsp;
+					<button class="easyui-linkbutton" type="button" onclick="back()" data-options="iconCls:'icon-back'">返回</button>
 				</div>
 			</form>
 		</div>
 	</div>
 	<script type="text/javascript">
-		function submitForm(){
-			$('#planFrom').form('submit');
+		function back(){
+			window.location.href="<%=path%>/plan/list?type=All&&condition=";
+		}
+		
+		function check(){
+			var planName=$('#planName').val();
+			var releaseDate=$('#releaseDate').val();
+			var planCode=$('#planCode').val();
+			var startTime=$('#startTime').val();
+			var releaseUnit=$('#releaseUnit').val();
+			var endTime=$('#endTime').val();
+			var planShortDescribtion=$('#planShortDescribtion').val();
+			var ueContent=UE.getEditor('container').getPlainTxt()
+				//alert(UE.getEditor('container').getContentLength(true));
+			if(planName==''||releaseDate==''||planCode==''||startTime==''||releaseUnit==''||endTime==''||planShortDescribtion==''){
+				alert('请填写完整信息再提交');
+				return true;
+			}
+			if(startTime>endTime){
+				alert('规划起始时间不对');
+				return false;
+			}
+			if(UE.getEditor('container').getContentLength(true)>10000){
+				alert('你输入的背景过长，请精简内容再试！');
+				return false;
+			}
 		}
 	
 		//自定义日期格式

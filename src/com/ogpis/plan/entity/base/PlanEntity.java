@@ -50,7 +50,7 @@ public class PlanEntity extends BaseEntity {
 	 * 发布时间
 	 */
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	protected Date ReleasedDate;
+	protected Date ReleaseDate;
 	/**
 	 * 规划开始时间
 	 */
@@ -60,7 +60,7 @@ public class PlanEntity extends BaseEntity {
 	 * 规划结束时间
 	 */
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	protected Date Endtime;
+	protected Date EndTime;
 	/**
 	 * 规划类型：指全国、石油公司、其他规划等
 	 */
@@ -146,12 +146,12 @@ public class PlanEntity extends BaseEntity {
 		this.released = released;
 	}
 
-	public Date getReleasedDate() {
-		return ReleasedDate;
+	public Date getReleaseDate() {
+		return ReleaseDate;
 	}
 
-	public void setReleasedDate(Date releasedDate) {
-		ReleasedDate = releasedDate;
+	public void setReleaseDate(Date releaseDate) {
+		ReleaseDate = releaseDate;
 	}
 
 	public Date getStartTime() {
@@ -162,12 +162,12 @@ public class PlanEntity extends BaseEntity {
 		StartTime = startTime;
 	}
 
-	public Date getEndtime() {
-		return Endtime;
+	public Date getEndTime() {
+		return EndTime;
 	}
 
-	public void setEndtime(Date endtime) {
-		Endtime = endtime;
+	public void setEndTime(Date endTime) {
+		EndTime = endTime;
 	}
 
 	public String getPlanType() {

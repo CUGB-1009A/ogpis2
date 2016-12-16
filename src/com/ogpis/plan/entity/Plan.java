@@ -24,7 +24,7 @@ public class Plan extends PlanEntity {
 	//为了画十年的历史数据（规划起始年份前十年的数据）和规划期内每年目标
 	@SuppressWarnings({ "unchecked"})
 	public String getTenHistoryIndexData() {
-		int yearNumber = Integer.parseInt(super.Endtime.toString().substring(0, 4))-Integer.parseInt(super.StartTime.toString().substring(0, 4))+1;
+		int yearNumber = Integer.parseInt(super.EndTime.toString().substring(0, 4))-Integer.parseInt(super.StartTime.toString().substring(0, 4))+1;
 		StringBuilder result = new StringBuilder();
 		List<IndexDataManagement> indexDataAll =  new ArrayList<IndexDataManagement>();//对应所有的完成情况
 		List<IndexDataManagement> indexDataTen =  new ArrayList<IndexDataManagement>();;//对应的规划外的十年完成情况
@@ -73,7 +73,7 @@ public class Plan extends PlanEntity {
 	@SuppressWarnings({ "unchecked"})
 	public String getIndexDataInPlanYear() {
 		int beginYear = Integer.parseInt(super.StartTime.toString().substring(0, 4));
-		int endYear = Integer.parseInt(super.Endtime.toString().substring(0, 4));
+		int endYear = Integer.parseInt(super.EndTime.toString().substring(0, 4));
 		float hasFinished ;
 		boolean hasRecord = false ;
 		StringBuilder result = new StringBuilder();
@@ -96,7 +96,7 @@ public class Plan extends PlanEntity {
 			Collections.sort(indexDataAll); //根据年份排序（from small to big）
 			for(IndexDataManagement temp:indexDataAll) //记录处在规划期内的完成记录
 			{
-				if(temp.getCollectedTime().getTime()>super.StartTime.getTime()&&temp.getCollectedTime().getTime()<super.Endtime.getTime())
+				if(temp.getCollectedTime().getTime()>super.StartTime.getTime()&&temp.getCollectedTime().getTime()<super.EndTime.getTime())
 					indexDataInPlanYear.add(temp);
 			}
 			for(int i=beginYear;i<endYear+1;i++)
@@ -152,7 +152,7 @@ public class Plan extends PlanEntity {
 			Collections.sort(indexDataAll); //根据年份排序（2000----2010）
 			for(IndexDataManagement temp:indexDataAll) //记录处在规划期内的完成记录
 			{
-				if(temp.getCollectedTime().getTime()<super.Endtime.getTime())
+				if(temp.getCollectedTime().getTime()<super.EndTime.getTime())
 					indexDataInBoth.add(temp);
 				if(indexDataInBoth.size()>10)
 					indexDataInBoth.remove(0);
@@ -196,7 +196,7 @@ public class Plan extends PlanEntity {
 			Collections.sort(indexDataAll); //根据年份排序（2000----2010）
 			for(IndexDataManagement temp:indexDataAll) //记录处在规划期内的完成记录
 			{
-				if(temp.getCollectedTime().getTime()<super.Endtime.getTime())
+				if(temp.getCollectedTime().getTime()<super.EndTime.getTime())
 					indexDataInPlanYear.add(temp);
 			}
 			for(IndexDataManagement indexDataTemp : indexDataInPlanYear)
@@ -216,7 +216,7 @@ public class Plan extends PlanEntity {
 	
 	public Integer getPlanYears()
 	{
-		return Integer.parseInt(super.Endtime.toString().substring(0, 4))-Integer.parseInt(super.StartTime.toString().substring(0, 4));
+		return Integer.parseInt(super.EndTime.toString().substring(0, 4))-Integer.parseInt(super.StartTime.toString().substring(0, 4));
 	}
 	
 	public List<IndexManagement> getIndexs() {
