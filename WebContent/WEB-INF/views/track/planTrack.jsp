@@ -177,6 +177,9 @@
 							<div id="legend" style="width: auto"></div>
 						</div>
 					</div>
+					<div>
+						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map.png"/>
+					</div>
 					<!-- <div class="toolBar" style="width: 100%; height: auto">
 						<div class="float-right" style="margin: 1px">
 							<div class="inline-block margin padding-lr border-2">
