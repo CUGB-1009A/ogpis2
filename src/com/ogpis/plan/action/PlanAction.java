@@ -77,4 +77,10 @@ public class PlanAction {
 		}
 	}
 	
+	@RequestMapping("/toPreview")
+	public String preview(HttpServletRequest request,Boolean isAdd,ModelMap model,String id,Plan plan,String planType,String indexIds){
+		
+		return "/plan/planAdmin/planPreview";
+	}
+	
 }

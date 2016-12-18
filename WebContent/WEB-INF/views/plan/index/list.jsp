@@ -15,6 +15,7 @@
 		</c:forEach>
 	</div>
 	<div style="text-align:right;margin:0 10px 0 10px">
+	
 		<select id="selectType" name="planType">
 			<c:forEach items="${planType }" var="item">
 				<option value="${item.key }"<c:if test="${item.key.equals(type) }">selected</c:if>>${item}</option>
