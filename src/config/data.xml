@@ -18,4 +18,22 @@
 		<CustomerID>PICCO</CustomerID>
 		<OrderDate>2007.11.19</OrderDate>
 	</Record>
+	<Record>
+		<Country>Austria</Country>
+		<OrderID>10258</OrderID>
+		<CustomerID>ERNSH</CustomerID>
+		<OrderDate>2006.07.17</OrderDate>
+	</Record>
+	<Record>
+		<Country>Austria</Country>
+		<OrderID>10263</OrderID>
+		<CustomerID>ERNSH</CustomerID>
+		<OrderDate>null</OrderDate>
+	</Record>
+	<Record>
+		<Country>Austria</Country>
+		<OrderID>10747</OrderID>
+		<CustomerID>PICCO</CustomerID>
+		<OrderDate>2007.11.19</OrderDate>
+	</Record>
 </Root>

@@ -5,8 +5,6 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSON;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;

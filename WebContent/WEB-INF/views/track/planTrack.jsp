@@ -13,7 +13,7 @@
 	var dojoConfig = {
 		packages : [ {
 			name : "myDojo",
-			location : "/ogpis2/arcgis"
+			location : "/ogpis2/js/arcgis"
 		} ]
 	};
 </script>
@@ -25,12 +25,11 @@
 <link rel="stylesheet" type="text/css"
 	href="/arcgis/library/3.9/3.9/esri/css/esri.css"></link>
 <!-- 加载自定义ArcGIS API  -->
-<script type="text/javascript" src="../arcgis/initMap.js"></script>
-<script type="text/javascript" src="../arcgis/globalFunction.js"></script>
-<script type="text/javascript" src="../arcgis/globalVariable.js"></script>
+<script type="text/javascript" src="../js/arcgis/globalFunction.js"></script>
+<script type="text/javascript" src="../js/arcgis/globalVariable.js"></script>
+<script type="text/javascript" src="../js/arcgis/initPage.js"></script>
 <!-- 加载自定义样式 -->
-<link rel="stylesheet" type="text/css" href="../arcgis/css/Map.css">
-<script type="text/javascript" src="../arcgis/initPage.js"></script>
+<link rel="stylesheet" type="text/css" href="../js/arcgis/css/Map.css">
 </head>
 <body>
 	<div style="width: 100%; height: 100%">
@@ -47,19 +46,22 @@
 						</select>
 					</div>
 					<div class="inline-block">
-						<label id="field2">油气田名称:</label> <select id="field2Value"
+						<label id="field2">年度:</label> <select id="field2Value"
 							class="select">
-							<option>公司1</option>
-							<option>公司2</option>
-							<option>公司3</option>
+							<option>20013</option>
+							<option>2014</option>
+							<option>2015</option>
+							<option>2016</option>
+							<option>2017</option>
 						</select>
 					</div>
 					<div class="inline-block">
-						<label id="field3">油气田名称:</label> <select id="field3Value"
+						<label id="field3">指标:</label> <select id="field3Value"
 							class="select">
-							<option>公司1</option>
-							<option>公司2</option>
-							<option>公司3</option>
+							<option>石油储量</option>
+							<option>石油产量</option>
+							<option>天然气储量</option>
+							<option>天然气产量</option>
 						</select>
 					</div>
 					<div class="inline-block">
@@ -67,6 +69,9 @@
 					</div>
 					<div class="inline-block">
 						<button onclick="recQuery();">框选</button>
+					</div>
+					<div class="inline-block">
+						<button onclick="render();">渲染</button>
 					</div>
 				</div>
 			</div>
@@ -99,9 +104,6 @@
 					<div class="inline-block">
 						<button onclick="queryTest();">查询</button>
 					</div>
-					<div class="inline-block">
-						<button onclick="recQuery();">框选</button>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -111,12 +113,18 @@
 				<div style="width: 100%; height: 88%;">
 					<div style="width: 100%; height: 100%; position: relative;">
 						<div id="map" data-options="fit:true,region:'center',border:false"
-							onContextMenu="mapContextMenu()"></div>
+							onContextMenu="mapContextMenu('#contextMenu')"></div>
 						<div class="easyui-draggable"
-							data-options="handle:'#mapToolsDiv',onDrag:onDrag"
+							data-options="handle:'#contextMenu',onDrag:onDrag"
 							style="position: absolute; display: none">
-							<div id="mapToolsDiv" class="mapToolDiv">
+							<div id="contextMenu" class="contextMenu">
 								<div>
+									<input type="checkbox" value="#mapToolDiv" /> <label>工具条</label>
+								</div>
+								<div>
+									<input type="checkbox" value="#mapToolDiv2" /> <label>工具条2</label>
+								</div>
+								<!-- <div>
 									<div id="zoomPan" title="漫游" onclick="ZoomPan();"></div>
 								</div>
 								<div>
@@ -127,30 +135,44 @@
 								</div>
 								<div>
 									<div id="zoomHome" title="全图" onClick="Home();"></div>
+								</div> -->
+							</div>
+						</div>
+						<div class="easyui-draggable"
+							data-options="handle:'#mapToolDiv',onDrag:onDrag"
+							style="position: absolute; display: none">
+							<div id="mapToolDiv" class="mapToolDiv">
+								<div>
+									<div id="zoomPan" title="漫游" onclick="ZoomPan(mapManager);"></div>
+								</div>
+								<div>
+									<div id="zoomIn" title="放大" onClick="ZoomIn(mapManager);"></div>
+								</div>
+								<div>
+									<div id="zoomOut" title="缩小" onClick="ZoomOut(mapManager);"></div>
+								</div>
+								<div>
+									<div id="zoomHome" title="全图" onClick="Home(mapManager);"></div>
 								</div>
 							</div>
 						</div>
-						<div id="layers" style="position:absolute;right:50px;top:30px">
-							<div>
-								<input type="checkbox" value="layer1" checked/>
-								<label>layer1</label>
+						<div class="layers"
+							style="position: absolute; right: 50px; top: 30px">
+							<div class="layers-title">
+								<label>图层</label>
 							</div>
-							<div>
-								<input type="checkbox" value="layer1" checked/>
-								<label>layer1</label>
+							<div id="layers"></div>
+						</div>
+						<div class="legend"
+							style="position: absolute; left: 50px; bottom: 30px">
+							<div class="legend-title">
+								<label>图例</label>
 							</div>
-							<div>
-								<input type="checkbox" value="layer1" checked/>
-								<label>layer1</label>
-							</div>
-							<div>
-								<input type="checkbox" value="layer1" checked/>
-								<label>layer1</label>
-							</div>
+							<div id="legend" style="width: auto"></div>
 						</div>
 					</div>
-					<div class="toolBar" style="width: 100%; height: auto">
-						<div class="float-right" style="margin:1px">
+					<!-- <div class="toolBar" style="width: 100%; height: auto">
+						<div class="float-right" style="margin: 1px">
 							<div class="inline-block margin padding-lr border-2">
 								<a id="btn" href="#" class="lable">保存图片</a>
 							</div>
@@ -164,21 +186,23 @@
 								<a id="btn" href="#" class="lable">保存图片</a>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
-			<div title="图表" style="width: 100%; height: 100%">
+			<div title="图表"
+				style="width: 100%; height: 100%; display: flex; flex-direction: row">
 				<table id="table" class="easyui-datagrid"
-					style="width: 100%; height: 50%"
+					style="width: 20%; height: 100%"
 					data-options="url:'../track/json',fitColumns:true,singleSelect:true">
 					<thead>
 						<tr>
 							<th data-options="field:'Country'">Country</th>
 							<th data-options="field:'OrderID'">OrderID</th>
 							<th data-options="field:'CustomerID'">CustomerID</th>
+							<th data-options="field:'OrderDate'">OrderDate</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="data">
 						<tr>
 							<td>001</td>
 							<td>name1</td>
@@ -191,10 +215,10 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="border" style="height: 235px">
+				<div class="border" style="width: 80%">
 					<div>test</div>
 				</div>
-				<div class="toolBar" style="width: 100%; height: auto">
+				<!-- <div class="toolBar" style="width: 100%; height: auto">
 					<div class="float-right">
 						<div class="inline-block margin padding-lr border-2">
 							<a id="btn" href="#" class="lable">保存图片</a>
@@ -209,38 +233,30 @@
 							<a id="btn" href="#" class="lable">保存图片</a>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-	/* require([ "myDojo/MyModel" ], function(myModel) {
-		console.log(myModel);
-	}) */
-	$(function() {
-		/* var map = new MapManager({map:"map"});
-		map.init(); */
-		initMap();
-	})
-	/* function tabChange(title, index) {
-		if (title == "查询统计") {
-			$("#tt").find(".tabs").css("width", window.innerWidth - 8 + "px")
-					.css("padding-right", "4px");
-			$("#tt").find(".tabs").find("li").css("float", "right").css(
-					"margin-right", "4px");
-		}
-	} */
 	function queryTest() {
-		var url = "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer";
-		var layerId = 0
-		var sql = "FID < 900 and FID > 890";
-		queryTask(url, layerId, sql);
+		var options = {
+			url : "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer",
+			layerId : 0,
+			sql : "FID < 900 and FID > 890"
+		}
+		queryTask(mapManager, options);
 	}
 	function recQuery() {
 		require([ "esri/toolbars/draw" ], function(Draw) {
-			drawToolBar.activate(Draw.RECTANGLE);
+			mapManager.drawToolBar.activate(Draw.RECTANGLE);
 		})
 	}
+	function render() {
+		initRender(mapManager);
+	}
+	$(function() {
+
+	})
 </script>
 </html>
