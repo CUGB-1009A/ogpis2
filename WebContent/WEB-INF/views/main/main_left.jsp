@@ -19,15 +19,15 @@ li{
 	padding: 0 15px;
 	height: 100%;
 	color: #000;
-	font-size: 14px;
+	font-size: 16px;
 	text-decoration: none;
 	text-align: center;
-	font-family:"微软雅黑",arial
+	font-family:"微软雅黑",arial;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 .sider-nav li .sider-nav-title {
 	width: 112px;
-	white-space: nowrap;
-	text-overflow: ellipsis;
 	overflow: hidden;
 	font-size: 13px
 }
@@ -63,7 +63,9 @@ li{
 font-size:18px;
 line-height: 26px;}
 .panel-header{
-text-align: left;}
+text-align: left;
+white-space: nowrap;
+text-overflow: ellipsis;}
 
 </style>
 <div class="easyui-accordion" style="height: 100%;" >
