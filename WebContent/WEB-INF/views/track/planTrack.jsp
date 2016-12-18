@@ -179,6 +179,10 @@
 					</div>
 					<div>
 						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map.png"/>
+						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map2.png"/>
+						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map3.png"/>
+						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map4.png"/>
+						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map5.png"/>
 					</div>
 					<!-- <div class="toolBar" style="width: 100%; height: auto">
 						<div class="float-right" style="margin: 1px">
