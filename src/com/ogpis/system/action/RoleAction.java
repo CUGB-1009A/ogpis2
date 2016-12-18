@@ -1,5 +1,6 @@
 package com.ogpis.system.action;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class RoleAction extends BaseAction {
 	@RequestMapping(value = "/getData")
 	@ResponseBody
 	public Object getData(@RequestParam("page") Integer pageNumber,
-			@RequestParam("rows") Integer pageSize) {
+			@RequestParam("rows") Integer pageSize) throws UnsupportedEncodingException {
 		Pagination pagination = roleService.getRoleList(
 				SimplePage.cpn(pageNumber), pageSize);
 		return this.toJsonTableData(pagination, null, true);

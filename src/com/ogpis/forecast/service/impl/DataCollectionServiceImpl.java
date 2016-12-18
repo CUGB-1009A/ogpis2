@@ -59,4 +59,9 @@ public class DataCollectionServiceImpl implements DataCollectionService{
 	public List<DataCollection> findMyData(String userId) {
 		return dataCollectionDao.findMyData(userId);
 	}
+
+	@Override
+	public List<DataCollection> findAll() {
+		return dataCollectionDao.findAll();
+	}
 }

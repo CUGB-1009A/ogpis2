@@ -19,4 +19,6 @@ public interface DataCollectionDao {
 
 	public List<DataCollection> findMyData(String userId);
 
+	public List<DataCollection> findAll();
+
 }

@@ -67,4 +67,12 @@ public class DataCollectionDaoImpl extends HibernateBaseDao<DataCollection, Stri
 		return dataCollectionList;
 	}
 
+	@Override
+	public List<DataCollection> findAll() {
+		String hql = "From DataCollection d where d.deleted=false";
+		@SuppressWarnings("unchecked")
+		List<DataCollection> dataCollectionList = this.find(hql, null);
+		return dataCollectionList;
+	}
+
 }

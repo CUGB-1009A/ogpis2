@@ -1,8 +1,11 @@
 package com.ogpis.system.action;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +36,15 @@ public class UserAction extends BaseAction {
 
 	@RequestMapping(value = "/getData")
 	@ResponseBody
-	public Object getData(@RequestParam("page") Integer pageNumber,
-			@RequestParam("rows") Integer pageSize) {
+	public void getData(@RequestParam("page") Integer pageNumber,
+			@RequestParam("rows") Integer pageSize,HttpServletResponse response) throws IOException{
 		System.out.println("pageNumber:" + pageNumber);
 		System.out.println("pageSize:" + pageSize);
 		Pagination pagination = userService.getUserList(
 				SimplePage.cpn(pageNumber), pageSize);
-		return this.toJsonTableData(pagination, null, true);
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("utf-8");
+	    response.getWriter().write(this.toJsonTableData(pagination, null, true));
 	}
 
 	@Autowired

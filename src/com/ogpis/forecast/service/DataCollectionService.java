@@ -18,4 +18,7 @@ public interface DataCollectionService {
 
 	public List<DataCollection> findMyData(String userId);
 
+	public List<DataCollection> findAll();
+
+
 }

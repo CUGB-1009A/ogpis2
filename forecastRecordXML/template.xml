@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--预测步骤及结果记录xml -->
+
+<ForecastRecord id="" complete=""> <!-- id指的是本次预测新建所得到的库中的id值，complete指的是完成到了第几步 -->
+	<Steps>
+		<step1 name="预测新建完成">
+			
+		</step1>
+		<step2 name="数据集处理完成">
+			<datas> <!-- 用到的数据集组 -->
+				<data id="" name=""> <!-- id为原始数据集库中id值，下方year和value为手动处理后的值 -->
+					<year>
+					1949,1950,1951
+					</year>
+					<value>
+					1,2,3
+					</value>
+				</data>
+			</datas>
+		</step2>
+		<step3 name="模型选择完成">
+			<model id="" pem="">
+				
+			</model>
+			
+		</step3>
+		<step4 name="预测结果完成">
+			<datas>
+				<data id="" name="">
+					<year>
+					1949,1950,1951
+					</year>
+					<value>
+					1,2,3
+					</value>
+				</data>
+			</datas>
+		</step4>
+	</Steps>
+</ForecastRecord>

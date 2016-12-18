@@ -24,9 +24,7 @@ html, body {
 
 <link rel="stylesheet" type="text/css" href="<%=path %>/resource/easyui-1.5/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="<%=path %>/resource/easyui-1.5/themes/icon.css">
-<link rel="stylesheet" type="text/css" href="<%=path %>/resource/easyui-1.5/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="<%=path %>/resource/easyui-1.5/themes/icon.css">
-<link rel="stylesheet" type="text/css" href="<%=path %>/easyui-1.5/themes/bootstrap/easyui.css">
+<link rel="stylesheet" type="text/css" href="<%=path %>/resource/easyui-1.5/themes/bootstrap/easyui.css">
 <script type="text/javascript" src="<%=path %>/resource/easyui-1.5/jquery.min.js"></script>
 <script type="text/javascript" src="<%=path %>/resource/easyui-1.5/jquery.easyui.min.js"></script> 
 <script type="text/javascript" src="<%=path %>/resource/supcan1.0.95.0/binary/dynaload.js"></script>
