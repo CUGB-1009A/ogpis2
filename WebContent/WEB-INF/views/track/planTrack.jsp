@@ -17,16 +17,9 @@
 		} ]
 	};
 </script>
-<!-- 加载jQuery -->
-<script type="text/javascript" src="../easyui-1.5/jquery.min.js"></script>
-<!-- 加载easyUI -->
-<link rel="stylesheet" type="text/css"
-	href="../easyui-1.5/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css"
-	href="../easyui-1.5/themes/default/tabs.css">
-<link rel="stylesheet" type="text/css"
-	href="../easyui-1.5/themes/icon.css">
-<script type="text/javascript" src="../easyui-1.5/jquery.easyui.min.js"></script>
+
+
+
 <!-- 加载ArcGIS API  -->
 <script type="text/javascript" src="/arcgis/library/3.9/3.9/init.js"></script>
 <link rel="stylesheet" type="text/css"
