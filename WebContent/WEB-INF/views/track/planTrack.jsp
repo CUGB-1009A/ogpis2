@@ -115,7 +115,7 @@
 		</div>
 		<div id="tt" class="easyui-tabs" style="width: 80%; height: auto;"
 			data-options="fit:true,tabPosition:'right',headerWidth:50,">
-			<div title="地图">
+			<div title="地图"> 
 				<div style="width: 100%; height: 88%;">
 					<div style="width: 100%; height: 100%; position: relative;">
 						<div id="map" data-options="fit:true,region:'center',border:false"
@@ -165,6 +165,10 @@
 						<div class="layers" style="position: absolute; right: 50px; top: 30px">
 							<div class="layers-title"><label>图层</label></div>
 							<div id="layers"></div>
+						</div>
+						<div class="legend" style="position: absolute; left: 50px; bottom: 30px">
+							<div class="legend-title"><label>图例</label></div>
+							<div id="legend" style="width:auto"></div>
 						</div>
 					</div>
 					<div class="toolBar" style="width: 100%; height: auto">
@@ -249,5 +253,8 @@
 	function render() {
 		initRender(mapManager);
 	}
+	$(function(){
+		
+	})
 </script>
 </html>

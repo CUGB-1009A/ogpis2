@@ -91,16 +91,16 @@ function mapContextMenu(domId) {
 }
 
 // 地图点击响应
-function mapClick(layer,e) {
+function mapClick(layer, e) {
 	console.log(e.graphic);
 	var attr = e.graphic.attributes;
-	var content="";
-	for(var i in attr){
+	var content = "";
+	for ( var i in attr) {
 		console.log(i);
-		content+="<p>"+i+":"+attr[i]+"</p>"
+		content += "<p>" + i + ":" + attr[i] + "</p>"
 	}
 	this.map.infoWindow.setContent(content);
-	this.map.infoWindow.setTitle(layer.className+"信息框");
+	this.map.infoWindow.setTitle(layer.className + "信息框");
 	this.map.infoWindow.show(e.graphic.geometry, this.map
 			.getInfoWindowAnchor(e.graphic.geometry));
 }
@@ -316,6 +316,7 @@ function initMap(mapManager) {
 					"esri/toolbars/navigation", "esri/toolbars/draw",
 					"dijit/layout/BorderContainer", "dijit/layout/ContentPane",
 					"dojo/_base/lang", "esri/renderers/ClassBreaksRenderer",
+					"esri/dijit/Legend", "esri/renderers/SimpleRenderer",
 					"dojo/domReady!" ],
 			function(Parser, Map, Point, Polyline, Polygon, Extent, Graphic,
 					Geometry, GraphicsLayer, FeatureLayer,
@@ -325,14 +326,16 @@ function initMap(mapManager) {
 					PictureMarkerSymbol, Query, QueryTask, FindTask,
 					FindParameters, FindResult, IdentifyTask,
 					IdentifyParameters, Navigation, Draw, BorderContainer,
-					ContentPane, lang, ClassBreaksRenderer, Dom) {
+					ContentPane, lang, ClassBreaksRenderer, Legend,
+					SimpleRenderer, Dom) {
 				Parser.parse();
 				mapManager.map = new Map(mapManager.mapDom, {
 					logo : false,
 					wrapAround180 : false,
-					/* basemap : "hybrid", */
-					center : [ -82.44109, 35.6122 ],
-					zoom : 17
+				/* basemap : "hybrid", */
+				/*
+				 * center : [ -82.44109, 35.6122 ], zoom : 17
+				 */
 				});
 				var tiledLayer = new ArcGISTiledMapServiceLayer(
 						"http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer",
@@ -342,11 +345,20 @@ function initMap(mapManager) {
 				mapManager.extent = tiledLayer.initialExtent;
 				var dynLayer = new ArcGISDynamicMapServiceLayer(
 						"http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/Energy/Geology/MapServer");
-				var featureLayer = new FeatureLayer(
+				var tree = new FeatureLayer(
 						"https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
 						{
 							id : 5,
-							className : "test2"
+							className : "Tree",
+							outFields : [ "*" ]
+
+						});
+				var citiesPop = new FeatureLayer(
+						"http://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/WorldCities/FeatureServer/0",
+						{
+							id : 6,
+							className : "人口",
+							outFields : [ "*" ]
 						});
 
 				var graphicsLayer = new GraphicsLayer({
@@ -355,14 +367,18 @@ function initMap(mapManager) {
 					opacity : 0.75,
 					visible : false
 				});
-				mapManager.map.addLayer(tiledLayer);
-				mapManager.map.addLayer(featureLayer);
-				mapManager.map.addLayer(graphicsLayer);
+				mapManager.map.addLayers([ tiledLayer, tree, citiesPop ]);
+				// mapManager.map.addLayer(tiledLayer);
+				// mapManager.map.addLayer(tree);
+				// mapManager.map.addLayer(citiesPop);
+				// mapManager.map.addLayer(graphicsLayer);
 
 				// 去掉esri官方数据的Resource标签
 				window.onload = function() {
 					$(".esriAttributionLastItem").hide();
 				}
+				mapManager.map.on("layers-add-result", lang.hitch(mapManager,
+						addLegend));
 				mapManager.map.on("load", function() {
 					mapManager.layers = mapManager.map.graphicsLayerIds.concat(
 							mapManager.map.layerIds, "graphics");
@@ -371,11 +387,40 @@ function initMap(mapManager) {
 					mapManager.drawToolBar = new Draw(mapManager.map);
 					mapManager.drawToolBar.on("draw-end", lang.hitch(
 							mapManager, getDrawResult));
-					featureLayer.on("click", lang.hitch(mapManager, mapClick,featureLayer));
-					/*featureLayer.on("load",function(){
-						console.log(featureLayer);
-						console.log(featureLayer.fields);
-					})*/
+					citiesPop.on("click", lang.hitch(mapManager, mapClick,
+							citiesPop));
+					tree.on("click", lang.hitch(mapManager, mapClick,
+							tree));
+
+					// var info = {
+					// field : "C_Storage",
+					// valueUnit : "unknown",
+					// minDataValue : 10,
+					// minSize : 0.3,
+					// minSize : 1,
+					// legendOptions : {
+					// symbol: mapManager.symbol.pointSymbol,
+					// customValues : [ 100, 500, 1000,
+					// 3000, 5000, 10000 ]
+					// }
+					// };
+
+					// var render = new
+					// SimpleRenderer(mapManager.symbol.pointSymbol);
+					// tree.on("load", function() {
+					// // tree.setRenderer(render);
+					// console.log(typeof tree.renderer);
+					// tree.renderer.setProportionalSymbolInfo(info);
+					// var legend = new Legend({
+					// map : mapManager.map,
+					// layerInfos : [ {
+					// defaultSymbol:false,
+					// layer : tree,
+					// title : "tree"
+					// } ]
+					// }, "legend");
+					// legend.startup();
+					// });
 					mapManager.init();
 				});
 			});
@@ -394,7 +439,7 @@ function initRender(mapManager) {
 			"esri/renderers/ClassBreaksRenderer",
 			"esri/symbols/SimpleMarkerSymbol", "esri/layers/FeatureLayer",
 			"dojo/_base/lang" ], function(UniqueValueRenderer,
-			ClassBreaksRenderer, SimpleMarkerSymbol, FeatureLayer,lang) {
+			ClassBreaksRenderer, SimpleMarkerSymbol, FeatureLayer, lang) {
 		var render = new ClassBreaksRenderer(mapManager.symbol.pointSymbol,
 				"FID");
 		var symbol1 = new SimpleMarkerSymbol({
@@ -426,20 +471,48 @@ function initRender(mapManager) {
 		});
 		render.addBreak(500, 800, symbol2);
 		var layer = mapManager.map.getLayer("5");
-		/*var url = layer.url;
-		mapManager.map.removeLayer(layer);
-		 layer.render=render; 
-		var featureLayer = new FeatureLayer(url, {
-			id:layer.id,
-			className : layer.className
-		});*/
 		layer.setRenderer(render);
 		layer.redraw();
-//		layer.refresh();
-//		featureLayer.on("click", lang.hitch(mapManager, mapClick,featureLayer));
-//		mapManager.map.addLayer(layer);
-		/*mapManager.layers = mapManager.map.graphicsLayerIds.concat(
-				mapManager.map.layerIds, "graphics");
-		mapManager.setLayers();*/
 	});
+}
+
+// 添加地图图例
+function addLegend(e) {
+	var map = this.map;
+	require([ "esri/dijit/Legend" ], function(Legend) {
+		var layers = e.layers;
+		var legend = new Legend({
+			map : map,
+			layerInfos : []
+		}, "legend");
+		for (var i = 0; i < layers.length; ++i) {
+			var layer = layers[i].layer;
+			if (layer.url.indexOf("FeatureServer") != -1) {
+				legend.layerInfos.push({
+					// defaultSymbol : false,
+					layer : layer,
+					title : layer.className
+				});
+				setRendererInfo(layer);
+			}
+		}
+		legend.startup();
+	});
+}
+
+function setRendererInfo(layer, info) {
+	var info = info
+			|| {
+				field : "pop",
+				valueUnit : "unknown",
+				minDataValue : 1000000,
+				minSize : 0.1,
+				minSize : 3,
+				legendOptions : {
+					symbol : mapManager.symbol.pointSymbol,
+					customValues : [ 1000000, 5000000, 10000000, 20000000,
+							30000000, 40000000 ]
+				}
+			};
+	layer.renderer.setProportionalSymbolInfo(info);
 }
