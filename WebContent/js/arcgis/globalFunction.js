@@ -340,7 +340,7 @@ function initMap(mapManager) {
 				var tiledLayer = new ArcGISTiledMapServiceLayer(
 						"http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer",
 						{
-							className : "test1"
+							className : "地理地图"
 						});
 				mapManager.extent = tiledLayer.initialExtent;
 				var dynLayer = new ArcGISDynamicMapServiceLayer(
@@ -351,7 +351,6 @@ function initMap(mapManager) {
 							id : 5,
 							className : "Tree",
 							outFields : [ "*" ]
-
 						});
 				var citiesPop = new FeatureLayer(
 						"http://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/WorldCities/FeatureServer/0",

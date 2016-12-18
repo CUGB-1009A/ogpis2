@@ -52,19 +52,22 @@
 						</select>
 					</div>
 					<div class="inline-block">
-						<label id="field2">油气田名称:</label> <select id="field2Value"
+						<label id="field2">年度:</label> <select id="field2Value"
 							class="select">
-							<option>公司1</option>
-							<option>公司2</option>
-							<option>公司3</option>
+							<option>20013</option>
+							<option>2014</option>
+							<option>2015</option>
+							<option>2016</option>
+							<option>2017</option>
 						</select>
 					</div>
 					<div class="inline-block">
-						<label id="field3">油气田名称:</label> <select id="field3Value"
+						<label id="field3">指标:</label> <select id="field3Value"
 							class="select">
-							<option>公司1</option>
-							<option>公司2</option>
-							<option>公司3</option>
+							<option>石油储量</option>
+							<option>石油产量</option>
+							<option>天然气储量</option>
+							<option>天然气产量</option>
 						</select>
 					</div>
 					<div class="inline-block">
@@ -72,6 +75,9 @@
 					</div>
 					<div class="inline-block">
 						<button onclick="recQuery();">框选</button>
+					</div>
+					<div class="inline-block">
+						<button onclick="render();">渲染</button>
 					</div>
 				</div>
 			</div>
@@ -104,18 +110,12 @@
 					<div class="inline-block">
 						<button onclick="queryTest();">查询</button>
 					</div>
-					<div class="inline-block">
-						<button onclick="recQuery();">框选</button>
-					</div>
-					<div class="inline-block">
-						<button onclick="render();">渲染</button>
-					</div>
 				</div>
 			</div>
 		</div>
 		<div id="tt" class="easyui-tabs" style="width: 80%; height: auto;"
 			data-options="fit:true,tabPosition:'right',headerWidth:50,">
-			<div title="地图"> 
+			<div title="地图">
 				<div style="width: 100%; height: 88%;">
 					<div style="width: 100%; height: 100%; position: relative;">
 						<div id="map" data-options="fit:true,region:'center',border:false"
@@ -162,16 +162,22 @@
 								</div>
 							</div>
 						</div>
-						<div class="layers" style="position: absolute; right: 50px; top: 30px">
-							<div class="layers-title"><label>图层</label></div>
+						<div class="layers"
+							style="position: absolute; right: 50px; top: 30px">
+							<div class="layers-title">
+								<label>图层</label>
+							</div>
 							<div id="layers"></div>
 						</div>
-						<div class="legend" style="position: absolute; left: 50px; bottom: 30px">
-							<div class="legend-title"><label>图例</label></div>
-							<div id="legend" style="width:auto"></div>
+						<div class="legend"
+							style="position: absolute; left: 50px; bottom: 30px">
+							<div class="legend-title">
+								<label>图例</label>
+							</div>
+							<div id="legend" style="width: auto"></div>
 						</div>
 					</div>
-					<div class="toolBar" style="width: 100%; height: auto">
+					<!-- <div class="toolBar" style="width: 100%; height: auto">
 						<div class="float-right" style="margin: 1px">
 							<div class="inline-block margin padding-lr border-2">
 								<a id="btn" href="#" class="lable">保存图片</a>
@@ -186,21 +192,23 @@
 								<a id="btn" href="#" class="lable">保存图片</a>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
-			<div title="图表" style="width: 100%; height: 100%">
+			<div title="图表"
+				style="width: 100%; height: 100%; display: flex; flex-direction: row">
 				<table id="table" class="easyui-datagrid"
-					style="width: 100%; height: 50%"
+					style="width: 20%; height: 100%"
 					data-options="url:'../track/json',fitColumns:true,singleSelect:true">
 					<thead>
 						<tr>
 							<th data-options="field:'Country'">Country</th>
 							<th data-options="field:'OrderID'">OrderID</th>
 							<th data-options="field:'CustomerID'">CustomerID</th>
+							<th data-options="field:'OrderDate'">OrderDate</th>
 						</tr>
 					</thead>
-					<tbody id="zwx">
+					<tbody id="data">
 						<tr>
 							<td>001</td>
 							<td>name1</td>
@@ -213,10 +221,10 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="border" style="height: 235px">
+				<div class="border" style="width: 80%">
 					<div>test</div>
 				</div>
-				<div class="toolBar" style="width: 100%; height: auto">
+				<!-- <div class="toolBar" style="width: 100%; height: auto">
 					<div class="float-right">
 						<div class="inline-block margin padding-lr border-2">
 							<a id="btn" href="#" class="lable">保存图片</a>
@@ -231,7 +239,7 @@
 							<a id="btn" href="#" class="lable">保存图片</a>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
@@ -253,8 +261,8 @@
 	function render() {
 		initRender(mapManager);
 	}
-	$(function(){
-		
+	$(function() {
+
 	})
 </script>
 </html>
