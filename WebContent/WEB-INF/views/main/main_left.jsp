@@ -89,13 +89,13 @@ text-align: left;}
 	</div>
 	<div title="趋势预测分析" iconCls="" style="overflow:auto;" selected="true">
 		<ul class="sider-nav">
-			<li >
+			<%-- <li >
 				<span class="sider-nav-title"><a href="<%=path%>/forecast/toPredictionPage" target=main_center>上版预测</a></span>
-			</li>
+			</li> --%>
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/forecast/list" target=main_center>成果管理</a></span>
 			</li>
-			<li >
+			<li>
 				<span class="sider-nav-title"><a href="" target=main_center>数据管理</a></span>
 			</li>
 			<li> 

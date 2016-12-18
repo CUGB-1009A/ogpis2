@@ -13,7 +13,7 @@
 
 $(function() {
 	var datagrid = $('#datagrid');
-	var h = $('body').height() - $('#listTb').height()-200;
+	var h = $('body').height() - $('#listTb').height();
 	datagrid.datagrid(
 					{
 						border : false,

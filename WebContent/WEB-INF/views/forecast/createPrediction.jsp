@@ -9,41 +9,52 @@
 
 </head>
 <body>
-	<div id="step2" class="easyui-layout" style="width:100%;height:100%;display:none;">   
-	    <div data-options="region:'north',title:'预测步骤'" style="height:20%;font-size:25px;text-align:center;display:flex;align-items:center;justify-content:center;postion:static">
-	    	<span style="color:LightGrey;">新建预测&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
-	    	<span style="color:black;">选择和预处理数据&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
-	    	<span style="color:LightGrey;">选择模型&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
-	    	<span style="color:LightGrey;">预测&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
-	    	<span style="color:LightGrey;">完成</span>
-	    </div>   
-	    <div data-options="region:'south',title:'详情显示',collapsible:false" style="height:80%;postion:static">
-	    	<div style="height:90%">
-	    		
-	    	</div>
-	    	<div style="height:10%;text-align:right">
-	    		<button onclick="toRecordList()">返回列表</button>
-	    		<button onclick="step2_next()">下一步</button>
-	    	</div>
-	    </div>   
-	</div>
+<div id="step2" class="easyui-layout" style="width:100%;height:100%;display:none;">   
+    <div data-options="region:'north',title:'预测步骤'" style="height:20%;font-size:25px;text-align:center;display:flex;align-items:center;justify-content:center;">
+    	<span style="color:LightGrey;">新建预测&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
+    	<span style="color:black;">选择和预处理数据&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
+    	<span style="color:LightGrey;">选择模型&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
+    	<span style="color:LightGrey;">预测&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
+    	<span style="color:LightGrey;">完成</span>
+    </div>   
+    <div data-options="region:'south',title:'详情显示',collapsible:false" style="height:80%;">
+    	<div style="height:90%">
+    		<div style="width:30%;height:40%;float:left;">
+					<div style="width:100%;height:100%;float:left">
+						<div style="padding:10px">
+							原始数据集：<br>
+							<c:forEach items="${dataCollectionList}" var="item">
+										${item.dataCollectionName}<br>
+							</c:forEach>
+						</div>
+					</div>
+			</div>
+    	</div>
+    	<div style="height:10%;text-align:right">
+    		<button onclick="toRecordList()">返回列表</button>
+    		<button onclick="step2_next()">下一步</button>
+    	</div>
+    </div>   
+</div>
 	
 	<div id="step3" class="easyui-layout" style="width:100%;height:100%;display:none">   
-	    <div data-options="region:'north',title:'预测步骤'" style="height:20%;font-size:25px;text-align:center;display:flex;align-items:center;justify-content:center;postion:static">
+	    <div data-options="region:'north',title:'预测步骤'" style="height:20%;font-size:25px;text-align:center;display:flex;align-items:center;justify-content:center;">
 	    	<span style="color:LightGrey;">新建预测&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
 	    	<span style="color:LightGrey;">选择和预处理数据&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
 	    	<span style="color:black;">选择模型&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
 	    	<span style="color:LightGrey;">预测&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
 	    	<span style="color:LightGrey;">完成</span>
 	    </div>   
-	    <div data-options="region:'south',title:'详情显示',collapsible:false" style="height:80%;postion:static">
-	    	<div style="height:90%"></div>
+	    <div data-options="region:'south',title:'详情显示',collapsible:false" style="height:80%;">
+	    	<div style="height:90%">
+	    		
+	    	</div>
 	    	<div style="height:10%;text-align:right">
 	    		<button onclick="step3_previous()">上一步</button>
 	    		<button onclick="step3_next()">下一步</button>
 	    	</div>
-	    </div>   
-	</div>
+	 </div>   
+</div>
 	
 	<div id="step4" class="easyui-layout" style="width:100%;height:100%;display:none;">   
 	    <div data-options="region:'north',title:'预测步骤'" style="height:20%;font-size:25px;text-align:center;display:flex;align-items:center;justify-content:center">
