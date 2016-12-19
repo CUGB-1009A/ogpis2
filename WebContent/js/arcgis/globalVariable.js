@@ -16,6 +16,7 @@ function MapManager(options) {
 	this.extent;
 	this.drawToolBar;
 	/* this.drawDom; */
+	this.legend;
 	this.queryGeometry;
 	this.init = init;// 初始化地图及工具
 	this.setLayers = setLayers;// 设计思路：在创建图层Layer时指定Layer的className属性，通过className属性来标识Layer

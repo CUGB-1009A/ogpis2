@@ -22,6 +22,21 @@ public class TrackAction {
 	public String index(HttpServletRequest request, ModelMap model) {
 		return "track/planTrack";
 	}
+	
+	@RequestMapping(value = "/index1")
+	public String index1(HttpServletRequest request, ModelMap model) {
+		return "track/planTrack1";
+	}
+	
+	@RequestMapping(value = "/index0")
+	public String index0(HttpServletRequest request, ModelMap model) {
+		return "track/planTrack0";
+	}
+	
+	@RequestMapping(value = "/DataSource")
+	public String DataSource(HttpServletRequest request, ModelMap model) {
+		return "track/DataSource";
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "/json")

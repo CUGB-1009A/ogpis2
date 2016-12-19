@@ -45,7 +45,8 @@ html, body, .fullBox, #map {
 }
 
 .select {
-	width: 150px
+	width: 150px;
+	height: 35px;
 }
 
 .myTabItem {
@@ -139,12 +140,25 @@ html, body, .fullBox, #map {
 	font-family: fantasy;
 }
 
-.legend td{
-	width:auto
+.legend td {
+	width: auto
 }
 
 .contextMenu {
 	border: 1px solid #0080ff;
 	background-color: white;
 	padding: 10px;
+}
+
+.dialog-lable {
+	display:inline-block;
+	width:150px;
+	font-size:20px;
+	text-align:right
+}
+
+.dialog-input {
+	display:inline-block;
+	width:300px;
+	font-size:20px;
 }

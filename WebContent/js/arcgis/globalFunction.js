@@ -472,6 +472,7 @@ function initRender(mapManager) {
 		var layer = mapManager.map.getLayer("5");
 		layer.setRenderer(render);
 		layer.redraw();
+		this.legend.refresh();
 	});
 }
 
@@ -496,6 +497,7 @@ function addLegend(e) {
 			}
 		}
 		legend.startup();
+		this.legend=legend;
 	});
 }
 

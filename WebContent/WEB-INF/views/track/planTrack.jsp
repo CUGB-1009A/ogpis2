@@ -65,13 +65,13 @@
 						</select>
 					</div>
 					<div class="inline-block">
-						<button onclick="queryTest();">查询</button>
+						<button class="select" onclick="queryTest();">查询</button>
 					</div>
 					<div class="inline-block">
-						<button onclick="recQuery();">框选</button>
+						<button class="select" onclick="recQuery();">框选</button>
 					</div>
 					<div class="inline-block">
-						<button onclick="render();">渲染</button>
+						<button class="select" onclick="render();">渲染</button>
 					</div>
 				</div>
 			</div>
@@ -102,7 +102,7 @@
 						</select>
 					</div>
 					<div class="inline-block">
-						<button onclick="queryTest();">查询</button>
+						<button class="select" onclick="queryTest();">查询</button>
 					</div>
 				</div>
 			</div>
@@ -170,6 +170,13 @@
 							</div>
 							<div id="legend" style="width: auto"></div>
 						</div>
+					</div>
+					<div>
+						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map.png"/>
+						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map2.png"/>
+						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map3.png"/>
+						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map4.png"/>
+						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map5.png"/>
 					</div>
 					<!-- <div class="toolBar" style="width: 100%; height: auto">
 						<div class="float-right" style="margin: 1px">
