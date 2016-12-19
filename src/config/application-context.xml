@@ -47,6 +47,7 @@
 				<value>com.ogpis.demo.entity</value>
 				<value>com.ogpis.forecast.entity</value>
 				<value>com.ogpis.system.entity</value>
+				<value>com.ogpis.plan.entity</value>
 
 			</list>
 		</property>

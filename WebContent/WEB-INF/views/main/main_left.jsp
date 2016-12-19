@@ -87,6 +87,7 @@ text-align: left;}
 			</li>
 		</ul>
 	</div>
+
 	<div title="趋势预测分析" iconCls="" style="overflow:auto;" selected="true">
 		<ul class="sider-nav">
 			<li >
@@ -103,16 +104,17 @@ text-align: left;}
 			</li>
 		</ul>
 	</div>
+
     <div title="规划成果管理" iconCls="" style="overflow:auto;" >
 		<ul class="sider-nav">
-			<li >
-				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>资料规划录入</a></span>
+			<li>
+				<span><a href="<%=path%>/index/list?type=QG" target=main_center>规划指标管理</a></span>
 			</li>
-			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>规划查询统计</a></span>
+			<li>
+				<span><a href="<%=path%>/indexData/list?type=QG&id=0" target=main_center>规划完成情况管理</a></span>
 			</li>
-			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>规划展示</a></span>
+			<li>
+				<span><a href="<%=path%>/plan/list?type=All&&condition=" target=main_center>规划管理</a></span>
 			</li>
 		</ul>
 	</div>
@@ -123,7 +125,6 @@ text-align: left;}
 			</li>
 		</ul>
 	</div>
-
 
 </div>
 <script>
