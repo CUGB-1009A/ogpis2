@@ -60,7 +60,7 @@ function CreatChart(id,data){//id表示创建echart图表的div的id,data={"titl
     		 xAxis: {
     			 //name:xAxisName,
     		     //data:xAxisData //["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-    			 data:["渤海湾盆地","海拉尔盆地","松辽盆地"]
+    			 data:["渤海湾盆地","海拉尔盆地","松辽盆地","二连盆地","苏北盆地"]
     		 },
     		 yAxis: {
     			 //name:yAxisName

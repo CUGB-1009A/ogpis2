@@ -1,5 +1,5 @@
 function OnReady(id){
-	var reportType="A100";
+	var reportType="B000";
 	switch (reportType){
 	case "A100":
 		AF.func('Build','http://localhost:8080/report/test4.xml'); 
