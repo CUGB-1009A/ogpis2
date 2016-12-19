@@ -19,7 +19,7 @@
 			</a>
 		</div>
 		<div style="margin:20px 10px 10px 10px;text-align:center">
-			<table class="easyui-datagrid" title="规划管理" cellpadding="5" style="margin:0 auto;text-align:center">
+			<table class="easyui-datagrid table" title="规划管理" cellpadding="5" style="margin:0 auto;text-align:center">
 				<thead>
 					<tr>
 						<th field="规划名称">规划名称</th>
