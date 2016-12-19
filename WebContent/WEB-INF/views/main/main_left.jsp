@@ -97,7 +97,7 @@ text-align: left;}
 				<span class="sider-nav-title"><a href="<%=path%>/forecast/list" target=main_center>成果管理</a></span>
 			</li>
 			<li>
-				<span class="sider-nav-title"><a href="" target=main_center>数据管理</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/track/DataSource" target=main_center>数据管理</a></span>
 			</li>
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/model/list" target=main_center>模型管理</a></span>

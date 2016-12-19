@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ include file="/WEB-INF/views/init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,16 +20,7 @@ td, th {
 	text-align: center
 }
 </style>
-<!-- 加载jQuery -->
-<script type="text/javascript" src="../easyui-1.5/jquery.min.js"></script>
-<!-- 加载easyUI -->
-<link rel="stylesheet" type="text/css"
-	href="../easyui-1.5/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css"
-	href="../easyui-1.5/themes/default/tabs.css">
-<link rel="stylesheet" type="text/css"
-	href="../easyui-1.5/themes/icon.css">
-<script type="text/javascript" src="../easyui-1.5/jquery.easyui.min.js"></script>
+
 <!-- 加载ArcGIS API  -->
 <script type="text/javascript" src="/arcgis/library/3.9/3.9/init.js"></script>
 <link rel="stylesheet" type="text/css"
