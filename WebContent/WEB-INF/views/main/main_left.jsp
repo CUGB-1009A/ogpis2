@@ -71,7 +71,7 @@ text-align: left;}
 	<div title="历史数据查询分析" iconCls="" style="overflow:auto;" >
 		<ul class="sider-nav">
 			<li >
-				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>资源量专题</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/dataBrowse" target=main_center>资源量专题</a></span>
 			</li>
 			<li >
 				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>储量专题</a></span>
