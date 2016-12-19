@@ -8,8 +8,8 @@
 		<IFRAME width="100%" height="100%" frameBorder=0 id=main_top
 			name=main_top src="<%=path%>/main/top"></IFRAME>
 	</div>
-	<div data-options="region:'west',split:true"
-		style="width: 220px; padding: 0px;">
+	<div data-options="region:'west',split:false"
+		style="width: 200px; padding: 0px;">
 		<IFRAME width="100%" height="100%" frameBorder=0 id=main_left
 			name=main_left src="<%=path%>/main/left"></IFRAME>
 	</div>
@@ -19,7 +19,7 @@
 	</div>
 	<div data-options="region:'south',border:false"
 		style="height: 32px;">
-		<IFRAME width="100%" height="100%" frameBorder=1 id=main_bottom
+		<IFRAME width="100%" height="100%" frameBorder=0 id=main_bottom
 			name=main_bottom src="<%=path%>/main/bottom"></IFRAME>
 	</div>
 </body>

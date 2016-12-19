@@ -18,10 +18,10 @@ li{
 	display: block;
 	padding: 0 15px;
 	height: 100%;
-	color: #000;
+	color: #434343;
 	font-size: 16px;
 	text-decoration: none;
-	text-align: center;
+	text-align: left;
 	font-family:"微软雅黑",arial;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -40,7 +40,7 @@ li{
 	border-left: 3px solid #BDC0BA;
 	border-bottom: none;
 	height: 39px;
-	background: #58b2dc
+	background: #0e98e7
 }
 .sider-nav li.current a {
 	padding-left: 12px;
@@ -57,7 +57,7 @@ li{
 	padding: 0px;
 }
 .accordion .accordion-header-selected{
-	background:#0098d2
+	background:#3969b7
 }
 .panel-title{
 font-size:18px;
@@ -66,73 +66,77 @@ line-height: 26px;}
 text-align: left;
 white-space: nowrap;
 text-overflow: ellipsis;}
+i{
+padding-right:10px;
+}
 
 </style>
 <div class="easyui-accordion" style="height: 100%;" >
-	<div title="历史数据查询分析" iconCls="" style="overflow:auto; height:100%;" >
+	<div title="历史数据查询分析"  style="overflow:auto; height:100%;" >
 		<ul class="sider-nav">
 			<li >
-				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>资源量专题</a></span>
+					
+				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-history"></i>资源量专题</a></span>	
+						
+			</li>
+			<li> 
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-stack-overflow"></i>储量专题</a></span>
 				
 			</li>
 			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>储量专题</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-search"></i>产量专题</a></span>
 				
 			</li>
 			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>产量专题</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-wrench"></i>勘探专题</a></span>
 				
 			</li>
 			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>勘探专题</a></span>
-				
-			</li>
-			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>油气贸易专题</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-credit-card"></i>油气贸易专题</a></span>
 				
 			</li>
 		</ul>
 	</div>
-	<div title="趋势预测分析" iconCls="" style="overflow:auto; height:100%;" >
+	<div title="趋势预测分析"   style="overflow:auto; height:100%;" >
 		<ul class="sider-nav">
 			<li >
-				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>资源量预测</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-globe"></i>资源量预测</a></span>
 				
 			</li>
 			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>储量预测</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-stack-overflow"></i>储量预测</a></span>
 				
 			</li>
 			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>产量预测</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-line-chart"></i>产量预测</a></span>
 				
 			</li>
 			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>勘探预测</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-bar-chart"></i>勘探预测</a></span>
 				
 			</li>
 		</ul>
 	</div>
-    <div title="规划成果管理" iconCls="" style="overflow:auto; height:100%;" >
+    <div title="规划成果管理" style="overflow:auto; height:100%;" >
 		<ul class="sider-nav">
 			<li >
-				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>资料规划录入</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-edit"></i>资料规划录入</a></span>
 				
 			</li>
 			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>规划查询统计</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-area-chart"></i>规划查询统计</a></span>
 				
 			</li>
 			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>规划展示</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-list-alt"></i>规划展示</a></span>
 				
 			</li>
 		</ul>
 	</div>
-	<div title="规划实施跟踪评估" iconCls="" style="overflow:auto; height:100%;" >
+	<div title="规划实施跟踪评估" style="overflow:auto; height:100%;" >
 		<ul class="sider-nav">
 			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>规划实施跟踪评估</a></span>				
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-pie-chart"></i>规划实施跟踪评估</a></span>				
 			</li>
 		</ul>
 	</div>
