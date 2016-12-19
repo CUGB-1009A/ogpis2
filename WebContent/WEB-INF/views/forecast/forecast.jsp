@@ -271,6 +271,7 @@ function OnEvent(id,Event,p1,p2){
  * 第二个模型选择页面的事件处理函数
  */
  $(function(){
+
 	 $("input[name='modelId']").change(function(){
 		 var id = $("input[name='modelId']:checked").val();//选中的模型id 
 		 $.ajax({

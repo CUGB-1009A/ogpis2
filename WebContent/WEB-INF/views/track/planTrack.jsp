@@ -48,7 +48,7 @@
 					<div class="inline-block">
 						<label id="field2">年度:</label> <select id="field2Value"
 							class="select">
-							<option>20013</option>
+							<option>2013</option>
 							<option>2014</option>
 							<option>2015</option>
 							<option>2016</option>
@@ -192,7 +192,7 @@
 			<div title="图表"
 				style="width: 100%; height: 100%; display: flex; flex-direction: row">
 				<table id="table" class="easyui-datagrid"
-					style="width: 20%; height: 100%"
+					style="width: 30%; height: 100%"
 					data-options="url:'../track/json',fitColumns:true,singleSelect:true">
 					<thead>
 						<tr>
@@ -215,8 +215,8 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="border" style="width: 80%">
-					<div>test</div>
+				<div class="border" style="width: 70%">
+					<div id="test" style="height:400px"></div>
 				</div>
 				<!-- <div class="toolBar" style="width: 100%; height: auto">
 					<div class="float-right">
@@ -239,6 +239,43 @@
 	</div>
 </body>
 <script type="text/javascript">
+var option = {
+		 title: { 
+					 text: '石油产量规模跟踪',
+					 left:'center'
+				 },
+		 tooltip: {
+			 		 trigger: 'axis'
+		 },
+		 toolbox: {
+		   show : true,
+		   feature : {
+		       saveAsImage : {show: true}
+		   }},
+		 xAxis : [
+			        {
+			            type : 'category',
+			            boundaryGap : false,
+			            name:"年份",
+			            data : [2010,2011,2012,2013,2014,2015,2016]
+			        }
+			    ],
+			    yAxis : [
+					        {
+					            type : 'value',
+					            name:'万吨'
+					        }
+					    ],
+		 series: [
+			          {
+					     type: 'line',
+					     data: [1562,3840,2589,1258,3359,2555,2016]
+			          }
+		          ]
+		}
+var myChart = echarts.init(document.getElementById("test"));
+myChart.setOption(option);
+
 	function queryTest() {
 		var options = {
 			url : "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer",

@@ -16,10 +16,11 @@
 <div style="width:30%;height:40%;float:left;">
 	<div style="width:100%;height:100%;float:left">
 		<div style="padding:10px">
-			原始数据集：<br>
-			<c:forEach items="${dataCollectionList}" var="item">
-						<a href="">${item.dataCollectionName}</a><br>
-			</c:forEach>
+			<select name="mineType" id="mineType" onchange="dataCollectionChanged()">
+				<c:forEach items="${dataCollectionList}" var="item">
+					<option value="${item.id}">${item.dataCollectionName}</option>
+				</c:forEach>
+			</select><br>
 		</div>
 	</div>
 </div>

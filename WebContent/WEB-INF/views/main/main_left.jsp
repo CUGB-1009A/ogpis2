@@ -89,9 +89,9 @@ text-align: left;}
 	</div>
 	<div title="趋势预测分析" iconCls="" style="overflow:auto;" selected="true">
 		<ul class="sider-nav">
-			<%-- <li >
+			<li >
 				<span class="sider-nav-title"><a href="<%=path%>/forecast/toPredictionPage" target=main_center>上版预测</a></span>
-			</li> --%>
+			</li>
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/forecast/list" target=main_center>成果管理</a></span>
 			</li>
@@ -99,7 +99,7 @@ text-align: left;}
 				<span class="sider-nav-title"><a href="" target=main_center>数据管理</a></span>
 			</li>
 			<li> 
-				<span class="sider-nav-title"><a href="" target=main_center>模型管理</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/model/list" target=main_center>模型管理</a></span>
 			</li>
 		</ul>
 	</div>
@@ -120,10 +120,6 @@ text-align: left;}
 		<ul class="sider-nav">
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/track/index" target=main_center>规划实施跟踪评估</a></span>				
-			</li>
-
-			<li>
-				<span><a href="<%=path%>/forecast" target=main_center>预测</a></span>
 			</li>
 		</ul>
 	</div>

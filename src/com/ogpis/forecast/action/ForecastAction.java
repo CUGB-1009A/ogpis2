@@ -26,11 +26,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ogpis.base.action.BaseAction;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.base.common.page.SimplePage;
+import com.ogpis.forecast.ForecastData;
 import com.ogpis.forecast.HistoryData;
 import com.ogpis.forecast.entity.DataCollection;
 import com.ogpis.forecast.entity.ForecastRecord;
 import com.ogpis.forecast.entity.ForecastType;
 import com.ogpis.forecast.entity.ModelInfo;
+import com.ogpis.forecast.entity.PeriodDefinition;
 import com.ogpis.forecast.entity.SelfData;
 import com.ogpis.forecast.parameter.InputParameter;
 import com.ogpis.forecast.parameter.OutputParameter;
@@ -60,6 +62,9 @@ public class ForecastAction extends BaseAction{
 	private SelfDataService selfDataService;
 	@Autowired 
 	private ForecastTypeService forecastTypeService;
+	@Autowired 
+	private PeriodDefinitionService periodDefinitionService;
+	
 	
 	@RequestMapping(value = "/forecast")
 	public String demo(HttpServletRequest request, ModelMap model) {
@@ -77,6 +82,7 @@ public class ForecastAction extends BaseAction{
 		return "forecast/prediction";
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/forecast/toCreatePredictionPage")
 	public String toCreatePredictionPage(HttpServletRequest request, ModelMap model) {
 		String recordId = request.getParameter("recordId");
@@ -93,7 +99,19 @@ public class ForecastAction extends BaseAction{
 		}
 		Element root = document.getRootElement();
 		String step = root.elements().size() + 1+"";
+		String historyData = HistoryData.historyData;
+		String forecastData = ForecastData.forecastData;
+		List<ModelInfo> modelInfoList = modelInfoService.findAll();
+		ModelInfo tempModel = modelInfoList.get(0);
+		LinkedHashMap pemList = ForecastUtil.getPEM(tempModel.getJarName(),tempModel.getClassName());
+		List<PeriodDefinition> periodIntervalList = periodDefinitionService.findAll();
+		model.addAttribute("periodIntervalList",periodIntervalList);
+		model.addAttribute("modelInfoList",modelInfoList);
+		model.addAttribute("pemList",pemList);
+		model.addAttribute("forecastData", forecastData);
+		model.addAttribute("historyData", historyData);
 		model.addAttribute("dataCollectionList",dataCollectionList);
+		model.addAttribute("tempModel",tempModel);
 		model.addAttribute("step", step);
 		System.out.println(step);
 		return "forecast/createPrediction";
