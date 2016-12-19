@@ -54,7 +54,7 @@
 					<div class="inline-block">
 						<label id="field2">年度:</label> <select id="field2Value"
 							class="select">
-							<option>20013</option>
+							<option>2013</option>
 							<option>2014</option>
 							<option>2015</option>
 							<option>2016</option>
@@ -71,13 +71,13 @@
 						</select>
 					</div>
 					<div class="inline-block">
-						<button onclick="queryTest();">查询</button>
+						<button class="select" onclick="queryTest();">查询</button>
 					</div>
 					<div class="inline-block">
-						<button onclick="recQuery();">框选</button>
+						<button class="select" onclick="recQuery();">框选</button>
 					</div>
 					<div class="inline-block">
-						<button onclick="render();">渲染</button>
+						<button class="select" onclick="render();">渲染</button>
 					</div>
 				</div>
 			</div>
@@ -108,7 +108,7 @@
 						</select>
 					</div>
 					<div class="inline-block">
-						<button onclick="queryTest();">查询</button>
+						<button class="select" onclick="queryTest();">查询</button>
 					</div>
 				</div>
 			</div>
