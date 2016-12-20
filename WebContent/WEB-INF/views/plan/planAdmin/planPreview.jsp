@@ -10,8 +10,8 @@
 </head>
 <body>
 	<div>
-		<div>
-			<span>十二五规划详细信息</span>
+		<div style="margin:10px 10px 10px 10px;">
+			<span style="font-size:24px;font-family:微软雅黑">十二五规划详细信息</span>
 		</div>
 		<div style="margin: 50px 10px 0 10px">
 			<div style="margin-left:150px">			

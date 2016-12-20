@@ -53,13 +53,11 @@ $(function() {
 						onLoadSuccess : function(data) {
 							$('.editcls').linkbutton({
 								text : '编辑',
-								plain : true,
-								iconCls : 'icon-edit'
+								iconCls : 'fa fa-edit'
 							});
 							$('.deletecls').linkbutton({
 								text : '删除',
-								plain : true,
-								iconCls : 'icon-cancel'
+								iconCls : 'fa fa-remove'
 							});
 							$('#datagrid').datagrid('fixRowHeight');//为了对齐行号
 						}
@@ -115,9 +113,9 @@ function createRecord(){
 <body class="easyui-layout">
 
 	<div id="listTb" style="padding-bottom:0px">
-		<a id="btn" href="javascript:createRecord()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">新建预测</a> 
+		<a id="btn" href="javascript:createRecord()" class="easyui-linkbutton" ><i class="fa fa-plus" style="margin-right:3px"></i>新建预测</a> 
 		<input class="easyui-validatebox" type="text" name="name" data-options="required:true" />   
-		<a id="btn" href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-search'">查  询</a> 
+		<a id="btn" href="javascript:void(0)" class="easyui-linkbutton" ><i class="fa fa-search" style="margin-right:3px"></i>查  询</a> 
 	</div>
 	<!-- 列表区域 -->
 	<div id="list" style="text-align:center;padding:0px 5px 10px 5px">

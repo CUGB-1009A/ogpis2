@@ -23,7 +23,8 @@
 	<mvc:resources location="/planFileUpload/" mapping="/planFileUpload/**" />
 	<mvc:resources location="/arcgis/" mapping="/arcgis/**" />
 	<mvc:resources location="/assets/" mapping="/assets/**" />
-
+	<mvc:resources mapping="/dist/**" location="/dist/"/>
+	<mvc:resources mapping="/font-awesome-4.3.0/**" location="/font-awesome-4.3.0/"/>
 	<context:component-scan base-package="com.ogpis" />
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

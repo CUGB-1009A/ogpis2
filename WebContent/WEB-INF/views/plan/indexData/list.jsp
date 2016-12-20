@@ -11,8 +11,8 @@
 </head>
 <body>
 	<div>
-		<div>
-			<span>完成情况管理</span>
+		<div style="margin:10px 10px 10px 10px;">
+			<span style="font-size:24px;font-family:微软雅黑">完成情况管理</span>
 		</div>
 		<div>
 			<span>指标类型：</span>
@@ -36,7 +36,7 @@
 			&nbsp;&nbsp;
 			<c:if test="${!id.equals('0') }">
 				<a class="easyui-linkbutton" data-options="size:'large'" href="javascript:void(0)" onclick="$('#add').window('open')">
-					<i>录入信息</i>
+					<i class="fa fa-edit" style="margin-right:3px"></i>录入信息
 				</a>				
 			</c:if>
 		</div>
@@ -67,10 +67,10 @@
 										<a href="javascript:cancleIndexData('${item1.id }')" id="cancle_${item1.id }" style="display:none" class="easyui-linkbutton" data-options="iconCls:'icon-no'">
 											<i>cancle</i>
 										</a>&nbsp;
-										<a href="javascript:editIndexData('${item1.id }')" id="edit_${item1.id }" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">
+										<a href="javascript:editIndexData('${item1.id }')" id="edit_${item1.id }" class="easyui-linkbutton" ><i class="fa fa-edit" style="margin-right:3px"></i>
 											编辑
 										</a>&nbsp;
-										<a href="javascript:deleteIndexData('${item1.id }');" id="delete_${item1.id }" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">
+										<a href="javascript:deleteIndexData('${item1.id }');" id="delete_${item1.id }" class="easyui-linkbutton" ><i class="fa fa-remove" style="margin-right:3px"></i>
 											删除
 										</a>&nbsp;
 									</p>
@@ -100,7 +100,7 @@
 				</tr>
 			</table>
 			<div style="margin-top:10px;margin-left:90px">
-				<button data-options="iconCls:'icon-add',size:'middle'" class="easyui-linkbutton" type="button" onclick="addIndexData('${id}')">录入</button>			
+				<button  class="easyui-linkbutton" type="button" onclick="addIndexData('${id}')"><i class="fa fa-plus" style="margin-right:3px"></i>录入</button>			
 			</div>
 		</form>
 	</div>

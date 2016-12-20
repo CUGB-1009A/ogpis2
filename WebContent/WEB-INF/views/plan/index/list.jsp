@@ -9,9 +9,9 @@
 	<title>规划指标管理</title>
 </head>
 <body>
-	<div class="title">
+	<div class="title" style="font-size:24px; font-family:微软雅黑;margin:10px 10px 10px 10px;">
 		<c:forEach items="${planType }" var="item">
-			<c:if test="${item.key.equals(type) }"><h3><b>${item }规划指标项定制</b></h3></c:if>
+			<c:if test="${item.key.equals(type) }">${item }规划指标项定制</c:if>
 		</c:forEach>
 	</div>
 	<div style="text-align:right;margin:0 10px 0 10px">
@@ -21,7 +21,7 @@
 				<option value="${item.key }"<c:if test="${item.key.equals(type) }">selected</c:if>>${item}</option>
 			</c:forEach>
 		</select>&nbsp;&nbsp;
-		<a class="easyui-linkbutton" data-options="iconCls:'icon-add',size:'large'" href="<%=path%>/index/add?type=${type}">添加指标</a>
+		<a class="easyui-linkbutton" data-options="size:'large'" href="<%=path%>/index/add?type=${type}"><i class="fa fa-plus" style="margin-right:3px"></i>添加指标</a>
 	</div>
 	<div style="text-align:right;margin:0 10px 0 10px">
 		<table class="easyui-datagrid" title="指标项管理">
@@ -55,8 +55,8 @@
 						<td>${item1.priority }</td>
 						<td>
 							<p>
-							<a class="easyui-linkbutton" data-options="iconCls:'icon-edit'" href="<%=path %>/index/edit?id=${item1.id}">编辑</a>&nbsp;
-							<a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" href="javascript:deleteIndex('${item1.id }','${item1.plan_indexs.size() }')">删除</a>
+							<a class="easyui-linkbutton"  href="<%=path %>/index/edit?id=${item1.id}"><i class="fa fa-edit" style="margin-right:3px"></i>编辑</a>&nbsp;
+							<a class="easyui-linkbutton"  href="javascript:deleteIndex('${item1.id }','${item1.plan_indexs.size() }')"><i class="fa fa-remove" style="margin-right:3px"></i>删除</a>
 						</td>
 					</tr>
 				</c:forEach>

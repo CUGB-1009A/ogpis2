@@ -12,13 +12,10 @@
 	%>
 </head>
 <body>
-	<div>
+	<div style="margin:10px 10px 10px 10px;">
 		<ul>
-			<li>
-				<a href="<%=request.getContextPath()%>/index/list?type=${type}">指标项管理</a>
-			</li>
 			<c:if test="<%=isAdd %>">
-				<li class="active">新建指标</li>
+				<li style="display:block;font-size:24px;font-family:微软雅黑"" class="active">新建指标</li>
 			</c:if>
 			<c:if test="<%=!isAdd %>">
 				<li class="active">修改指标</li>

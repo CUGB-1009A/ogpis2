@@ -9,12 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>完成情况管理</title>
 </head>
-<body style="text-align:center">
+<body >
 	<div>
-		<div style="margin:10px 10px 10px 10px;text-align:center">
-			<span>完成情况管理</span>
+		<div style="margin:10px 10px 10px 10px;">
+			<span style="font-size:24px;font-family:微软雅黑">完成情况管理</span>
 			<a href="<%=path %>/plan/toEditPage" style="float:right" class="easyui-linkbutton" 
-				data-options="iconCls:'icon-add',size:'middle'">
+				data-options="size:'middle'"><i class="fa fa-plus" style="margin-right:3px"></i>
 				添加规划
 			</a>
 		</div>
@@ -37,9 +37,9 @@
 							<b data-options="iconCls:'icon-edit',size:'small'">指标个数&nbsp;&nbsp;4</b>&nbsp;&nbsp;&nbsp;&nbsp;
 							<b data-options="iconCls:'icon-edit',size:'small'">收藏&nbsp;&nbsp;1</b>
 						</td>
-						<td><a class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a>
+						<td><a class="easyui-linkbutton" ><i class="fa fa-edit" style="margin-right:3px"></i>编辑</a>
 							<a class="easyui-linkbutton" data-options="iconCls:'icon-lock'">取消发布</a>
-							<a class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>
+							<a class="easyui-linkbutton" ><i class="fa fa-remove" style="margin-right:3px"></i>删除</a>
 							<a class="easyui-linkbutton" data-options="iconCls:'icon-tip'">预览</a>
 						</td>
 					</tr>
@@ -51,9 +51,9 @@
 							<b data-options="iconCls:'icon-edit',size:'small'">指标个数&nbsp;&nbsp;4</b>&nbsp;&nbsp;&nbsp;&nbsp;
 							<b data-options="iconCls:'icon-edit',size:'small'">收藏&nbsp;&nbsp;1</b>
 						</td>
-						<td><a class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a>
+						<td><a class="easyui-linkbutton" ><i class="fa fa-edit" style="margin-right:3px"></i>编辑</a>
 							<a class="easyui-linkbutton" data-options="iconCls:'icon-lock'">取消发布</a>
-							<a class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>
+							<a class="easyui-linkbutton" ><i class="fa fa-remove" style="margin-right:3px"></i>删除</a>
 							<a class="easyui-linkbutton" data-options="iconCls:'icon-tip'" href="<%=path%>/plan/toPreview">预览</a>
 						</td>
 					</tr>
@@ -65,9 +65,9 @@
 							<b data-options="iconCls:'icon-edit',size:'small'">指标个数&nbsp;&nbsp;4</b>&nbsp;&nbsp;&nbsp;&nbsp;
 							<b data-options="iconCls:'icon-edit',size:'small'">收藏&nbsp;&nbsp;1</b>
 						</td>
-						<td><a class="easyui-linkbutton" data-options="iconCls:'icon-edit',size:'small'">编辑</a>
+						<td><a class="easyui-linkbutton" ><i class="fa fa-edit" style="margin-right:3px"></i>编辑</a>
 							<a class="easyui-linkbutton" data-options="iconCls:'icon-filter',size:'middle'">发布</a>
-							<a class="easyui-linkbutton" data-options="iconCls:'icon-remove',size:'middle'">删除</a>
+							<a class="easyui-linkbutton" ><i class="fa fa-remove" style="margin-right:3px"></i>删除</a>
 							<a class="easyui-linkbutton" data-options="iconCls:'icon-tip',size:'middle'">预览</a>
 						</td>
 					</tr>
@@ -79,9 +79,9 @@
 							<b data-options="iconCls:'icon-edit',size:'small'">指标个数&nbsp;&nbsp;4</b>&nbsp;&nbsp;&nbsp;&nbsp;
 							<b data-options="iconCls:'icon-edit',size:'small'">收藏&nbsp;&nbsp;1</b>
 						</td>
-						<td><a class="easyui-linkbutton" data-options="iconCls:'icon-edit',size:'small'">编辑</a>
+						<td><a class="easyui-linkbutton" ><i class="fa fa-edit" style="margin-right:3px"></i>编辑</a>
 							<a class="easyui-linkbutton" data-options="iconCls:'icon-filter',size:'middle'">发布</a>
-							<a class="easyui-linkbutton" data-options="iconCls:'icon-remove',size:'middle'">删除</a>
+							<a class="easyui-linkbutton" ><i class="fa fa-remove" style="margin-right:3px"></i>删除</a>
 							<a class="easyui-linkbutton" data-options="iconCls:'icon-tip',size:'middle'">预览</a>
 						</td>
 					</tr>
@@ -93,9 +93,9 @@
 							<b data-options="iconCls:'icon-edit',size:'small'">指标个数&nbsp;&nbsp;4</b>&nbsp;&nbsp;&nbsp;&nbsp;
 							<b data-options="iconCls:'icon-edit',size:'small'">收藏&nbsp;&nbsp;1</b>
 						</td>
-						<td><a class="easyui-linkbutton" data-options="iconCls:'icon-edit',size:'small'">编辑</a>
+						<td><a class="easyui-linkbutton" ><i class="fa fa-edit" style="margin-right:3px"></i>编辑</a>
 							<a class="easyui-linkbutton" data-options="iconCls:'icon-filter',size:'middle'">发布</a>
-							<a class="easyui-linkbutton" data-options="iconCls:'icon-remove',size:'middle'">删除</a>
+							<a class="easyui-linkbutton" ><i class="fa fa-remove" style="margin-right:3px"></i>删除</a>
 							<a class="easyui-linkbutton" data-options="iconCls:'icon-tip',size:'middle'">预览</a>
 						</td>
 					</tr>
@@ -107,9 +107,9 @@
 							<b data-options="iconCls:'icon-edit',size:'small'">指标个数&nbsp;&nbsp;4</b>&nbsp;&nbsp;&nbsp;&nbsp;
 							<b data-options="iconCls:'icon-edit',size:'small'">收藏&nbsp;&nbsp;1</b>
 						</td>
-						<td><a class="easyui-linkbutton" data-options="iconCls:'icon-edit',size:'small'">编辑</a>
+						<td><a class="easyui-linkbutton" ><i class="fa fa-edit" style="margin-right:3px"></i>编辑</a>
 							<a class="easyui-linkbutton" data-options="iconCls:'icon-filter',size:'middle'">发布</a>
-							<a class="easyui-linkbutton" data-options="iconCls:'icon-remove',size:'middle'">删除</a>
+							<a class="easyui-linkbutton" ><i class="fa fa-remove" style="margin-right:3px"></i>删除</a>
 							<a class="easyui-linkbutton" data-options="iconCls:'icon-tip',size:'middle'">预览</a>
 						</td>
 					</tr>

@@ -8,7 +8,7 @@
 		<IFRAME width="100%" height="100%" frameBorder=0 id=main_top
 			name=main_top src="<%=path%>/main/top"></IFRAME>
 	</div>
-	<div data-options="region:'west',split:true"
+	<div data-options="region:'west',split:false"
 		style="width: 220px; padding: 0px;">
 		<IFRAME width="100%" height="100%" frameBorder=0 id=main_left
 			name=main_left src="<%=path%>/main/left"></IFRAME>
