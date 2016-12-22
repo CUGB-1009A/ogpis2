@@ -205,7 +205,7 @@
 			<div title="图表"
 				style="width: 100%; height: 100%; display: flex; flex-direction: row">
 				<table id="table" class="easyui-datagrid"
-					style="width: 20%; height: 100%"
+					style="width: 20%; height: 100%;flex-grow: 2"
 					data-options="url:'../track/json',fitColumns:true,singleSelect:true">
 					<thead>
 						<tr>
@@ -228,7 +228,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="border" style="width: 80%">
+				<div class="border" style="width: 80%;flex-grow: 1">
 					<div>test</div>
 				</div>
 				<!-- <div class="toolBar" style="width: 100%; height: auto">

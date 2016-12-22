@@ -159,8 +159,8 @@ td, th {
 				Content.</div>
 			<div id="content" style="display: none;">
 				<div style="padding: 15px 0 0 15px; ">
-					<label class="dialog-lable">数据源:</label> <input
-						class="dialog-input" type="text" />
+					<label class="dialog-lable">数据源:</label> <input id="data1"
+						class="dialog-input" type="text" value="hhhhhh" />
 				</div>
 				<div style="padding: 15px 0 0 15px;">
 					<label class="dialog-lable">URL地址:</label> <input
@@ -228,7 +228,14 @@ td, th {
 			content : $("#content").html(),
 			buttons:[{
 				text:'确定',
-				handler:function(e){close(e)}
+				handler:function(e){
+				/* console.log($("#data1").prop("value","33454545")); */
+					console.log($("#data1")[0]);
+					console.log($("#data1").prop("value"));
+					console.log($("#data1").val());
+					
+					console.log($("#data1")[0].value);
+					close(e)}
 			},{
 				text:'取消',
 				handler:function(e){close(e)}
