@@ -78,7 +78,9 @@ public class ForecastAction extends BaseAction{
 	
 	@RequestMapping(value = "/forecast/list")
 	public String list(HttpServletRequest request, ModelMap model) {
-		//List<ForecastType> forecastType = forecastTypeService.findAll();
+		List<ForecastType> forecastType = forecastTypeService.findAll();
+		model.addAttribute("forecastType",forecastType);
+		System.out.println(forecastType.size());
 		return "forecast/prediction";
 	}
 	
@@ -88,7 +90,9 @@ public class ForecastAction extends BaseAction{
 		String recordId = request.getParameter("recordId");
 		ForecastRecord forecastRecord = forecastRecordService.findById(recordId);
 		List<DataCollection> dataCollectionList = dataCollectionService.findAll();
-		String xmlUrl = request.getServletContext().getRealPath("/")+"forecastRecordXML\\" + forecastRecord.getXmlUrl();
+		String projectUrl = request.getServletContext().getRealPath("/");
+		String tomcatUrl = projectUrl.substring(0, projectUrl.indexOf("webapps"));
+		String xmlUrl = tomcatUrl+"file\\forecastRecordXML\\" + forecastRecord.getXmlUrl();
 		SAXReader reader = new SAXReader();
 		File file = new File(xmlUrl);
 		Document document = null;
@@ -231,7 +235,10 @@ public class ForecastAction extends BaseAction{
 		@RequestMapping(value = "/forecast/createPrediction")
 		public void createPrediction(HttpServletRequest request,HttpServletResponse response) throws IOException{
 			String name = URLDecoder.decode(request.getParameter("name"), "UTF-8");
-			String fileUrl = request.getServletContext().getRealPath("/")+"forecastRecordXML\\";
+			String projectUrl = request.getServletContext().getRealPath("/");
+			String tomcatUrl = projectUrl.substring(0, projectUrl.indexOf("webapps"));
+			String fileUrl = tomcatUrl + "file\\forecastRecordXML\\";
+			
 			String prefix = System.currentTimeMillis() + "";
 			String fileTemplate = fileUrl+"template.xml";
 			String fileTarget = fileUrl+prefix + name + ".xml";

@@ -6,11 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户管理</title>
+<link rel="stylesheet" type="text/css" href="../js/arcgis/css/Map.css">
 <style type="text/css">
 
 </style>
 <script type="text/javascript">
-
 $(function() {
 	var datagrid = $('#datagrid');
 	var h = $('body').height() - $('#listTb').height();
@@ -89,24 +89,52 @@ function editRow(index,id){//index为第几行，id为预测成果记录的id
 }
 
 function createRecord(){
-	 var name = prompt("请输入预测名称", ""); 
-	 if(name){
-		 $.ajax({
-				url:"<%=path%>/forecast/createPrediction",
-				dataType:"json",
-				async:true,
-				data:{
-					"name":encodeURIComponent(name)
-					},
-				type:"GET",
-				success:function(result){
-					window.location.href = "<%=path%>/forecast/toCreatePredictionPage?recordId="+result.id;
-				},
-				error:function(){
-					alert("新建失败");
+		
+		$('#dd').dialog({
+			title : '新建预测',
+			closed : false,
+			cache : true,
+			modal : true,
+			resizable:true,
+			//content : $("#content").html(),
+			buttons:[{
+				text:'确定',
+				handler:function(e)
+				{
+					console.log($("#forecastName"))
+					var name = $("#forecastName").val();	
+					var type = $("#forecastType option:selected").val();
+					alert(name+type);
+					close(e);
+					
+					 $.ajax({
+							url:"<%=path%>/forecast/createPrediction",
+							dataType:"json",
+							async:true,
+							data:{
+								"name":encodeURIComponent(name)
+								},
+							type:"GET",
+							success:function(result){
+								window.location.href = "<%=path%>/forecast/toCreatePredictionPage?recordId="+result.id;
+							},
+							error:function(){
+								alert("新建失败");
+							}
+						});
+
 				}
-			});
-	 }
+			},{
+				text:'取消',
+				handler:function(e){close(e)}
+			}]
+		});
+
+}
+function close(e){
+	$('#dd').dialog({
+		closed : true,
+	});
 }
 </script>
 </head>
@@ -121,6 +149,22 @@ function createRecord(){
 	<div id="list" style="text-align:center;padding:0px 5px 10px 5px">
 		<table id="datagrid" class="easyui-datagrid .datagrid-btable">
 		</table>
+		<div id="dd" style="width:600px; height: 300px; display: none">
+			<div id="content">
+				<div style="padding: 15px 0 0 15px; ">
+					<label class="dialog-lable">预测名:</label> 
+					<input id="forecastName" class="dialog-input" type="text" value="ff" />
+				</div>
+				<div style="padding: 15px 0 0 15px;">
+					<label class="dialog-lable">预测类型:</label> 
+					<select class="dialog-input" id="forecastType">
+						<c:forEach items="${forecastType}" var="item">
+							<option value="${item.id}">${item.type}</option>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+		</div>
 	</div> 
 
 </body>

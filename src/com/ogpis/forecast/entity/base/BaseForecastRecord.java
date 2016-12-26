@@ -1,9 +1,13 @@
 package com.ogpis.forecast.entity.base;
 
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 import com.ogpis.base.entity.BaseEntity;
+import com.ogpis.forecast.entity.ForecastType;
+import com.ogpis.plan.entity.Plan;
 
 @MappedSuperclass
 public class BaseForecastRecord extends BaseEntity {
@@ -23,7 +27,9 @@ public class BaseForecastRecord extends BaseEntity {
 	@Column(name = "成果路径")
 	private String xmlUrl;
 	
-	@Column(name = "预测类型id")
+	@ManyToOne
+	@JoinColumn(name = "预测类型id")
+	private ForecastType forecastType;
 	
 
 	public String getForecastName() {
@@ -64,6 +70,14 @@ public class BaseForecastRecord extends BaseEntity {
 
 	public void setXmlUrl(String xmlUrl) {
 		this.xmlUrl = xmlUrl;
+	}
+
+	public ForecastType getForecastType() {
+		return forecastType;
+	}
+
+	public void setForecastType(ForecastType forecastType) {
+		this.forecastType = forecastType;
 	}
 
 	

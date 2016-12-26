@@ -145,14 +145,14 @@
 							    <!-- 实例化编辑器 -->
 							    <script type="text/javascript">
 							    var ue = UE.getEditor('container',{
-							        	toolbars:[],
+							        	
 							        	wordCount:false, 
 							        	initialFrameWidth :500,//设置编辑器宽度
 							        	initialFrameHeight:250,//设置编辑器高度
 							        	scaleEnabled:true,
 						                //关闭elementPath  
 						                elementPathEnabled:false,
-						                readonly:true
+						                readonly:false
 					        			 });
 				    			</script>
 							</div>
