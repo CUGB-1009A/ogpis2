@@ -24,6 +24,11 @@ public class DataCollectionOperate {
 	@Autowired 
 	private SelfDataService selfDataService;
 	
+	@RequestMapping(value = "/dataCollection/list")
+	public String list(HttpServletRequest request, ModelMap model , HttpServletResponse response) {
+		return "forecast/dataCollection/list";
+		}
+	
 	@RequestMapping(value = "/dataShow/dataShow")
 	public void dataShow(HttpServletRequest request, ModelMap model,HttpServletResponse response) {
 		String id = request.getParameter("id");

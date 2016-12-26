@@ -102,7 +102,7 @@ padding-right:10px;
 				<span class="sider-nav-title"><a href="<%=path%>/forecast/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-history"></i>成果管理</a></span>
 			</li>
 			<li>
-				<span class="sider-nav-title"><a href="<%=path%>/track/DataSource" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>数据管理</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/dataCollection/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>数据管理</a></span>
 			</li>
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/model/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-server"></i>模型管理</a></span>
