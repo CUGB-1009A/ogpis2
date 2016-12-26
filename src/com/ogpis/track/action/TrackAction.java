@@ -18,19 +18,34 @@ import com.ogpis.track.tools.TempTools;
 @RequestMapping(value = "/track")
 public class TrackAction {
 
-	@RequestMapping(value = "/index")
-	public String index(HttpServletRequest request, ModelMap model) {
-		return "track/planTrack";
+	@RequestMapping(value = "/indexTrackContents")
+	public String indexTrackContents(HttpServletRequest request, ModelMap model) {
+		return "track/indexTrackContents";
 	}
 	
-	@RequestMapping(value = "/index1")
-	public String index1(HttpServletRequest request, ModelMap model) {
-		return "track/planTrack1";
+	@RequestMapping(value = "/indexTrack")
+	public String indexTrack(HttpServletRequest request, ModelMap model) {
+		return "track/indexTrack";
 	}
 	
-	@RequestMapping(value = "/index0")
-	public String index0(HttpServletRequest request, ModelMap model) {
-		return "track/planTrack0";
+	@RequestMapping(value = "/targetTrackContents")
+	public String targetTrackContents(HttpServletRequest request, ModelMap model) {
+		return "track/targetTrackContents";
+	}
+	
+	@RequestMapping(value = "/targetTrack")
+	public String targetTrack(HttpServletRequest request, ModelMap model) {
+		return "track/targetTrack";
+	}
+	
+	@RequestMapping(value = "/layoutTrackContents")
+	public String layoutTrackContents(HttpServletRequest request, ModelMap model) {
+		return "track/layoutTrackContents";
+	}
+	
+	@RequestMapping(value = "/layoutTrack")
+	public String layoutTrack(HttpServletRequest request, ModelMap model) {
+		return "track/layoutTrack";
 	}
 	
 	@RequestMapping(value = "/DataSource")
