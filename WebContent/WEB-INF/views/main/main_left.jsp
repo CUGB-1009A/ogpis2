@@ -75,8 +75,12 @@ text-overflow: ellipsis;}
 				<span class="sider-nav-title"><a href="<%=path%>/dataBrowse" target=main_center id="ziyuanliangzhuanti">资源量专题</a></span>
 				
 			</li>
+			<li >
+				<span class="sider-nav-title"><a href="<%=path%>/dataBrowse_zyl_qg" target=main_center id="ziyuanliangzhuanti">资源量专题全国</a></span>
+				
+			</li>
 			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>储量专题</a></span>
+				<span class="sider-nav-title"><a href="<%=path%>/dataBrowse_reserves_company" target=main_center>储量专题</a></span>
 				
 			</li>
 			<li> 
