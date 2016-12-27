@@ -20,4 +20,5 @@ public class ForecastTypeServiceImpl implements ForecastTypeService{
 		return forecastTypeDao.findAll();
 	}
 
+
 }

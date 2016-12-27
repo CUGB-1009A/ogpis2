@@ -11,7 +11,7 @@
 <body>
 <div id="step2" class="easyui-layout" style="width:100%;height:100%;display:none;">   
     <div data-options="region:'north',title:'预测步骤'" style="height:20%;font-size:25px;text-align:center;display:flex;align-items:center;justify-content:center;">
-    	<span style="color:LightGrey;">新建预测&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
+    	
     	<span style="color:black;">选择和预处理数据&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
     	<span style="color:LightGrey;">选择模型&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
     	<span style="color:LightGrey;">预测&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
@@ -22,7 +22,7 @@
     		<div style="width:40%;height:100%;float:left;">
 				<div style="width:100%;height:100%;float:left">
 					<div style="padding:10px">
-					数据集：
+					数据源列表：
 						<select name="mineType" id="mineType" onchange="dataCollectionChanged()">
 							<c:forEach items="${dataCollectionList}" var="item">
 								<option value="${item.id}">${item.dataCollectionName}</option>
@@ -34,20 +34,30 @@
 			<div style="width:40%;height:100%;float:left;">
 				<div style="width:100%;height:100%;float:left">
 					<div style="padding:10px">
-				   时间选择：<br>
-						<input class="easyui-slider" style="width:300px" data-options="
+				   时间选择：
+						<!-- <input class="easyui-slider" style="width:300px" data-options="
 							showTip: true,
 							range: true,
 							value: [60,80],
 							rule: [1949,'|',1969,'|',1989,'|',2009,'|',2016]
-						">
+						"> -->
+						<select name="beginYear" id="beginYear" onchange="">
+							<option value="1949">1949</option>
+							<option value="1950">1950</option>
+							<option value="1951">1951</option>
+						</select>--
+						<select name="endYear" id="endYear" onchange="">
+							<option value="2013">2013</option>
+							<option value="2014">2014</option>
+							<option value="2015">2015</option>
+						</select>
 					</div>
 				</div>
 			</div>
 			<div style="width:20%;height:100%;float:left;">
 				<div style="width:100%;height:100%;float:left">
 					<div style="padding:10px">
-				 		<button>选定</button>
+				 		<button>刷新图表</button>
 					</div>
 				</div>
     		</div>
@@ -76,7 +86,7 @@
 	
 	<div id="step3" class="easyui-layout" style="width:100%;height:100%;display:none">   
 	    <div data-options="region:'north',title:'预测步骤'" style="height:20%;font-size:25px;text-align:center;display:flex;align-items:center;justify-content:center;">
-	    	<span style="color:LightGrey;">新建预测&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
+	    	
 	    	<span style="color:LightGrey;">选择和预处理数据&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
 	    	<span style="color:black;">选择模型&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
 	    	<span style="color:LightGrey;">预测&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
@@ -169,7 +179,7 @@
 	
 	<div id="step4" class="easyui-layout" style="width:100%;height:100%;display:none;">   
 	    <div data-options="region:'north',title:'预测步骤'" style="height:20%;font-size:25px;text-align:center;display:flex;align-items:center;justify-content:center">
-	    	<span style="color:LightGrey;">新建预测&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
+	    	
 	    	<span style="color:LightGrey;">选择和预处理数据&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
 	    	<span style="color:LightGrey;">选择模型&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
 	    	<span style="color:black">预测&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
@@ -192,7 +202,7 @@
 				<div style="padding-left:20px;padding-top:10px">
 					<input name="timeChoice" type="radio" value="2"/>长中短：
 								<c:forEach items="${periodIntervalList}" var="item" varStatus="status">
-									<input name="periodInterval" type="radio" value="${item.periodInterval}"<c:if test="${status.first}">checked</c:if>/>${item.periodName}
+									<input name="periodInterval" type="radio" value="${item.periodInterval}"<c:if test="${status.first}">checked</c:if>/>${item.periodName}(${item.periodInterval }年)
 								</c:forEach><br>
 				</div>
 			</div>
@@ -217,7 +227,7 @@
 	
 	<div id="step5" class="easyui-layout" style="width:100%;height:100%;display:none;">   
 	    <div data-options="region:'north',title:'预测步骤'" style="height:20%;font-size:25px;text-align:center;display:flex;align-items:center;justify-content:center">
-	    	<span style="color:LightGrey;">新建预测&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
+	    	
 	    	<span style="color:LightGrey;">选择和预处理数据&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
 	    	<span style="color:LightGrey;">选择模型&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>
 	    	<span style="color:LightGrey">预测&nbsp;&nbsp;&rarr;&nbsp;&nbsp;</span>

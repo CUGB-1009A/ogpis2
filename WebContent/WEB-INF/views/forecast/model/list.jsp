@@ -109,24 +109,28 @@ td, th {
 					</tr>
 				</tbody>
 			</table>
-			<div id="dd" style="width:600px; height: 300px; display: none">Dialog
-				Content.</div>
-			<div id="content" style="display: none;">
-				<div style="padding: 15px 0 0 15px; ">
-					<label class="dialog-lable">模型名称</label> <input
-						class="dialog-input" type="text" />
-				</div>
-				<div style="padding: 15px 0 0 15px;">
-					<label class="dialog-lable">Jar包名</label> <input
-						class="dialog-input" type="text" />
-				</div>
-				<div style="padding: 15px 0 0 15px;">
-					<label class="dialog-lable">类名</label> <input
-						class="dialog-input" type="text" />
-				</div>
-				<div style="padding: 15px 0 0 15px;">
-					<label class="dialog-lable">描述信息:</label> <input
-						class="dialog-input" type="text" />
+			<div id="dd" style="width:600px; height: 400px; display: none">
+				<div id="content">
+					<div style="padding: 15px 0 0 15px; ">
+						<label class="dialog-lable">模型名称:</label> <input
+							class="dialog-input" type="text" />
+					</div>
+					<div style="padding: 15px 0 0 15px;">
+						<label class="dialog-lable">Jar包名:</label> <input
+							class="dialog-input" type="text" />
+					</div>
+					<div style="padding: 15px 0 0 15px;">
+						<label class="dialog-lable">类名:</label> <input
+							class="dialog-input" type="text" />
+					</div>
+					<div style="padding: 15px 0 0 15px;">
+						<label class="dialog-lable">选择文件:</label> <input
+							class="dialog-input" type="file" />
+					</div>
+					<div style="padding: 15px 0 0 15px;">
+						<label class="dialog-lable">描述信息:</label> 
+						<textArea class="dialog-input" style="resize:none;height:100px"></textArea>
+					</div>
 				</div>
 			</div>
 
@@ -153,7 +157,6 @@ td, th {
 			cache : false,
 			modal : true,
 			resizable:true,
-			content : $("#content").html(),
 			buttons:[{
 				text:'确定',
 				handler:function(e){close(e)}

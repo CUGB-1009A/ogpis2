@@ -80,8 +80,12 @@ public class ForecastAction extends BaseAction{
 	public String list(HttpServletRequest request, ModelMap model) {
 		List<ForecastType> forecastType = forecastTypeService.findAll();
 		model.addAttribute("forecastType",forecastType);
-		System.out.println(forecastType.size());
-		return "forecast/prediction";
+		return "forecast/list";
+	}
+	
+	@RequestMapping(value = "/forecast/finishedList")
+	public String finishedList(HttpServletRequest request, ModelMap model) {		
+		return "forecast/finishedList";
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -210,11 +214,24 @@ public class ForecastAction extends BaseAction{
 			}
 		}
 		
-		@RequestMapping(value = "/forecast/getForecastRecord")
+		@RequestMapping(value = "/forecast/getUnfinishedForecastRecord")
 		@ResponseBody
-		public void getForecastRecord(@RequestParam("page") Integer pageNumber,
+		public void getUnfinishedForecastRecord(@RequestParam("page") Integer pageNumber,
 				@RequestParam("rows") Integer pageSize,HttpServletResponse response) throws IOException{
-			Pagination pagination = forecastRecordService.getRecordByUserId("1",
+			Pagination pagination = forecastRecordService.getRecordByUserId("1",false,
+					SimplePage.cpn(pageNumber), pageSize);
+			response.setContentType("application/json");
+		    response.setCharacterEncoding("utf-8");
+		    response.getWriter().write(this.toJsonTableData(pagination, null, true));
+		
+		}
+		
+
+		@RequestMapping(value = "/forecast/getFinishedForecastRecord")
+		@ResponseBody
+		public void getFinishedForecastRecord(@RequestParam("page") Integer pageNumber,
+				@RequestParam("rows") Integer pageSize,HttpServletResponse response) throws IOException{
+			Pagination pagination = forecastRecordService.getRecordByUserId("1",true,
 					SimplePage.cpn(pageNumber), pageSize);
 			response.setContentType("application/json");
 		    response.setCharacterEncoding("utf-8");
@@ -223,7 +240,7 @@ public class ForecastAction extends BaseAction{
 		}
 		
 		@RequestMapping(value = "/forecast/deleteRecord")
-		public void getForecastRecord(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		public void deleteForecastRecord(HttpServletRequest request,HttpServletResponse response) throws IOException{
 			String id = request.getParameter("id");
 			ForecastRecord forecastRecord = forecastRecordService.findById(id);
 			forecastRecordService.delete(forecastRecord);

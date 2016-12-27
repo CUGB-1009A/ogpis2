@@ -31,7 +31,9 @@ public class BaseForecastRecord extends BaseEntity {
 	@JoinColumn(name = "预测类型id")
 	private ForecastType forecastType;
 	
-
+	@Column(name = "是否完成")
+	private boolean finished;
+	
 	public String getForecastName() {
 		return forecastName;
 	}
@@ -78,6 +80,14 @@ public class BaseForecastRecord extends BaseEntity {
 
 	public void setForecastType(ForecastType forecastType) {
 		this.forecastType = forecastType;
+	}
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
 	}
 
 	

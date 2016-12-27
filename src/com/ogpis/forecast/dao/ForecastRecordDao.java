@@ -5,7 +5,7 @@ import com.ogpis.forecast.entity.ForecastRecord;
 
 public interface ForecastRecordDao {
 
-	Pagination getRecordByUserId(String userId, int pageNo, Integer pageSize);
+	Pagination getRecordByUserId(String userId, boolean finished,int pageNo, Integer pageSize);
 
 	ForecastRecord findById(String id);
 

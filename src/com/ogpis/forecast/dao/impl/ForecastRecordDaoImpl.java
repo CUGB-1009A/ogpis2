@@ -18,8 +18,8 @@ public class ForecastRecordDaoImpl extends HibernateBaseDao<ForecastRecord, Stri
 	}
 
 	@Override
-	public Pagination getRecordByUserId(String userId, int pageNo, Integer pageSize) {
-		Finder f = Finder.create("select bean from ForecastRecord bean where bean.deleted=false and bean.userId='"+userId+"'");
+	public Pagination getRecordByUserId(String userId,boolean finished, int pageNo, Integer pageSize) {
+		Finder f = Finder.create("select bean from ForecastRecord bean where bean.deleted=false and bean.finished="+finished+" and bean.userId='"+userId+"'");
 		return find(f,pageNo,pageSize);
 	}
 

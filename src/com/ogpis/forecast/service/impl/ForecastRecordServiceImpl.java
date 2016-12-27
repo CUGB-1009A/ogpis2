@@ -17,8 +17,8 @@ public class ForecastRecordServiceImpl implements ForecastRecordService{
 	private ForecastRecordDao forecastRecordDao;
 
 	@Override
-	public Pagination getRecordByUserId(String userId, int pageNo, Integer pageSize) {
-		return forecastRecordDao.getRecordByUserId(userId,pageNo,pageSize);
+	public Pagination getRecordByUserId(String userId, boolean finished,int pageNo, Integer pageSize) {
+		return forecastRecordDao.getRecordByUserId(userId,finished,pageNo,pageSize);
 	}
 
 	@Override
