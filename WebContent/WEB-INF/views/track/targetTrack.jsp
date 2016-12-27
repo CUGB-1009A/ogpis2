@@ -73,12 +73,12 @@
 					<div class="inline-block">
 						<button class="select" onclick="queryTest();">查询</button>
 					</div>
-					<div class="inline-block">
+					<!-- <div class="inline-block">
 						<button class="select" onclick="recQuery();">框选</button>
 					</div>
 					<div class="inline-block">
 						<button class="select" onclick="render();">渲染</button>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div title="警戒设置" closable="true">
@@ -108,7 +108,7 @@
 						</select>
 					</div>
 					<div class="inline-block">
-						<button class="select" onclick="queryTest();">查询</button>
+						<button class="select" onclick="render();">渲染</button>
 					</div>
 				</div>
 			</div>
@@ -128,20 +128,8 @@
 									<input type="checkbox" value="#mapToolDiv" /> <label>工具条</label>
 								</div>
 								<div>
-									<input type="checkbox" value="#mapToolDiv2" /> <label>工具条2</label>
+									<input type="checkbox" value=".mapInfoPanel" /> <label>信息板</label>
 								</div>
-								<!-- <div>
-									<div id="zoomPan" title="漫游" onclick="ZoomPan();"></div>
-								</div>
-								<div>
-									<div id="zoomIn" title="放大" onClick="ZoomIn();"></div>
-								</div>
-								<div>
-									<div id="zoomOut" title="缩小" onClick="ZoomOut();"></div>
-								</div>
-								<div>
-									<div id="zoomHome" title="全图" onClick="Home();"></div>
-								</div> -->
 							</div>
 						</div>
 						<div class="easyui-draggable"
@@ -158,78 +146,74 @@
 									<div id="zoomOut" title="缩小" onClick="ZoomOut(mapManager);"></div>
 								</div>
 								<div>
+									<div id="selectPlygon" title="框选" onClick="recQuery();"></div>
+								</div>
+								<div>
 									<div id="zoomHome" title="全图" onClick="Home(mapManager);"></div>
 								</div>
 							</div>
 						</div>
-						<div class="layers"
-							style="position: absolute; right: 50px; top: 30px">
-							<div class="layers-title">
-								<label>图层</label>
+						<div style="display: none">
+							<div class="mapInfoPanel">
+								<div class="layers">
+									<div class="mapInfo-title">
+										<label>图层</label>
+									</div>
+									<div id="layers"></div>
+								</div>
+								<div class="legend">
+									<div class="mapInfo-title">
+										<label>图例</label>
+									</div>
+									<div id="legend" style="width: auto"></div>
+								</div>
 							</div>
-							<div id="layers"></div>
-						</div>
-						<div class="legend"
-							style="position: absolute; left: 50px; bottom: 30px">
-							<div class="legend-title">
-								<label>图例</label>
-							</div>
-							<div id="legend" style="width: auto"></div>
 						</div>
 					</div>
 					<div>
-						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map.png"/>
-						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map2.png"/>
-						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map3.png"/>
-						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map4.png"/>
-						<img  style="width:100%;padding-bottom:80px" src="../js/arcgis/map5.png"/>
+						<img style="width: 100%; padding-bottom: 80px"
+							src="../js/arcgis/map.png" /> <img
+							style="width: 100%; padding-bottom: 80px"
+							src="../js/arcgis/map2.png" /> <img
+							style="width: 100%; padding-bottom: 80px"
+							src="../js/arcgis/map3.png" /> <img
+							style="width: 100%; padding-bottom: 80px"
+							src="../js/arcgis/map4.png" /> <img
+							style="width: 100%; padding-bottom: 80px"
+							src="../js/arcgis/map5.png" />
 					</div>
-					<!-- <div class="toolBar" style="width: 100%; height: auto">
-						<div class="float-right" style="margin: 1px">
-							<div class="inline-block margin padding-lr border-2">
-								<a id="btn" href="#" class="lable">保存图片</a>
-							</div>
-							<div class="inline-block margin padding-lr border-2">
-								<a id="btn" href="#" class="lable">保存图片</a>
-							</div>
-							<div class="inline-block margin padding-lr border-2">
-								<a id="btn" href="#" class="lable">保存图片</a>
-							</div>
-							<div class="inline-block margin padding-lr border-2">
-								<a id="btn" href="#" class="lable">保存图片</a>
-							</div>
-						</div>
-					</div> -->
 				</div>
 			</div>
-			<div title="图表"
-				style="width: 100%; height: 100%; display: flex; flex-direction: row">
-				<table id="table" class="easyui-datagrid"
-					style="width: 20%; height: 100%;flex-grow: 2"
-					data-options="url:'../track/json',fitColumns:true,singleSelect:true">
-					<thead>
-						<tr>
-							<th data-options="field:'Country'">Country</th>
-							<th data-options="field:'OrderID'">OrderID</th>
-							<th data-options="field:'CustomerID'">CustomerID</th>
-							<th data-options="field:'OrderDate'">OrderDate</th>
-						</tr>
-					</thead>
-					<tbody id="data">
-						<tr>
-							<td>001</td>
-							<td>name1</td>
-							<td>2323</td>
-						</tr>
-						<tr>
-							<td>002</td>
-							<td>name2</td>
-							<td>4612</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="border" style="width: 80%;flex-grow: 1">
-					<div>test</div>
+			<div title="图表" class="easyui-layout"
+				style="width: 100%; min-width: 800px; height: 100%;">
+				<div data-options="region:'west',split:true"
+					style="width: 30%; max-width: 600px;">
+					<table id="table" class="easyui-datagrid"
+						data-options="fit:true,url:'../track/json',fitColumns:true,singleSelect:true">
+						<thead>
+							<tr>
+								<th data-options="field:'Country'">Country</th>
+								<th data-options="field:'OrderID'">OrderID</th>
+								<th data-options="field:'CustomerID'">CustomerID</th>
+								<th data-options="field:'OrderDate'">OrderDate</th>
+							</tr>
+						</thead>
+						<tbody id="data">
+							<tr>
+								<td>001</td>
+								<td>name1</td>
+								<td>2323</td>
+							</tr>
+							<tr>
+								<td>002</td>
+								<td>name2</td>
+								<td>4612</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="border" data-options="region:'center'">
+					<div>testtesttesttesttests</div>
 				</div>
 				<!-- <div class="toolBar" style="width: 100%; height: auto">
 					<div class="float-right">
@@ -269,7 +253,13 @@
 		initRender(mapManager);
 	}
 	$(function() {
-
+		$("#tt").tabs({
+			onSelect : function(title) {
+				console.log(title);
+				if (title == "图表")
+					$.parser.parse(document)
+			}
+		})
 	})
 </script>
 </html>
