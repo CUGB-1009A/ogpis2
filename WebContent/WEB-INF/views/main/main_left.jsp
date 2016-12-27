@@ -100,7 +100,9 @@ padding-right:10px;
 			</li> --%>
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/forecast/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-line-chart"></i>趋势预测</a></span>
+
 			</li>
+
 			<li>
 				<span class="sider-nav-title"><a href="<%=path%>/forecast/finishedList" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>预测管理</a></span>
 			</li>
@@ -123,10 +125,17 @@ padding-right:10px;
 			</li>
 		</ul>
 	</div>
-	<div title="规划跟踪评估" iconCls="" style="overflow:auto;" >
+
+	<div title="规划实施跟踪评估" iconCls="" style="overflow:auto;" >
 		<ul class="sider-nav">
 			<li> 
-				<span class="sider-nav-title"><a href="<%=path%>/track/index0" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-pie-chart"></i>规划实施跟踪评估</a></span>				
+				<span class="sider-nav-title"><a href="<%=path%>/track/indexTrackContents" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-pie-chart"></i>指标跟踪</a></span>				
+			</li>
+			<li> 
+				<span class="sider-nav-title"><a href="<%=path%>/track/targetTrackContents" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-pie-chart"></i>规模跟踪</a></span>				
+			</li>
+			<li> 
+				<span class="sider-nav-title"><a href="<%=path%>/track/layoutTrackContents" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-pie-chart"></i>布局跟踪</a></span>				
 			</li>
 		</ul>
 	</div>
@@ -144,6 +153,11 @@ padding-right:10px;
 			</li>
 		</ul>
 	</div>
+
+
+
+
+
 
 </div>
 <script>

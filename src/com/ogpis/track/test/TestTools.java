@@ -34,8 +34,8 @@ public class TestTools {
 	}
 
 	@Test
-	public void test3() {
-		WebServiceParam param = new WebServiceParam();
+	public void test3() throws InterruptedException {
+		/*WebServiceParam param = new WebServiceParam();
 		param.setColumsName("zwx");
 		param.setRelation("=");
 		param.setValues("lllas");
@@ -45,6 +45,15 @@ public class TestTools {
 		array.add(param);
 		WebServiceParams params = new WebServiceParams(array);
 		params.add(param);
-		System.out.println(params.toString());
+		System.out.println(params.toString());*/
+		testFX(new Double[][]{{2233.0}});
+		synchronized (this) {
+			this.notify();
+		}
+		
+	}
+	
+	private static <T> void testFX(T[][] obj){
+		System.out.println(obj[0][0]);
 	}
 }
