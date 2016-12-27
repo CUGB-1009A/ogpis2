@@ -14,10 +14,11 @@
 	<mvc:annotation-driven />
 
 
+
 	<!-- 静态资源处理器，所有以【mapping】开头的请求都会视为是对静态资源的请求，请求url会将【mapping】的内容替换成【location】的内容，然后执行静态资源的获取 -->
 	<mvc:resources location="/resource/" mapping="/resource/**" />
 		<mvc:resources location="/resources/" mapping="/resources/**" />
-	<mvc:resources location="/sz/" mapping="/sz/**" />
+
 	<mvc:resources location="/js/" mapping="/js/**" />
 	<mvc:resources location="/image/" mapping="/image/**" />
 	<mvc:resources location="/planFileUpload/" mapping="/planFileUpload/**" />
@@ -25,6 +26,7 @@
 	<mvc:resources location="/assets/" mapping="/assets/**" />
 	<mvc:resources mapping="/dist/**" location="/dist/"/>
 	<mvc:resources mapping="/font-awesome-4.3.0/**" location="/font-awesome-4.3.0/"/>
+
 	<context:component-scan base-package="com.ogpis" />
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

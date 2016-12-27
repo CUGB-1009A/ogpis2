@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../init.jsp"%>
+<<<<<<< HEAD
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <style>
@@ -101,7 +102,83 @@ padding-right:10px;
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/forecast/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-line-chart"></i>趋势预测</a></span>
 
+=======
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<style>
+li{
+	height: 38px;
+	line-height: 38px;
+	border-bottom: 1px solid #dcdcdc;
+	text-align: center;
+	display: block;
+}
+.sider-nav{
+   padding-left: 0px;
+   margin:0px;
+}
+.sider-nav li a {
+	display: block;
+	padding: 0 15px;
+	height: 100%;
+	color: #000;
+	font-size: 16px;
+	text-decoration: none;
+	text-align: center;
+	font-family:"微软雅黑",arial;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.sider-nav li .sider-nav-title {
+	width: 112px;
+	overflow: hidden;
+	font-size: 13px
+}
+.sider-nav li .iconfont {
+	float: right;
+	font-size: 12px;
+	color: #b9c1be
+}
+.sider-nav li.current {
+	border-left: 3px solid #BDC0BA;
+	border-bottom: none;
+	height: 39px;
+	background: #58b2dc
+}
+.sider-nav li.current a {
+	padding-left: 12px;
+	color: #fff
+}
+.sider-nav li.current .iconfont {
+	color: #fff
+}
+.accordion .accordion-header{
+  height:26px;
+  font-size:medium;
+}
+.accordion .accordion-body{
+	padding: 0px;
+}
+.accordion .accordion-header-selected{
+	background:#0098d2
+}
+.panel-title{
+font-size:18px;
+line-height: 26px;}
+.panel-header{
+text-align: left;
+white-space: nowrap;
+text-overflow: ellipsis;}
+
+</style>
+<div class="easyui-accordion" style="height: 100%;" >
+	<div title="历史数据查询分析" iconCls="" style="overflow:auto; height:100%;" >
+		<ul class="sider-nav">
+			<li >
+				<span class="sider-nav-title"><a href="<%=path%>/dataBrowse" target=main_center id="ziyuanliangzhuanti">资源量专题</a></span>
+				
+>>>>>>> refs/remotes/origin/数据要览
 			</li>
+<<<<<<< HEAD
 
 			<li>
 				<span class="sider-nav-title"><a href="<%=path%>/forecast/finishedList" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>预测管理</a></span>
@@ -136,9 +213,31 @@ padding-right:10px;
 			</li>
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/track/layoutTrackContents" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-pie-chart"></i>布局跟踪</a></span>				
+=======
+			<li >
+				<span class="sider-nav-title"><a href="<%=path%>/dataBrowse_zyl_qg" target=main_center id="ziyuanliangzhuanti">资源量专题全国</a></span>
+				
+			</li>
+			<li> 
+				<span class="sider-nav-title"><a href="<%=path%>/dataBrowse_reserves_company" target=main_center>储量专题</a></span>
+				
+			</li>
+			<li> 
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>产量专题</a></span>
+				
+			</li>
+			<li> 
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>勘探专题</a></span>
+				
+			</li>
+			<li> 
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>油气贸易专题</a></span>
+				
+>>>>>>> refs/remotes/origin/数据要览
 			</li>
 		</ul>
 	</div>
+<<<<<<< HEAD
 	
 	<div title="数据管理" iconCls="" style="overflow:auto;" >
 		<ul class="sider-nav">
@@ -150,15 +249,60 @@ padding-right:10px;
 			</li>
 			<li> 
 				<span class="sider-nav-title"><a href="javascript:void(0)" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>缓存管理</a></span>				
+=======
+	<div title="趋势预测分析" iconCls="" style="overflow:auto; height:100%;" >
+		<ul class="sider-nav">
+			<li >
+				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>资源量预测</a></span>
+				
+			</li>
+			<li> 
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>储量预测</a></span>
+				
+			</li>
+			<li> 
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>产量预测</a></span>
+				
+			</li>
+			<li> 
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>勘探预测</a></span>
+				
+>>>>>>> refs/remotes/origin/数据要览
 			</li>
 		</ul>
 	</div>
+<<<<<<< HEAD
 
 
 
 
 
 
+=======
+    <div title="规划成果管理" iconCls="" style="overflow:auto; height:100%;" >
+		<ul class="sider-nav">
+			<li >
+				<span class="sider-nav-title"><a href="<%=path%>/system/user/list" target=main_center>资料规划录入</a></span>
+				
+			</li>
+			<li> 
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>规划查询统计</a></span>
+				
+			</li>
+			<li> 
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>规划展示</a></span>
+				
+			</li>
+		</ul>
+	</div>
+	<div title="规划实施跟踪评估" iconCls="" style="overflow:auto; height:100%;" >
+		<ul class="sider-nav">
+			<li> 
+				<span class="sider-nav-title"><a href="<%=path%>/system/role/list" target=main_center>规划实施跟踪评估</a></span>				
+			</li>
+		</ul>
+	</div>
+>>>>>>> refs/remotes/origin/数据要览
 </div>
 <script>
 $(document).on('click', '.sider-nav li', function() {

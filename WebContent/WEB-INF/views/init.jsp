@@ -20,8 +20,16 @@ html, body {
 	text-align: left;
 }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+<link rel="stylesheet" type="text/css" href="<%=path %>/resource/easyui-1.5/themes/bootstrap/easyui.css">
+<link rel="stylesheet" type="text/css" href="<%=path %>/resource/easyui-1.5/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="<%=path %>/resource/easyui-1.5/themes/icon.css">
+>>>>>>> refs/remotes/origin/数据要览
 
+<<<<<<< HEAD
 <link rel="stylesheet" type="text/css" href="<%=path %>/resource/easyui-1.5/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="<%=path %>/resource/easyui-1.5/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="<%=path %>/resource/easyui-1.5/themes/bootstrap/easyui.css">
@@ -39,6 +47,21 @@ html, body {
 <script src="<%=path %>/dist/js/app.min.js" type="text/javascript"></script>
 
 
+=======
+<!-- <link rel="stylesheet" type="text/css"
+	href="<%=path %>/resource/easyui-1.5/themes/default/easyui.css"> -->
+<link rel="stylesheet" type="text/css"
+	href="<%=path %>/resource/easyui-1.5/themes/icon.css">
+
+<script type="text/javascript" src="<%=path %>/resource/easyui-1.5/jquery.min.js"></script>
+
+<script type="text/javascript" src="<%=path %>/resource/easyui-1.5/jquery.easyui.min.js"></script> 
+
+
+<script type="text/javascript"
+	src="<%=path %>/resource/supcan1.0.95.0/binary/dynaload.js"></script>
+<script type="text/javascript" src="<%=path %>/resource/echart/echarts.min.js"></script>
+>>>>>>> refs/remotes/origin/数据要览
 
 <%@ taglib uri="/WEB-INF/taglib/c.tld" prefix="c"%>
 
