@@ -22,7 +22,7 @@
 	<div id="tt_zyl_dq" class="easyui-tabs" data-option="fit:true">   
 	    <div title="年度大区各盆地油气资源量" style="display:none;">   
 	        <div data-options="region:'center'">   
-		        <div class="easyui-layout" style="width:100%;height:900px;">   
+		        <div class="easyui-layout" style="width:100%;height:600px;">   
 		            <div data-options="region:'north',split:true" style="height:110px">
 		            	<div style="float:left;">
 		            		<table>
@@ -113,19 +113,5 @@
 
 </body>
 
-<script type="text/javascript">
-$.ajax({  
-	     type : "POST",  //提交方式  
-	     url : "http://localhost:8080/report/test4.json",//路径  
-	     data : "",//数据，这里使用的是Json格式进行传输  
-	     success : function(result) {//返回数据根据结果进行相应的处理  
-	     var box1=new CreatChart("chartdiv",{"title":"2006年东部各盆地石油资源量","xAxisName":"sss","yAxisName":"ceshi","series":result});  
-	   	 box1.creatChart();
-     }  
-}); 
-	
-	//var box =new CreatChart("div2",{"title":"shili","xAxisName":"sss","yAxisName":"ceshi","series":{"A0005": [{"盆地名称":"渤海湾盆地","待探明地质资源量95":"141.72","待探明可采资源量95":"33.36","地质资源量":"69.21","可采资源量95":"89.26"},{"盆地名称":"海拉尔盆地","待探明地质资源量95":"21.72","待探明可采资源量95":"313.36","地质资源量":"369.21","可采资源量95":"419.26"},{"盆地名称":"松辽盆地","待探明地质资源量95":"71.72","待探明可采资源量95":"92.36","地质资源量":"99.21","可采资源量95":"124.26"}]}});
-	//box.creatChart();
-</script>
 
 </html>
