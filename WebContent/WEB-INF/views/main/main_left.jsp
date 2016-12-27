@@ -73,7 +73,7 @@ padding-right:10px;
 
 </style>
 <div class="easyui-accordion" style="height: 100%;" >
-	<div title="历史数据查询分析" iconCls="" style="overflow:auto;" >
+	<!--<div title="历史数据查询分析" iconCls="" style="overflow:auto;" >
 		<ul class="sider-nav">
 			<li >
 				<span class="sider-nav-title"><a href="<%=path%>/dataBrowse" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-globe"></i>资源量专题</a></span>
@@ -129,8 +129,8 @@ padding-right:10px;
 				<span class="sider-nav-title"><a href="<%=path%>/track/index0" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-pie-chart"></i>规划实施跟踪评估</a></span>				
 			</li>
 		</ul>
-	</div>
-
+	</div>-->
+    <!--<div title="资源量" style="overflow:auto;" ></div><div title="储量" style="overflow:auto;" ></div><div title="产量" style="overflow:auto;" ></div><div title="勘探开发" style="overflow:auto;" ></div><div title="油气贸易" style="overflow:auto;" ></div><div title="矿权" style="overflow:auto;" ></div><div title="非油气" style="overflow:auto;" ></div><div title="定制分析" style="overflow:auto;" ></div>--> 
 </div>
 <script>
 $(document).on('click', '.sider-nav li', function() {
@@ -138,4 +138,45 @@ $(document).on('click', '.sider-nav li', function() {
     $(this).addClass('current');
     //$('iframe').attr('src', $(this).data('src'));
 });
+var text="";
+$(function(){
+		$.ajax({
+          url: '<%=path%>/dataBrowse/menutree.xml',
+          dataType: 'xml',
+          async: false,
+          success: function(data){
+          	$(data).find("theme").each(function(){
+          		var theme=$(this);
+          		$('.easyui-accordion').accordion('add', {
+					title: theme.attr("id")+"专题",
+					content: GetContent(theme.attr("id")),
+					selected: false
+				});
+          	});
+          }
+      });
+});
+function GetContent(pid){
+   	 var content='<ul class="sider-nav">';
+   	 $.ajax({
+          url: '<%=path%>/dataBrowse/menutree.xml',
+          dataType: 'xml',
+          async: false,
+          success: function(data){
+             $(data).find("theme[id="+pid+"] > district").each(function(){			                
+             	var district=$(this);
+             	text='<li>';
+             	text+='<span class="sider-nav-title">';
+             	text+='<a href="'+district.attr("href")+'" target=main_center>';
+             	text+='<i class="fa fa-angle-right" style="float:right;padding-top:13px"></i>';
+             	text+='<i class="fa fa-globe"></i>';
+             	text+=district.attr("id");
+             	text+='</a></span></li>';
+             	content+=text;
+             });
+          }
+      });
+      content+="</ul>";
+      return content;
+}
 </script>

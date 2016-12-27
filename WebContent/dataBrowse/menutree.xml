@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataguaid>
+	<theme id="资源量">
+		<district id="大区" href="<%=path%>/dataBrowse">
+			<tab>年度大区各盆地油气资源量</tab>
+		</district> 
+		<district id="全国" href="<%=path%>/dataBrowse">
+			<tab>年度各盆地油气资源量</tab>
+			<tab>年度各大区油气资源量</tab>
+			<tab>年度各省区油气资源量</tab>
+		</district> 		
+	</theme>
+	<theme id="储量">
+		<district id="全国">
+			<tab>历年全国盆地储量</tab>
+			<tab>年度各省区储量</tab>
+			<tab>年度公司各油气田储量</tab>
+			<tab>年度各盆地储量</tab>
+		</district> 
+		<district id="石油公司">
+			<tab>历年石油总公司储量</tab>
+			<tab>年度石油子公司储量</tab>
+		</district> 
+		<district id="省区">
+			<tab>年度省区油气田储量</tab>
+			<tab>历年各省区储量</tab>
+		</district> 
+		<district id="盆地">
+			<tab>年度盆地油气田储量</tab>
+			<tab>历年各盆地储量</tab>
+		</district> 		
+	</theme>
+	<theme id="产量">
+		<district id="全国">
+			<tab>历年全国油气资源产量概况</tab>
+			<tab>全国各石油公司油气资源产量概况</tab>
+			<tab>全国各盆地石油资源产量概况</tab>
+			<tab>全国各省区油气资源产量概况</tab>
+		</district> 
+		<district id="石油公司">
+			<tab>历年全国各石油公司油气资源产量概况</tab>
+			<tab>全国各石油公司油气资源产量明细</tab>
+			<tab>全国各石油公司油气资源月度产量</tab>
+		</district> 
+		<district id="省区">
+			<tab>历年全国各省区油气资源产量概况</tab>
+			<tab>全国各省区油气资源产量明细</tab>
+		</district> 
+		<district id="盆地">
+			<tab>历年全国各盆地油气资源产量概况</tab>
+			<tab>全国各盆地油气资源产量明细</tab>
+		</district> 		
+	</theme>
+	<theme id="勘探开发">
+		<district id="全国">
+			<tab>各石油公司地震勘探情况</tab>
+			<tab>各石油公司钻探情况</tab>
+			<tab>各石油公司各项勘探工作投入情况</tab>
+			<tab>历年全国钻探情况</tab>
+			<tab>历年全国地震勘探情况</tab>
+			<tab>历年全国勘探工作总投入情况</tab>
+		</district> 
+		<district id="石油公司">
+			<tab>历年全国各石油公司地震勘探情况</tab>
+			<tab>历年各石油公司勘探工作总投入情况</tab>
+			<tab>历年全国各石油公司钻探情况</tab>
+		</district> 		
+	</theme>
+	<theme id="油气贸易">
+		<district id="全国">
+			<tab>资源出口信息</tab>
+			<tab>资源进口信息</tab>
+			<tab>原油进口来源明细</tab>
+		</district> 
+		<district id="来源国">
+			<tab>历年来源国出口信息</tab>
+		</district> 		
+	</theme>
+	<theme id="矿权">
+		<district id="石油公司">
+			<tab>全国各公司油气资源矿权明细</tab>
+			<tab>历年全国各公司油气资源矿权概况</tab>
+		</district> 
+		<district id="省区">
+			<tab>全国各省区油气资源矿权明细</tab>
+		</district> 
+		<district id="全国">
+			<tab>全国各公司油气资源矿权概况</tab>
+			<tab>全国油气资源矿权概况</tab>
+			<tab>全国各省区油气资源矿权概况</tab>
+			<tab>全国历年油气资源矿权概况</tab>
+		</district> 		
+	</theme>
+	<theme id="非油气">
+		<district id="煤炭"></district>
+		<district id="核电"></district>
+		<district id="水能"></district>
+		<district id="风能"></district> 		
+		<district id="太阳能"></district>
+	</theme>
+	<theme id="定制分析">
+	</theme>
+</dataguaid>
