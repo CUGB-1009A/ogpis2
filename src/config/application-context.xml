@@ -37,7 +37,7 @@
 		<!-- 连接空闲时是否进行有效性验证 -->
 		<!--<property name="testWhileIdle" value="true" /> -->
 	</bean>
-	
+
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="datasource" />
@@ -45,6 +45,10 @@
 		<property name="packagesToScan">
 			<list>
 				<value>com.ogpis.demo.entity</value>
+				<value>com.ogpis.forecast.entity</value>
+				<value>com.ogpis.system.entity</value>
+				<value>com.ogpis.plan.entity</value>
+
 			</list>
 		</property>
 		<property name="hibernateProperties">

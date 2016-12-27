@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ include file="../init.jsp"%>
 <%
 	response.setHeader("Access-Control-Allow-Origin", "*");
 %>
@@ -16,16 +17,7 @@
 		} ]
 	};
 </script>
-<!-- 加载jQuery -->
-<script type="text/javascript" src="../easyui-1.5/jquery.min.js"></script>
-<!-- 加载easyUI -->
-<link rel="stylesheet" type="text/css"
-	href="../easyui-1.5/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css"
-	href="../easyui-1.5/themes/default/tabs.css">
-<link rel="stylesheet" type="text/css"
-	href="../easyui-1.5/themes/icon.css">
-<script type="text/javascript" src="../easyui-1.5/jquery.easyui.min.js"></script>
+
 <!-- 加载ArcGIS API  -->
 <script type="text/javascript" src="/arcgis/library/3.9/3.9/init.js"></script>
 <link rel="stylesheet" type="text/css"
@@ -213,7 +205,7 @@
 					</table>
 				</div>
 				<div class="border" data-options="region:'center'">
-					<div>testtesttesttesttests</div>
+					<div id="test" style="width:80%;height:400px"></div>
 				</div>
 				<!-- <div class="toolBar" style="width: 100%; height: auto">
 					<div class="float-right">
@@ -261,5 +253,39 @@
 			}
 		})
 	})
+	
+	var option = {
+	        		 title: { 
+	        					 text: '规模跟踪',
+	        					 left:'center'
+	        				 },
+	        		 tooltip: {
+	        			 		 trigger: 'axis'
+	        		 },
+	        		
+	        		 xAxis : [
+	        			        {
+	        			            type : 'category',
+	        			            boundaryGap : false,
+	        			            name:"年份",
+	        			            data : [2001,2002,2003,2004,2005,2006]
+	        			        }
+	        			    ],
+	        			    yAxis : [
+	        					        {
+	        					            type : 'value',
+	        					            name:'万吨'
+	        					        }
+	        					    ],
+	        		 series: [
+	        			          {
+	        					     type: 'line',
+	        					     name:'历史数据',
+	        					     data: [2001,2002,2003,2004,2005,2006]
+	        			          }
+	        		          ]
+	        		}
+var myChart = echarts.init(document.getElementById("test"));
+myChart.setOption(option);
 </script>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ include file="../init.jsp"%>
 <%
 	response.setHeader("Access-Control-Allow-Origin", "*");
 %>
@@ -16,16 +17,7 @@
 		} ]
 	};
 </script>
-<!-- 加载jQuery -->
-<script type="text/javascript" src="../easyui-1.5/jquery.min.js"></script>
-<!-- 加载easyUI -->
-<link rel="stylesheet" type="text/css"
-	href="../easyui-1.5/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css"
-	href="../easyui-1.5/themes/default/tabs.css">
-<link rel="stylesheet" type="text/css"
-	href="../easyui-1.5/themes/icon.css">
-<script type="text/javascript" src="../easyui-1.5/jquery.easyui.min.js"></script>
+
 <!-- 加载ArcGIS API  -->
 <script type="text/javascript" src="/arcgis/library/3.9/3.9/init.js"></script>
 <link rel="stylesheet" type="text/css"
@@ -107,11 +99,12 @@
 				</div>
 			</div>
 		</div>
-		<div title="图表"
-			style="width: 100%; height:88%;display: flex; flex-direction: row;flex-grow:10;flex-shrink:1">
+		<div title="图表" class="easyui-layout" data-options="fit:true"
+				style="width: 100%; min-width: 800px;">
+				<div data-options="region:'west',split:true"
+					style="width: 30%; max-width: 600px;">
 			<table id="table" class="easyui-datagrid"
-				style="width: 20%; height: 100%;flex-grow:1;flex-shrink:1;"
-				data-options="url:'../track/json',fitColumns:true,singleSelect:true">
+				data-options="fit:true,url:'../track/json',fitColumns:true,singleSelect:true">
 				<thead>
 					<tr>
 						<th data-options="field:'Country'">Country</th>
@@ -132,10 +125,10 @@
 						<td>4612</td>
 					</tr>
 				</tbody>
-			</table>
-			<div class="border" style="width: 80%;flex-grow:1;flex-shrink:1;">
-				<div>test</div>
-			</div>
+			</table></div>
+			<div class="border" data-options="region:'center'" style="padding-right: 80px">
+					<div id="test" style="width:80%;height:400px;"></div>
+				</div>
 			<!-- <div class="toolBar" style="width: 100%; height: auto">
 					<div class="float-right">
 						<div class="inline-block margin padding-lr border-2">
@@ -156,6 +149,48 @@
 	</div>
 </body>
 <script type="text/javascript">
-	
+$(function() {
+	$("#tt").tabs({
+		onSelect : function(title) {
+			console.log(title);
+			if (title == "图表")
+				$.parser.parse(document)
+		}
+	})
+})
+ var option = {
+	        		 title: { 
+	        					 text: '指标跟踪',
+	        					 left:'center'
+	        				 },
+	        		 tooltip: {
+	        			 		 trigger: 'axis'
+	        		 },
+	        		
+	        		 xAxis : [
+	        			        {
+	        			            type : 'category',
+	        			            boundaryGap : false,
+	        			            name:"年份",
+	        			            data : [2001,2002,2003,2004,2005,2006]
+	        			        }
+	        			    ],
+	        			    yAxis : [
+	        					        {
+	        					            type : 'value',
+	        					            name:'万吨'
+	        					        }
+	        					    ],
+	        		 series: [
+	        			          {
+	        					     type: 'line',
+	        					     name:'历史数据',
+	        					     data: [2001,2002,2003,2004,2005,2006]
+	        			          }
+	        		          ]
+	        		}
+var myChart = echarts.init(document.getElementById("test"));
+myChart.setOption(option);
+
 </script>
 </html>
