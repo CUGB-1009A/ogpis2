@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--By Supcan Report -->
+<Report>
+	<WorkSheet name="Sheet">
+		<Properties>
+			<BackGround bgColor="#FFFFFF"/>
+			<DefaultTD>
+				<TD fontIndex="0" textColor="#000000" transparent="true" leftBorder="1" topBorder="1" leftBorderColor="#C0C0C0" leftBorderStyle="solid" topBorderColor="#C0C0C0" topBorderStyle="solid" decimal="2" align="left" vAlign="middle" isProtected="false" isThousandSeparat="true" isRound="true" isPrint="true"/>
+			</DefaultTD>
+			<Other isShowZero="true" isRefOriPrecision="true" LineDistance="0" isRowHeightAutoExtendAble="true"/>
+		</Properties>
+		<Fonts>
+			<Font faceName="Microsoft YaHei UI" charSet="134" height="-14" weight="400"/>
+			<Font faceName="宋体" charSet="134" height="-19" weight="700" pitchAndFamily="2" quality="1" outPrecision="3" clipPrecision="2"/>
+			<Font faceName="华文宋体" charSet="134" height="-16" weight="400" pitchAndFamily="2" quality="1" outPrecision="3" clipPrecision="2"/>
+		</Fonts>
+		<Table>
+			<Col width="242"/>
+			<Col width="271"/>
+			<Col width="140"/>
+			<Col width="140"/>
+			<Col width="140"/>
+			<Col width="140"/>
+			<Col width="15"/>
+			<TR height="47" sequence="0">
+				<TD fontIndex="1" align="center">2006年石油地质资源量排名前10位盆地</TD>
+				<TD/>
+				<TD/>
+				<TD/>
+				<TD/>
+				<TD/>
+				<TD leftBorder="0" topBorder="0"/>
+			</TR>
+			<TR height="35" sequence="1">
+				<TD fontIndex="2" topBorder="0">单位：万吨</TD>
+				<TD/>
+				<TD topBorder="0"/>
+				<TD/>
+				<TD/>
+				<TD/>
+				<TD leftBorder="0" topBorder="0"/>
+			</TR>
+			<TR height="35" sequence="2">
+				<TD bgColor="#FFC080" align="center" datatype="1" formula="=headrow(&apos;ds1&apos;)">盆地名称</TD>
+				<TD bgColor="#FFC080" align="center" datatype="1">待探明地质储量95</TD>
+				<TD topBorder="0"/>
+				<TD/>
+				<TD/>
+				<TD/>
+				<TD leftBorder="0" topBorder="0"/>
+			</TR>
+			<TR height="35" sequence="3">
+				<TD align="center" datatype="1" formula="=datarow(&apos;ds1&apos;)"/>
+				<TD align="center" datatype="1"/>
+				<TD/>
+				<TD/>
+				<TD/>
+				<TD/>
+				<TD leftBorder="0" topBorder="0"/>
+			</TR>
+			<TR height="15" sequence="4">
+				<TD leftBorder="0"/>
+				<TD leftBorder="0"/>
+				<TD leftBorder="0" topBorder="0"/>
+				<TD leftBorder="0"/>
+				<TD leftBorder="0"/>
+				<TD leftBorder="0"/>
+				<TD leftBorder="0" topBorder="0"/>
+			</TR>
+		</Table>
+		<Merges>
+			<Range row1="0" col1="0" row2="0" col2="5"/>
+			<Range row1="1" col1="0" row2="1" col2="5"/>
+			<Range row1="2" col1="6" row2="4" col2="6"/>
+			<Range row1="4" col1="2" row2="4" col2="5"/>
+			<Range row1="2" col1="2" row2="3" col2="5"/>
+		</Merges>
+		<GraphicObjects>
+			<Chart alpha="255" isTransparent="false" borderThick="1" borderColor="#000000">
+				<Rect x1="534" y1="82" x2="1068" y2="460"/>
+				<Properties bgColorContext="#FFFFFF" bgColor="#FFFFFF" Overflow="1" Exp="Type=3;IsRevert=1;DataExp1=4:13;DataExp2=B;Meaning1=4;Meaning2=A;Title=2006年石油地质资源量排名前10位盆地;MeaningPos=1;" MD5="b95be2758107fd7820140b6adc285160">ARQCAAB4AQAABwAAAAAAAAACAAAAAQAAABwKAAAAlgAAAAcAAAAHAAAAcQEAAA0CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAODg4ADg4OAACAAAABkAAAAHAAAABwAAAHEBAAANAgAAEQAAAB4AAAAoAQAADQIAAB4AAAAoAQAAAAAAAABAb0AAAAAAAEBvQAAAAAABAAAASwAAADIwMDbE6sqv08212NbK18rUtMG*xcXD+8ewMTDOu8XotdgAMgAwADAANgB0XvN3uWwwVyiNRI2Qbs+RkmMNVE1SMQAwAE1PxnYwVwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQoAEgAAACRud21+bsZ2MFcAAEIANAAAAI*C9ShcR2pAFxwAAAAA*wAAAAAAAAAAAAAAKgAAACgBAABCAAAAKAEAAB0Dste7U21AEAAAAH5nvY*GdjBXAABCADUAAACuR+F6FI5OQCoIAAAAAP8AAAAAAAAAAAAAAFsAAAAoAQAAcwAAACgBAAAx8Nx7uAxRQBIAAAB3bcliFFzGdjBXAABCADYAAADsUbgehesYQNUAAAAAAP8AAAAAAAAAAAAAAIwAAAAoAQAApAAAACgBAACQNo5Yi88bQBAAAACMTt6PxnYwVwAAQgA3AAAA7FG4HoXrEECRAAAAAAD*AAAAAAAAAAAAAAC9AAAAKAEAANUAAAAoAQAAb4Yb8PnhEkAWAAAAnU9wUS0ACk8akMZ2MFcAAEIAOAAAANejcD0K1wlAbgAAAAAA*wAAAAAAAAAAAAAA7gAAACgBAAAGAQAAKAEAALxcxHdi1gxAEAAAAM+CF1PGdjBXAABCADkAAADXo3A9CtcBQEwAAAAAAP8AAAAAAAAAAAAAAB8BAAAoAQAANwEAACgBAACbrFEP0egDQBIAAABfbElsxnYwVwAAQgAxADAAAAAAAAAAAAAAQEQAAAAAAP8AAAAAAAAAAAAAAFABAAAoAQAAaAEAACgBAABCYOXQItsBQBIAAABXU0SJxnYwVwAAQgAxADEAAABnZmZmZmb6PzgAAAAAAP8AAAAAAAAAAAAAAIEBAAAoAQAAmQEAACgBAAChq63YX3b9PxIAAAAAX4GcxnYwVwAAQgAxADIAAACuR+F6FK7zPyoAAAAAAP8AAAAAAAAAAAAAALIBAAAoAQAAygEAACgBAAD1+L1Nf*b1PxIAAAAJTl9sxnYwVwAAQgAxADMAAABxPQrXo3DNPwkAAAAAAP8AAAAAAAAAAAAAAOMBAAAoAQAA+wEAACgBAADMYmLzcW3QP4AAAAAGAQAAAAD*****AAAAAAIAAAAxAAgAAABhAHUAdABvAP8KAQ==</Properties>
+				<Font faceName="Microsoft YaHei UI" charSet="134" height="-12" weight="400"/>
+			</Chart>
+		</GraphicObjects>
+		<PrintPage>
+			<Paper>
+				<Margin left="19" top="25" right="19" bottom="25"/>
+			</Paper>
+			<Page isIgnoreValidBorder="false">
+				<PageCode>
+					<Font faceName="Microsoft YaHei UI" charSet="134" height="-14" weight="400"/>
+				</PageCode>
+			</Page>
+		</PrintPage>
+	</WorkSheet>
+	<DataSources Version="255" isAutoCalculateWhenOpen="false" isSaveCalculateResult="false">
+		<DataSource type="4"><!-- Desc: Supcan Report Component DataSource Specification -->
+<Data>
+	<ID>ds1</ID>
+	<Version>2</Version>
+	<Type>4</Type>
+	<TypeMeaning>JSON</TypeMeaning>
+	<Source>resource/supcan1.0.95.0/reportdata/AF_zyldq_01.json</Source>
+	<XML_RecordAble_Nodes>
+		<Node>
+			<name>jsonobject</name>
+		</Node>
+	</XML_RecordAble_Nodes>
+	<Columns>
+		<Column>
+			<name>jsonobject\盆地名称</name>
+			<text>盆地名称</text>
+			<type>string</type>
+			<visible>true</visible>
+			<sequence>1</sequence>
+		</Column>
+		<Column>
+			<name>jsonobject\地质资源量95</name>
+			<text>地质资源量95</text>
+			<type>string</type>
+			<visible>true</visible>
+			<sequence>2</sequence>
+		</Column>
+	</Columns>
+</Data>
+
+		</DataSource>
+	</DataSources>
+</Report>
