@@ -190,12 +190,16 @@
     			<div style="padding-left:20px;padding-top:10px">
     			二选一：<br>
 					<input name="timeChoice" type="radio" value="1" checked/>预测区间：
-						<input class="easyui-slider" style="padding-top:20px;width:300px" data-options="
-								showTip: true,
-								range: true,
-								value: [60,80],
-								rule: [2015,'|',2020,'|',2025,'|',2030,'|',2035]
-							">
+						<select name="beginYear" id="beginYear" onchange="">
+							<option value="1949">1949</option>
+							<option value="1950">1950</option>
+							<option value="1951">1951</option>
+						</select>--
+						<select name="endYear" id="endYear" onchange="">
+							<option value="2013">2013</option>
+							<option value="2014">2014</option>
+							<option value="2015">2015</option>
+						</select>
 				</div>
 			</div>
 			<div style="height:10%;">
