@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ogpis.data.entity.Dimension;
+import com.ogpis.data.entity.Subject;
+import com.ogpis.data.service.DimensionService;
 import com.ogpis.demo.entity.Demo;
 import com.ogpis.demo.service.DemoService;
 import com.ogpis.forecast.entity.DataCollection;
@@ -30,6 +33,9 @@ public class DemoServiceImplTest {
 	
 	@Autowired
 	private DataCollectionService dataCollectionService;
+	
+	@Autowired
+	private DimensionService dimensionService;
 	
 	@Test
 	public void testhaha(){
