@@ -366,6 +366,8 @@ function initMap(mapManager) {
 					opacity : 0.75,
 					visible : false
 				});
+				console.log("graphicsLayer");
+				console.log(graphicsLayer);
 				mapManager.map.addLayers([ tiledLayer, tree, citiesPop ]);
 				// mapManager.map.addLayer(tiledLayer);
 				// mapManager.map.addLayer(tree);
