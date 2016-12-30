@@ -94,7 +94,7 @@ padding-right:10px;
 		</ul>
 	</div>
 
-	<div title="规划辅助编制" iconCls="" style="overflow:auto;" selected="true">
+	<div title="规划辅助编制" iconCls="" style="overflow:auto">
 		<ul class="sider-nav">
 			<%-- <li >
 				<span class="sider-nav-title"><a href="<%=path%>/forecast/toPredictionPage" target=main_center>上版预测</a></span>
@@ -144,17 +144,19 @@ padding-right:10px;
 	</div>
 
 	
-	<div title="数据管理" iconCls="" style="overflow:auto;" >
+	<div title="数据管理" iconCls="" style="overflow:auto;" selected="true">
 		<ul class="sider-nav">
 			<li> 
-				<span class="sider-nav-title"><a href="javascript:void(0)" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>数据源管理</a></span>				
+				<span class="sider-nav-title"><a href="<%=path%>/baseinfo/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>基础信息维护</a></span>				
 			</li>
 			<li> 
-				<span class="sider-nav-title"><a href="javascript:void(0)" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>数据提取</a></span>				
+				<span class="sider-nav-title"><a href="javascript:void(0)" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>数据源维护</a></span>				
 			</li>
 			<li> 
-				<span class="sider-nav-title"><a href="javascript:void(0)" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>缓存管理</a></span>				
-
+				<span class="sider-nav-title"><a href="javascript:void(0)" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>数据维护</a></span>				
+			</li>
+			<li> 
+				<span class="sider-nav-title"><a href="javascript:void(0)" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>缓存维护</a></span>				
 			</li>
 		</ul>
 	</div>

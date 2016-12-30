@@ -6,28 +6,44 @@ import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.data.entity.DimensionValue;
+import com.ogpis.data.entity.Field;
 import com.ogpis.data.entity.Subject;
 
 
 @MappedSuperclass
 public class BaseDimension extends BaseEntity{
 	
+	@Column(name = "isYear")//是否为年份
+	private boolean isYear;
+	
 	@Column(name = "name")//维度名
 	private String name;
 	
 	@Column(name = "priority")//排序
 	private Integer priority;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="dimensionId")
 	protected List<DimensionValue> dimensionValue ;
 	
-	@OneToMany(targetEntity = Subject.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(targetEntity = Subject.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "ogpis_Dimension_Subject",joinColumns = @JoinColumn(name = "Dimension_ID"), inverseJoinColumns = @JoinColumn(name = "Subject_ID"))
 	protected List<Subject> subject ;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="dimensionId1")
+	protected List<Field> fields ;
+	
+	public boolean isYear() {
+		return isYear;
+	}
+
+	public void setYear(boolean isYear) {
+		this.isYear = isYear;
+	}
 
 	public String getName() {
 		return name;
@@ -59,6 +75,14 @@ public class BaseDimension extends BaseEntity{
 
 	public void setSubject(List<Subject> subject) {
 		this.subject = subject;
+	}
+
+	public List<Field> getFields() {
+		return fields;
+	}
+
+	public void setFields(List<Field> fields) {
+		this.fields = fields;
 	}
 	
 	

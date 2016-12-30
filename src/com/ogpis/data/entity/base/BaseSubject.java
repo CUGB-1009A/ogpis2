@@ -9,9 +9,14 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
+
 import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.data.entity.Dimension;
+import com.ogpis.data.entity.DimensionValue;
+import com.ogpis.data.entity.InterfaceTable;
 import com.ogpis.data.entity.Subject;
 
 @MappedSuperclass
@@ -26,6 +31,17 @@ public class BaseSubject extends BaseEntity{
 	@ManyToMany(targetEntity = Dimension.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "ogpis_Dimension_Subject",joinColumns = @JoinColumn(name = "Subject_ID"), inverseJoinColumns = @JoinColumn(name = "Dimension_ID"))
 	protected List<Dimension> dimension ;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="subjectId")
+	protected List<InterfaceTable> interfaceTables ;
+
+	public List<InterfaceTable> getInterfaceTables() {
+		return interfaceTables;
+	}
+
+	public void setInterfaceTables(List<InterfaceTable> interfaceTables) {
+		this.interfaceTables = interfaceTables;
+	}
 
 	public String getName() {
 		return name;
