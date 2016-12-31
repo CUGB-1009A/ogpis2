@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.data.dao.InterfaceTableDao;
+import com.ogpis.data.entity.InterfaceTable;
 import com.ogpis.data.service.InterfaceTableService;
 
 @Service
@@ -18,6 +19,11 @@ public class InterfaceTableServiceImpl implements InterfaceTableService {
 	@Override
 	public Pagination getAllInterface(int cpn, Integer pageSize) {
 		return interfaceTableDao.getAllInterface(cpn,pageSize);
+	}
+
+	@Override
+	public InterfaceTable findById(String id) {
+		return interfaceTableDao.findById(id);
 	}
 
 }

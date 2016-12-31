@@ -22,4 +22,9 @@ public class InterfaceTableDaoImpl extends HibernateBaseDao<InterfaceTable, Stri
 		return find(f,cpn,pageSize);
 	}
 
+	@Override
+	public InterfaceTable findById(String id) {
+		return super.get(id);
+	}
+
 }

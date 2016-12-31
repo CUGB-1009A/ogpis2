@@ -25,6 +25,7 @@
 						border : false,
 						height:h,
 						fitColumns : true,
+						remoteSort:false,
 						singleSelect : true,
 						rownumbers:true,
 						url : '<%=path%>/dimensionList',
@@ -46,6 +47,7 @@
 								},
 								{
 									field : 'name',
+									sortable:true,
 									title : '维度名称',
 									width : 20
 								},
@@ -107,6 +109,7 @@
 						border : false,
 						height:h,
 						fitColumns : true,
+						remoteSort:false,
 						singleSelect : true,
 						rownumbers:true,
 						url : '<%=path%>/interfaceList',
@@ -128,6 +131,7 @@
 								},
 								{
 									field : 'name',
+									sortable:true,
 									title : '接口名称',
 									width : 20
 								},
@@ -137,7 +141,7 @@
 									width : 20
 								},
 								{
-									field : 'fields',
+									field : 'field',
 									title : '维度信息',
 									width : 20,
 									formatter : function(value,row,index){
@@ -150,7 +154,7 @@
 									}
 								},
 								{
-									field:'subjectId',
+									field:'subject',
 									title:'所属主题',
 									width:20,
 									formatter : function(value,row,index){
@@ -324,7 +328,7 @@
 						alert("信息填写不完整");
 						return false;
 						}
-					 addClose(e);
+					 close(e);
 					 $.ajax({
 							url:"<%=path%>/dimension/save",
 							dataType:"json",
@@ -348,7 +352,7 @@
 				}
 			},{
 				text:'取消',
-				handler:function(e){addClose(e)}
+				handler:function(e){close(e)}
 			}]
 		});
 		
@@ -406,7 +410,7 @@
 						alert("信息填写不完整");
 						return false;
 						}
-					 addClose(e);
+					 close(e);
 					 $.ajax({
 							url:"<%=path%>/dimension/save",
 							dataType:"json",
@@ -429,13 +433,13 @@
 				}
 			},{
 				text:'取消',
-				handler:function(e){addClose(e)}
+				handler:function(e){close(e)}
 			}]
 		});
 	}
 	
-	function addClose(e){//关闭添加、修改维度信息对话框，清空所填信息
-		document.getElementById("notyear").checked = true;s
+	function close(e){//关闭添加、修改维度信息对话框，清空所填信息
+		document.getElementById("notyear").checked = true;
 		$("#dimensionName").val("");
 		$('#dimensionPriority').numberbox('setValue', '');
 		$("#dimension_subjectId").val("");

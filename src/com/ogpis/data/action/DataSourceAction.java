@@ -1,10 +1,59 @@
 package com.ogpis.data.action;
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ogpis.base.action.BaseAction;
+import com.ogpis.base.common.page.Pagination;
+import com.ogpis.base.common.page.SimplePage;
+import com.ogpis.data.entity.Field;
+import com.ogpis.data.entity.InterfaceTable;
+import com.ogpis.data.entity.Subject;
+import com.ogpis.data.service.DataSourceService;
+import com.ogpis.data.service.SubjectService;
 
 @Controller
 public class DataSourceAction extends BaseAction{
+	
+	@Autowired
+	private SubjectService subjectService;
+	@Autowired
+	private DataSourceService dataSourceService;
+	
+	@RequestMapping(value = "/dataSource/list")
+	public String list(HttpServletRequest request, ModelMap model) {
+		List<Subject> subjects = subjectService.findAll();
+		List<InterfaceTable> interfaceTables = null;
+		List<Field> fields = null;
+		if(subjects.size()>0)
+			interfaceTables = subjects.get(0).getInterfaceTables();
+		if(interfaceTables.size()>0)
+			fields = interfaceTables.get(0).getField();
+		model.addAttribute("fields",fields);
+		model.addAttribute("interfaceTables",interfaceTables);
+		model.addAttribute("subjects",subjects);
+		return "data/dataSource";
+	}
+	
+	@RequestMapping(value = "/dataSourceList")
+	@ResponseBody
+	public void dataSourceList(@RequestParam("page") Integer pageNumber,
+				@RequestParam("rows") Integer pageSize,HttpServletResponse response) throws IOException{
+		Pagination pagination = dataSourceService.getAllDataSource(SimplePage.cpn(pageNumber), pageSize);
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("utf-8");
+	    System.out.println(this.toJsonTableData(pagination, null, true));
+	    response.getWriter().write(this.toJsonTableData(pagination, null, true));
+		}
 
 }

@@ -150,7 +150,7 @@ padding-right:10px;
 				<span class="sider-nav-title"><a href="<%=path%>/baseinfo/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>基础信息维护</a></span>				
 			</li>
 			<li> 
-				<span class="sider-nav-title"><a href="javascript:void(0)" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>数据源维护</a></span>				
+				<span class="sider-nav-title"><a href="<%=path%>/dataSource/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>数据源维护</a></span>				
 			</li>
 			<li> 
 				<span class="sider-nav-title"><a href="javascript:void(0)" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>数据维护</a></span>				
