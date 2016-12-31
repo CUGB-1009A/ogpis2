@@ -36,16 +36,11 @@ public class BaseDimensionValue extends BaseEntity{
 		this.priority = priority;
 	}
 
-	public Dimension getDimensionId() {
+	public Dimension getDimension() {
 		return dimension;
 	}
 
-	public void setDimensionId(Dimension dimension) {
+	public void setDimension(Dimension dimension) {
 		this.dimension = dimension;
 	}
-
-
-	
-	
-
 }

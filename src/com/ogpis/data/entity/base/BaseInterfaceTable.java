@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import com.ogpis.base.entity.BaseEntity;
+import com.ogpis.data.entity.DataSource;
 import com.ogpis.data.entity.Field;
 import com.ogpis.data.entity.Subject;
 
@@ -26,14 +27,34 @@ public class BaseInterfaceTable extends BaseEntity {
 	private String description;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="table")
-	protected List<Field> fields ;
+	protected List<Field> field;
+	
+	public List<Field> getField() {
+		return field;
+	}
 
-	public Subject getSubjectId() {
+	public void setField(List<Field> field) {
+		this.field = field;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="table")
+	protected List<DataSource> dataSource;
+
+
+	public Subject getSubject() {
 		return subject;
 	}
 
-	public void setSubjectId(Subject subject) {
+	public void setSubject(Subject subject) {
 		this.subject = subject;
+	}
+
+	public List<DataSource> getDataSource() {
+		return dataSource;
+	}
+
+	public void setDataSource(List<DataSource> dataSource) {
+		this.dataSource = dataSource;
 	}
 
 	public String getName() {
@@ -52,12 +73,5 @@ public class BaseInterfaceTable extends BaseEntity {
 		this.description = description;
 	}
 
-	public List<Field> getFields() {
-		return fields;
-	}
-
-	public void setFields(List<Field> fields) {
-		this.fields = fields;
-	}
 
 }

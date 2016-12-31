@@ -35,7 +35,7 @@ public class BaseDimension extends BaseEntity{
 	protected List<Subject> subject ;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="dimension")
-	protected List<Field> fields ;
+	protected List<Field> field ;
 	
 	public boolean isYear() {
 		return isYear;
@@ -77,14 +77,12 @@ public class BaseDimension extends BaseEntity{
 		this.subject = subject;
 	}
 
-	public List<Field> getFields() {
-		return fields;
+	public List<Field> getField() {
+		return field;
 	}
 
-	public void setFields(List<Field> fields) {
-		this.fields = fields;
+	public void setField(List<Field> field) {
+		this.field = field;
 	}
-	
-	
 
 }

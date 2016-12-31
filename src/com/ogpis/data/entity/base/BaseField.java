@@ -1,11 +1,19 @@
 package com.ogpis.data.entity.base;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import com.ogpis.base.entity.BaseEntity;
+import com.ogpis.data.entity.DataSource;
 import com.ogpis.data.entity.Dimension;
+import com.ogpis.data.entity.Field;
 import com.ogpis.data.entity.InterfaceTable;
 
 @MappedSuperclass
@@ -26,6 +34,10 @@ public class BaseField extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "dimensionId")//维度id
 	private Dimension dimension;
+	
+	@ManyToMany(targetEntity = DataSource.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "ogpis_DataSource_Field",joinColumns = @JoinColumn(name = "Field_ID"), inverseJoinColumns = @JoinColumn(name = "DataSource_ID"))
+	protected List<DataSource> dataSource ;
 
 	public String getKey() {
 		return key;
@@ -59,8 +71,19 @@ public class BaseField extends BaseEntity {
 		this.dimension = dimension;
 	}
 
+	public List<DataSource> getDataSource() {
+		return dataSource;
+	}
 
-	
-	
+	public void setDataSource(List<DataSource> dataSource) {
+		this.dataSource = dataSource;
+	}
 
+	public void setTable(InterfaceTable table) {
+		this.table = table;
+	}
+
+	public void setDimension(Dimension dimension) {
+		this.dimension = dimension;
+	}
 }

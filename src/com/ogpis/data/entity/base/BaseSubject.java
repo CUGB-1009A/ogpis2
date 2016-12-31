@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import com.ogpis.base.entity.BaseEntity;
+import com.ogpis.data.entity.DataSource;
 import com.ogpis.data.entity.Dimension;
 import com.ogpis.data.entity.InterfaceTable;
 
@@ -30,6 +31,17 @@ public class BaseSubject extends BaseEntity{
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="subject")
 	protected List<InterfaceTable> interfaceTables ;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="subject")
+	protected List<DataSource> dataSource;
+
+	public List<DataSource> getDataSource() {
+		return dataSource;
+	}
+
+	public void setDataSource(List<DataSource> dataSource) {
+		this.dataSource = dataSource;
+	}
 
 	public List<InterfaceTable> getInterfaceTables() {
 		return interfaceTables;
