@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-
 import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.data.entity.Dimension;
 
@@ -19,7 +18,7 @@ public class BaseDimensionValue extends BaseEntity{
 	
 	@ManyToOne
 	@JoinColumn(name = "dimensionId")//对应维度id
-	private Dimension dimensionId;
+	private Dimension dimension;
 
 	public String getValue() {
 		return value;
@@ -38,11 +37,11 @@ public class BaseDimensionValue extends BaseEntity{
 	}
 
 	public Dimension getDimensionId() {
-		return dimensionId;
+		return dimension;
 	}
 
-	public void setDimensionId(Dimension dimensionId) {
-		this.dimensionId = dimensionId;
+	public void setDimensionId(Dimension dimension) {
+		this.dimension = dimension;
 	}
 
 

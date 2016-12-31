@@ -28,6 +28,7 @@ public class InterfaceTableAction extends BaseAction{
 		Pagination pagination = interfaceTableService.getAllInterface(SimplePage.cpn(pageNumber), pageSize);
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("utf-8");
+	    System.out.println(this.toJsonTableData(pagination, null, true));
 	    response.getWriter().write(this.toJsonTableData(pagination, null, true));
 		}
 }

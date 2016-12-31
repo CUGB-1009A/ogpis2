@@ -27,14 +27,14 @@ public class BaseDimension extends BaseEntity{
 	@Column(name = "priority")//排序
 	private Integer priority;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="dimensionId")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="dimension")
 	protected List<DimensionValue> dimensionValue ;
 	
 	@ManyToMany(targetEntity = Subject.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "ogpis_Dimension_Subject",joinColumns = @JoinColumn(name = "Dimension_ID"), inverseJoinColumns = @JoinColumn(name = "Subject_ID"))
 	protected List<Subject> subject ;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="dimensionId1")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="dimension")
 	protected List<Field> fields ;
 	
 	public boolean isYear() {

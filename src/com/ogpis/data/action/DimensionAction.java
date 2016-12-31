@@ -49,6 +49,7 @@ public class DimensionAction extends BaseAction{
 		Pagination pagination = dimensionService.getAllDimension(SimplePage.cpn(pageNumber), pageSize);
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("utf-8");
+	    System.out.println(this.toJsonTableData(pagination, null, true));
 	    response.getWriter().write(this.toJsonTableData(pagination, null, true));
 		}
 	
@@ -58,6 +59,9 @@ public class DimensionAction extends BaseAction{
 		String subjectIds = request.getParameter("subjectIds");
 		String priority = request.getParameter("priority");
 		String flag = request.getParameter("flag");
+		String isYear = request.getParameter("isYear"); 
+		System.out.println(isYear);
+		boolean dimensionIsYear = isYear.equals("yes");
 		System.out.println(name+subjectIds+priority);
 		String[] idArray= subjectIds.split(";");
 		String ids = "";
@@ -74,6 +78,7 @@ public class DimensionAction extends BaseAction{
 			String id = request.getParameter("id");
 			dimension = dimensionService.findById(id);
 		}	
+		dimension.setYear(dimensionIsYear);
 		dimension.setName(name);
 		dimension.setSubject(subjects);
 		dimension.setPriority(Integer.parseInt(priority));
@@ -105,7 +110,7 @@ public class DimensionAction extends BaseAction{
 		Dimension dimension = dimensionService.findById(id);
 		List<Subject> subjects = dimension.getSubject();
 		StringBuilder result = new StringBuilder();
-		result.append("{\"name\":\""+dimension.getName()+"\",\"priority\":"+dimension.getPriority()+",\"ids\":[");
+		result.append("{\"name\":\""+dimension.getName()+"\",\"year\":\""+dimension.isYear()+"\",\"priority\":"+dimension.getPriority()+",\"ids\":[");
 		for(Subject temp : subjects){
 			result.append("\""+temp.getId()+"\",");
 		}

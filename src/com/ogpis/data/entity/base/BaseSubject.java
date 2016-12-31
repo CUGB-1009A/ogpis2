@@ -9,15 +9,11 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
-
 import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.data.entity.Dimension;
-import com.ogpis.data.entity.DimensionValue;
 import com.ogpis.data.entity.InterfaceTable;
-import com.ogpis.data.entity.Subject;
 
 @MappedSuperclass
 public class BaseSubject extends BaseEntity{
@@ -32,7 +28,7 @@ public class BaseSubject extends BaseEntity{
 	@JoinTable(name = "ogpis_Dimension_Subject",joinColumns = @JoinColumn(name = "Subject_ID"), inverseJoinColumns = @JoinColumn(name = "Dimension_ID"))
 	protected List<Dimension> dimension ;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="subjectId")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="subject")
 	protected List<InterfaceTable> interfaceTables ;
 
 	public List<InterfaceTable> getInterfaceTables() {
@@ -66,9 +62,4 @@ public class BaseSubject extends BaseEntity{
 	public void setDimension(List<Dimension> dimension) {
 		this.dimension = dimension;
 	}
-	
-	
-	
-	
-
 }

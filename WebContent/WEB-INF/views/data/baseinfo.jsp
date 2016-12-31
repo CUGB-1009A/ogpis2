@@ -8,9 +8,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>基础信息维护</title>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>基础信息维护</title>
 <link rel="stylesheet" type="text/css" href="../js/arcgis/css/Map.css">
 <style type="text/css">
 	td, th {
@@ -19,10 +16,12 @@
 	}
 	</style>
 <script type="text/javascript">
- $(function(){//加载维度信息表
-	var datagrid = $('#dimensionGrid');
+
+ $(function(){
+	 //加载维度信息表
+	var datagridDimension = $('#dimensionGrid');
 	var h = $('body').height() - $('#dimensionListTb').height()-$('#dimensionButtons').height()-80;
-	datagrid.datagrid({
+	datagridDimension.datagrid({
 						border : false,
 						height:h,
 						fitColumns : true,
@@ -39,7 +38,7 @@
 								{
 									field : 'id',
 									title : '<input name="dimensionAll" type="checkbox" value=""/>',
-									width : 10,
+									width : 0,
 									formatter : function(value,row,index) {
 										var option = '<input name="dimension" type="checkbox" value="'+value+'" />';
 										return option;
@@ -47,10 +46,36 @@
 								},
 								{
 									field : 'name',
-									title : '维度名',
+									title : '维度名称',
 									width : 20
 								},
 								{
+									field : 'dimensionValue',
+									title : '维度值',
+									width : 20,
+									formatter : function(value,row,index){
+										var result = "";
+										for(var i=0;i<value.length;i++){
+											result += value[i].value +"；";
+										}
+										result = result.substring(0,result.length-1);
+										return result;
+									}
+								},
+								 {
+									field:'subject',
+									title:'所属主题',
+									width:20,
+									formatter : function(value,row,index){
+										var result = "";
+										for(var i=0;i<value.length;i++){
+											result += value[i].name +"；";
+										}
+										result = result.substring(0,result.length-1);
+										return result;
+									}
+								}, 
+							/* 	{
 									field : 'createTime',
 									title : '创建时间',
 									width : 20,
@@ -60,70 +85,86 @@
 										var date = value.date;
 										return year+"-"+month+"-"+date;
 									}
-								},
+								}, */
 								{
-									field : 'priority',
-									title : '排序',
-									width : 20
+									field : 'year',
+									title : '是否为年份',
+									width : 20,
+									formatter : function(value,row,index){
+										if(value==true)
+											return "是";
+										if(value==false)
+											return "不是";
+									}
 								}] ],
 						onLoadSuccess : function(data) {
-							$('#datagrid').datagrid('fixRowHeight');//为了对齐行号
+							$('#dimensionGrid').datagrid('fixRowHeight');//为了对齐行号
 						}
 					});
-});
- 
- $(function(){//加载接口信息表
-		var datagrid = $('#interfaceGrid');
-		var h = $('body').height() - $('#interfaceListTb').height()-$('#interfaceButtons').height()-80;
-		datagrid.datagrid({
-							border : false,
-							height:h,
-							fitColumns : true,
-							singleSelect : true,
-							rownumbers:true,
-							url : '<%=path%>/dimensionList',
-							pagination:true,
-							rowStyler: function(index,row){
-								if (index==1){
-									return 'selected:true';    // rowStyle是一个已经定义了的ClassName(类名)
-								}
-							},
-							columns : [ [
-									{
-										field : 'id',
-										title : '<input name="interfaceAll" type="checkbox" value=""/>',
-										width : 10,
-										formatter : function(value,row,index) {
-											var option = '<input name="interface" type="checkbox" value="'+value+'" />';
-											return option;
-										}
-									},
-									{
-										field : 'name',
-										title : '维度名',
-										width : 20
-									},
-									{
-										field : 'createTime',
-										title : '创建时间',
-										width : 20,
-										formatter : function(value,row,index) {
-											var year = value.year+1900;
-											var month = value.month+1;
-											var date = value.date;
-											return year+"-"+month+"-"+date;
-										}
-									},
-									{
-										field : 'priority',
-										title : '排序',
-										width : 20
-									}] ],
-							onLoadSuccess : function(data) {
-								$('#datagrid').datagrid('fixRowHeight');//为了对齐行号
+	//加载接口信息表
+	var datagridInterface = $('#interfaceGrid');
+	datagridInterface.datagrid({
+						border : false,
+						height:h,
+						fitColumns : true,
+						singleSelect : true,
+						rownumbers:true,
+						url : '<%=path%>/interfaceList',
+						pagination:true,
+						rowStyler: function(index,row){
+							if (index==1){
+								return 'selected:true';    // rowStyle是一个已经定义了的ClassName(类名)
 							}
-						});
-	});
+						},
+						columns : [ [
+								{
+									field : 'id',
+									title : '<input name="interfaceAll" type="checkbox" value=""/>',
+									width : 0,
+									formatter : function(value,row,index) {
+										var option = '<input name="interface" type="checkbox" value="'+value+'" />';
+										return option;
+									}
+								},
+								{
+									field : 'name',
+									title : '接口名称',
+									width : 20
+								},
+								{
+									field : 'description',
+									title : '接口描述',
+									width : 20
+								},
+								{
+									field : 'fields',
+									title : '维度信息',
+									width : 20,
+									formatter : function(value,row,index){
+										console.log(value)
+										var result = "";
+										for(var i=0;i<value.length;i++){
+											result += value[i].value +"；";
+										}
+										result = result.substring(0,result.length-1);
+										return result;
+									}
+								},
+								{
+									field:'subjectId',
+									title:'所属主题',
+									width:20,
+									formatter : function(value,row,index){
+										return value.name;
+									}
+								}] ],
+						onLoadSuccess : function(data) {
+							$('#interfaceGrid').datagrid('fixRowHeight');//为了对齐行号
+						}
+					});
+	
+});
+
 </script>
 </head>
 <body>
@@ -140,7 +181,7 @@
 			</div> 
 	        <div style="text-align:center;padding:0px 5px 10px 5px">
 				<table id="dimensionGrid" class="easyui-datagrid .datagrid-btable"></table> 
-				<div id="dimensionAddDiv" style="width:600px; height: 300px; display: none"><!-- 添加维度div -->
+				<div id="dimensionAddDiv" style="width:600px; height: 400px; display: none"><!-- 添加维度div -->
 					<div>
 						<div style="padding: 15px 0 0 15px; ">
 							<label class="dialog-lable">维度名:</label> 
@@ -154,6 +195,11 @@
 								</c:forEach>
 							</select>
 						</div>
+						<div style="padding: 15px 0 0 15px;">
+							<label class="dialog-lable">是否是年份:</label> 
+							<label><input id="notyear" type="radio" name="year" value="no" checked/>不是</label> 
+							<label><input id="isyear" type="radio" name="year" value="yes"/>是</label> 
+						</div>
 						<div style="padding: 15px 0 0 15px; ">
 							<label class="dialog-lable">排序（数字）:</label> 
 							<input id="dimensionPriority" class="dialog-input easyui-numberbox" type="text"/>
@@ -162,7 +208,7 @@
 				</div>
 			</div> 
 			<div id="dimensionButtons"style="text-align:center">
-				<a id="dimensionAdd" href="javascript:addDimension()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">新建</a>  
+				<a id="dimensionAdd" href="javascript:addDimension()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>  
 				<a id="dimensionEdit" href="javascript:editDimension()" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a> 
 				<a id="dimensionValueView" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">查看</a>   
 				<a id="dimensionDelete" href="javascript:deleteDimension()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>  
@@ -180,7 +226,7 @@
 			</div> 
 	        <div style="text-align:center;padding:0px 5px 10px 5px">
 				<table id="interfaceGrid" class="easyui-datagrid .datagrid-btable"></table> 
-				<div id="interfaceAddDiv" style="width:600px; height: 300px; display: none"><!-- 添加维度div -->
+				<div id="interfaceAddDiv" style="width:600px; height: 400px; display: none"><!-- 添加维度div -->
 					<div>
 						<div style="padding: 15px 0 0 15px; ">
 							<label class="dialog-lable">接口名称:</label> 
@@ -202,7 +248,7 @@
 				</div>
 			</div> 
 			<div id="interfaceButtons"style="text-align:center">
-				<a id="interfaceAdd" href="javascript:addinterface()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">新建</a>  
+				<a id="interfaceAdd" href="javascript:addinterface()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>  
 				<a id="interfaceEdit" href="javascript:editinterface()" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a> 
 				<a id="interfaceValueView" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">查看</a>   
 				<a id="interfaceDelete" href="javascript:deleteinterface()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>  
@@ -240,6 +286,9 @@
 					},
 				type:"GET",
 				success:function(result){
+					if(result.year){
+						document.getElementById("isyear").checked = true;
+					}
 					$("#dimensionName").val(result.name);
 					$('#dimensionPriority').numberbox('setValue', result.priority);
 					$("#dimension_subjectId option").each(function(){
@@ -267,10 +316,11 @@
 					var subjectIds = "";
 					var name = $("#dimensionName").val();
 					var priority = $("#dimensionPriority").val();
+					var isYear = $("input[name='year']:checked").val();
 					$("#dimension_subjectId option:selected").each(function(){
 						subjectIds += $(this).val()+";";
 					});
-					if(name==""||priority=="")
+					if(name==""||priority==""||subjectIds=="")
 						{
 						alert("信息填写不完整");
 						return false;
@@ -285,7 +335,8 @@
 								"priority":priority,
 								"subjectIds":subjectIds,
 								"flag":"update",
-								"id":id
+								"id":id,
+								"isYear":isYear
 								},
 							type:"GET",
 							success:function(result){
@@ -333,9 +384,9 @@
 		}		
 	}
 	
-	function addDimension(){ //新建维度信息
+	function addDimension(){ //添加维度信息
 		$('#dimensionAddDiv').dialog({
-			title : '新建维度信息',
+			title : '添加维度信息',
 			closed : false,
 			cache : false,
 			modal : true,
@@ -347,6 +398,7 @@
 					var subjectIds = "";
 					var name = $("#dimensionName").val();
 					var priority = $("#dimensionPriority").val();
+					var isYear = $("input[name='year']:checked").val();
 					$("#dimension_subjectId option:selected").each(function(){
 						subjectIds += $(this).val()+";";
 					});
@@ -364,14 +416,15 @@
 								"name":encodeURIComponent(name),
 								"priority":priority,
 								"subjectIds":subjectIds,
-								"flag":"new"
+								"flag":"new",
+								"isYear":isYear
 								},
 							type:"GET",
 							success:function(result){
 								$('#dimensionGrid').datagrid('reload');    
 							},
 							error:function(){
-								alert("新建失败");
+								alert("添加失败");
 							}
 						});
 				}
@@ -382,7 +435,8 @@
 		});
 	}
 	
-	function addClose(e){//关闭新建维度信息对话框，清空所填信息
+	function addClose(e){//关闭添加、修改维度信息对话框，清空所填信息
+		document.getElementById("notyear").checked = true;s
 		$("#dimensionName").val("");
 		$('#dimensionPriority').numberbox('setValue', '');
 		$("#dimension_subjectId").val("");

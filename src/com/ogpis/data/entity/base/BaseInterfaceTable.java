@@ -1,7 +1,6 @@
 package com.ogpis.data.entity.base;
 
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -9,7 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
-
 import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.data.entity.Field;
 import com.ogpis.data.entity.Subject;
@@ -19,7 +17,7 @@ public class BaseInterfaceTable extends BaseEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "subjectId")//主题id
-	private Subject subjectId;
+	private Subject subject;
 	
 	@Column(name = "name")//接口名称
 	private String name;
@@ -27,15 +25,15 @@ public class BaseInterfaceTable extends BaseEntity {
 	@Column(name = "description")//接口描述
 	private String description;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="tableId")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="table")
 	protected List<Field> fields ;
 
 	public Subject getSubjectId() {
-		return subjectId;
+		return subject;
 	}
 
-	public void setSubjectId(Subject subjectId) {
-		this.subjectId = subjectId;
+	public void setSubjectId(Subject subject) {
+		this.subject = subject;
 	}
 
 	public String getName() {
