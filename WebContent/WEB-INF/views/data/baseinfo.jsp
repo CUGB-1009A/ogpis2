@@ -141,7 +141,6 @@
 									title : '维度信息',
 									width : 20,
 									formatter : function(value,row,index){
-										console.log(value)
 										var result = "";
 										for(var i=0;i<value.length;i++){
 											result += value[i].value +"；";
