@@ -21,6 +21,7 @@ import com.ogpis.data.entity.InterfaceTable;
 import com.ogpis.data.entity.Subject;
 import com.ogpis.data.service.DataSourceService;
 import com.ogpis.data.service.SubjectService;
+import com.ogpis.forecast.HistoryData;
 
 @Controller
 public class DataSourceAction extends BaseAction{
@@ -43,6 +44,13 @@ public class DataSourceAction extends BaseAction{
 		model.addAttribute("interfaceTables",interfaceTables);
 		model.addAttribute("subjects",subjects);
 		return "data/dataSource";
+	}
+	
+	@RequestMapping(value = "/data/dataMaintain")
+	public String dataMaintain(HttpServletRequest request, ModelMap model) {
+		String historyData = HistoryData.historyData;
+		model.addAttribute("historyData",historyData);
+		return "data/dataMaintain";
 	}
 	
 	@RequestMapping(value = "/dataSourceList")

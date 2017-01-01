@@ -20,8 +20,10 @@ import com.ogpis.base.action.BaseAction;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.base.common.page.SimplePage;
 import com.ogpis.data.entity.Dimension;
+import com.ogpis.data.entity.DimensionValue;
 import com.ogpis.data.entity.Subject;
 import com.ogpis.data.service.DimensionService;
+import com.ogpis.data.service.DimensionValueService;
 import com.ogpis.data.service.SubjectService;
 
 @Controller
@@ -29,6 +31,8 @@ public class DimensionAction extends BaseAction{
 	
 	@Autowired
 	private DimensionService dimensionService;
+	@Autowired
+	private DimensionValueService dimensionValueService;
 	@Autowired
 	private SubjectService subjectService;
 	
@@ -59,11 +63,13 @@ public class DimensionAction extends BaseAction{
 		String subjectIds = request.getParameter("subjectIds");
 		String priority = request.getParameter("priority");
 		String flag = request.getParameter("flag");
-		String isYear = request.getParameter("isYear"); 
+		String isYear = request.getParameter("isYear");
+		String dimensionValues = URLDecoder.decode(request.getParameter("dimensionValues"), "UTF-8");
 		System.out.println(isYear);
 		boolean dimensionIsYear = isYear.equals("yes");
 		System.out.println(name+subjectIds+priority);
 		String[] idArray= subjectIds.split(";");
+		String[] dimensionValueArray = dimensionValues.split(";");
 		String ids = "";
 		for(String temp : idArray){
 			ids = ids + "\'" + temp + "\',";
@@ -83,6 +89,19 @@ public class DimensionAction extends BaseAction{
 		dimension.setSubject(subjects);
 		dimension.setPriority(Integer.parseInt(priority));
 		dimensionService.save(dimension);
+		Integer count = 0;
+		if(dimension.getDimensionValue()!=null){
+			List<DimensionValue> dimensionValuesOld = dimension.getDimensionValue();
+			dimensionValueService.delete(dimensionValuesOld);
+		}
+			for(String temp1 : dimensionValueArray){
+				DimensionValue dimensionValue = new DimensionValue();
+				dimensionValue.setValue(temp1);
+				dimensionValue.setDimension(dimension);
+				dimensionValue.setPriority(count);
+				dimensionValueService.save(dimensionValue);
+				count++;
+			}	
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("utf-8");
 	    response.getWriter().write("{\"result\":\"success\"}");
@@ -109,8 +128,14 @@ public class DimensionAction extends BaseAction{
 		String id = request.getParameter("id");
 		Dimension dimension = dimensionService.findById(id);
 		List<Subject> subjects = dimension.getSubject();
+		List<DimensionValue> dimensionValues = dimension.getDimensionValue();
+		String dimensionValueString = "";
+		for(DimensionValue temp : dimensionValues){
+			dimensionValueString += temp.getValue()+";";
+		}
+		dimensionValueString = dimensionValueString.substring(0,dimensionValueString.length()-1);
 		StringBuilder result = new StringBuilder();
-		result.append("{\"name\":\""+dimension.getName()+"\",\"year\":\""+dimension.isYear()+"\",\"priority\":"+dimension.getPriority()+",\"ids\":[");
+		result.append("{\"dimensionValues\":\""+dimensionValueString+"\",\"name\":\""+dimension.getName()+"\",\"year\":\""+dimension.isYear()+"\",\"priority\":"+dimension.getPriority()+",\"ids\":[");
 		for(Subject temp : subjects){
 			result.append("\""+temp.getId()+"\",");
 		}

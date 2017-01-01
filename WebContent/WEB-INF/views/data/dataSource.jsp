@@ -16,7 +16,6 @@
 	}
 	</style>
 <script type="text/javascript">
-
  $(function(){
 	 //加载维度信息表
 	var datagridDataSource = $('#dataSourceGrid');

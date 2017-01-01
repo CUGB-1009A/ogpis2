@@ -207,13 +207,16 @@
 							<label class="dialog-lable">排序（数字）:</label> 
 							<input id="dimensionPriority" class="dialog-input easyui-numberbox" type="text"/>
 						</div>
+						<div style="padding: 15px 0 0 15px; ">
+							<label class="dialog-lable">维度值（分隔符；）:</label> 
+							<input id="dimensionValue" class="dialog-input" type="text"/>
+						</div>
 					</div>
 				</div>
 			</div> 
 			<div id="dimensionButtons"style="text-align:center">
 				<a id="dimensionAdd" href="javascript:addDimension()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>  
-				<a id="dimensionEdit" href="javascript:editDimension()" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a> 
-				<a id="dimensionValueView" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">查看</a>   
+				<a id="dimensionEdit" href="javascript:editDimension()" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a>   
 				<a id="dimensionDelete" href="javascript:deleteDimension()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>  
 			</div> 
 	    </div>   
@@ -289,9 +292,10 @@
 					},
 				type:"GET",
 				success:function(result){
-					if(result.year){
+					if(result.year=="true"){
 						document.getElementById("isyear").checked = true;
 					}
+					$("#dimensionValue").val(result.dimensionValues);
 					$("#dimensionName").val(result.name);
 					$('#dimensionPriority').numberbox('setValue', result.priority);
 					$("#dimension_subjectId option").each(function(){
@@ -317,6 +321,7 @@
 				handler:function(e)
 				{
 					var subjectIds = "";
+					var dimensionValues = $("#dimensionValue").val();
 					var name = $("#dimensionName").val();
 					var priority = $("#dimensionPriority").val();
 					var isYear = $("input[name='year']:checked").val();
@@ -339,6 +344,7 @@
 								"subjectIds":subjectIds,
 								"flag":"update",
 								"id":id,
+								"dimensionValues":encodeURIComponent(dimensionValues),
 								"isYear":isYear
 								},
 							type:"GET",
@@ -399,13 +405,14 @@
 				handler:function(e)
 				{
 					var subjectIds = "";
+					var dimensionValues = $("#dimensionValue").val();
 					var name = $("#dimensionName").val();
 					var priority = $("#dimensionPriority").val();
 					var isYear = $("input[name='year']:checked").val();
 					$("#dimension_subjectId option:selected").each(function(){
 						subjectIds += $(this).val()+";";
 					});
-					if(subjectIds==""||name==""||priority=="")
+					if(subjectIds==""||name==""||priority==""||dimensionValues=="")
 						{
 						alert("信息填写不完整");
 						return false;
@@ -420,6 +427,7 @@
 								"priority":priority,
 								"subjectIds":subjectIds,
 								"flag":"new",
+								"dimensionValues":encodeURIComponent(dimensionValues),
 								"isYear":isYear
 								},
 							type:"GET",
@@ -443,6 +451,7 @@
 		$("#dimensionName").val("");
 		$('#dimensionPriority').numberbox('setValue', '');
 		$("#dimension_subjectId").val("");
+		$("#dimensionValue").val("");
 		$('#dimensionAddDiv').dialog({
 			closed : true,
 		});
