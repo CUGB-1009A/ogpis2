@@ -1,18 +1,13 @@
 package com.ogpis.system.entity.base;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
 import com.ogpis.base.entity.BaseEntity;
-import com.ogpis.forecast.entity.DataCollection;
 import com.ogpis.system.entity.Role;
 import com.ogpis.system.entity.User;
 
@@ -34,13 +29,7 @@ public abstract class UserEntity extends BaseEntity {
 
 	@ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
 	@JoinTable(name = "ogpis_user_role", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
-	protected Set<Role> roles = new HashSet<Role>();
-	
-	@OneToMany(targetEntity = DataCollection.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "ogpis_User_DataCollection",joinColumns = @JoinColumn(name = "User_ID"),inverseJoinColumns = @JoinColumn(name = "DataCollection_ID"))
-	protected List<DataCollection> dataCollections  ;
-	
-	
+	protected Set<Role> roles = new HashSet<Role>();	
 	
 	public String getLoginId() {
 		return loginId;
@@ -110,14 +99,4 @@ public abstract class UserEntity extends BaseEntity {
 		}
 		return this.hashCode;
 	}
-
-	public List<DataCollection> getDataCollections() {
-		return dataCollections;
-	}
-
-	public void setDataCollections(List<DataCollection> dataCollections) {
-		this.dataCollections = dataCollections;
-	}
-
-
 }

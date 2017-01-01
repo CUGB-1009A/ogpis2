@@ -28,38 +28,29 @@ import com.ogpis.base.common.page.Pagination;
 import com.ogpis.base.common.page.SimplePage;
 import com.ogpis.forecast.ForecastData;
 import com.ogpis.forecast.HistoryData;
-import com.ogpis.forecast.entity.DataCollection;
 import com.ogpis.forecast.entity.ForecastRecord;
 import com.ogpis.forecast.entity.ForecastType;
 import com.ogpis.forecast.entity.ModelInfo;
 import com.ogpis.forecast.entity.PeriodDefinition;
-import com.ogpis.forecast.entity.SelfData;
 import com.ogpis.forecast.parameter.InputParameter;
 import com.ogpis.forecast.parameter.OutputParameter;
-import com.ogpis.forecast.service.DataCollectionService;
 import com.ogpis.forecast.service.ForecastRecordService;
 import com.ogpis.forecast.service.ForecastTypeService;
 import com.ogpis.forecast.service.ModelInfoService;
 import com.ogpis.forecast.service.PeriodDefinitionService;
-import com.ogpis.forecast.service.SelfDataService;
 import com.ogpis.forecast.util.FileOperate;
 import com.ogpis.forecast.util.ForecastUtil;
-import com.ogpis.system.entity.User;
 import com.ogpis.system.service.UserService;
 
 @Controller
 public class ForecastAction extends BaseAction{
 	
 	@Autowired 
-	private DataCollectionService dataCollectionService;
-	@Autowired 
 	private ForecastRecordService forecastRecordService;
 	@Autowired 
 	private ModelInfoService modelInfoService;
 	@Autowired 
 	private UserService userService;
-	@Autowired 
-	private SelfDataService selfDataService;
 	@Autowired 
 	private ForecastTypeService forecastTypeService;
 	@Autowired 
@@ -80,7 +71,7 @@ public class ForecastAction extends BaseAction{
 	public String list(HttpServletRequest request, ModelMap model) {
 		List<ForecastType> forecastType = forecastTypeService.findAll();
 		model.addAttribute("forecastType",forecastType);
-		return "forecast/list";
+		return "forecast/fake/list";
 	}
 	
 	@RequestMapping(value = "/forecast/finishedList")
@@ -93,7 +84,7 @@ public class ForecastAction extends BaseAction{
 	public String toCreatePredictionPage(HttpServletRequest request, ModelMap model) {
 		String recordId = request.getParameter("recordId");
 		ForecastRecord forecastRecord = forecastRecordService.findById(recordId);
-		List<DataCollection> dataCollectionList = dataCollectionService.findAll();
+
 		String projectUrl = request.getServletContext().getRealPath("/");
 		String tomcatUrl = projectUrl.substring(0, projectUrl.indexOf("webapps"));
 		String xmlUrl = tomcatUrl+"file\\forecastRecordXML\\" + forecastRecord.getXmlUrl();
@@ -118,7 +109,6 @@ public class ForecastAction extends BaseAction{
 		model.addAttribute("pemList",pemList);
 		model.addAttribute("forecastData", forecastData);
 		model.addAttribute("historyData", historyData);
-		model.addAttribute("dataCollectionList",dataCollectionList);
 		model.addAttribute("tempModel",tempModel);
 		model.addAttribute("step", step);
 		System.out.println(step);
@@ -130,24 +120,7 @@ public class ForecastAction extends BaseAction{
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/forecast/toPredictionPage")
 	public String toPredictionPage(HttpServletRequest request, ModelMap model) {
-		String historyData = HistoryData.historyData;
-		List<DataCollection> originDataCollections = dataCollectionService.findOriginData();
-		String dataCollectionId = originDataCollections.get(0).getId();
-		String userId = "1";
-		User user = userService.findById(userId);
-		List<DataCollection> selfDataCollections = dataCollectionService.findMyData(userId);
-		List<DataCollection> otherssharedDataCollections = dataCollectionService.findOthersSharedData(userId);
-		List<ModelInfo> modelInfoList = modelInfoService.findAll();
-		ModelInfo tempModel = modelInfoList.get(0);
-		LinkedHashMap pemList = ForecastUtil.getPEM(tempModel.getJarName(),tempModel.getClassName());
-		model.addAttribute("originDataCollections",originDataCollections);
-		model.addAttribute("selfDataCollections",selfDataCollections);
-		model.addAttribute("otherssharedDataCollections",otherssharedDataCollections);
-		model.addAttribute("historyData",historyData);
-		model.addAttribute("tempModel",tempModel);
-		model.addAttribute("modelInfoList",modelInfoList);
-		model.addAttribute("pemList",pemList);
-		model.addAttribute("dataCollectionId",dataCollectionId);
+		
 		return "forecast/forecast";
 	}	
 		
@@ -173,42 +146,6 @@ public class ForecastAction extends BaseAction{
 		    response.setCharacterEncoding("utf-8");
 			try {
 				response.getWriter().write(result.toString());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		@RequestMapping(value = "/forecast/saveSelfDataCollection")
-		public void saveSelfDataCollection(HttpServletRequest request, ModelMap model,HttpServletResponse response) throws UnsupportedEncodingException {
-			String dataCollectionName = URLDecoder.decode(request.getParameter("dataCollectionName"), "UTF-8");
-			String dataCollectionId = request.getParameter("dataCollectionId");
-			DataCollection temp = dataCollectionService.findById(dataCollectionId);
-			String fatherId;
-			if(temp.isOrigin())//从原始数据上加工
-				fatherId = dataCollectionId;
-			else//从二手数据上再加工
-				fatherId = temp.getFatherId();
-			String[] year = request.getParameter("year").split(",");
-			String[] value = request.getParameter("value").split(",");
-			DataCollection dataCollection = new DataCollection();
-			List<SelfData> selfDataList = new ArrayList<SelfData>();
-			User user = userService.findById("1");
-			dataCollection.setDataCollectionName(dataCollectionName);
-			dataCollection.setFatherId(fatherId);
-			dataCollection.setUser(user);
-			dataCollection = dataCollectionService.save(dataCollection);
-			for(int i=0;i<year.length;i++){
-				SelfData tempSelfData = new SelfData();
-				tempSelfData.setYear(Integer.parseInt(year[i]));
-				tempSelfData.setData(Double.parseDouble(value[i]));
-				tempSelfData.setDataCollection(dataCollection);
-				selfDataList.add(tempSelfData);			
-			}
-			selfDataService.save(selfDataList);
-			response.setContentType("application/json");
-		    response.setCharacterEncoding("utf-8");
-			try {
-				response.getWriter().write("{\"id\":\""+dataCollection.getId()+"\"}");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

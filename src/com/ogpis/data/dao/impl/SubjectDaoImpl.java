@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.ogpis.base.common.hibernate3.HibernateBaseDao;
 import com.ogpis.data.dao.SubjectDao;
 import com.ogpis.data.entity.Subject;
-import com.ogpis.forecast.entity.DataCollection;
 
 @Repository
 public class SubjectDaoImpl extends HibernateBaseDao<Subject, String> implements SubjectDao{

@@ -6,7 +6,6 @@ import com.ogpis.base.common.hibernate3.Finder;
 import com.ogpis.base.common.hibernate3.HibernateBaseDao;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.forecast.dao.ForecastRecordDao;
-import com.ogpis.forecast.entity.DataCollection;
 import com.ogpis.forecast.entity.ForecastRecord;
 
 @Repository

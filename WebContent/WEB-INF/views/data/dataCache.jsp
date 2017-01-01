@@ -250,6 +250,10 @@ function showCacheData(){
 	});
 }
 
+$(function(){
+	$.parser.parse();
+})
+
 function close(e){//关闭添加、修改维度信息对话框，清空所填信息
 	$('#test ').dialog({
 		closed : true,
