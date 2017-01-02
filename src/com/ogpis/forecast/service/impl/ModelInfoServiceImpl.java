@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ogpis.base.common.page.Pagination;
 import com.ogpis.forecast.dao.ModelInfoDao;
 import com.ogpis.forecast.entity.ModelInfo;
 import com.ogpis.forecast.service.ModelInfoService;
@@ -25,6 +26,11 @@ public class ModelInfoServiceImpl implements ModelInfoService{
 	@Override
 	public List<ModelInfo> findAll() {
 		return modelInfoDao.findAll();
+	}
+
+	@Override
+	public Pagination getAllModel(int cpn, Integer pageSize) {
+		return modelInfoDao.getAllModel(cpn,pageSize);
 	}
 
 }

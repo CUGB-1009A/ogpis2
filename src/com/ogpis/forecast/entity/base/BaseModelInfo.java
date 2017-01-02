@@ -29,6 +29,9 @@ public class BaseModelInfo extends BaseEntity{
 	@Column(name = "模型描述",columnDefinition="Text")
 	private String modelDescription;
 	
+	@Column(name = "拟合方法")
+	private String pem;
+	
 	@ManyToMany(targetEntity = ForecastType.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "ogpis_ForecastType_ModelInfo",joinColumns = @JoinColumn(name = "ModelInfo_ID"), inverseJoinColumns = @JoinColumn(name = "ForecastType_ID"))
 	protected List<ForecastType> forecastType ;
@@ -63,6 +66,14 @@ public class BaseModelInfo extends BaseEntity{
 
 	public void setModelDescription(String modelDescription) {
 		this.modelDescription = modelDescription;
+	}
+
+	public String getPem() {
+		return pem;
+	}
+
+	public void setPem(String pem) {
+		this.pem = pem;
 	}
 
 	public List<ForecastType> getForecastType() {
