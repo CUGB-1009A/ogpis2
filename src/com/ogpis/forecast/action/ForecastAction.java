@@ -80,8 +80,10 @@ public class ForecastAction extends BaseAction{
 	}
 	
 	@RequestMapping(value = "/forecast/finishedList")
-	public String finishedList(HttpServletRequest request, ModelMap model) {		
-		return "forecast/finishedList";
+	public String finishedList(HttpServletRequest request, ModelMap model) {
+		List<ForecastType> forecastType = forecastTypeService.findAll();
+		model.addAttribute("forecastType",forecastType);
+		return "forecast/fake/finishedList";
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -119,15 +121,6 @@ public class ForecastAction extends BaseAction{
 		System.out.println(step);
 		return "forecast/createPrediction";
 	}
-	
-	
-	//到产量预测界面---old
-	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/forecast/toPredictionPage")
-	public String toPredictionPage(HttpServletRequest request, ModelMap model) {
-		
-		return "forecast/forecast";
-	}	
 		
 		//模型变了，对应模型的参数拟合方法得变
 		@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -178,6 +171,7 @@ public class ForecastAction extends BaseAction{
 					SimplePage.cpn(pageNumber), pageSize);
 			response.setContentType("application/json");
 		    response.setCharacterEncoding("utf-8");
+		    System.out.println(this.toJsonTableData(pagination, null, true));
 		    response.getWriter().write(this.toJsonTableData(pagination, null, true));
 		
 		}
@@ -207,7 +201,7 @@ public class ForecastAction extends BaseAction{
 			forecastRecord.setXmlUrl(prefix + name + ".xml");
 			forecastRecord.setForecastName(name);
 			forecastRecord.setForecastStep("预测新建完成");
-			forecastRecord.setUserId("1");
+			forecastRecord.setUser(userService.findById("1"));
 			forecastRecordService.save(forecastRecord);
 			response.setContentType("application/json");
 		    response.setCharacterEncoding("utf-8");

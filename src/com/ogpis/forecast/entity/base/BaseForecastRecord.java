@@ -8,6 +8,7 @@ import javax.persistence.MappedSuperclass;
 import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.forecast.entity.ForecastType;
 import com.ogpis.plan.entity.Plan;
+import com.ogpis.system.entity.User;
 
 @MappedSuperclass
 public class BaseForecastRecord extends BaseEntity {
@@ -21,8 +22,9 @@ public class BaseForecastRecord extends BaseEntity {
 	@Column(name = "共享状态")
 	private boolean shared;
 	
-	@Column(name = "用户id")
-	private String userId;
+	@ManyToOne
+	@JoinColumn(name = "用户id")
+	private User user;
 	
 	@Column(name = "成果路径")
 	private String xmlUrl;
@@ -58,12 +60,12 @@ public class BaseForecastRecord extends BaseEntity {
 		this.shared = shared;
 	}
 
-	public String getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getXmlUrl() {

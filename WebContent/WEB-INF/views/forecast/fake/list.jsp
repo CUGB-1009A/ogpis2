@@ -594,26 +594,26 @@ function s4_predict2(){
 
 
 
-	<div class="easyui-panel" title="未完成预测" style="width:100%;height:100%;padding:10px;background:#fafafa;"data-options="closable:false,collapsible:false,minimizable:false,maximizable:false">  
-		<div id="listTb" style="padding-bottom:0px">
-			目标主题：<select id="dataSourceSubject">
-				<c:forEach items="${forecastType}" var="item">
-					<option value="${item.id}">${item.type}</option>
-				</c:forEach>
-			</select>
-			<input class="easyui-validatebox" type="text" name="name"/>   
-			<a id="btn" href="javascript:void(0)" class="easyui-linkbutton" ><i class="fa fa-search" style="margin-right:3px"></i>查  询</a> 
-		</div>
-		<!-- 列表区域 -->
-		<div id="list" style="text-align:center;padding:0px 5px 10px 5px">
-			<table id="datagrid" class="easyui-datagrid .datagrid-btable">
-			</table>
-		</div>
-		<div style="text-align:center;padding-top:10px">
-			<a id="btn" href="javascript:createRecord()" class="easyui-linkbutton" ><i class="fa fa-plus" style="margin-right:3px"></i>新建</a> 
-			<a id="btn" href="javascript:openRecord()" class="easyui-linkbutton" ><i class="fa fa-file-excel-o" style="margin-right:3px"></i>打开</a>
-			<a id="btn" href="javascript:deleteRecord()" class="easyui-linkbutton" ><i class="fa fa-minus" style="margin-right:3px"></i>删除</a>
-		</div> 
+<div class="easyui-panel" title="未完成预测" style="width:100%;height:100%;padding:10px;background:#fafafa;"data-options="closable:false,collapsible:false,minimizable:false,maximizable:false">  
+	<div id="listTb" style="padding-bottom:0px">
+		目标主题：<select id="forecastType">
+			<c:forEach items="${forecastType}" var="item">
+				<option value="${item.id}">${item.type}</option>
+			</c:forEach>
+		</select>
+		<input class="easyui-validatebox" type="text" name="name"/>   
+		<a id="btn" href="javascript:void(0)" class="easyui-linkbutton" ><i class="fa fa-search" style="margin-right:3px"></i>查  询</a> 
 	</div>
+	<!-- 列表区域 -->
+	<div id="list" style="text-align:center;padding:0px 5px 10px 5px">
+		<table id="datagrid" class="easyui-datagrid .datagrid-btable">
+		</table>
+	</div>
+	<div style="text-align:center;padding-top:10px">
+		<a id="btn" href="javascript:createRecord()" class="easyui-linkbutton" ><i class="fa fa-plus" style="margin-right:3px"></i>新建</a> 
+		<a id="btn" href="javascript:openRecord()" class="easyui-linkbutton" ><i class="fa fa-file-excel-o" style="margin-right:3px"></i>打开</a>
+		<a id="btn" href="javascript:deleteRecord()" class="easyui-linkbutton" ><i class="fa fa-minus" style="margin-right:3px"></i>删除</a>
+	</div> 
+</div>
 </body>
 </html>
