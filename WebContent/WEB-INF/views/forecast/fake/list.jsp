@@ -86,7 +86,24 @@ $(function() {
 							$('#datagrid').datagrid('fixRowHeight');//为了对齐行号
 						}
 					});
+	$(":radio[name='forecastTime']").click(function(){//时间选择方式有两种：一种是长中短期、一种是自定义时间段
+		if($(this).val()=='4'){
+			$('#s4_beginYear').attr('disabled',false);
+			$('#s4_endYear').attr('disabled',false);
+		}
+		else{
+			$('#s4_beginYear').attr('disabled',true);
+			$('#s4_endYear').attr('disabled',true);
+		}
+	});
 });
+
+function inputPEM(){//判断自定义拟合参数是否选中
+	if($('#inputPEM').is(':checked'))
+		document.getElementById("pemParams").style.display="";
+	else
+		document.getElementById("pemParams").style.display="none";
+}
 
 function deleteRow(index,id){//index为第几行，id为预测成果记录的id
 	if(confirm("确定删除？")){
@@ -216,6 +233,30 @@ function s3_cancel(){
 	});
 }
 
+function s4_previous(){
+	$('#s4_forecast').dialog({
+		closed:true
+	});
+	$('#s3_modelInfo').dialog({
+		closed:false
+	});
+}
+function s4_saveExit(){
+	$('#s4_forecast').dialog({
+		closed:true
+	});
+}
+function s4_finish(){
+	$('#s4_forecast').dialog({
+		closed:true
+	});
+}
+function s4_cancel(){
+	$('#s4_forecast').dialog({
+		closed:true
+	});
+}
+
 var option = {
 		 title: { 
 					 text: '石油新增探明地质储量',
@@ -251,10 +292,59 @@ var option = {
 			          }
 		          ]
 		}
+		
+var option1 = {
+		 title: { 
+					 text: '石油储量',
+					 left:'center'
+				 },
+		 tooltip: {
+			 		 trigger: 'axis'
+		 },
+		  legend: {
+		        data:['历史数据','预测数据'],
+		        right:'right'
+		    },
+		 xAxis : [
+			        {
+			            type : 'category',
+			            boundaryGap : false,
+			            name:"年份",
+			            data : [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025]
+			        }
+			    ],
+			    yAxis : [
+					        {
+					            type : 'value',
+					            name:'万吨'
+					        }
+					    ],
+		 series: [
+			          {
+					     type: 'line',
+					     name:'历史数据',
+					     data: [12,20,31,44,62,79]
+			          },
+			          {
+			        	  type: 'line',
+   					  name:'预测数据',
+   					  data: [10,18,30,45,66,79.5,100,118,150,240,380,550,570,580,648,880] 
+			          }
+		          ]
+		}
 
 function s2s_previewData(){
 	var myChart = echarts.init(document.getElementById("test1"));
 	myChart.setOption(option);
+}
+
+function s4_predict1(){
+	var myChart = echarts.init(document.getElementById("test4"));
+	myChart.setOption(option1);
+}
+function s4_predict2(){
+	var myChart = echarts.init(document.getElementById("test4"));
+	myChart.setOption(option1);
 }
 </script>
 </head>
@@ -392,7 +482,7 @@ function s2s_previewData(){
 		</div>
 		<div style="width:40%;height:100%;float:left">
 			<div style="padding: 5px;">
-				模型名称：
+				模型选择：
 				    <select id="s3_modelName">
 						<option value="1">翁氏旋回模型</option>
 						<option value="2">冈伯茨模型</option>
@@ -431,27 +521,27 @@ function s2s_previewData(){
         data-options="resizable:true,modal:true">   
 	<div style="width:100%;height:90%">
 		<div style="width:40%;height:100%;float:left">
-			<div style="padding: 10px;">
+			<div style="padding: 5px;">
 				<span>预测名称:</span> 
 				<span id="s4_forecastName"></span>
 			</div>
-			<div style="padding: 10px;">
+			<div style="padding: 5px;">
 				<span>预测目标:</span> 
 				<span id="s4_forecastType"></span>
 			</div>
-			<div style="padding: 10px;">
+			<div style="padding: 5px;">
 				<span>数据源:</span> 
 				<span id="s4_data"></span>
 		   	</div>
-		   	<div style="padding: 10px;">
+		   	<div style="padding: 5px;">
 				<span>模型名称:</span> 
 				<span id="s4_modelName"></span>
 		   	</div>
-		   	<div style="padding: 10px;">
+		   	<div style="padding: 5px;">
 				<span>拟合方法:</span> 
 				<span id="s4_pemName"></span>
 		   	</div>
-		   	<div>
+		   	<div style="padding: 5px;">
 		   		预测时间范围选择：<br/><br/> 
 			   		<label><input name="forecastTime" type="radio" value="1" checked/>短期(5年) </label> 
 					<label><input name="forecastTime" type="radio" value="2" />中期(10年) </label> 
@@ -474,6 +564,19 @@ function s2s_previewData(){
 							<option value="2014">2014</option>
 							<option value="2015">2015</option>
 						</select>
+						<button onclick="s4_predict1()">预测</button>
+		   	</div>
+		   	<div style="padding: 5px;">
+		   		<input type="checkbox" id="inputPEM" onclick="inputPEM()">自定义拟合参数：
+		   		<div style="display:none;text-align:center" id="pemParams">
+		   			a:<input type="text" id="pem_a"><br>
+		   			b:<input type="text" id="pem_b"><br>
+		   			K:<input type="text" id="pem_K"><br>
+		   			<div style="text-align:center">
+		   				<button onclick="s4_predict2()">预测</button>
+		   			</div>
+		   		</div>
+		   			
 		   	</div>
 		</div>
 		<div style="width:60%;height:100%;float:left">
