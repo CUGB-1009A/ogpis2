@@ -57,6 +57,11 @@ public class ForecastAction extends BaseAction{
 	private PeriodDefinitionService periodDefinitionService;
 	
 	
+	@RequestMapping(value = "/forecast/getDataSourceByForecastType")
+	public void getDataSourceByForecastType(HttpServletRequest request, ModelMap model,HttpServletResponse response) {
+		
+	}
+	
 	@RequestMapping(value = "/forecast")
 	public String demo(HttpServletRequest request, ModelMap model) {
 		System.out.println("forecast");
@@ -159,6 +164,7 @@ public class ForecastAction extends BaseAction{
 					SimplePage.cpn(pageNumber), pageSize);
 			response.setContentType("application/json");
 		    response.setCharacterEncoding("utf-8");
+		    System.out.println(this.toJsonTableData(pagination, null, true));
 		    response.getWriter().write(this.toJsonTableData(pagination, null, true));
 		
 		}

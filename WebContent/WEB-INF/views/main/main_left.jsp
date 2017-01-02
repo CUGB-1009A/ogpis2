@@ -94,7 +94,7 @@ padding-right:10px;
 		</ul>
 	</div>
 
-	<div title="规划辅助编制" iconCls="" style="overflow:auto">
+	<div title="规划辅助编制" iconCls="" style="overflow:auto"selected="true">
 		<ul class="sider-nav">
 			<%-- <li >
 				<span class="sider-nav-title"><a href="<%=path%>/forecast/toPredictionPage" target=main_center>上版预测</a></span>
@@ -144,7 +144,7 @@ padding-right:10px;
 	</div>
 
 	
-	<div title="数据管理" iconCls="" style="overflow:auto;" selected="true">
+	<div title="数据管理" iconCls="" style="overflow:auto;">
 		<ul class="sider-nav">
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/baseinfo/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>基础信息维护</a></span>				

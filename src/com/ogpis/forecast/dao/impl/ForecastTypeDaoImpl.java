@@ -25,4 +25,9 @@ public class ForecastTypeDaoImpl extends HibernateBaseDao<ForecastType, String> 
 		return forecastTypeList;
 	}
 
+	@Override
+	public ForecastType findById(String forecastTypeId) {
+		return super.get(forecastTypeId);
+	}
+
 }

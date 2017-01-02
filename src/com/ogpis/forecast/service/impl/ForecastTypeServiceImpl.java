@@ -20,5 +20,10 @@ public class ForecastTypeServiceImpl implements ForecastTypeService{
 		return forecastTypeDao.findAll();
 	}
 
+	@Override
+	public ForecastType findById(String forecastTypeId) {
+		return forecastTypeDao.findById(forecastTypeId);
+	}
+
 
 }

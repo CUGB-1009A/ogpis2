@@ -15,6 +15,8 @@ import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.data.entity.DataSource;
 import com.ogpis.data.entity.Dimension;
 import com.ogpis.data.entity.InterfaceTable;
+import com.ogpis.data.entity.Subject;
+import com.ogpis.forecast.entity.ForecastType;
 
 @MappedSuperclass
 public class BaseSubject extends BaseEntity{
@@ -34,6 +36,18 @@ public class BaseSubject extends BaseEntity{
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="subject")
 	protected List<DataSource> dataSource;
+	
+	@ManyToMany(targetEntity = ForecastType.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "ogpis_ForecastType_Subject",joinColumns = @JoinColumn(name = "Subject_ID"), inverseJoinColumns = @JoinColumn(name = "ForecastType_ID"))
+	protected List<ForecastType> forecastType ;
+
+	public List<ForecastType> getForecastType() {
+		return forecastType;
+	}
+
+	public void setForecastType(List<ForecastType> forecastType) {
+		this.forecastType = forecastType;
+	}
 
 	public List<DataSource> getDataSource() {
 		return dataSource;

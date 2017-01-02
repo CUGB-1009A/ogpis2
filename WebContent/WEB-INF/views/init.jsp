@@ -19,10 +19,8 @@ html, body {
 	line-height: 30px;
 	text-align: left;
 }
-}
 
 </style>
-
 
 <link rel="stylesheet" type="text/css" href="<%=path %>/resource/easyui-1.5/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="<%=path %>/resource/easyui-1.5/themes/icon.css">

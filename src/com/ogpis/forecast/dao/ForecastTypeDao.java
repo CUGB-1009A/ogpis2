@@ -8,4 +8,6 @@ public interface ForecastTypeDao {
 
 	List<ForecastType> findAll();
 
+	ForecastType findById(String forecastTypeId);
+
 }

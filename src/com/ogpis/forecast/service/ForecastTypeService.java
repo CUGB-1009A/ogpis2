@@ -8,4 +8,6 @@ public interface ForecastTypeService {
 
 	List<ForecastType> findAll();
 
+	ForecastType findById(String forecastTypeId);
+
 }
