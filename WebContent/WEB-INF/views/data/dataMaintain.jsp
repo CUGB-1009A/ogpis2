@@ -16,12 +16,12 @@
 	   		<div style="padding:20px">
 	   			<div style="padding-bottom:10px">
 		   			数据源主题：<br/><br/> 
-						<label><input name="dataSourceSubject" type="radio" value="1" checked/>储量 </label> 
-						<label><input name="dataSourceSubject" type="radio" value="2" />产量 </label> 
-						<label><input name="dataSourceSubject" type="radio" value="3" />资源量 </label> 
-						<label><input name="dataSourceSubject" type="radio" value="4" />消费量</label> 
-						<label><input name="dataSourceSubject" type="radio" value="5" />进出口 </label> 
-						<label><input name="dataSourceSubject" type="radio" value="6" />其他 </label> 
+						<label><input name="dataSourceSubject" type="checkbox" value="1" checked/>储量 </label> 
+						<label><input name="dataSourceSubject" type="checkbox" value="2" />产量 </label> 
+						<label><input name="dataSourceSubject" type="checkbox" value="3" />资源量 </label> 
+						<label><input name="dataSourceSubject" type="checkbox" value="4" />消费量</label> 
+						<label><input name="dataSourceSubject" type="checkbox" value="5" />进出口 </label> 
+						<label><input name="dataSourceSubject" type="checkbox" value="6" />全部 </label> 
 				</div>
 				<div style="padding-bottom:10px">
 		   			选择数据源：<br/><br/> 
@@ -30,7 +30,6 @@
 							<option value="2">油气公司石油储量</option>
 							<option value="3">全国新增探明地质储量</option>
 						</select>
-						<button>显示全部</button>
 				</div>
 				<div style="padding:10px;align:center;border:outset 1px grey">
 		   			查询条件：<br/><br/> 

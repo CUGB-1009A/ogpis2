@@ -146,7 +146,7 @@ $(function() {
 </head>
 <body class="easyui-layout">
 <div id="forecastView" title="查看详情" style="width:800px;height:400px;display:none"   
-        data-options="resizable:true,modal:true">   
+        data-options="resizable:true">   
 	<div style="width:100%;height:100%">
 		<div style="width:25%;height:100%;float:left;">
 			<div style="padding: 10px;">

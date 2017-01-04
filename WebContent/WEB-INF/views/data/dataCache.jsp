@@ -140,19 +140,19 @@
 	   		<div style="padding:20px">
 	   			<div id="haha" style="padding-bottom:10px;height:40px">
 		   			数据源主题：<br/><br/> 
-						<label><input name="dataSourceSubject" type="radio" value="1" checked/>储量 </label> 
-						<label><input name="dataSourceSubject" type="radio" value="2" />产量 </label> 
-						<label><input name="dataSourceSubject" type="radio" value="3" />资源量 </label> 
-						<label><input name="dataSourceSubject" type="radio" value="4" />消费量</label> 
-						<label><input name="dataSourceSubject" type="radio" value="5" />进出口 </label> 
-						<label><input name="dataSourceSubject" type="radio" value="6" />其他 </label> 
+						<label><input name="dataSourceSubject" type="checkbox" value="1" checked/>储量 </label> 
+						<label><input name="dataSourceSubject" type="checkbox" value="2" />产量 </label> 
+						<label><input name="dataSourceSubject" type="checkbox" value="3" />资源量 </label> 
+						<label><input name="dataSourceSubject" type="checkbox" value="4" />消费量</label> 
+						<label><input name="dataSourceSubject" type="checkbox" value="5" />进出口 </label> 
+						<label><input name="dataSourceSubject" type="checkbox" value="6" />其他 </label> 
 				</div>  			
 	   		</div>
 	   		<div style="padding-left:10px;border-top:2px solid grey;border-bottom:2px solid grey;border-right:1px solid grey;">
 	   			<table id="dataSourceGrid" class="easyui-datagrid .datagrid-btable"></table>
 	   		</div>
 	   		<div style="padding-top:20px;text-align:center">
-	   			<button>刷新缓存列表</button>
+	   			<button>刷新缓存</button>
 	   		</div> 
 		</div> 
 		    <div style="width:50%;height:100%;float:left"> 
@@ -237,7 +237,6 @@ function showCacheData(){
 		title : '缓存数据图',
 		closed : false,
 		cache : false,
-		modal : true,
 		resizable:true,
 		buttons:[{
 			text:'确定',

@@ -20,7 +20,7 @@
  $(function(){
 	 //加载维度信息表
 	var datagridDimension = $('#dimensionGrid');
-	var h = $('body').height() - $('#dimensionListTb').height()-$('#dimensionButtons').height()-80;
+	var h = $('body').height() - $('#dimensionListTb').height()-$('#dimensionButtons').height()-130;
 	datagridDimension.datagrid({
 						border : false,
 						height:h,
@@ -172,6 +172,46 @@
 </head>
 <body>
 	<div class="easyui-tabs" style="width:100%;height:100%;">   
+	    <div title="服务接口表维护" data-options="closable:false" style="overflow:auto;padding:10px;display:none;">   
+	        <div id="interfaceListTb" style="padding-bottom:10px"> 
+	    		主题：<select id="interfaceSubject">
+						<c:forEach items="${subjects}" var="item">
+							<option value="${item.id}">${item.name}</option>
+						</c:forEach>
+					</select>
+				查询条件：<input class="easyui-validatebox" type="text" name="interfaceName"/>   
+				<a id="btn" href="javascript:void(0)" class="easyui-linkbutton" ><i class="fa fa-search" style="margin-right:3px"></i>查  询</a> 
+			</div> 
+	        <div style="text-align:center;padding:0px 5px 10px 5px">
+				<table id="interfaceGrid" class="easyui-datagrid .datagrid-btable"></table> 
+				<div id="interfaceAddDiv" style="width:600px; height: 400px; display: none"><!-- 添加维度div -->
+					<div>
+						<div style="padding: 15px 0 0 15px; ">
+							<label class="dialog-lable">接口名称:</label> 
+							<input id="interfaceName" class="dialog-input" type="text"/>
+						</div>
+						<div style="padding: 15px 0 0 15px;">
+							<label class="dialog-lable">主题（可多选）:</label> 
+							<select class="dialog-input" id="interface_subjectId" multiple="multiple">
+								<c:forEach items="${subjects}" var="item">
+									<option value="${item.id}">${item.name}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<div style="padding: 15px 0 0 15px; ">
+							<label class="dialog-lable">排序（数字）:</label> 
+							<input id="interfacePriority" class="dialog-input easyui-numberbox" type="text"/>
+						</div>
+					</div>
+				</div>
+			</div> 
+			<div id="interfaceButtons"style="text-align:center">
+				<a id="interfaceAdd" href="javascript:addInterface()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>  
+				<a id="interfaceEdit" href="javascript:editInterface()" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a> 
+				<a id="interfaceDelete" href="javascript:deleteInterface()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>  
+			</div> 
+	    </div>
+	    
 	    <div title="维度表维护" style="padding:10px;display:none;">  
 	    	<div id="dimensionListTb" style="padding-bottom:10px"> 
 	    		主题：<select id="dimensionSubject">
@@ -219,53 +259,36 @@
 				<a id="dimensionEdit" href="javascript:editDimension()" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a>   
 				<a id="dimensionDelete" href="javascript:deleteDimension()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>  
 			</div> 
-	    </div>   
-	    <div title="接口维护" data-options="closable:false" style="overflow:auto;padding:10px;display:none;">   
-	        <div id="interfaceListTb" style="padding-bottom:10px"> 
-	    		主题：<select id="interfaceSubject">
-						<c:forEach items="${subjects}" var="item">
-							<option value="${item.id}">${item.name}</option>
-						</c:forEach>
-					</select>
-				查询条件：<input class="easyui-validatebox" type="text" name="interfaceName"/>   
-				<a id="btn" href="javascript:void(0)" class="easyui-linkbutton" ><i class="fa fa-search" style="margin-right:3px"></i>查  询</a> 
-			</div> 
-	        <div style="text-align:center;padding:0px 5px 10px 5px">
-				<table id="interfaceGrid" class="easyui-datagrid .datagrid-btable"></table> 
-				<div id="interfaceAddDiv" style="width:600px; height: 400px; display: none"><!-- 添加维度div -->
-					<div>
-						<div style="padding: 15px 0 0 15px; ">
-							<label class="dialog-lable">接口名称:</label> 
-							<input id="interfaceName" class="dialog-input" type="text"/>
-						</div>
-						<div style="padding: 15px 0 0 15px;">
-							<label class="dialog-lable">主题（可多选）:</label> 
-							<select class="dialog-input" id="interface_subjectId" multiple="multiple">
-								<c:forEach items="${subjects}" var="item">
-									<option value="${item.id}">${item.name}</option>
-								</c:forEach>
-							</select>
-						</div>
-						<div style="padding: 15px 0 0 15px; ">
-							<label class="dialog-lable">排序（数字）:</label> 
-							<input id="interfacePriority" class="dialog-input easyui-numberbox" type="text"/>
-						</div>
-					</div>
-				</div>
-			</div> 
-			<div id="interfaceButtons"style="text-align:center">
-				<a id="interfaceAdd" href="javascript:addinterface()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>  
-				<a id="interfaceEdit" href="javascript:editinterface()" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a> 
-				<a id="interfaceValueView" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">查看</a>   
-				<a id="interfaceDelete" href="javascript:deleteinterface()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>  
-			</div> 
-	    </div>   
+	    </div>    
 	</div> 
 </body>
 <script type="text/javascript">
 /* ---------------------对接口进行操作开始------------------------------------ */
- 
- 
+function addInterface(){
+	$('#interfaceAddDiv').dialog({
+		title : '添加接口信息',
+		closed : false,
+		cache : false,
+		modal : true,
+		resizable:true,
+		buttons:[{
+			text:'保存',
+			handler:function(e)
+			{
+				$('#interfaceAddDiv').dialog({
+					closed:true
+				});
+			}
+		},{
+			text:'取消',
+			handler:function(e){
+				$('#interfaceAddDiv').dialog({
+					closed:true
+			});
+				}
+		}]
+	});
+}
  
  
  

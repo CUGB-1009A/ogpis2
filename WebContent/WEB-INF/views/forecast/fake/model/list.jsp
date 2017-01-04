@@ -117,12 +117,15 @@ $(function(){
 				onLoadSuccess : function(data) {
 					$('#dataSourceGrid').datagrid('fixRowHeight');//为了对齐行号
 				},
-				onClickRow : function(index,row){
-					var myChart = echarts.init(document.getElementById("test"));
-					myChart.setOption(option1);
-					$("#modelIntroduction").dialog({
-						closed:false
-					});
+				onClickCell : function(index,field,value){
+					if(field!="id"){
+						var myChart = echarts.init(document.getElementById("test"));
+						myChart.setOption(option1);
+						$("#modelIntroduction").dialog({
+							closed:false
+						});
+					}
+					
 				}
 			});
 });
@@ -145,12 +148,28 @@ function cancleSave(){
 }
 
 function jarCheck(){
+	document.getElementById("check2").style.display="none";
+	document.getElementById("check3").style.display="none";
 	document.getElementById("check1").style.display="";
+	document.getElementById("status").value="";
 	setTimeout(function (){
 		document.getElementById("check2").style.display="";
 	},1000);
 	setTimeout(function (){
 		document.getElementById("check3").style.display="";
+		var fileName = $("#jarInput").val();
+		var fileSuffix = fileName.substring(fileName.lastIndexOf(".")+1);
+		console.log(fileSuffix)
+		if(fileSuffix=="jar"){
+				document.getElementById("status").style.color = "green"
+				document.getElementById("status").value="成功";
+			}
+		else{
+				document.getElementById("status").style.color = "red"
+				document.getElementById("status").value="失败";
+			}
+			
+			
 	},2000);
 }
 </script>
@@ -163,7 +182,7 @@ function jarCheck(){
 	</div> 
        <div style="text-align:center;padding:0px 5px 10px 5px">
 			<table id="modelGrid" class="easyui-datagrid .datagrid-btable"></table> 
-			<div id="modelAddDiv" title="添加模型"  data-options="resizable:true,modal:true" style="width:600px; height: 350px; display: none"><!-- 添加模型div -->
+			<div id="modelAddDiv" title="添加模型"  data-options="resizable:true,modal:true" style="width:600px; height: 450px; display: none"><!-- 添加模型div -->
 				<div>
 					<div style="padding: 15px 0 0 15px; ">
 						<label class="dialog-lable">模型名称:</label> 
@@ -171,20 +190,24 @@ function jarCheck(){
 					</div>
 					<div style="padding: 15px 0 0 15px;">
 						<label class="dialog-lable">模型介绍:</label> 
-						<textarea class="dialog-input"></textarea>
+						<textarea class="dialog-input" style="resize: vertical"></textarea>
 					</div>
 					<div style="padding: 15px 0 0 15px;">
 						<label class="dialog-lable">上传jar包:</label> 
-						<input id="jarInput" type="file"/>
-						<button onclick="jarCheck()">检查</button>
+						<input id="jarInput" type="file" onchange="jarCheck()"/>
 					</div>
 					<div style="padding: 15px 0 0 15px;">
-						<label class="dialog-lable">状态:</label> 					
+						<label class="dialog-lable">检查流程:</label> 
+						<div class="dialog-input" style="padding:0px;border:1px solid grey;">
+							 <span id="check1" style="display:none">检查接口</span><br>
+							 <span id="check2" style="display:none">检查方法</span><br>
+							 <span id="check3" style="display:none">完成</span><br>
+						</div>					
 					</div>
-					<div style="padding:0px;text-align:center">
-						 <span id="check1" style="display:none">检查接口</span><br>
-						 <span id="check2" style="display:none">检查方法</span><br>
-						 <span id="check3" style="display:none">完成</span><br>
+				
+					<div style="padding: 15px 0 0 15px;">
+						<label class="dialog-lable">状态：</label> 
+						<textarea id="status" class="dialog-input" style="resize:none;" readonly></textarea>					
 					</div>
 					<div style="padding: 15px 0 0 15px;text-align:center">
 						<button onclick="saveModel()">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -192,7 +215,7 @@ function jarCheck(){
 					</div>
 				</div>
 			</div>
-			<div id="modelIntroduction" title="模型介绍" data-options="resizable:true,modal:true" style="width:600px; height: 500px; display: none"><!-- 介绍模型 -->
+			<div id="modelIntroduction" title="模型介绍" data-options="resizable:true" style="width:600px; height: 500px; display: none"><!-- 介绍模型 -->
 				<div style="width:100%;height:20%">
 					<div style="padding: 10px;">
 						模型介绍:<br>

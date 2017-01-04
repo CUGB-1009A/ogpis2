@@ -214,7 +214,7 @@ function getInterfaceBysubject(){//根据主题获取接口表
 			{
 				text:'测试连接',
 				handler:function(e){
-					
+					close(e);
 				}
 			},
 			{
@@ -224,14 +224,14 @@ function getInterfaceBysubject(){//根据主题获取接口表
 					var name = $("#dataSourceName").val();
 					var dataSourceInterface = $("#dataSourceInterface").val();
 					var dataSourceField = $("#dataSourceField").val();
-
-					if(subjectIds==""||name==""||priority=="")
+					var subjectId =  $("#dataSource_subjectId").val();
+					if(subjectId==""||name==""||dataSourceField==""||dataSourceField=="")
 						{
 						alert("信息填写不完整");
 						return false;
 						}
 					 close(e);
-					 $.ajax({
+				<%-- 	 $.ajax({
 							url:"<%=path%>/dimension/save",
 							dataType:"json",
 							async:true,
@@ -249,7 +249,7 @@ function getInterfaceBysubject(){//根据主题获取接口表
 							error:function(){
 								alert("添加失败");
 							}
-						});
+						}); --%>
 				}
 			},{
 				text:'取消',
@@ -263,9 +263,9 @@ function getInterfaceBysubject(){//根据主题获取接口表
 	 $("#dataSource_subjectId").val("");
 	 $("#dataSourceInterface").val("");
 	 $("#dataSourceField").empty();
-	/*  $('#dimensionAddDiv').dialog({
+	 $('#dataSourceAddDiv').dialog({
 			closed : true,
-		}); */
+		}); 
 	}
 </script>
 </html>

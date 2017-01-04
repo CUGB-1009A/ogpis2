@@ -339,10 +339,12 @@ function s2s_previewData(){
 }
 
 function s4_predict1(){
+	document.getElementById("echarts").style.display="";
 	var myChart = echarts.init(document.getElementById("test4"));
 	myChart.setOption(option1);
 }
 function s4_predict2(){
+	document.getElementById("echarts").style.display="";
 	var myChart = echarts.init(document.getElementById("test4"));
 	myChart.setOption(option1);
 }
@@ -396,7 +398,7 @@ function s4_predict2(){
 					<option value="3">煤层气数据</option>
 					<option value="4">页岩气数据</option>
 				</select>
-				<button>显示所有数据源</button>
+				<input type="checkbox"/>显示所有数据源
 			</div>
 			<div style="padding: 10px;">
 				查询条件：<br/><br/> 
@@ -579,9 +581,14 @@ function s4_predict2(){
 		   			
 		   	</div>
 		</div>
-		<div style="width:60%;height:100%;float:left">
-			<div id="test4" style="height:350px;width:450px">
+		<div style="width:60%;height:100%;float:left;display:none" id="echarts">
+			<div id="test4" style="height:350px;width:450px;">
+			
 			</div>
+			<div style="height:40px;width:450px;text-align:right">
+				a=12;b=23;K=23
+			</div>
+			
 		</div>
 	</div>
 	<div style="width:100%;height:10%;text-align:center">
