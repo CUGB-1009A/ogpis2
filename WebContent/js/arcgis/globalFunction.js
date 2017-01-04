@@ -134,21 +134,30 @@ function pointIdentifyTask(point, url, layerId) {
 // 条件查询
 function queryTask(mapManager, options) {
 	require([ "esri/tasks/query", "esri/tasks/QueryTask",
-			"esri/symbols/SimpleMarkerSymbol", "esri/Color", "esri/graphic" ],
-			function(Query, QueryTask, Symbol, Color, Graphic) {
-				var task = new QueryTask(options.url + "/" + options.layerId);
-				var query = new Query();
-				// 返回要素
-				query.returnGeometry = true;
-				// 返回字段
-				query.outFileds = [ "*" ];
-				// 查询条件
-				query.where = options.sql;
-				// 执行查询
-				task.execute(query, function(results) {
+			"esri/symbols/SimpleMarkerSymbol", "esri/Color", "esri/graphic",
+			"esri/layers/GraphicsLayer", "myDojo/SggChartLayer",
+			"myDojo/SggChartGraphics" ], function(Query, QueryTask, Symbol,
+			Color, Graphic, GraphicsLayer, SggChartLayer, SggChartGraphics) {
+		var task = new QueryTask(options.url + "/" + options.layerId);
+		var query = new Query();
+		// 返回要素
+		query.returnGeometry = true;
+		// 返回字段
+		query.outFields = [ "*" ];
+		// 查询条件
+		query.where = options.sql;
+		// 执行查询
+		task.execute(query,
+				function(results) {
+					var symbol = new esri.symbol.SimpleFillSymbol();
+					var graphicsLayer = new GraphicsLayer({
+						className : "MyGraphics2",
+						id : "MyGraphics2",
+						opacity : 0.75
+					});
+					graphicsLayer.setRenderer(new esri.renderer.SimpleRenderer(
+							symbol));
 					if (results.features && results.features.length > 0) {
-						/* console.log(map.graphicsLayerIds); */
-						/* mapManager.map.getLayer("graphicsLayer1").hide(); */
 						mapManager.map.graphics.clear();
 						var symbol = new Symbol(Symbol.STYLE_SQUARE, 10,
 								new Symbol(Symbol.STYLE_SOLID, new Color([ 255,
@@ -156,18 +165,18 @@ function queryTask(mapManager, options) {
 										0.25 ]));
 						for (var i = 0; i < results.features.length; ++i) {
 							var feature = results.features[i];
-							var g = new Graphic(feature.geometry,
-									mapManager.symbol.pointSymbol);
-							mapManager.map.graphics.add(g);
+							var g = new Graphic(feature.geometry, null,
+									feature.attributes);
+							graphicsLayer.add(g);
 						}
-						/*
-						 * var data=results.features[0].attributes; var
-						 * geometry=results.features[0].geometry; for(var i in
-						 * data){ }
-						 */
+						graphicsLayer.on("update-end", function(evt) {
+							var showFields = [ "FID" ];
+							createChartInfoWindow(graphicsLayer, showFields);
+						});
+						mapManager.map.addLayer(graphicsLayer);
 					}
 				})
-			});
+	});
 }
 // 空间查询
 function queryTaskByGeometry(mapManager, options) {
@@ -180,11 +189,13 @@ function queryTaskByGeometry(mapManager, options) {
 				// 返回要素
 				query.returnGeometry = true;
 				// 返回字段
-				query.outFileds = [ "*" ];
+				query.outFields = [ "FID", 'Tree_ID', "Collected" ];
 				// 查询元素
 				query.geometry = options.geometry;
 				// 执行查询
 				task.execute(query, function(results) {
+					console.log(123);
+					console.log(results);
 					if (results.features && results.features.length > 0) {
 						/* console.log(map.graphicsLayerIds); */
 						/* mapManager.map.getLayer("graphicsLayer1").hide(); */
@@ -317,6 +328,7 @@ function initMap(mapManager) {
 					"dijit/layout/BorderContainer", "dijit/layout/ContentPane",
 					"dojo/_base/lang", "esri/renderers/ClassBreaksRenderer",
 					"esri/dijit/Legend", "esri/renderers/SimpleRenderer",
+					"myDojo/SggChartLayer", "myDojo/SggChartGraphics",
 					"dojo/domReady!" ],
 			function(Parser, Map, Point, Polyline, Polygon, Extent, Graphic,
 					Geometry, GraphicsLayer, FeatureLayer,
@@ -366,8 +378,6 @@ function initMap(mapManager) {
 					opacity : 0.75,
 					visible : false
 				});
-				console.log("graphicsLayer");
-				console.log(graphicsLayer);
 				mapManager.map.addLayers([ tiledLayer, tree, citiesPop ]);
 				// mapManager.map.addLayer(tiledLayer);
 				// mapManager.map.addLayer(tree);
@@ -390,9 +400,7 @@ function initMap(mapManager) {
 							mapManager, getDrawResult));
 					citiesPop.on("click", lang.hitch(mapManager, mapClick,
 							citiesPop));
-					tree.on("click", lang.hitch(mapManager, mapClick,
-							tree));
-
+					tree.on("click", lang.hitch(mapManager, mapClick, tree));
 					// var info = {
 					// field : "C_Storage",
 					// valueUnit : "unknown",
@@ -499,7 +507,7 @@ function addLegend(e) {
 			}
 		}
 		legend.startup();
-		this.legend=legend;
+		this.legend = legend;
 	});
 }
 

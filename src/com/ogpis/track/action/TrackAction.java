@@ -22,7 +22,7 @@ public class TrackAction {
 	public String indexTrackContents(HttpServletRequest request, ModelMap model) {
 		return "track/indexTrackContents";
 	}
-	
+	public String hell;
 	@RequestMapping(value = "/indexTrack")
 	public String indexTrack(HttpServletRequest request, ModelMap model) {
 		return "track/indexTrack";
@@ -51,6 +51,11 @@ public class TrackAction {
 	@RequestMapping(value = "/DataSource")
 	public String DataSource(HttpServletRequest request, ModelMap model) {
 		return "track/DataSource";
+	}
+	
+	@RequestMapping(value = "/test2")
+	public String test2(HttpServletRequest request, ModelMap model) {
+		return "track/TestMap";
 	}
 
 	@ResponseBody

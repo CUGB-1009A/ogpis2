@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ include file="../init.jsp"%>
+<%@ include file="../init.jsp"%>
 <%
 	response.setHeader("Access-Control-Allow-Origin", "*");
 %>
@@ -30,8 +30,12 @@
 <link rel="stylesheet" type="text/css" href="../js/arcgis/css/Map.css">
 </head>
 <body>
-	<div style="width: 100%; height: 100%;dispaly:flex;flex-direction: column;">
-		<div id="tab1" class="easyui-tabs" style="width: 100%; height: auto;"
+	<div
+		style="width: 100%; height: 100%; dispaly: flex; flex-direction: column;">
+		<div>
+			规划名称
+		</div>
+		<!-- <div id="tab1" class="easyui-tabs" style="width: 100%; height: auto;"
 			data-options="border:false">
 			<div title="查询统计">
 				<div class="padding">
@@ -98,99 +102,156 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div title="图表" class="easyui-layout" data-options="fit:true"
-				style="width: 100%; min-width: 800px;">
-				<div data-options="region:'west',split:true"
-					style="width: 30%; max-width: 600px;">
-			<table id="table" class="easyui-datagrid"
-				data-options="fit:true,url:'../track/json',fitColumns:true,singleSelect:true">
-				<thead>
-					<tr>
-						<th data-options="field:'Country'">Country</th>
-						<th data-options="field:'OrderID'">OrderID</th>
-						<th data-options="field:'CustomerID'">CustomerID</th>
-						<th data-options="field:'OrderDate'">OrderDate</th>
-					</tr>
-				</thead>
-				<tbody id="data">
-					<tr>
-						<td>001</td>
-						<td>name1</td>
-						<td>2323</td>
-					</tr>
-					<tr>
-						<td>002</td>
-						<td>name2</td>
-						<td>4612</td>
-					</tr>
-				</tbody>
-			</table></div>
-			<div class="border" data-options="region:'center'" style="padding-right: 80px">
-					<div id="test" style="width:80%;height:400px;"></div>
-				</div>
-			<!-- <div class="toolBar" style="width: 100%; height: auto">
-					<div class="float-right">
-						<div class="inline-block margin padding-lr border-2">
-							<a id="btn" href="#" class="lable">保存图片</a>
-						</div>
-						<div class="inline-block margin padding-lr border-2">
-							<a id="btn" href="#" class="lable">保存图片</a>
-						</div>
-						<div class="inline-block margin padding-lr border-2">
-							<a id="btn" href="#" class="lable">保存图片</a>
-						</div>
-						<div class="inline-block margin padding-lr border-2">
-							<a id="btn" href="#" class="lable">保存图片</a>
-						</div>
+		</div> -->
+		<div class="easyui-panel" style="width:100%;overflow-y:auto" data-options="fit:true">
+			<div style="width: 100%; height: 500px;">
+				<div title="图表" class="easyui-layout" data-options="fit:true"
+					style="width: 100%; min-width: 800px;">
+					<div data-options="region:'west',split:true"
+						style="width: 30%; max-width: 600px;">
+						<table id="table" class="easyui-datagrid"
+							data-options="fit:true,url:'../track/json',fitColumns:true,singleSelect:true">
+							<thead>
+								<tr>
+									<th data-options="field:'Country'">Country</th>
+									<th data-options="field:'OrderID'">OrderID</th>
+									<th data-options="field:'CustomerID'">CustomerID</th>
+									<th data-options="field:'OrderDate'">OrderDate</th>
+								</tr>
+							</thead>
+							<tbody id="data">
+								<tr>
+									<td>001</td>
+									<td>name1</td>
+									<td>2323</td>
+								</tr>
+								<tr>
+									<td>002</td>
+									<td>name2</td>
+									<td>4612</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-				</div> -->
+					<div class="border" data-options="region:'center'"
+						style="padding-right: 80px">
+						<div id="test1" style="width: 70%; height: 400px;"></div>
+					</div>
+				</div>
+			</div>
+			<div style="width: 100%; height: 500px;">
+				<div title="图表" class="easyui-layout" data-options="fit:true"
+					style="width: 100%; min-width: 800px;">
+					<div data-options="region:'west',split:true"
+						style="width: 30%; max-width: 600px;">
+						<table id="table" class="easyui-datagrid"
+							data-options="fit:true,url:'../track/json',fitColumns:true,singleSelect:true">
+							<thead>
+								<tr>
+									<th data-options="field:'Country'">Country</th>
+									<th data-options="field:'OrderID'">OrderID</th>
+									<th data-options="field:'CustomerID'">CustomerID</th>
+									<th data-options="field:'OrderDate'">OrderDate</th>
+								</tr>
+							</thead>
+							<tbody id="data">
+								<tr>
+									<td>001</td>
+									<td>name1</td>
+									<td>2323</td>
+								</tr>
+								<tr>
+									<td>002</td>
+									<td>name2</td>
+									<td>4612</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="border" data-options="region:'center'"
+						style="padding-right: 80px">
+						<div id="test2" style="width: 70%; height: 400px;"></div>
+					</div>
+				</div>
+			</div>
+			<div style="width: 100%; height: 500px;">
+				<div title="图表" class="easyui-layout" data-options="fit:true"
+					style="width: 100%; min-width: 800px;">
+					<div data-options="region:'west',split:true"
+						style="width: 30%; max-width: 600px;">
+						<table id="table" class="easyui-datagrid"
+							data-options="fit:true,url:'../track/json',fitColumns:true,singleSelect:true">
+							<thead>
+								<tr>
+									<th data-options="field:'Country'">Country</th>
+									<th data-options="field:'OrderID'">OrderID</th>
+									<th data-options="field:'CustomerID'">CustomerID</th>
+									<th data-options="field:'OrderDate'">OrderDate</th>
+								</tr>
+							</thead>
+							<tbody id="data">
+								<tr>
+									<td>001</td>
+									<td>name1</td>
+									<td>2323</td>
+								</tr>
+								<tr>
+									<td>002</td>
+									<td>name2</td>
+									<td>4612</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="border" data-options="region:'center'"
+						style="padding-right: 80px">
+						<div id="test3" style="width: 70%; height: 400px;"></div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-$(function() {
-	$("#tt").tabs({
-		onSelect : function(title) {
-			console.log(title);
-			if (title == "图表")
-				$.parser.parse(document)
-		}
+	$(function() {
+		$("#tt").tabs({
+			onSelect : function(title) {
+				console.log(title);
+				if (title == "图表")
+					$.parser.parse(document)
+			}
+		})
 	})
-})
- var option = {
-	        		 title: { 
-	        					 text: '指标跟踪',
-	        					 left:'center'
-	        				 },
-	        		 tooltip: {
-	        			 		 trigger: 'axis'
-	        		 },
-	        		
-	        		 xAxis : [
-	        			        {
-	        			            type : 'category',
-	        			            boundaryGap : false,
-	        			            name:"年份",
-	        			            data : [2001,2002,2003,2004,2005,2006]
-	        			        }
-	        			    ],
-	        			    yAxis : [
-	        					        {
-	        					            type : 'value',
-	        					            name:'万吨'
-	        					        }
-	        					    ],
-	        		 series: [
-	        			          {
-	        					     type: 'line',
-	        					     name:'历史数据',
-	        					     data: [2001,2002,2003,2004,2005,2006]
-	        			          }
-	        		          ]
-	        		}
-var myChart = echarts.init(document.getElementById("test"));
-myChart.setOption(option);
+	var option = {
+		title : {
+			text : '指标跟踪',
+			left : 'center'
+		},
+		tooltip : {
+			trigger : 'axis'
+		},
 
+		xAxis : [ {
+			type : 'category',
+			boundaryGap : false,
+			name : "年份",
+			data : [ 2001, 2002, 2003, 2004, 2005, 2006 ]
+		} ],
+		yAxis : [ {
+			type : 'value',
+			name : '万吨'
+		} ],
+		series : [ {
+			type : 'line',
+			name : '历史数据',
+			data : [ 2001, 2002, 2003, 2004, 2005, 2006 ]
+		} ]
+	}
+	var myChart1 = echarts.init(document.getElementById("test1"));
+	myChart1.setOption(option);
+	var myChart2 = echarts.init(document.getElementById("test2"));
+	myChart2.setOption(option);
+	var myChart3 = echarts.init(document.getElementById("test3"));
+	myChart3.setOption(option);
 </script>
 </html>
