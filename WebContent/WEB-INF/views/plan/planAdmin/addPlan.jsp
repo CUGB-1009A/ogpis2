@@ -18,23 +18,21 @@
 				<table cellpadding="5" style="margin:0 auto;text-align:center">
 					<tr>
 						<td>规划名称</td>
-						<td><input class="easyui-textbox" type="text" data-options="prompt:'规划名称'" id="planName" name="planName" style="width: 50%;height:32px"></td>
-					</tr>
-					<tr>
+						<td><input class="easyui-textbox" type="text" data-options="prompt:'规划名称'" id="planName" name="planName" style="width: 60%;height:32px"></td>
+					
 						<td>规划代号</td>
-						<td><input class="easyui-textbox" type="text" data-options="prompt:'规划代号'" id="planCode" name="planCode" style="width: 50%;height:32px"></td>
+						<td><input class="easyui-textbox" type="text" data-options="prompt:'规划代号'" id="planCode" name="planCode" style="width: 60%;height:32px"></td>
 					</tr>
 					<tr>
 						<td>发布单位</td>
 						<td><input class="easyui-textbox" type="text" data-options="prompt:'发布单位'" 
-							id="releaseUnit" name="ReleaseUnit" style="width: 50%;height:32px"></td>
-					</tr>
-					<tr>
+							id="releaseUnit" name="ReleaseUnit" style="width: 60%;height:32px"></td>
+					
 						<td>发布时间</td>
 						<td>
 							<input id="releaseDate" class="easyui-datebox" name="releaseDate" 
 								data-options="formatter:myformatter,parser:myparser,prompt:'发布时间'"
-								style="width: 50%;height:32px">
+								style="width: 60%;height:32px">
 						</td>
 					</tr>
 					<tr>
@@ -42,36 +40,35 @@
 						<td>
 							<input id="startTime" class="easyui-datebox" name="startTime" 
 								data-options="formatter:myformatter,parser:myparser,prompt:'规划起始时间'"
-								style="width: 50%;height:32px">
+								style="width: 60%;height:32px">
 						</td>
-					</tr>
-					<tr>
+					
 						<td>规划截止时间</td>
 						<td>
 							<input id="endTime" class="easyui-datebox" name="endTime" 
 								data-options="formatter:myformatter,parser:myparser,prompt:'规划截止时间'"
-								style="width: 50%;height:32px">
+								style="width: 60%;height:32px">
 						</td>
 					</tr>
 					<tr>
 						<td>规划类型</td>
 						<td>
-							<select id="planType" name="planType">
+							<select id="planType" name="planType" class="select" style="width:60%;height:32px">
 								<c:forEach items="${planType }" var="item">
 									<option value="${item.key }">${item }</option>
 								</c:forEach>
 							</select>
 						</td>
-					</tr>
-					<tr>
+					
 						<td>规划概述</td>
 						<td>
-							<input class="easyui-textbox" type="text" data-options="prompt:'规划概述',multiline:true" id="planShortDescription" name="planShortDescription" style="width:60%;height:100px">
+							<input class="easyui-textbox" type="text" data-options="prompt:'规划概述',multiline:true" id="planShortDescription" 
+								name="planShortDescription" style="width:60%;height:100px">
 						</td>
 					</tr>
 					<tr>
 						<td>规划背景和依据</td>
-						<td>
+						<td colspan="3">
 							<div style="width:1000px;height:300px">
 								<script id="container" name="planDescription" type="text/plain" ></script>
 								<script type="text/javascript" src="<%=path%>/assets/ueditor/ueditor.config.js"></script>

@@ -16,7 +16,7 @@
 		</div>
 		<div>
 			<span>指标类型：</span>
-			<select id="selectType" name="planType">
+			<select id="selectType" name="planType" class="select">
 				<option value="QG" <c:if test="${type.equals('QG')}">selected</c:if>>全国</option>
 				<option value="ZSY" <c:if test="${type.equals('ZSY')}">selected</c:if>>中石油</option>
 				<option value="ZSH" <c:if test="${type.equals('ZSH')}">selected</c:if>>中石化</option>
@@ -46,9 +46,9 @@
 				<table id="indexDataGrid" class="easyui-datagrid" title="完成情况" data-options="striped:true,singleSelect:true">
 					<thead>
 						<tr>
-							<th field='indexYear'>年度</th>
-							<th field="finished">完成量</th>
-							<th field="operate">操作</th>
+							<th field='indexYear' width='20%'>年度</th>
+							<th field="finished" width='40%'>完成量</th>
+							<th field="operate" width='40%'>操作</th>
 						</tr>
 					</thead>
 					<tbody>
