@@ -91,6 +91,9 @@
 	<!-- <property name="sessionFactory" ref="sessionFactory" /> -->
 	<!-- <property name="cacheQueries" value="true" /> -->
 	<!-- </bean> -->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
 	<context:annotation-config />
 	<context:component-scan base-package="com.ogpis" />

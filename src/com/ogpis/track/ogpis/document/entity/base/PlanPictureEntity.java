@@ -6,7 +6,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 import com.ogpis.track.ogpis.base.entity.BaseEntity;
-import com.ogpis.track.ogpis.plan.entity.Plan;
+import com.ogpis.track.ogpis.plan.entity.Plan2;
 
 @MappedSuperclass
 public class PlanPictureEntity extends BaseEntity {

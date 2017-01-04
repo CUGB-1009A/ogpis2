@@ -15,13 +15,13 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ogpis.track.ogpis.system.entity.User;
-import com.ogpis.track.ogpis.system.service.UserService;
+import com.ogpis.track.ogpis.system.entity.User2;
+import com.ogpis.track.ogpis.system.service.UserService2;
 
 public class MyRealm extends AuthorizingRealm {
 
 	@Autowired
-	protected UserService userService;
+	protected UserService2 userService;
 
 	/**
 	 * 登录认证
@@ -35,7 +35,7 @@ public class MyRealm extends AuthorizingRealm {
 		String username = token.getUsername();
 		if (username != null && !"".equals(username)) {
 			// 用户的验证逻辑
-			User user = userService.findByUserName(username);
+			User2 user = userService.findByUserName(username);
 			if (user != null) {
 				return new SimpleAuthenticationInfo(user.getName(),
 						user.getPassword(), getName());
@@ -53,7 +53,7 @@ public class MyRealm extends AuthorizingRealm {
 		// 给用户授权
 		System.out.println("--doGetAuthorizationInfo");
 		String username = (String) principals.getPrimaryPrincipal();
-		User user = userService.findByUserName(username);
+		User2 user = userService.findByUserName(username);
 		SimpleAuthorizationInfo auth = new SimpleAuthorizationInfo();
 		if (user != null) {
 			Set<String> perms = user.getPerms();

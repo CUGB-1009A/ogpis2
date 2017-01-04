@@ -44,8 +44,6 @@ implements PlanDocumentService{
 	@Override
 	public void removeAllDocument(ArrayList<String> idList) {
 		getPlanDocumentDao().removeAllDocument(idList);
-
-		
 	}
 
 	@Override

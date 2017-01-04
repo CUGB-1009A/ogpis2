@@ -38,8 +38,8 @@ import com.ogpis.track.ogpis.base.common.paging.IPageList;
 import com.ogpis.track.ogpis.base.common.paging.PageListUtil;
 import com.ogpis.track.ogpis.document.entity.PlanDocument;
 import com.ogpis.track.ogpis.document.service.PlanDocumentService;
-import com.ogpis.track.ogpis.plan.entity.Plan;
-import com.ogpis.track.ogpis.plan.service.PlanService;
+import com.ogpis.track.ogpis.plan.entity.Plan2;
+import com.ogpis.track.ogpis.plan.service.PlanService2;
 
 @Controller
 public class PlanDocumentAction extends BaseAction {
@@ -48,7 +48,7 @@ public class PlanDocumentAction extends BaseAction {
 	PlanDocumentService planDocumentService;
 	
 	@Autowired
-	PlanService planService;
+	PlanService2 planService;
 	
 	@SuppressWarnings("rawtypes")
 	private ArrayList idList=new ArrayList();
@@ -309,9 +309,9 @@ public class PlanDocumentAction extends BaseAction {
 	
 	@RequestMapping(value = "/document/findAllPlans")
 	public void findAllPlans(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		List<Plan> plans = planService.getAllPlans();
+		List<Plan2> plans = planService.getAllPlans();
 		String result = "[";  
-		for(Plan temp:plans)
+		for(Plan2 temp:plans)
 		{
 			result+="{\"planName\":\""+temp.getPlanName()+"\",\"planId\":\""+temp.getId()+"\"},";
 		}

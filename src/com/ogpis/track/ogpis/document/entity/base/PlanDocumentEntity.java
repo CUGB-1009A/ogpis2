@@ -6,8 +6,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import com.ogpis.track.ogpis.base.entity.BaseEntity;
-import com.ogpis.track.ogpis.system.entity.User;
-import com.ogpis.track.ogpis.plan.entity.Plan;
+import com.ogpis.track.ogpis.system.entity.User2;
+import com.ogpis.track.ogpis.plan.entity.Plan2;
 
 /**
  * 规划文档，定义了规划文档实体的字段信息
@@ -37,11 +37,11 @@ public class PlanDocumentEntity extends BaseEntity {
 	private Date uploadDate;
 
 	@Column(name = "上传用户")
-	private User uploadUser;
+	private User2 uploadUser;
 	
 	@ManyToOne
 	@JoinColumn(name = "对应规划id")
-	private Plan plan;
+	private Plan2 plan;
 
 	public String getDocumentName() {
 		return documentName;
@@ -83,19 +83,19 @@ public class PlanDocumentEntity extends BaseEntity {
 		this.uploadDate = uploadDate;
 	}
 
-	public User getUploadUser() {
+	public User2 getUploadUser() {
 		return uploadUser;
 	}
 
-	public void setUploadUser(User uploadUser) {
+	public void setUploadUser(User2 uploadUser) {
 		this.uploadUser = uploadUser;
 	}
 
-	public Plan getPlan() {
+	public Plan2 getPlan() {
 		return plan;
 	}
 
-	public void setPlan(Plan plan) {
+	public void setPlan(Plan2 plan) {
 		this.plan = plan;
 	}
 	
