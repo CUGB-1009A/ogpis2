@@ -197,7 +197,7 @@ public class PlanAction {
 	
 	@RequestMapping("/show")
 	public String show(HttpServletRequest request,HttpServletResponse response,ModelMap model,String id,String flag){
-		
+		System.out.println("hasdkfj");
 		HashMap hashMap=new HashMap();
 		List<IndexDataManagement> indexDataManagement;
 		Plan plan=planService.findById(id);
@@ -225,6 +225,7 @@ public class PlanAction {
 		}
 		
 		model.addAttribute("type", plan.getPlanType());
+		System.out.println("13254");
 		
 		return "/plan/planAdmin/detail";
 	}
