@@ -8,6 +8,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import com.ogpis.base.entity.BaseEntity;
+import com.ogpis.plan.entity.Plan;
 import com.ogpis.system.entity.Role;
 import com.ogpis.system.entity.User;
 
@@ -29,8 +30,22 @@ public abstract class UserEntity extends BaseEntity {
 
 	@ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
 	@JoinTable(name = "ogpis_user_role", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
-	protected Set<Role> roles = new HashSet<Role>();	
+
+	protected Set<Role> roles = new HashSet<Role>();
 	
+	@ManyToMany(targetEntity = Plan.class, fetch = FetchType.EAGER)
+	@JoinTable(name = "ogpis_user_plan", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "PLAN_ID"))
+	protected Set<Plan> plans = new HashSet<Plan>();
+
+	
+	public Set<Plan> getPlans() {
+		return plans;
+	}
+
+	public void setPlans(Set<Plan> plans) {
+		this.plans = plans;
+	}
+
 	public String getLoginId() {
 		return loginId;
 	}

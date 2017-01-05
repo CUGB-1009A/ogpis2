@@ -34,12 +34,12 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<bean id="multipartResolver"
+	<!-- <bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="utf-8" />
 		<property name="maxUploadSize" value="10240000000" />
 		<property name="maxInMemorySize" value="40960" />
-	</bean>
+	</bean> -->
 
 
 	<!-- 为了使Controller是可以通过注解授权 ，故在springmvc的配置文件中也添加这段配置，id要设置成不同的 -->

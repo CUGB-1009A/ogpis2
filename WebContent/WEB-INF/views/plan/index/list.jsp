@@ -23,16 +23,16 @@
 		</select>&nbsp;&nbsp;
 		<a class="easyui-linkbutton" data-options="size:'large'" href="<%=path%>/index/add?type=${type}"><i class="fa fa-plus" style="margin-right:3px"></i>添加指标</a>
 	</div>
-	<div style="text-align:right;margin:0 10px 0 10px">
-		<table class="easyui-datagrid" title="指标项管理">
+	<div style="margin:0 10px 0 10px">
+		<table class="easyui-datagrid" title="指标项管理" data-options="pagination:true">
 			<thead>
 				<tr>
-					<th field='indexName'>指标名称</th>
-					<th field="indexUnit">指标单位</th>
-					<th field="mineType">矿种类型</th>
-					<th field="indexType">指标类型</th>
-					<th field="priority">显示顺序</th>
-					<th field="operate">操作</th>
+					<th field='indexName' width="25%" align="center">指标名称</th>
+					<th field="indexUnit" width="10%" align="center">指标单位</th>
+					<th field="mineType" width="10%" align="center">矿种类型</th>
+					<th field="indexType" width="20%" align="center">指标类型</th>
+					<th field="priority" width="10%" align="center">显示顺序</th>
+					<th field="operate" width="25%" align="center">操作</th>
 				</tr>
 			</thead>
 			<tbody>
