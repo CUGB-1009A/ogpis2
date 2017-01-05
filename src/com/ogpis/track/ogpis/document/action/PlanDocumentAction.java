@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ogpis.track.ogpis.base.action.BaseAction;
 import com.ogpis.track.ogpis.base.common.paging.IPageList;
 import com.ogpis.track.ogpis.base.common.paging.PageListUtil;
-import com.ogpis.track.ogpis.document.entity.PlanDocument;
+import com.ogpis.track.ogpis.document.entity.PlanDocument2;
 import com.ogpis.track.ogpis.document.service.PlanDocumentService;
 import com.ogpis.track.ogpis.plan.entity.Plan2;
 import com.ogpis.track.ogpis.plan.service.PlanService2;
@@ -72,7 +72,7 @@ public class PlanDocumentAction extends BaseAction {
 		int pageNo = ServletRequestUtils.getIntParameter(request,
 				PageListUtil.PAGE_NO_NAME, PageListUtil.DEFAULT_PAGE_NO);
 		int pageSize = 6;
-		IPageList<PlanDocument> planDocuments = null;
+		IPageList<PlanDocument2> planDocuments = null;
 		if(selectCondition.equals("0"))
 			 planDocuments = planDocumentService.getPlanDocuments(pageNo, pageSize);
 		else
@@ -92,7 +92,7 @@ public class PlanDocumentAction extends BaseAction {
 		int pageNo = ServletRequestUtils.getIntParameter(request,
 				PageListUtil.PAGE_NO_NAME, PageListUtil.DEFAULT_PAGE_NO);
 		int pageSize = 6;
-		IPageList<PlanDocument> planDocuments =planDocumentService
+		IPageList<PlanDocument2> planDocuments =planDocumentService
 				.getDeletedDocuments(pageNo, pageSize);
 		model.addAttribute("planDocuments", planDocuments);	
 		return "document/trash";
@@ -100,7 +100,7 @@ public class PlanDocumentAction extends BaseAction {
 	
 	@RequestMapping(value = "/document/downloadDocument")
 	public void downloadDocument(HttpServletResponse response, HttpServletRequest request, ModelMap model,String id) throws IOException {
-	         PlanDocument planDocument = planDocumentService.findById(id);
+	         PlanDocument2 planDocument = planDocumentService.findById(id);
 	         //设置文件MIME类型  
 	         response.setContentType("application/x-msdownload");
 	         //设置编码方式
@@ -129,7 +129,7 @@ public class PlanDocumentAction extends BaseAction {
 	@RequiresPermissions(value={"document:management"})
 	@RequestMapping(value = "/document/deleteDocument")
 	public String deleteDocument(HttpServletRequest request, ModelMap model,String id) {
-		  PlanDocument planDocument = planDocumentService.findById(id);
+		  PlanDocument2 planDocument = planDocumentService.findById(id);
 		  planDocument.setPlan(null);
 		  planDocument.setDeleted(true);
 		  planDocumentService.update(planDocument);
@@ -143,7 +143,7 @@ public class PlanDocumentAction extends BaseAction {
 	@RequiresPermissions(value={"document:management"})
 	@RequestMapping(value = "/document/removeDocument")
 	public String removeDocument(HttpServletRequest request, ModelMap model,String id) {
-		  PlanDocument planDocument = planDocumentService.findById(id);
+		  PlanDocument2 planDocument = planDocumentService.findById(id);
           File filePath = new File(request.getServletContext().getRealPath("/")+ planDocument.getDocumentAddress()); 
 		  if(filePath.exists())
 			  filePath.delete();
@@ -186,7 +186,7 @@ public class PlanDocumentAction extends BaseAction {
 			 Ids = Ids.substring(Ids.indexOf(",")+1,Ids.length());
 			 idList.add("\'"+idTemp+"\'");
 		 }
-		 List<PlanDocument> planDocuments = new ArrayList<PlanDocument>();
+		 List<PlanDocument2> planDocuments = new ArrayList<PlanDocument2>();
 		 File filePath = null;
 		/* String temp = "";*/
 		 //第一步删除对应id的文件
@@ -199,7 +199,7 @@ public class PlanDocumentAction extends BaseAction {
 			if(filePath.exists())
 				  filePath.delete();
 		}*/
-		for(PlanDocument temp : planDocuments)
+		for(PlanDocument2 temp : planDocuments)
 		{
 			filePath = new File(request.getServletContext().getRealPath("/")+ temp.getDocumentAddress()); 
 			if(filePath.exists())
@@ -236,7 +236,7 @@ public class PlanDocumentAction extends BaseAction {
 		byte[] buffer = new byte[1024];
 		String strZipPath = FilePath + tmpFileName;
 		File[] files = new File[fileNum];
-		PlanDocument planDocument = null;
+		PlanDocument2 planDocument = null;
 		String temp = "";
 		for(int i=0;i<idList.size();i++)
 		{
@@ -328,7 +328,7 @@ public class PlanDocumentAction extends BaseAction {
 		int pageNo = ServletRequestUtils.getIntParameter(request,
 				PageListUtil.PAGE_NO_NAME, PageListUtil.DEFAULT_PAGE_NO);
 		int pageSize = 6;
-		IPageList<PlanDocument> planDocuments =planDocumentService
+		IPageList<PlanDocument2> planDocuments =planDocumentService
 				.getTrashDocumentsCondition(condition,pageNo, pageSize);
 		model.addAttribute("planDocuments", planDocuments);
 		model.addAttribute("condition", condition);	
@@ -340,7 +340,7 @@ public class PlanDocumentAction extends BaseAction {
 	 */
 	@RequestMapping(value = "/document/previewDocument")
 	public String previewDocument(HttpServletRequest request , HttpServletResponse response,ModelMap model,String id,String editType) throws IOException{
-		PlanDocument planDocument = planDocumentService.findById(id);
+		PlanDocument2 planDocument = planDocumentService.findById(id);
 		String documentName = planDocument.getDocumentName();
 		String filePath = planDocument.getDocumentAddress();
 		filePath = filePath.replace("\\", "/");

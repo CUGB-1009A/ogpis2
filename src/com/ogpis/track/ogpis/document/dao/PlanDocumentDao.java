@@ -5,25 +5,25 @@ import java.util.List;
 
 import com.ogpis.track.ogpis.base.common.paging.IPageList;
 import com.ogpis.track.ogpis.base.dao.BaseDao;
-import com.ogpis.track.ogpis.document.entity.PlanDocument;
+import com.ogpis.track.ogpis.document.entity.PlanDocument2;
 
-public interface PlanDocumentDao extends BaseDao<PlanDocument,String> {
+public interface PlanDocumentDao extends BaseDao<PlanDocument2,String> {
 
 	void updateAll(ArrayList<String> idList);
 
-	IPageList<PlanDocument> getPlanDocuments(int pageNo, int pageSize);
+	IPageList<PlanDocument2> getPlanDocuments(int pageNo, int pageSize);
 
-	IPageList<PlanDocument> getDeletedDocuments(int pageNo, int pageSize);
+	IPageList<PlanDocument2> getDeletedDocuments(int pageNo, int pageSize);
 
 	void removeAllDocument(ArrayList<String> idList);
 
-	IPageList<PlanDocument> getDocumentsByPlan(String selectCondition, String inputValue, String selectValue,
+	IPageList<PlanDocument2> getDocumentsByPlan(String selectCondition, String inputValue, String selectValue,
 			int pageNo, int pageSize);
 
-	IPageList<PlanDocument> getDocumentsByPlan(String condition, int pageNo, int pageSize);
+	IPageList<PlanDocument2> getDocumentsByPlan(String condition, int pageNo, int pageSize);
 
-	IPageList<PlanDocument> getOnePlanDocument(int pageNo, int pageSize, String id);
+	IPageList<PlanDocument2> getOnePlanDocument(int pageNo, int pageSize, String id);
 
-	List<PlanDocument> findByIds(ArrayList idList);
+	List<PlanDocument2> findByIds(ArrayList idList);
 
 }

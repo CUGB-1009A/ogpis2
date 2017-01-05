@@ -25,7 +25,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ogpis.track.ogpis.base.action.BaseAction;
-import com.ogpis.track.ogpis.document.entity.PlanDocument;
+import com.ogpis.track.ogpis.document.entity.PlanDocument2;
 import com.ogpis.track.ogpis.international.entity.International2;
 import com.ogpis.track.ogpis.international.service.InternationalService2;
 import com.ogpis.track.ogpis.plan.entity.Plan2;

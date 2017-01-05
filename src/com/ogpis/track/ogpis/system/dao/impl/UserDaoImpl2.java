@@ -41,7 +41,7 @@ public class UserDaoImpl2 extends BaseDaoImpl<User2, String> implements UserDao2
 
 	@Override
 	public User2 findByUserName(String userName) {
-		String hql = "from User where name=?";
+		String hql = "from User2 where name=?";
 		User2 user = (User2) this.findUnique(hql, userName);
 		return user;
 	}

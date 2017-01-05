@@ -71,12 +71,12 @@ td, th {
 		</div>
 		<div title="图表" class="easyui-layout" style="width: 100%;"
 			data-options="fit:true">
-			<div class="border" data-options="region:'center'">
-				<%@ include file="tempFile.jsp" %>
+			<div id="panel1" class="border" data-options="region:'center'">
+				<%@ include file="tempFile.jsp"%>
 			</div>
 			<div data-options="region:'west',split:true"
 				style="width: 35%; max-width: 600px;">
-				<table id="table" class="easyui-datagrid table"
+				<table id="table" class="easyui-datagrid table" data-options="singleSelect:true,striped:true"
 					style="width: 100%; flex-grow: 1; flex-shrink: 1;">
 					<thead>
 						<tr>
@@ -134,15 +134,18 @@ td, th {
 <script type="text/javascript">
 	$(function() {
 		$("#table").datagrid({
-			onDblClickCell : function(index, field, value) {
+			onClickCell : function(index, field, value) {
 				if (field == "index")
 					window.location = "../track/indexTrack";
 				if (field == "scale")
 					window.location = "../track/targetTrack";
 				if (field == "layout")
 					window.location = "../track/layoutTrack";
+			},
+			onLoadSuccess:function(){
+				$("#table").datagrid("selectRow",0);
 			}
 		});
-	})
+	});
 </script>
 </html>

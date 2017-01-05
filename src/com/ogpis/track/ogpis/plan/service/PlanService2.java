@@ -6,7 +6,7 @@ import java.util.Set;
 
 import com.ogpis.track.ogpis.base.common.paging.IPageList;
 import com.ogpis.track.ogpis.base.service.BaseService;
-import com.ogpis.track.ogpis.document.entity.PlanDocument;
+import com.ogpis.track.ogpis.document.entity.PlanDocument2;
 import com.ogpis.track.ogpis.plan.entity.Plan2;
 
 public interface PlanService2 extends BaseService<Plan2, String>{

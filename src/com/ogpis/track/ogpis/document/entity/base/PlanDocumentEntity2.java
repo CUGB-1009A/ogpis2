@@ -16,7 +16,7 @@ import com.ogpis.track.ogpis.plan.entity.Plan2;
  *
  */
 @MappedSuperclass
-public class PlanDocumentEntity extends BaseEntity {
+public class PlanDocumentEntity2 extends BaseEntity {
 
 	@Column(name = "文档名称")
 	private String documentName;

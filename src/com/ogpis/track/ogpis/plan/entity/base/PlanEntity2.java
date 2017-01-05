@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.ogpis.track.ogpis.base.entity.BaseEntity;
-import com.ogpis.track.ogpis.document.entity.PlanDocument;
+import com.ogpis.track.ogpis.document.entity.PlanDocument2;
 import com.ogpis.track.ogpis.index.entity.IndexManagement2;
 import com.ogpis.track.ogpis.plan.entity.Plan_Index2;
 import com.ogpis.track.ogpis.system.entity.User2;
@@ -77,7 +77,7 @@ public class PlanEntity2 extends BaseEntity {
 	protected String outputDescription;
 	
 	@OneToMany(fetch=FetchType.LAZY,cascade = { CascadeType.ALL }, mappedBy = "plan")
-	protected Set<PlanDocument> planDocument;
+	protected Set<PlanDocument2> planDocument;
 
 
 	@Deprecated
@@ -177,11 +177,11 @@ public class PlanEntity2 extends BaseEntity {
 		this.outputDescription = outputDescription;
 	}
 
-	public Set<PlanDocument> getPlanDocument() {
+	public Set<PlanDocument2> getPlanDocument() {
 		return planDocument;
 	}
 
-	public void setPlanDocument(Set<PlanDocument> planDocument) {
+	public void setPlanDocument(Set<PlanDocument2> planDocument) {
 		this.planDocument = planDocument;
 	}
 	

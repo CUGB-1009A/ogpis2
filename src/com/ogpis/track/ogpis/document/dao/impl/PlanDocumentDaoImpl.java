@@ -9,15 +9,15 @@ import com.ogpis.track.ogpis.base.common.paging.IPageList;
 import com.ogpis.track.ogpis.base.common.paging.PageListUtil;
 import com.ogpis.track.ogpis.base.dao.impl.BaseDaoImpl;
 import com.ogpis.track.ogpis.document.dao.PlanDocumentDao;
-import com.ogpis.track.ogpis.document.entity.PlanDocument;
+import com.ogpis.track.ogpis.document.entity.PlanDocument2;
 
 
 @Repository
-public class PlanDocumentDaoImpl extends BaseDaoImpl<PlanDocument,String>implements PlanDocumentDao{
+public class PlanDocumentDaoImpl extends BaseDaoImpl<PlanDocument2,String>implements PlanDocumentDao{
 
 	@Override
-	protected Class<PlanDocument> getEntityClass() {
-		return PlanDocument.class;
+	protected Class<PlanDocument2> getEntityClass() {
+		return PlanDocument2.class;
 	}
 
 	@Override
@@ -35,10 +35,10 @@ public class PlanDocumentDaoImpl extends BaseDaoImpl<PlanDocument,String>impleme
 	}
 
 	@Override
-	public IPageList<PlanDocument> getPlanDocuments(int pageNo, int pageSize) {
+	public IPageList<PlanDocument2> getPlanDocuments(int pageNo, int pageSize) {
 		int first = (pageNo - 1) * pageSize;
 		@SuppressWarnings("unchecked")
-		List<PlanDocument> items = this
+		List<PlanDocument2> items = this
 				.queryByHql(
 						"from PlanDocument where deleted=false order by createTime desc",
 						null, first, pageSize);
@@ -49,10 +49,10 @@ public class PlanDocumentDaoImpl extends BaseDaoImpl<PlanDocument,String>impleme
 	}
 
 	@Override
-	public IPageList<PlanDocument> getDeletedDocuments(int pageNo, int pageSize) {
+	public IPageList<PlanDocument2> getDeletedDocuments(int pageNo, int pageSize) {
 		int first = (pageNo - 1) * pageSize;
 		@SuppressWarnings("unchecked")
-		List<PlanDocument> items = this
+		List<PlanDocument2> items = this
 				.queryByHql(
 						"from PlanDocument where deleted=true order by createTime desc",
 						null, first, pageSize);
@@ -76,7 +76,7 @@ public class PlanDocumentDaoImpl extends BaseDaoImpl<PlanDocument,String>impleme
 	}
 	
 	@Override
-	public List<PlanDocument> findByIds(ArrayList idList) {
+	public List<PlanDocument2> findByIds(ArrayList idList) {
 		// TODO Auto-generated method stub
 		String temp="";
 		for(int i=0;i<idList.size();i++)
@@ -89,7 +89,7 @@ public class PlanDocumentDaoImpl extends BaseDaoImpl<PlanDocument,String>impleme
 	}
 
 	@Override
-	public IPageList<PlanDocument> getDocumentsByPlan(String selectCondition, String inputValue, String selectValue,
+	public IPageList<PlanDocument2> getDocumentsByPlan(String selectCondition, String inputValue, String selectValue,
 			int pageNo, int pageSize) {
 		int first = (pageNo - 1) * pageSize;
 		String hql="";
@@ -107,7 +107,7 @@ public class PlanDocumentDaoImpl extends BaseDaoImpl<PlanDocument,String>impleme
 			hqlCount = "select count(*) from PlanDocument where deleted=false and documentName like '%"+inputValue+"%'";
 		}
 		@SuppressWarnings("unchecked")
-		List<PlanDocument> items = this
+		List<PlanDocument2> items = this
 				.queryByHql(hql,null, first, pageSize);
 		int count = Integer.parseInt(this.findUnique(
 				hqlCount, null)
@@ -116,7 +116,7 @@ public class PlanDocumentDaoImpl extends BaseDaoImpl<PlanDocument,String>impleme
 	}
 
 	@Override
-	public IPageList<PlanDocument> getDocumentsByPlan(String condition, int pageNo, int pageSize) {
+	public IPageList<PlanDocument2> getDocumentsByPlan(String condition, int pageNo, int pageSize) {
 		
 		int first = (pageNo - 1) * pageSize;
 		String hql="";
@@ -125,7 +125,7 @@ public class PlanDocumentDaoImpl extends BaseDaoImpl<PlanDocument,String>impleme
 		hql = "from PlanDocument where deleted=true and documentName like '%"+condition+"%' order by createTime desc";
 		hqlCount = "select count(*) from PlanDocument where deleted=true and documentName like '%"+condition+"%'";
 		@SuppressWarnings("unchecked")
-		List<PlanDocument> items = this
+		List<PlanDocument2> items = this
 				.queryByHql(hql,null, first, pageSize);
 		int count = Integer.parseInt(this.findUnique(
 				hqlCount, null)
@@ -134,9 +134,9 @@ public class PlanDocumentDaoImpl extends BaseDaoImpl<PlanDocument,String>impleme
 	}
 
 	@Override
-	public IPageList<PlanDocument> getOnePlanDocument(int pageNo, int pageSize, String id) {
+	public IPageList<PlanDocument2> getOnePlanDocument(int pageNo, int pageSize, String id) {
 		int first = (pageNo - 1) * pageSize;
-		List<PlanDocument> items = this
+		List<PlanDocument2> items = this
 				.queryByHql(
 						"from PlanDocument m where m.plan.id='"+id+"' order by createTime desc",
 						null, first, pageSize);

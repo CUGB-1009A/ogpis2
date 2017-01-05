@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ogpis.track.ogpis.base.action.BaseAction;
-import com.ogpis.track.ogpis.document.entity.PlanDocument;
+import com.ogpis.track.ogpis.document.entity.PlanDocument2;
 import com.ogpis.track.ogpis.plan.entity.Plan2;
 import com.ogpis.track.ogpis.system.entity.User2;
 import com.ogpis.track.ogpis.system.service.MenuItemService2;

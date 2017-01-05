@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ogpis.track.ogpis.base.common.paging.IPageList;
 import com.ogpis.track.ogpis.base.service.impl.BaseServiceImpl;
-import com.ogpis.track.ogpis.document.entity.PlanDocument;
+import com.ogpis.track.ogpis.document.entity.PlanDocument2;
 import com.ogpis.track.ogpis.plan.dao.PlanDao2;
 import com.ogpis.track.ogpis.plan.entity.Plan2;
 import com.ogpis.track.ogpis.plan.service.PlanService2;

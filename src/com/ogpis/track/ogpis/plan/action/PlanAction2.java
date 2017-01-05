@@ -3,8 +3,6 @@ package com.ogpis.track.ogpis.plan.action;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +16,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONObject;
 
 import org.apache.catalina.tribes.util.Arrays;
 import org.apache.commons.fileupload.FileItem;
@@ -45,7 +45,7 @@ import com.ogpis.track.ogpis.base.AddDefaultIndex;
 import com.ogpis.track.ogpis.base.action.BaseAction;
 import com.ogpis.track.ogpis.base.common.paging.IPageList;
 import com.ogpis.track.ogpis.base.common.paging.PageListUtil;
-import com.ogpis.track.ogpis.document.entity.PlanDocument;
+import com.ogpis.track.ogpis.document.entity.PlanDocument2;
 import com.ogpis.track.ogpis.document.entity.PlanPicture;
 import com.ogpis.track.ogpis.document.service.PlanDocumentService;
 import com.ogpis.track.ogpis.index.entity.IndexDataManagement2;
@@ -93,14 +93,13 @@ public class PlanAction2 extends BaseAction {
 		LinkedHashMap map;
 		List<LinkedHashMap> mapList = new ArrayList<LinkedHashMap>();
 		// 先判断当前用户是不是管理员
-		String currentUserName = request.getUserPrincipal().getName();
+//		String currentUserName = request.getUserPrincipal().getName();
+		String currentUserName = "user";
 		User2 user = userService.findByUserName(currentUserName);
-		Set<Role2> roles = user.getRoles();
+		System.out.println(user.getName());
+		
 		boolean isManager = false;
-		for (Role2 role : roles) {
-			if (role.getIsSuper())
-				isManager = true;
-		}
+		
 		List<Plan2> plans = planService.findAll(isManager, type, condition);// 查询用户（或管理员）所有能看到的规划
 		String conceredPlanId = ""; // 将用户关注的规划用字符串连接起来
 		for (Plan2 concern : user.getPlans()) {
@@ -114,7 +113,7 @@ public class PlanAction2 extends BaseAction {
 				map.put("isconcerned", true);// value = true 说明用户已经关注该规划
 			else
 				map.put("isconcerned", false);// value = false 说明用户还没有关注该规划
-			Set<PlanDocument> document = temp.getPlanDocument();
+			Set<PlanDocument2> document = temp.getPlanDocument();
 			map.put("planDocument", document);
 			mapList.add(map);
 		}
@@ -122,6 +121,8 @@ public class PlanAction2 extends BaseAction {
 		model.addAttribute("type", type);// 返回公司名称
 		model.addAttribute("condition", condition);// 查询条件回显到前台
 		model.addAttribute("planType",PlanType2.values());
+		System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+		System.out.println(JSONObject.fromObject(model).toString());
 		if (isManager)
 			return "plan/admin/list";
 		else {
@@ -260,8 +261,8 @@ public class PlanAction2 extends BaseAction {
 		System.out.println(id);
 		Plan2 plan = planService.findById(id);
 		plan.setDeleted(true);
-		Set<PlanDocument> planDocumentSet = plan.getPlanDocument();
-		for (PlanDocument temp : planDocumentSet) {
+		Set<PlanDocument2> planDocumentSet = plan.getPlanDocument();
+		for (PlanDocument2 temp : planDocumentSet) {
 			temp.setDeleted(true);
 			temp.setPlan(null);
 			planDocumentService.update(temp);
@@ -289,7 +290,7 @@ public class PlanAction2 extends BaseAction {
 			model.addAttribute("flag", 1);
 		}
 		if (flag.equals("2")) {
-			IPageList<PlanDocument> planDocumentSet = planDocumentService
+			IPageList<PlanDocument2> planDocumentSet = planDocumentService
 					.getOnePlanDocument(pageNo, pageSize, plan.getId());
 			model.addAttribute("planDocumentSet", planDocumentSet);
 			model.addAttribute("flag", 2);
@@ -353,8 +354,8 @@ public class PlanAction2 extends BaseAction {
 		for (int i = 0; i < idList.size(); i++) {
 			Plan2 plan = planService.findById(idList.get(i).toString()
 					.substring(1, idList.get(i).toString().length() - 1));
-			Set<PlanDocument> planDocumentSet = plan.getPlanDocument();
-			for (PlanDocument temp : planDocumentSet) {
+			Set<PlanDocument2> planDocumentSet = plan.getPlanDocument();
+			for (PlanDocument2 temp : planDocumentSet) {
 				temp.setDeleted(true);
 				temp.setPlan(null);
 				planDocumentService.update(temp);
@@ -387,7 +388,7 @@ public class PlanAction2 extends BaseAction {
 		// if (plan.getPlanDocument() != null)
 		// planDocumentList.addAll(plan.getPlanDocument());
 
-		PlanDocument bean = null;
+		PlanDocument2 bean = null;
 		request.setCharacterEncoding("utf-8");
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 		if (!isMultipart) {
@@ -411,7 +412,7 @@ public class PlanAction2 extends BaseAction {
 			if (item.isFormField()) {
 
 			} else {
-				bean = new PlanDocument();
+				bean = new PlanDocument2();
 				String fileName = item.getName();
 				fileSize = item.getSize();
 				// 这里发现ie获取的是路径加文件名，chrome获取的是文件名，这里我们只需要文件名，所以有路径的要先去路径
@@ -486,7 +487,7 @@ public class PlanAction2 extends BaseAction {
 	public String deleteDoc(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model, String id,
 			String type, String flag) throws IOException {
-		PlanDocument planDocument = planDocumentService.findById(id);
+		PlanDocument2 planDocument = planDocumentService.findById(id);
 		String planId = planDocument.getPlan().getId();
 		planDocument.setPlan(null);
 		planDocument.setDeleted(true);

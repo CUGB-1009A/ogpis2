@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import com.ogpis.track.ogpis.system.entity.base.UserEntity2;
 
 @Entity
-@Table(name = "ogpis_user")
+@Table(name = "ogpis_user2")
 public class User2 extends UserEntity2 {
 
 	/**

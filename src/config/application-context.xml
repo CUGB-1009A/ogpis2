@@ -48,7 +48,7 @@
 				<value>com.ogpis.forecast.entity</value>
 				<value>com.ogpis.system.entity</value>
 				<value>com.ogpis.plan.entity</value>
-
+				<value>com.ogpis.track.ogpis</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
