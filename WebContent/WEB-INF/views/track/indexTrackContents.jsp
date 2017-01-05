@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ include file="../init.jsp"%>
+<%@ include file="../init.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -69,87 +69,85 @@ td, th {
 				</div>
 			</div>
 		</div>
-		<div title="图表"
-			style="width: 100%; height: 88%; display: flex; flex-direction: row; flex-grow: 10; flex-shrink: 1">
-			<table id="table" class="easyui-datagrid table"
-				style="width: 100%; height: 100%; flex-grow: 1; flex-shrink: 1;">
-				<thead>
-					<tr>
-						<th data-options="field:'name'" style="width: 30%">规划名称</th>
-						<th data-options="field:'type'" style="width: 30%">规划类型</th>
-						<th data-options="field:'index'" style="width: 40%">规划指标跟踪</th>
-					</tr>
-				</thead>
-				<tbody id="data">
-					<tr>
-						<td>十三五规划</td>
-						<td>全国</td>
-						<td><a href="../track/indexTrack">规划指标跟踪描述信息……<a></td>
-					
-					</tr>
-					<tr>
-						<td>十二五规划</td>
-						<td>全国</td>
-						<td><a href="../track/indexTrack">规划指标跟踪描述信息……<a></td>				
-					</tr>
-					<tr>
-						<td>十一五规划</td>
-						<td>全国</td>
-						<td><a href="../track/indexTrack">规划指标跟踪描述信息……<a></td>
-					</tr>
-					<tr>
-						<td>中石油十三五规划</td>
-						<td>中石油</td>
-						<td><a href="../track/indexTrack">规划指标跟踪描述信息……<a></td>
-					</tr>
-					<tr>
-						<td>中石化十三五规划</td>
-						<td>中石化</td>
-						<td><a href="../track/indexTrack">规划指标跟踪描述信息……<a></td>
-					</tr>
-					<tr>
-						<td>中海油十三五规划</td>
-						<td>中海油</td>
-						<td><a href="../track/indexTrack">规划指标跟踪描述信息……<a></td>
-					</tr>
-					<tr>
-						<td>中联煤十三五规划</td>
-						<td>中联煤</td>
-						<td><a href="../track/indexTrack">规划指标跟踪描述信息……<a></td>
-					</tr>
-				</tbody>
-			</table>
-			<!-- <div class="toolBar" style="width: 100%; height: auto">
-					<div class="float-right">
-						<div class="inline-block margin padding-lr border-2">
-							<a id="btn" href="#" class="lable">保存图片</a>
-						</div>
-						<div class="inline-block margin padding-lr border-2">
-							<a id="btn" href="#" class="lable">保存图片</a>
-						</div>
-						<div class="inline-block margin padding-lr border-2">
-							<a id="btn" href="#" class="lable">保存图片</a>
-						</div>
-						<div class="inline-block margin padding-lr border-2">
-							<a id="btn" href="#" class="lable">保存图片</a>
-						</div>
-					</div>
-				</div> -->
+
+		<div title="图表" class="easyui-layout" style="width: 100%;"
+			data-options="fit:true">
+			<div id="panel1" class="border" data-options="region:'center'">
+				<%@ include file="tempFile.jsp"%>
+			</div>
+			<div data-options="region:'west',split:true"
+				style="width: 35%; max-width: 600px;">
+				<table id="table" class="easyui-datagrid table" data-options="singleSelect:true,striped:true"
+					style="width: 100%; flex-grow: 1; flex-shrink: 1;">
+					<thead>
+						<tr>
+							<th data-options="field:'name'" style="width: 30%">规划名称</th>
+							<th data-options="field:'type'" style="width: 30%">规划类型</th>
+							<th data-options="field:'index'" style="width: 40%">规划指标跟踪</th>
+						</tr>
+					</thead>
+					<tbody id="data">
+						<tr>
+							<td>十三五规划</td>
+							<td>全国</td>
+							<td>规划指标跟踪描述信息……</td>
+
+						</tr>
+						<tr>
+							<td>十二五规划</td>
+							<td>全国</td>
+							<td>规划指标跟踪描述信息……</td>
+						</tr>
+						<tr>
+							<td>十一五规划</td>
+							<td>全国</td>
+							<td>规划指标跟踪描述信息……</td>
+						</tr>
+						<tr>
+							<td>中石油十三五规划</td>
+							<td>中石油</td>
+							<td>规划指标跟踪描述信息……</td>
+						</tr>
+						<tr>
+							<td>中石化十三五规划</td>
+							<td>中石化</td>
+							<td>规划指标跟踪描述信息……</td>
+						</tr>
+						<tr>
+							<td>中海油十三五规划</td>
+							<td>中海油</td>
+							<td>规划指标跟踪描述信息……</td>
+						</tr>
+						<tr>
+							<td>中联煤十三五规划</td>
+							<td>中联煤</td>
+							<td>规划指标跟踪描述信息……</td>
+						</tr>
+					</tbody>
+				</table>
+				<div id="pp" class="easyui-pagination" style="height: 25px"
+					style="background: #efefef; border: 1px solid #ccc;"
+					data-options="total:2000,pageSize:10,displayMsg:''"></div>
+			</div>
+
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
 	$(function() {
 		$("#table").datagrid({
-			onDblClickCell : function(index, field, value) {
+			onClickCell : function(index, field, value) {
 				if (field == "index")
 					window.location = "../track/indexTrack";
 				if (field == "scale")
 					window.location = "../track/targetTrack";
 				if (field == "layout")
 					window.location = "../track/layoutTrack";
+			},
+			onLoadSuccess:function(){
+				$("#table").datagrid("selectRow",0);
 			}
 		});
-	})
+	});
 </script>
 </html>

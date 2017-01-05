@@ -49,7 +49,7 @@
 				<value>com.ogpis.data.entity</value>
 				<value>com.ogpis.system.entity</value>
 				<value>com.ogpis.plan.entity</value>
-
+				<value>com.ogpis.track.ogpis</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -92,6 +92,9 @@
 	<!-- <property name="sessionFactory" ref="sessionFactory" /> -->
 	<!-- <property name="cacheQueries" value="true" /> -->
 	<!-- </bean> -->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
 	<context:annotation-config />
 	<context:component-scan base-package="com.ogpis" />

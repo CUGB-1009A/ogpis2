@@ -1,6 +1,10 @@
 package com.ogpis.track.action;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.ogpis.track.tools.TempTools;
 
 @Controller
@@ -22,35 +25,45 @@ public class TrackAction {
 	public String indexTrackContents(HttpServletRequest request, ModelMap model) {
 		return "track/indexTrackContents";
 	}
-	
+
 	@RequestMapping(value = "/indexTrack")
 	public String indexTrack(HttpServletRequest request, ModelMap model) {
 		return "track/indexTrack";
 	}
-	
+
 	@RequestMapping(value = "/targetTrackContents")
 	public String targetTrackContents(HttpServletRequest request, ModelMap model) {
 		return "track/targetTrackContents";
 	}
-	
+
 	@RequestMapping(value = "/targetTrack")
 	public String targetTrack(HttpServletRequest request, ModelMap model) {
 		return "track/targetTrack";
 	}
-	
+
 	@RequestMapping(value = "/layoutTrackContents")
 	public String layoutTrackContents(HttpServletRequest request, ModelMap model) {
 		return "track/layoutTrackContents";
 	}
-	
+
 	@RequestMapping(value = "/layoutTrack")
 	public String layoutTrack(HttpServletRequest request, ModelMap model) {
 		return "track/layoutTrack";
 	}
-	
+
 	@RequestMapping(value = "/DataSource")
 	public String DataSource(HttpServletRequest request, ModelMap model) {
 		return "track/DataSource";
+	}
+
+	@RequestMapping(value = "/test2")
+	public String test2(HttpServletRequest request, ModelMap model) {
+		return "track/TestMap";
+	}
+
+	@RequestMapping(value = "/plan/list")
+	public String list(HttpServletRequest request, ModelMap model) {
+		return "track/list_temp";
 	}
 
 	@ResponseBody
@@ -62,7 +75,8 @@ public class TrackAction {
 		JSONObject json = TempTools.parseXml(xml);
 		System.out.println(json.toString());
 		response.setContentType("json/application;charset=utf-8");
-		response.getWriter().write(json.getJSONObject("Root").getJSONArray("Record").toString());
+		response.getWriter().write(
+				json.getJSONObject("Root").getJSONArray("Record").toString());
 		/* return json.getJSONObject("Root").toString(); */
 	}
 

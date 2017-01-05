@@ -1,4 +1,4 @@
-package com.ogpis.track.service;
+package com.ogpis.track.webservice;
 
 import java.util.ArrayList;
 import java.util.List;

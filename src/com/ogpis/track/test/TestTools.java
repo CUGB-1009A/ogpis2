@@ -5,9 +5,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ogpis.track.service.WebServiceParam;
-import com.ogpis.track.service.WebServiceParams;
 import com.ogpis.track.tools.TempTools;
+import com.ogpis.track.webservice.WebServiceParam;
+import com.ogpis.track.webservice.WebServiceParams;
 
 import org.dom4j.Document;
 import org.json.JSONObject;

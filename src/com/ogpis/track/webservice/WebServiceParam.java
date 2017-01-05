@@ -1,4 +1,4 @@
-package com.ogpis.track.service;
+package com.ogpis.track.webservice;
 
 public class WebServiceParam {
 	private String ColumsName;
