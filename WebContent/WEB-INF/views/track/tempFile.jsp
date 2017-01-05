@@ -7,7 +7,7 @@
 	</div>
 	<div data-options="region:'center'">
 		<IFRAME width="100%" height="100%" style="border:0" frameBorder=0 id=main_top
-			name=main_top src="/ogpis2/plan2/list"></IFRAME>
+			name=main_top src="/ogpis2/track/plan/list"></IFRAME>
 		<!-- <div id="chart2" style="width: 700px; height: 220px"></div> -->
 	</div>
 </div>

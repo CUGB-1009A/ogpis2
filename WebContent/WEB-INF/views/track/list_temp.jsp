@@ -10,9 +10,9 @@
 <meta name="author" content="">
 <title>油气资源规划信息系统</title>
 <!-- 加载bootstrap -->
-<script type="text/javascript" src="../js/arcgis/bootstrap.js"></script>
+<script type="text/javascript" src="../../js/arcgis/bootstrap.js"></script>
 <link type="text/css" rel="stylesheet"
-	href="../js/arcgis/css/bootstrap.css">
+	href="../../js/arcgis/css/bootstrap.css">
 <!-- <script type="text/javascript"
 	src="../js/arcgis/bootstrap-select.min.js"></script> -->
 </head>
