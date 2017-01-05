@@ -113,13 +113,13 @@
 			width=window.innerWidth;
 			height=window.innerHeight;
 			document.getElementById("chart21").style.width=width-20;
-			document.getElementById("chart21").style.height=height-20;
+			document.getElementById("chart21").style.height=height-40;
 			document.getElementById("chart21").chart.resize();
 			document.getElementById("chart22").style.width=width-20;
-			document.getElementById("chart22").style.height=height-20;
+			document.getElementById("chart22").style.height=height-40;
 			document.getElementById("chart22").chart.resize();
 			document.getElementById("chart23").style.width=width-20;
-			document.getElementById("chart23").style.height=height-20;
+			document.getElementById("chart23").style.height=height-40;
 			document.getElementById("chart23").chart.resize();
 			});
 	</script>
