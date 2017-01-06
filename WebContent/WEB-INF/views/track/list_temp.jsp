@@ -18,13 +18,13 @@
 </head>
 <html>
 <body>
-	<div class="easyui-layout" data-options="fit:true">
+	<div class="easyui-layout" data-options="fit:true,border:false">
 		<!-- <div data-options="region:'north',split:true"
 			style="width: 100%; height: 50%;">
 			<div id="chart1" style="width: 700px; height: 220px"></div>
 		</div> -->
 		<div id="myCarousel" class="carousel slide"
-			data-options="region:'center'" style="border:0">
+			data-options="region:'center',border:false">
 			<!-- 轮播（Carousel）指标 -->
 			<ol class="carousel-indicators">
 				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -115,8 +115,8 @@
 			});
 		}
 		function panelResize(width,height) {
-			$(this).children("div")[0].style.width=width-20;
-			$(this).children("div")[0].style.height=height-20;
+			$(this).children("div")[0].style.width=$(this).width();
+			$(this).children("div")[0].style.height=$(this).height();
 			$(this).children("div")[0].chart.resize();
 		};
 		//函数参数为dom元素
@@ -127,14 +127,14 @@
 		$(window).resize(function(){
 			width=window.innerWidth;
 			height=window.innerHeight;
-			document.getElementById("chart21").style.width=width-20;
-			document.getElementById("chart21").style.height=height-20;
+			document.getElementById("chart21").style.width=width;
+			document.getElementById("chart21").style.height=height-2;
 			document.getElementById("chart21").chart.resize();
-			document.getElementById("chart22").style.width=width-20;
-			document.getElementById("chart22").style.height=height-20;
+			document.getElementById("chart22").style.width=width;
+			document.getElementById("chart22").style.height=height-2;
 			document.getElementById("chart22").chart.resize();
-			document.getElementById("chart23").style.width=width-20;
-			document.getElementById("chart23").style.height=height-20;
+			document.getElementById("chart23").style.width=width;
+			document.getElementById("chart23").style.height=height-2;
 			document.getElementById("chart23").chart.resize();
 			});
 	</script>

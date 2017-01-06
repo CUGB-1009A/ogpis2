@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <div class="easyui-layout easyui-panel" data-options="fit:true">
-	<div data-options="region:'north',split:true,onResize:panelResize"
+	<div data-options="region:'north',split:true,onResize:panelResize,border:false"
 		style="height: 50%;">
 		<div id="chart1" style="width: 700px; height: 220px;"></div>
 	</div>
@@ -54,17 +54,17 @@
 			},
 		} ]
 	}
-	var myChart12 = echarts.init(document.getElementById("chart1"));
-	option2.title.text = "规划完成情况";
-	myChart12.setOption(option2);
-	document.getElementById("chart1").chart = myChart12;
-	/* var myChart22 = echarts.init(document.getElementById("chart2"));
-	option2.title.text="石油产量";
-	myChart22.setOption(option2);
-	document.getElementById("chart2").chart=myChart22; */
+	function initMyChart(domId,title,options){
+		var dom=document.getElementById(domId);
+		var chart = echarts.init(dom);
+		option2.title.text = title;
+		chart.setOption(options);
+		dom.chart = chart;
+	}
+	initMyChart("chart1","规划完成情况",option2);
 	function panelResize(width, height) {
-		$(this).children("div")[0].style.width = width - 20;
-		$(this).children("div")[0].style.height = height - 20;
+		$(this).children("div")[0].style.width = $(this).width();
+		$(this).children("div")[0].style.height = $(this).height()-1;
 		$(this).children("div")[0].chart.resize();
 	};
 </script>
