@@ -25,6 +25,7 @@
 }
 #sider-nav li a{
 	cursor: pointer;
+	text-decoration: none; 
 	line-height: 50px;
 	font-family: "microsoft yahei";
 	color: #959595;
@@ -150,7 +151,7 @@
 
 <div id="sider-nav">
 	<ul>
-		<li>
+<!-- 		<li>
 			<a>历史数据要览</a>
 		</li>
 		<li>
@@ -167,7 +168,7 @@
 		</li>
 		<li>
 			<a>系统管理</a>
-		</li>
+		</li> -->
 	</ul>
 
 </div>
