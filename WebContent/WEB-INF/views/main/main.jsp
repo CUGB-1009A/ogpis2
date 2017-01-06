@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../init.jsp"%>
+<%
+	String path1 = request.getContextPath();
+%>
 <title>油气资源规划管理系统</title>
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false"
-		style="height: 80px; padding: 0px">
+		style="height: 200px; padding: 0px">
 		<IFRAME width="100%" height="100%" frameBorder=0 id=main_top
 			name=main_top src="<%=path%>/main/top"></IFRAME>
 	</div>
@@ -17,10 +20,15 @@
 		<IFRAME width="100%" height="100%" frameBorder=0 id=main_center
 			name=main_center src="<%=path%>/main/center"></IFRAME>
 	</div>
-	<div data-options="region:'south',border:false"
+	<!--<div data-options="region:'south',border:false"
 		style="height: 32px;">
 		<IFRAME width="100%" height="100%" frameBorder=0 id=main_bottom
 			name=main_bottom src="<%=path%>/main/bottom"></IFRAME>
-	</div>
+	</div>-->
 </body>
+<script>
+	var se="<%=path1%>";
+	
+</script>
+
 </html>

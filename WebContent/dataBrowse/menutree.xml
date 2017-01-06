@@ -1,103 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataguaid>
-	<theme id="资源量">
-		<district id="大区" href="<%=path%>/dataBrowse">
-			<tab>年度大区各盆地油气资源量</tab>
-		</district> 
-		<district id="全国" href="<%=path%>/dataBrowse">
-			<tab>年度各盆地油气资源量</tab>
-			<tab>年度各大区油气资源量</tab>
-			<tab>年度各省区油气资源量</tab>
-		</district> 		
-	</theme>
-	<theme id="储量">
-		<district id="全国">
-			<tab>历年全国盆地储量</tab>
-			<tab>年度各省区储量</tab>
-			<tab>年度公司各油气田储量</tab>
-			<tab>年度各盆地储量</tab>
-		</district> 
-		<district id="石油公司">
-			<tab>历年石油总公司储量</tab>
-			<tab>年度石油子公司储量</tab>
-		</district> 
-		<district id="省区">
-			<tab>年度省区油气田储量</tab>
-			<tab>历年各省区储量</tab>
-		</district> 
-		<district id="盆地">
-			<tab>年度盆地油气田储量</tab>
-			<tab>历年各盆地储量</tab>
-		</district> 		
-	</theme>
-	<theme id="产量">
-		<district id="全国">
-			<tab>历年全国油气资源产量概况</tab>
-			<tab>全国各石油公司油气资源产量概况</tab>
-			<tab>全国各盆地石油资源产量概况</tab>
-			<tab>全国各省区油气资源产量概况</tab>
-		</district> 
-		<district id="石油公司">
-			<tab>历年全国各石油公司油气资源产量概况</tab>
-			<tab>全国各石油公司油气资源产量明细</tab>
-			<tab>全国各石油公司油气资源月度产量</tab>
-		</district> 
-		<district id="省区">
-			<tab>历年全国各省区油气资源产量概况</tab>
-			<tab>全国各省区油气资源产量明细</tab>
-		</district> 
-		<district id="盆地">
-			<tab>历年全国各盆地油气资源产量概况</tab>
-			<tab>全国各盆地油气资源产量明细</tab>
-		</district> 		
-	</theme>
-	<theme id="勘探开发">
-		<district id="全国">
-			<tab>各石油公司地震勘探情况</tab>
-			<tab>各石油公司钻探情况</tab>
-			<tab>各石油公司各项勘探工作投入情况</tab>
-			<tab>历年全国钻探情况</tab>
-			<tab>历年全国地震勘探情况</tab>
-			<tab>历年全国勘探工作总投入情况</tab>
-		</district> 
-		<district id="石油公司">
-			<tab>历年全国各石油公司地震勘探情况</tab>
-			<tab>历年各石油公司勘探工作总投入情况</tab>
-			<tab>历年全国各石油公司钻探情况</tab>
-		</district> 		
-	</theme>
-	<theme id="油气贸易">
-		<district id="全国">
-			<tab>资源出口信息</tab>
-			<tab>资源进口信息</tab>
-			<tab>原油进口来源明细</tab>
-		</district> 
-		<district id="来源国">
-			<tab>历年来源国出口信息</tab>
-		</district> 		
-	</theme>
-	<theme id="矿权">
-		<district id="石油公司">
-			<tab>全国各公司油气资源矿权明细</tab>
-			<tab>历年全国各公司油气资源矿权概况</tab>
-		</district> 
-		<district id="省区">
-			<tab>全国各省区油气资源矿权明细</tab>
-		</district> 
-		<district id="全国">
-			<tab>全国各公司油气资源矿权概况</tab>
-			<tab>全国油气资源矿权概况</tab>
-			<tab>全国各省区油气资源矿权概况</tab>
-			<tab>全国历年油气资源矿权概况</tab>
-		</district> 		
-	</theme>
-	<theme id="非油气">
-		<district id="煤炭"></district>
-		<district id="核电"></district>
-		<district id="水能"></district>
-		<district id="风能"></district> 		
-		<district id="太阳能"></district>
-	</theme>
-	<theme id="定制分析">
-	</theme>
-</dataguaid>
+<menutree>
+	<level1 id="历史数据要览">
+		<level2 id="资源量">
+			<level3 id="大区">
+				<tab id="zyl_dq_01">年度大区各盆地油气资源量</tab>
+			</level3>
+			<level3 id="全国">
+				<tab id="zyl_qg_01">年度各盆地油气资源量</tab>
+				<tab id="zyl_qg_02">年度各大区油气资源量</tab>
+				<tab id="zyl_qg_03">年度各省区油气资源量</tab>
+			</level3>
+		</level2>
+		<level2 id="储量">
+			<level3 id="全国">
+				<tab id="chul_qg_01">历年全国盆地储量</tab>
+				<tab id="chul_qg_02">年度各省区储量</tab>
+				<tab id="chul_qg_03">年度公司各油气田储量</tab>
+				<tab id="chul_qg_04">年度各盆地储量</tab>
+			</level3>
+			<level3 id="石油公司">
+				<tab id="chul_sygs_01">历年石油总公司储量</tab>
+				<tab id="chul_sygs_02">年度石油子公司储量</tab>
+			</level3>
+			<level3 id="省区">
+				<tab id="chul_sq_01">年度省区油气田储量</tab>
+				<tab id="chul_sq_02">历年各省区储量</tab>
+			</level3>
+			<level3 id="盆地">
+				<tab id="chul_pd_01">年度盆地油气田储量</tab>
+				<tab id="chul_pd_02">历年各盆地储量</tab>
+			</level3>
+		</level2>
+		<level2 id="产量">
+			<level3 id="全国">
+				<tab id="chanl_qg_01">历年全国油气资源产量概况</tab>
+				<tab id="chanl_qg_02">全国各石油公司油气资源产量概况</tab>
+				<tab id="chanl_qg_03">全国各盆地石油资源产量概况</tab>
+				<tab id="chanl_qg_04">全国各省区油气资源产量概况</tab>
+			</level3>
+			<level3 id="石油公司">
+				<tab id="chanl_sygs_01">历年全国各石油公司油气资源产量概况</tab>
+				<tab id="chanl_sygs_02">全国各石油公司油气资源产量明细</tab>
+				<tab id="chanl_sygs_03">全国各石油公司油气资源月度产量</tab>
+			</level3>
+			<level3 id="省区">
+				<tab id="chanl_sq_01">历年全国各省区油气资源产量概况</tab>
+				<tab id="chanl_sq_02">全国各省区油气资源产量明细</tab>
+			</level3>
+			<level3 id="盆地">
+				<tab id="chanl_pd_01">历年全国各盆地油气资源产量概况</tab>
+				<tab id="chanl_pd_02">全国各盆地油气资源产量明细</tab>
+			</level3>
+		</level2>
+		<level2 id="勘探开发">
+			<level3 id="全国">
+				<tab id="ktkf_qg_01">各石油公司地震勘探情况</tab>
+				<tab id="ktkf_qg_02">各石油公司钻探情况</tab>
+				<tab id="ktkf_qg_03">各石油公司各项勘探工作投入情况</tab>
+				<tab id="ktkf_qg_04">历年全国钻探情况</tab>
+				<tab id="ktkf_qg_05">历年全国地震勘探情况</tab>
+				<tab id="ktkf_qg_06">历年全国勘探工作总投入情况</tab>
+			</level3>
+			<level3 id="石油公司">
+				<tab id="ktkf_sygs_01">历年全国各石油公司地震勘探情况</tab>
+				<tab id="ktkf_sygs_02">历年各石油公司勘探工作总投入情况</tab>
+				<tab id="ktkf_sygs_03">历年全国各石油公司钻探情况</tab>
+			</level3>
+		</level2>
+		<level2 id="油气贸易">
+			<level3 id="油价"></level3>
+			<level3 id="进出口"></level3>
+		</level2>
+		<level2 id="矿权">
+			<level3 id="石油公司">
+				<tab id="kq_sygs_01">全国各公司油气资源矿权明细</tab>
+				<tab id="kq_sygs_02">历年全国各公司油气资源矿权概况</tab>
+			</level3>
+			<level3 id="省区">
+				<tab id="kq_sq_01">全国各省区油气资源矿权明细</tab>
+			</level3>
+			<level3 id="全国">
+				<tab id="kq_qg_01">全国各公司油气资源矿权概况</tab>
+				<tab id="kq_qg_02">全国油气资源矿权概况</tab>
+				<tab id="kq_qg_03">全国各省区油气资源矿权概况</tab>
+				<tab id="kq_qg_04">全国历年油气资源矿权概况</tab>
+			</level3>
+		</level2>
+		<level2 id="非油气">
+			<level3 id="煤炭"></level3>
+			<level3 id="核电"></level3>
+			<level3 id="水能"></level3>
+			<level3 id="风能"></level3>
+			<level3 id="太阳能"></level3>
+		</level2>
+		<level2 id="定制分析"></level2>
+	</level1>
+	<level1 id="规划辅助编制">
+	    <level2 id="模型管理"></level2>
+	    <level2 id="趋势管理"></level2>  
+	    <level2 id="预测管理"></level2>		
+	</level1>
+	<level1 id="规划展示">
+		<level2 id="规划概览"></level2>
+	    <level2 id="规划指标"></level2>  
+	    <level2 id="实施情况"></level2>
+	    <level2 id="规划资料"></level2>
+	    <level2 id="收藏管理"></level2>
+	</level1>	      
+	<level1 id="规划跟踪评估">
+		<level2 id="指标跟踪"></level2>
+	    <level2 id="规划跟踪"></level2>  
+	    <level2 id="布局跟踪"></level2>
+	</level1>
+	<level1 id="规划管理">
+	    <level2 id="规划管理"></level2>  
+	    <level2 id="资料管理"></level2>
+	    <level2 id="指标管理"></level2>
+	    <level2 id="实施跟踪管理"></level2>		
+	</level1>
+	<level1 id="系统管理">
+		<level2 id="数据管理"></level2>  
+	    <level2 id="数据专题配置"></level2>
+	    <level2 id="基础数据配置"></level2>
+	    <level2 id="角色管理"></level2>
+	</level1>
+</menutree>
