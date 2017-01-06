@@ -37,6 +37,7 @@ html, body {
 <script type="text/javascript" src="<%=path%>/resource/echart/echarts.js"></script>
 <script src="<%=path %>/dist/js/app.min.js" type="text/javascript"></script>
 
+
 <%@ taglib uri="/WEB-INF/taglib/c.tld" prefix="c"%>
 
 <script type="text/javascript">

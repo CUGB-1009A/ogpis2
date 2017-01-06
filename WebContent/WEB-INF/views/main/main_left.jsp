@@ -4,76 +4,40 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<style>
-li{
-	height: 38px;
-	line-height: 38px;
-	border-bottom: 1px solid #dcdcdc;
-	text-align: center;
-	display: block;
-}
-.sider-nav{
-   padding-left: 0px;
-   margin:0px;
-}
-.sider-nav li a {
-	display: block;
-	padding: 0 15px;
-	height: 100%;
-	color: #434343;
-	font-size: 16px;
-	text-decoration: none;
-	text-align: left;
-	font-family:"微软雅黑",arial;
-	text-overflow: ellipsis;
-	overflow: hidden;
-}
-.sider-nav li .sider-nav-title {
-	width: 112px;
-	overflow: hidden;
-	font-size: 13px
-}
-.sider-nav li .iconfont {
-	float: right;
-	font-size: 12px;
-	color: #b9c1be
-}
-.sider-nav li.current {
-	border-left: 3px solid #BDC0BA;
-	border-bottom: none;
-	height: 39px;
-	background: #0e98e7
-}
-.sider-nav li.current a {
-	padding-left: 12px;
-	color: #fff
-}
-.sider-nav li.current .iconfont {
-	color: #fff
-}
-.accordion .accordion-header{
-  height:26px;
-  font-size:medium;
-}
-.accordion .accordion-body{
-	padding: 0px;
-}
-.accordion .accordion-header-selected{
-	background:#3969b7
-}
-.panel-title{
-font-size:18px;
-line-height: 26px;}
-.panel-header{
-text-align: left;
-white-space: nowrap;
-text-overflow: ellipsis;}
-i{
-padding-right:10px;
-}
 
+<style>
+#sider-nav{
+	height: 100%;
+	background-color:#F2F2F2 ;
+	overflow: auto;
+}
+#sider-nav ul{
+	padding: 0px;
+	margin:0px;
+}
+#sider-nav li{
+	display:block;
+	text-align: center;
+	width: 100%;
+	height:50px;
+	border-bottom:1px solid #CAC6C6;
+	list-style: none;
+}
+#sider-nav li a{
+	cursor: pointer;
+	line-height: 50px;
+	font-family: "microsoft yahei";
+	color: #959595;
+}
+#sider-nav li.current{
+	background-color: #CAC6C6;
+}
+#sider-nav li.current a{
+	color: #FFF;
+}
 </style>
-<div class="easyui-accordion" style="height: 100%;" >
+
+<%-- <div class="easyui-accordion" style="height: 100%;" >
 	<div title="历史数据要览" iconCls="" style="overflow:auto;" >
 		<ul class="sider-nav">
 			<li >
@@ -96,9 +60,9 @@ padding-right:10px;
 
 	<div title="规划辅助编制" iconCls="" style="overflow:auto"selected="true">
 		<ul class="sider-nav">
-			<%-- <li >
+			<li >
 				<span class="sider-nav-title"><a href="<%=path%>/forecast/toPredictionPage" target=main_center>上版预测</a></span>
-			</li> --%>
+			</li>
 			<li> 
 				<span class="sider-nav-title"><a href="<%=path%>/forecast/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-line-chart"></i>趋势预测</a></span>
 
@@ -181,13 +145,78 @@ padding-right:10px;
 				<span class="sider-nav-title"><a href="<%=path%>/dataCache/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-database"></i>缓存维护</a></span>				
 			</li>
 		</ul>
-	</div>
+	</div> --%>
+
+
+<div id="sider-nav">
+	<ul>
+		<li>
+			<a>历史数据要览</a>
+		</li>
+		<li>
+			<a>规划辅助编制</a>
+		</li>
+		<li>
+			<a>规划展示</a>
+		</li>
+		<li>
+			<a>规划跟踪评估</a>
+		</li>
+		<li>
+			<a>规划管理</a>
+		</li>
+		<li>
+			<a>系统管理</a>
+		</li>
+	</ul>
 
 </div>
 <script>
-$(document).on('click', '.sider-nav li', function() {
-    $('.sider-nav li').removeClass('current');
+$(document).on('click', '#sider-nav li', function() {
+	$('#sider-nav li').find("a i").remove();
+    $('#sider-nav li').removeClass('current');
     $(this).addClass('current');
-    //$('iframe').attr('src', $(this).data('src'));
+    $(this).find("a").prepend('<i class="fa fa-angle-right" style="float:right;padding:16px 10px 0 0;"></i>');
 });
+//var text="";
+//$(function(){
+//		$.ajax({
+//        url: '../dataBrowse/menutree.xml',
+//        dataType: 'xml',
+//        async: false,
+//        success: function(data){
+//        	$(data).find("theme").each(function(){
+//        		var theme=$(this);
+//        		$('.easyui-accordion').accordion('add', {
+//					title: theme.attr("id")+"专题",
+//					content: GetContent(theme.attr("id")),
+//					selected: false
+//				});
+//        	});
+//        }
+//    });
+//});
+//function GetContent(pid){
+// 	 var content='<ul class="sider-nav">';
+// 	 $.ajax({
+//        url: '../dataBrowse/menutree.xml',
+//        dataType: 'xml',
+//        async: false,
+//        success: function(data){
+//           $(data).find("theme[id="+pid+"] > district").each(function(){			                
+//           	var district=$(this);
+//           	text='<li>';
+//           	text+='<span class="sider-nav-title">';
+//           	text+='<a href="" target=main_center>';
+//           	text+='<i class="fa fa-angle-right" style="float:right;padding-top:13px"></i>';
+//           	text+='<i class="fa fa-globe"></i>';
+//           	text+=district.attr("id");
+//           	text+='</a></span></li>';
+//           	content+=text;
+//           });
+//        }
+//    });
+//    content+="</ul>";
+//    return content;
+//}
 </script>
