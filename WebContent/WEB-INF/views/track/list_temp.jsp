@@ -65,7 +65,7 @@
 
 			xAxis : [ {
 				type : 'category',
-				boundaryGap : false,
+				/* boundaryGap : false, */
 				name : "年份",
 				data : [ 2001, 2002, 2003, 2004, 2005, 2006 ]
 			} ],
@@ -74,24 +74,39 @@
 				name : '万吨'
 			} ],
 			series : [ {
-				type : 'line',
+				type : 'bar',
+				barWidth:30,
 				name : '历史数据',
 				data : [ 1215, 8545, 5442, 78854, 4564, 4788 ]
 			} ]
+		}
+		function setChartOption(单位, 名称, 数据, 目标) {
+			option2.yAxis[0].name = 单位;
+			option2.title.text = 名称;
+			option2.series[0].name = 名称;
+			option2.series[0].data = 数据;
+			/* option2.series[0].markLine.data[0][0].yAxis = 目标;
+			option2.series[0].markLine.data[0][0].value = 目标;
+			option2.series[0].markLine.data[0][1].yAxis = 目标; */
 		}
 		/* var myChart12 = echarts.init(document.getElementById("chart1"));
 		option2.title.text = "规划完成情况";
 		myChart12.setOption(option2); */
 		var myChart221 = echarts.init(document.getElementById("chart21"));
-		option2.title.text = "石油产量";
+		/* option2.title.text = "石油产量"; */
+		setChartOption("亿吨", "石油产量", [ 2.03, 2.07, 2.09, 2.11, 2.15 ], 2.0);
 		myChart221.setOption(option2);
 		document.getElementById("chart21").chart=myChart221;
 		var myChart222 = echarts.init(document.getElementById("chart22"));
-		option2.title.text = "天然气产量";
+		/* option2.title.text = "天然气产量"; */
+		setChartOption("亿立方米", "天然气产量",
+			[ 1013.00, 1071.00, 1166.00, 1248.00, 1300 ], 1385.00);
 		myChart222.setOption(option2);
 		document.getElementById("chart22").chart=myChart222;
 		var myChart223 = echarts.init(document.getElementById("chart23"));
-		option2.title.text = "煤层气产量";
+		/* option2.title.text = "煤层气产量"; */
+		setChartOption("亿立方米", "煤层气产量", [ 20.70, 25.73, 29.26, 36.90, 42.00 ],
+			160.00);
 		myChart223.setOption(option2);
 		document.getElementById("chart23").chart=myChart223;
 		window.onload = function() {
