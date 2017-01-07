@@ -108,20 +108,20 @@
 	    <level2 id="scgl" name="收藏管理" imgName="5.png"></level2>
 	</level1>	      
 	<level1 id="ghgzpg" name="规划跟踪评估" top="true" left="true" center="true" imgName="ghgzpg.png" hasTri="false">
-		<level2 id="zbgz" name="指标跟踪" url="" imgName="1.png"></level2>
-	    <level2 id="gmgz" name="规划跟踪" url="" imgName="2.png"></level2>  
-	    <level2 id="bjgz" name="布局跟踪" url="" imgName="3.png"></level2>
+		<level2 id="zbgz" name="指标跟踪" url="/track/indexTrackContents" imgName="1.png" ></level2>
+	    <level2 id="gmgz" name="规划跟踪" url="/track/targetTrackContents" imgName="2.png"></level2>  
+	    <level2 id="bjgz" name="布局跟踪" url="/track/layoutTrackContents" imgName="3.png"></level2>
 	</level1>
-	<level1 id="ghgl" name="规划管理" top="false" left="true" center="false" hasTri="false">
-	    <level2 id="规划管理"></level2>  
-	    <level2 id="资料管理"></level2>
-	    <level2 id="指标管理"></level2>
-	    <level2 id="实施跟踪管理"></level2>		
+	<level1 id="ghgl" name="规划管理" top="true" left="true" center="true" imgName="1.png" hasTri="false">
+	    <level2 id="ghgl" name="规划管理" imgName="1.png"></level2>  
+	    <level2 id="zlgl" name="资料管理" imgName="2.png"></level2>
+	    <level2 id="zbgl" name="指标管理" imgName="3.png"></level2>
+	    <level2 id="ssgzgl" name="实施跟踪管理" imgName="4.png"></level2>		
 	</level1>
-	<level1 id="xtgl" name="系统管理" top="false" left="true" center="false" hasTri="false">
-		<level2 id="数据管理"></level2>  
-	    <level2 id="数据专题配置"></level2>
-	    <level2 id="基础数据配置"></level2>
-	    <level2 id="角色管理"></level2>
+	<level1 id="sjgl" name="数据管理" top="true" left="true" center="true" imgName="2.png" hasTri="false">
+		<level2 id="jcxxwh" name="基础信息维护" imgName="1.png" url="/baseinfo/list"></level2>  
+	    <level2 id="sjywh" name="数据源维护" imgName="2.png" url="/dataSource/list"></level2>
+	    <level2 id="sjwh" name="数据维护" imgName="3.png" url="/data/dataMaintain"></level2>
+	    <level2 id="hcwh" name="缓存维护" imgName="4.png" url="/dataCache/list"></level2>
 	</level1>
 </menutree>

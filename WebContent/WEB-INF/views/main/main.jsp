@@ -72,6 +72,7 @@
 			            			{
 				            			$("#main_center").contents().find("#row2").append("<div class='modal'><a class='"+id+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
 				            			$("#main_center").contents().find("#row2 ."+id).click(function(){
+				            				$("#main_top").contents().find("#nav ."+id).addClass("current");
 				            				showMenu($(this).attr("class"));
 				            			});
 			            			}
@@ -118,7 +119,9 @@
 				        	 }
 				        	 if(hasTri=="true"){
 				        		 var isFirst = true;
+				        		 var select = true ;
 				        		 clickNode.find("level2").each(function(){
+				        			 
 				        			 if(isFirst){
 				        				 var level3Num = $(this).find("level3").length;
 				        				 var i3=0;
