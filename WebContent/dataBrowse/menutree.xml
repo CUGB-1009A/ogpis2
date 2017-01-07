@@ -2,7 +2,7 @@
 <menutree>
 	<level1 id="lssjyl" name="历史数据要览" top="true" left="true" center="true" imgName="lssjyl.png" hasTri="true">
 		<level2 id="zyl" name="资源量">
-			<level3 id="dq" name="大区" imgName="1.png" url="">
+			<level3 id="dq" name="大区" imgName="1.png" url="/dataBrowse">
 				<tab id="zyl_dq_01">年度大区各盆地油气资源量</tab>
 			</level3>
 			<level3 id="qg" name="全国" imgName="2.png" url="">

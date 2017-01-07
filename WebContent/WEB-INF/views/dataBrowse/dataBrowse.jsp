@@ -5,10 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<<<<<<< HEAD
-<title>Insert title here</title>	
-	<script type="text/javascript" src="<%=request.getContextPath()%>/js/dataBrowse/buildReports/bulidReport.js"></script>
-=======
+
 <title>Insert title here</title>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/js/dataBrowse/buildReports/data_mould.js"></script>
@@ -16,7 +13,7 @@
 	src="<%=request.getContextPath()%>/js/dataBrowse/buildReports/bulidReport.js"></script>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/js/dataBrowse/browseHandle.js"></script>
->>>>>>> refs/remotes/origin/数据要览
+
 <style type="text/css">
 	tr{
 	height:30px;
