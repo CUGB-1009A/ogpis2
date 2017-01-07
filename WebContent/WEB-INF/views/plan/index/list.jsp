@@ -16,7 +16,7 @@
 	</div>
 	<div style="text-align:right;margin:0 10px 0 10px">
 	
-		<select id="selectType" name="planType">
+		<select id="selectType" name="planType" class="easyui-combox">
 			<c:forEach items="${planType }" var="item">
 				<option value="${item.key }"<c:if test="${item.key.equals(type) }">selected</c:if>>${item}</option>
 			</c:forEach>
@@ -29,8 +29,8 @@
 				<tr>
 					<th field='indexName' width="25%" align="center">指标名称</th>
 					<th field="indexUnit" width="10%" align="center">指标单位</th>
-					<th field="mineType" width="10%" align="center">矿种类型</th>
-					<th field="indexType" width="20%" align="center">指标类型</th>
+					<th field="mineType" width="10%" align="center">指标类型</th>
+					<!-- <th field="indexType" width="20%" align="center">指标类型</th> -->
 					<th field="priority" width="10%" align="center">显示顺序</th>
 					<th field="operate" width="25%" align="center">操作</th>
 				</tr>
@@ -41,17 +41,31 @@
 						<td>${item1.indexName }</td>
 						<td>${item1.indexUnit }</td>
 						<td>
-							<c:if test="${item1.mineType.equals('1') }">石油</c:if>
+							<%-- <c:if test="${item1.mineType.equals('1') }">石油</c:if>
 							<c:if test="${item1.mineType.equals('2') }">天然气</c:if>
 							<c:if test="${item1.mineType.equals('3') }">煤层气</c:if>
 							<c:if test="${item1.mineType.equals('4') }">页岩气</c:if>
-							<c:if test="${item1.mineType.equals('5') }">其他</c:if>
+							<c:if test="${item1.mineType.equals('5') }">其他</c:if> --%>
+							<c:if test="${item1.mineType.equals('二维地震') }">二维地震</c:if>
+							<c:if test="${item1.mineType.equals('三维地震') }">三维地震</c:if>
+							<c:if test="${item1.mineType.equals('探井井数') }">探井井数</c:if>
+							<c:if test="${item1.mineType.equals('探井进尺') }">探井进尺</c:if>
+							<c:if test="${item1.mineType.equals('开发井井数') }">开发井井数</c:if>
+							<c:if test="${item1.mineType.equals('开发井进尺') }">开发井进尺</c:if>
+							<c:if test="${item1.mineType.equals('石油') }">石油</c:if>
+							<c:if test="${item1.mineType.equals('天然气(含致密气)') }">天然气(含致密气)</c:if>
+							<c:if test="${item1.mineType.equals('页岩气') }">页岩气</c:if>
+							<c:if test="${item1.mineType.equals('煤层气') }">煤层气</c:if>
+							<c:if test="${item1.mineType.equals('勘探') }">勘探</c:if>
+							<c:if test="${item1.mineType.equals('开发') }">开发</c:if>
+							<c:if test="${item1.mineType.equals('钻井') }">钻井</c:if>
+							<c:if test="${item1.mineType.equals('油气发现') }">油气发现</c:if>
 						</td>
-						<td>
+						<%-- <td>
 							<c:if test="${item1.indexType.equals('1') }">新增探明地质储量</c:if>
 							<c:if test="${item1.indexType.equals('2') }">产量</c:if>
 							<c:if test="${item1.indexType.equals('3') }">其他</c:if>
-						</td>
+						</td> --%>
 						<td>${item1.priority }</td>
 						<td>
 							<p>

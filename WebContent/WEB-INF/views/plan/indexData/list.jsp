@@ -17,13 +17,12 @@
 		<div>
 			<span>指标类型：</span>
 			<select id="selectType" name="planType" class="select">
-				<option value="QG" <c:if test="${type.equals('QG')}">selected</c:if>>全国</option>
-				<option value="ZSY" <c:if test="${type.equals('ZSY')}">selected</c:if>>中石油</option>
-				<option value="ZSH" <c:if test="${type.equals('ZSH')}">selected</c:if>>中石化</option>
-				<option value="ZHY" <c:if test="${type.equals('ZHY')}">selected</c:if>>中海油</option>
-				<option value="YC" <c:if test="${type.equals('YC')}">selected</c:if>>延长石油</option>
-				<option value="ZLM" <c:if test="${type.equals('ZLM')}">selected</c:if>>中联煤</option>
-				<option value="QT" <c:if test="${type.equals('QT')}">selected</c:if>>其他</option>
+				<option value='GZL' <c:if test="${type.equals('GZL') }">selected</c:if>>工作量</option>
+				<option value='CL' <c:if test="${type.equals('CL') }">selected</c:if>>新增探明地质储量</option>
+				<option value='CN' <c:if test="${type.equals('CN') }">selected</c:if>>新建产能</option>
+				<option value='CL' <c:if test="${type.equals('CL') }">selected</c:if>>产量</option>
+				<option value='TZ' <c:if test="${type.equals('TZ') }">selected</c:if>>投资</option>
+				<option value='CB' <c:if test="${type.equals('CB') }">selected</c:if>>成本</option>
 			</select>
 			&nbsp;&nbsp;
 			<span>指标项名称：</span>
@@ -37,6 +36,9 @@
 			<c:if test="${!id.equals('0') }">
 				<a class="easyui-linkbutton" data-options="size:'large'" href="javascript:void(0)" onclick="$('#add').window('open')">
 					<i class="fa fa-edit" style="margin-right:3px"></i>录入信息
+				</a>				
+				<a class="easyui-linkbutton" data-options="size:'large'" href="javascript:void(0)" onclick="$('#add').window('open')">
+					<i class="fa fa-edit" style="margin-right:3px"></i>获取数据
 				</a>				
 			</c:if>
 		</div>

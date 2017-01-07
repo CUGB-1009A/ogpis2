@@ -28,6 +28,10 @@ public class IndexManagementEntity extends BaseEntity{
 	protected String IndexName;
 	/**
 	 * 矿种类型：石油、天然气、煤层气、页岩气、其他 五类矿种
+	 * 指标：二维地震、三维地震、探井井数、探井进尺、开发井井数、开发井进尺
+	 * 	   石油、天然气(含致密气)、页岩气、煤层气
+	 * 	 勘探投资、开发投资
+	 * 	 二维地震、三维地震、钻井、油气发现
 	 */
 	protected String MineType;
 	/**
@@ -36,6 +40,7 @@ public class IndexManagementEntity extends BaseEntity{
 	protected String IndexType;
 	/**
 	 * 该指标对应的规划：全国或其他公司
+	 * 转为指标类型：工作量、新增探明地质储量、新建产能、产量、投资、成本
 	 */
 	protected String PlanType;
 	/**

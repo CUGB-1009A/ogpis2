@@ -33,7 +33,7 @@ public class IndexManagementAction {
 	
 	@RequestMapping("/add")
 	public String add(HttpServletRequest request,ModelMap model){
-		String type="QG";
+		String type="GZL";
 		model.addAttribute("type", type);
 		return "plan/index/indexEdit";
 	}
@@ -47,7 +47,7 @@ public class IndexManagementAction {
 			bean.setPlanType(indexManagement.getPlanType());
 			bean.setMineType(indexManagement.getMineType());
 			bean.setIndexName(indexManagement.getIndexName());
-			bean.setIndexType(indexManagement.getIndexType());
+			//bean.setIndexType(indexManagement.getIndexType());
 			bean.setIndexUnit(indexManagement.getIndexUnit());
 			bean.setTrack(indexManagement.getTrack());
 			bean.setPriority(indexManagement.getPriority());
@@ -57,7 +57,7 @@ public class IndexManagementAction {
 			bean.setPlanType(indexManagement.getPlanType());
 			bean.setMineType(indexManagement.getMineType());
 			bean.setIndexName(indexManagement.getIndexName());
-			bean.setIndexType(indexManagement.getIndexType());
+			//bean.setIndexType(indexManagement.getIndexType());
 			bean.setIndexUnit(indexManagement.getIndexUnit());
 			bean.setTrack(indexManagement.getTrack());
 			bean.setPriority(indexManagement.getPriority());
