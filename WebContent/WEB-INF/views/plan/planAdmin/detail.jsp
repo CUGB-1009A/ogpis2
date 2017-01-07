@@ -200,12 +200,20 @@
 		        			</thead>
 		        			<tbody>
 		        				<tr>
-		        					<td>w</td>
-		        					<td>w</td>
-		        					<td>w</td>
-		        					<td>w</td>
-		        					<td>w</td>
-		        					<td>w</td>
+		        					<td>石油新增探明地质储量</td>
+		        					<td>2</td>
+		        					<td>万吨</td>
+		        					<td>10.1</td>
+		        					<td>跟踪</td>
+		        					<td>编辑    删除</td>
+		        				</tr>
+		        				<tr>
+		        					<td>页岩气新增探明地质储量</td>
+		        					<td>2</td>
+		        					<td>亿方</td>
+		        					<td>10.1</td>
+		        					<td>跟踪</td>
+		        					<td>编辑    删除</td>
 		        				</tr>
 		        			</tbody>
 		        	</table>
@@ -214,7 +222,6 @@
 		</div>
 	</div>	
 	<script type="text/javascript">
-		var uploader;
 		var flag=${flag};
 		var id="${plan.id}";
 		var type="${type}";
@@ -226,6 +233,7 @@
 			$('#uploadDoc').window('close');
 		});
 		
+		var uploader;
 		function  uploadDocOpen(){
 			$('#uploadDoc').window('open');
 			$('#thelist').empty();
@@ -234,7 +242,6 @@
 				server:'<%=path%>/plan/uploadFiles?type=${type}&time=1&planId=${plan.id}',
 				pick:"#picker"
 			});
-			console.log('<%=path%>/plan/uploadFiles?type=${type}&time=1&planId=${plan.id}');
 			var total=0;
 			var success=0;
 			var f=1;

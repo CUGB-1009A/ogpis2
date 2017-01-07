@@ -51,14 +51,14 @@
 						</td>
 					</tr>
 					<tr>
-						<td>规划类型</td>
+						<%-- <td>规划类型</td>
 						<td>
 							<select id="planType" name="planType" class="select" style="width:60%;height:32px">
 								<c:forEach items="${planType }" var="item">
 									<option value="${item.key }">${item }</option>
 								</c:forEach>
 							</select>
-						</td>
+						</td> --%>
 					
 						<td>规划概述</td>
 						<td>
