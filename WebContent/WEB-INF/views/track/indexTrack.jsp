@@ -26,7 +26,7 @@
 <script type="text/javascript" src="../js/arcgis/globalFunction.js"></script>
 <script type="text/javascript" src="../js/arcgis/globalVariable.js"></script>
 <script type="text/javascript" src="../js/arcgis/initPage.js"></script>
->>>>>>> refs/remotes/origin/规划布局跟踪
+
 <!-- 加载自定义样式 -->
 <link rel="stylesheet" type="text/css" href="../js/arcgis/css/Map.css">
 <style>
