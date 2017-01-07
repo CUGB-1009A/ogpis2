@@ -18,13 +18,13 @@
 </head>
 <html>
 <body>
-	<div class="easyui-layout" data-options="fit:true">
+	<div class="easyui-layout" data-options="fit:true,border:false">
 		<!-- <div data-options="region:'north',split:true"
 			style="width: 100%; height: 50%;">
 			<div id="chart1" style="width: 700px; height: 220px"></div>
 		</div> -->
 		<div id="myCarousel" class="carousel slide"
-			data-options="region:'center'" style="border:0">
+			data-options="region:'center',border:false">
 			<!-- 轮播（Carousel）指标 -->
 			<ol class="carousel-indicators">
 				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -65,7 +65,7 @@
 
 			xAxis : [ {
 				type : 'category',
-				boundaryGap : false,
+				/* boundaryGap : false, */
 				name : "年份",
 				data : [ 2001, 2002, 2003, 2004, 2005, 2006 ]
 			} ],
@@ -74,24 +74,39 @@
 				name : '万吨'
 			} ],
 			series : [ {
-				type : 'line',
+				type : 'bar',
+				barWidth:30,
 				name : '历史数据',
 				data : [ 1215, 8545, 5442, 78854, 4564, 4788 ]
 			} ]
+		}
+		function setChartOption(单位, 名称, 数据, 目标) {
+			option2.yAxis[0].name = 单位;
+			option2.title.text = 名称;
+			option2.series[0].name = 名称;
+			option2.series[0].data = 数据;
+			/* option2.series[0].markLine.data[0][0].yAxis = 目标;
+			option2.series[0].markLine.data[0][0].value = 目标;
+			option2.series[0].markLine.data[0][1].yAxis = 目标; */
 		}
 		/* var myChart12 = echarts.init(document.getElementById("chart1"));
 		option2.title.text = "规划完成情况";
 		myChart12.setOption(option2); */
 		var myChart221 = echarts.init(document.getElementById("chart21"));
-		option2.title.text = "石油产量";
+		/* option2.title.text = "石油产量"; */
+		setChartOption("亿吨", "石油产量", [ 2.03, 2.07, 2.09, 2.11, 2.15 ], 2.0);
 		myChart221.setOption(option2);
 		document.getElementById("chart21").chart=myChart221;
 		var myChart222 = echarts.init(document.getElementById("chart22"));
-		option2.title.text = "天然气产量";
+		/* option2.title.text = "天然气产量"; */
+		setChartOption("亿立方米", "天然气产量",
+			[ 1013.00, 1071.00, 1166.00, 1248.00, 1300 ], 1385.00);
 		myChart222.setOption(option2);
 		document.getElementById("chart22").chart=myChart222;
 		var myChart223 = echarts.init(document.getElementById("chart23"));
-		option2.title.text = "煤层气产量";
+		/* option2.title.text = "煤层气产量"; */
+		setChartOption("亿立方米", "煤层气产量", [ 20.70, 25.73, 29.26, 36.90, 42.00 ],
+			160.00);
 		myChart223.setOption(option2);
 		document.getElementById("chart23").chart=myChart223;
 		window.onload = function() {
@@ -100,8 +115,8 @@
 			});
 		}
 		function panelResize(width,height) {
-			$(this).children("div")[0].style.width=width-20;
-			$(this).children("div")[0].style.height=height-20;
+			$(this).children("div")[0].style.width=$(this).width();
+			$(this).children("div")[0].style.height=$(this).height();
 			$(this).children("div")[0].chart.resize();
 		};
 		//函数参数为dom元素
@@ -112,14 +127,14 @@
 		$(window).resize(function(){
 			width=window.innerWidth;
 			height=window.innerHeight;
-			document.getElementById("chart21").style.width=width-20;
-			document.getElementById("chart21").style.height=height-20;
+			document.getElementById("chart21").style.width=width;
+			document.getElementById("chart21").style.height=height-2;
 			document.getElementById("chart21").chart.resize();
-			document.getElementById("chart22").style.width=width-20;
-			document.getElementById("chart22").style.height=height-20;
+			document.getElementById("chart22").style.width=width;
+			document.getElementById("chart22").style.height=height-2;
 			document.getElementById("chart22").chart.resize();
-			document.getElementById("chart23").style.width=width-20;
-			document.getElementById("chart23").style.height=height-20;
+			document.getElementById("chart23").style.width=width;
+			document.getElementById("chart23").style.height=height-2;
 			document.getElementById("chart23").chart.resize();
 			});
 	</script>
