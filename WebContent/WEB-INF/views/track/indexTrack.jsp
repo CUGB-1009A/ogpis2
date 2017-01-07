@@ -36,13 +36,13 @@
 
 .datagrid-cell {
 	font-size: 12px;
-	line-height:16px
+	line-height: 16px
 }
 
 .datagrid-header .datagrid-cell span {
 	font-size: 12px;
 	font-weight: bold;
-	line-height:16px
+	line-height: 16px
 }
 </style>
 </head>
@@ -280,6 +280,14 @@
 			type : 'bar',
 			barWidth : 30,
 			name : '石油产量',
+			itemStyle : {
+				normal : {
+					label : {
+						show : true,
+						position : 'top',
+					}
+				}
+			},
 			data : [ 1215, 8545, 5442, 78854, 4564, 4788 ],
 			markLine : {
 				itemStyle : {
@@ -360,7 +368,11 @@
 		yAxis : [ {
 			type : 'category',
 			data : [ '石油新增探明地质储量', '天然气新增探明地质储量', '煤层气新增探明地质储量', '石油产量',
-					'天然气产量', '煤层气产量' ]
+					'天然气产量', '煤层气产量' ],
+			axisLabel : {
+				show : true,
+				interval : 0
+			}
 		} ],
 		series : [ {
 			name : '2011年',

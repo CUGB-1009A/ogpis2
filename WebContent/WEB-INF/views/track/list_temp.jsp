@@ -67,7 +67,7 @@
 				type : 'category',
 				/* boundaryGap : false, */
 				name : "年份",
-				data : [ 2001, 2002, 2003, 2004, 2005, 2006 ]
+				data : [ 2011, 2012, 2013, 2014, 2015 ]
 			} ],
 			yAxis : [ {
 				type : 'value',
@@ -77,6 +77,14 @@
 				type : 'bar',
 				barWidth:30,
 				name : '历史数据',
+				itemStyle : {
+					normal : {
+						label : {
+							show : true,
+							position : 'top'
+						}
+					}
+				},
 				data : [ 1215, 8545, 5442, 78854, 4564, 4788 ]
 			} ]
 		}
