@@ -75,58 +75,12 @@
     <div id="nav">
     	<ul>
     		<li class="current">
-    			<a href="javascript:loadAgain()">首页</a>
+    			<a id="mainPage">首页</a>
     		</li>
     	</ul>
     </div>
 </div>
 <script>
-function loadAgain(){
-	alert(1)
-	 $.ajax({
-         url: '<%=path%>/dataBrowse/menutree.xml',
-         dataType: 'xml',
-         async: false,
-         success: function(data){
-        	 var level1Num = $(data).find("level1[center='true']").length;
-        	 var i = 0;
-        	 $("#main_center").contents().find('body').append("<div class='grid'><div class='row' id='row1'></div><div class='row' id='row2'></div></div>")
-             $(data).find("level1").each(function(){	
-				i++;
-            	var district=$(this);
-            	var top = district.attr("top");
-            	var left = district.attr("left");
-            	var center = district.attr("center");
-            	var name = district.attr("name");
-            	var id = district.attr("id");
-            	var imgName = district.attr("imgName");
-            	if(left=="true"){
-            		$("#main_left").contents().find("#sider-nav").children("ul").append("<li><a class='"+id+"'>"+name+"</a></li>");
-            		$("#main_left").contents().find("#sider-nav ."+id).click(function(){
-            			showMenu($(this).attr("class"));
-            		});
-            	}
-            	if(center=="true"){
-            		if(i<=Math.ceil(level1Num/2))
-            			{
-	            			$("#main_center").contents().find("#row1").append("<div class='modal'><a class='"+id+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
-	            			$("#main_center").contents().find("#row1 ."+id).click(function(){
-	            				showMenu($(this).attr("class"));
-	            			});
-            			}
-            		else
-            			{
-	            			$("#main_center").contents().find("#row2").append("<div class='modal'><a class='"+id+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
-	            			$("#main_center").contents().find("#row2 ."+id).click(function(){
-	            				showMenu($(this).attr("class"));
-	            			});
-            			}
-            		
-            	}
-            });
-     }
-}) ;
-}
 
 $(document).on('click', '#nav li', function() {
     $('#nav li').removeClass('current');
