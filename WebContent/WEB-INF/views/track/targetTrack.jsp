@@ -128,19 +128,19 @@
 							data-options="handle:'#mapToolDiv',onDrag:onDrag"
 							style="position: absolute; display: none">
 							<div id="mapToolDiv" class="mapToolDiv">
-								<div>
+								<div class="mapToolDiv-item-start">
 									<div id="zoomPan" title="漫游" onclick="ZoomPan(mapManager);"></div>
 								</div>
-								<div>
+								<div class="mapToolDiv-item">
 									<div id="zoomIn" title="放大" onClick="ZoomIn(mapManager);"></div>
 								</div>
-								<div>
+								<div class="mapToolDiv-item">
 									<div id="zoomOut" title="缩小" onClick="ZoomOut(mapManager);"></div>
 								</div>
-								<div>
+								<div class="mapToolDiv-item">
 									<div id="selectPlygon" title="框选" onClick="recQuery();"></div>
 								</div>
-								<div>
+								<div class="mapToolDiv-item-end">
 									<div id="zoomHome" title="全图" onClick="Home(mapManager);"></div>
 								</div>
 							</div>

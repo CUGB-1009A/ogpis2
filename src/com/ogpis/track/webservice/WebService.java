@@ -43,9 +43,9 @@ public class WebService {
 	}
 
 	// name为表或表联合的标识；json为字段、条件、值的组合，形如{field:石油,symbol:
-	public static String[] GetData(String name, WebServiceParams params) {
+	public static String[] GetData(WebServiceParams params) {
 		String method = GetData;
-		Object[] objIn = new Object[] { name, params.toString() };
+		Object[] objIn = new Object[] { params.getTableName(), params.toString() };
 		return service(method, objIn);
 	}
 

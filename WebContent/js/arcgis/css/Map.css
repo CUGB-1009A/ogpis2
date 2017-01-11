@@ -44,6 +44,22 @@ html, body, .fullBox, #map {
 	display: flex;
 	/* width:400px; */
 	flex-direction: row;
+	border-radius:10px;
+	border:2px solid #0080ff;
+}
+.mapToolDiv>div{
+	padding:6px;
+	cursor:hand;
+}
+.mapToolDiv-item-start{
+	border-right:1px dashed #0080ff;
+}
+.mapToolDiv-item{
+	border-right:1px dashed #0080ff;
+	border-left:1px dashed #0080ff;
+}
+.mapToolDiv-item-end{
+	border-left:1px dashed #0080ff;
 }
 
 .mapToolItem {
@@ -51,7 +67,7 @@ html, body, .fullBox, #map {
 }
 
 .select {
-	width: 150px;
+	width: 115px;
 	height: 35px;
 }
 
@@ -80,7 +96,6 @@ html, body, .fullBox, #map {
 .padding {
 	padding: 10px
 }
-
 .padding-lr {
 	padding-left: 10px;
 	padding-right: 10px

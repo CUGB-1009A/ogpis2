@@ -42,6 +42,19 @@
 	font-weight: bold;
 	line-height: 16px
 }
+
+.title {
+	text-align: center;
+	font-size: 25;
+	padding-top: 10px
+}
+
+.panel.datagrid.easyui-fluid {
+	padding-top: 20px
+}
+.border-b{
+	border-bottom: 1px solid #95B8E7;
+}
 </style>
 </head>
 <body>
@@ -74,11 +87,12 @@
 						<div title="产量指标">
 							<div class="easyui-panel" style="width: 100%; overflow-y: auto"
 								data-options="fit:true">
-								<div style="width: 100%; height: 400px;">
-									<div title="图表" class="easyui-layout" data-options="fit:true"
-										style="width: 100%; min-width: 800px;">
-										<div data-options="region:'west',split:true"
-											style="width: 30%; max-width: 600px;">
+								<div style="height: 400px; margin: 10px">
+									<div title="图表" class="easyui-layout border-b" data-options="fit:true"
+										style="min-width: 800px;">
+										<div data-options="region:'north',border:false" class="title">石油产量</div>
+										<div data-options="region:'west',border:false"
+											style="width: 40%;">
 											<table id="table" class="easyui-datagrid"
 												data-options="fit:true,fitColumns:true,singleSelect:true">
 												<thead>
@@ -123,16 +137,18 @@
 												</tbody>
 											</table>
 										</div>
-										<div class="border" data-options="region:'center'">
-											<div id="test1" style="width: 70%; height: 350px;"></div>
+										<div data-options="region:'center',border:false,">
+											<div id="test1" style="width: 60%; height: 85%;"></div>
 										</div>
 									</div>
 								</div>
-								<div style="width: 100%; height: 400px;">
-									<div title="图表" class="easyui-layout" data-options="fit:true"
+								<div style="height: 400px; margin: 10px">
+									<div title="图表" class="easyui-layout border-b"
+										data-options="fit:true,border:false"
 										style="width: 100%; min-width: 800px;">
-										<div data-options="region:'west',split:true"
-											style="width: 30%; max-width: 600px;">
+										<div data-options="region:'north',border:false" class="title">天然气产量</div>
+										<div data-options="region:'west',border:false"
+											style="width: 40%;">
 											<table id="table" class="easyui-datagrid"
 												data-options="fit:true,fitColumns:true,singleSelect:true">
 												<thead>
@@ -177,16 +193,17 @@
 												</tbody>
 											</table>
 										</div>
-										<div class="border" data-options="region:'center'">
-											<div id="test2" style="width: 70%; height: 350px;"></div>
+										<div data-options="region:'center',border:false">
+											<div id="test2" style="width: 60%; height: 85%;"></div>
 										</div>
 									</div>
 								</div>
-								<div style="width: 100%; height: 400px;">
-									<div title="图表" class="easyui-layout" data-options="fit:true"
+								<div style="height: 400px; margin: 10px">
+									<div title="图表" class="easyui-layout" data-options="fit:true,border:false"
 										style="width: 100%; min-width: 800px;">
-										<div data-options="region:'west',split:true"
-											style="width: 30%; max-width: 600px;">
+										<div data-options="region:'north',border:false" class="title">煤层气产量</div>
+										<div data-options="region:'west',border:false"
+											style="width: 40%;">
 											<table id="table" class="easyui-datagrid"
 												data-options="fit:true,fitColumns:true,singleSelect:true">
 												<thead>
@@ -231,8 +248,8 @@
 												</tbody>
 											</table>
 										</div>
-										<div class="border" data-options="region:'center'">
-											<div id="test3" style="width: 70%; height: 350px;"></div>
+										<div data-options="region:'center',border:false">
+											<div id="test3" style="width: 60%; height: 85%;"></div>
 										</div>
 									</div>
 								</div>
@@ -257,7 +274,7 @@
 	})
 	var option = {
 		title : {
-			text : '指标跟踪',
+			text : '',
 			left : 'center'
 		},
 		tooltip : {
@@ -275,7 +292,7 @@
 		} ],
 		series : [ {
 			type : 'bar',
-			barWidth : 30,
+			barWidth : 55,
 			name : '石油产量',
 			itemStyle : {
 				normal : {
@@ -308,7 +325,7 @@
 	}
 	function setChartOption(单位, 名称, 数据, 目标) {
 		option.yAxis[0].name = 单位;
-		option.title.text = 名称;
+		/* option.title.text = 名称; */
 		option.series[0].name = 名称;
 		option.series[0].data = 数据;
 		option.series[0].markLine.data[0][0].yAxis = 目标;

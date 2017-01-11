@@ -46,6 +46,7 @@
 		},
 		series : [ {
 			type : 'bar',
+			barWidth:13,
 			name : '历史数据',
 			data : [ 104.5, 94.3, 83.7, 114.9, 19.3, 43.9 ],
 			itemStyle : {
