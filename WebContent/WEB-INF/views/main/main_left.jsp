@@ -113,10 +113,10 @@ padding-right:10px;
     <div title="规划管理" iconCls="" style="overflow:auto;" >
 		<ul class="sider-nav">
 			<li>
-				<span><a href="<%=path%>/index/list?type=GZL" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-file-text"></i>规划指标管理</a></span>
+				<span><a href="<%=path%>/index/list?type=QG" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-file-text"></i>规划指标管理</a></span>
 			</li>
 			<li>
-				<span><a href="<%=path%>/indexData/list?type=GZL&id=0" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-line-chart"></i>规划完成情况管理</a></span>
+				<span><a href="<%=path%>/indexData/list?type=QG&id=0" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-line-chart"></i>规划完成情况管理</a></span>
 			</li>
 			<li>
 				<span><a href="<%=path%>/plan/list?type=All&&condition=" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-list-alt"></i>规划管理</a></span>
@@ -132,7 +132,7 @@ padding-right:10px;
 				<span><a href="<%=path%>/plan/userList" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-file-text"></i>规划概览</a></span>
 			</li>
 			<li>
-				<span><a href="<%=path%>/indexData/list?type=GZL&id=0" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-line-chart"></i>规划指标</a></span>
+				<span><a href="<%=path%>/indexData/list?type=QG&id=0" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-line-chart"></i>规划指标</a></span>
 			</li>
 			<li>
 				<span><a href="<%=path%>/document/list" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-list-alt"></i>规划资料</a></span>

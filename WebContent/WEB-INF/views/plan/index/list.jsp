@@ -30,7 +30,7 @@
 					<th field='indexName' width="25%" align="center">指标名称</th>
 					<th field="indexUnit" width="10%" align="center">指标单位</th>
 					<th field="mineType" width="10%" align="center">指标类型</th>
-					<!-- <th field="indexType" width="20%" align="center">指标类型</th> -->
+					<th field="indexType" width="20%" align="center">指标类型</th>
 					<th field="priority" width="10%" align="center">显示顺序</th>
 					<th field="operate" width="25%" align="center">操作</th>
 				</tr>
@@ -61,11 +61,17 @@
 							<c:if test="${item1.mineType.equals('钻井') }">钻井</c:if>
 							<c:if test="${item1.mineType.equals('油气发现') }">油气发现</c:if>
 						</td>
-						<%-- <td>
-							<c:if test="${item1.indexType.equals('1') }">新增探明地质储量</c:if>
+						<td>
+							<%-- <c:if test="${item1.indexType.equals('1') }">新增探明地质储量</c:if>
 							<c:if test="${item1.indexType.equals('2') }">产量</c:if>
-							<c:if test="${item1.indexType.equals('3') }">其他</c:if>
-						</td> --%>
+							<c:if test="${item1.indexType.equals('3') }">其他</c:if> --%>
+							<c:if test="${item1.indexType.equals('GZL') }">工作量</c:if>
+							<c:if test="${item1.indexType.equals('DZCL') }">新增探明地质储量</c:if>
+							<c:if test="${item1.indexType.equals('CN') }">新建产能</c:if>
+							<c:if test="${item1.indexType.equals('CL') }">产量</c:if>
+							<c:if test="${item1.indexType.equals('TZ') }">投资</c:if>
+							<c:if test="${item1.indexType.equals('CB') }">成本</c:if>
+						</td>
 						<td>${item1.priority }</td>
 						<td>
 							<p>

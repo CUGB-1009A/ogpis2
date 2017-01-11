@@ -1,25 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<div title="规划跟踪与评价" id="ghgz">
 		<!-- 规划目标和总体情况 -->
-		<div  style="margin:40px 30px 0 20px;" id="conditionWindow">
+		<!-- <div style="margin-top:10px;" id="conditionWindow">
 			<h1 align="center">规划目标和总体情况</h1>
 			<p style="font-size:15px;">
 				"十二五"规划是从2011年到2015年。“规划的简短描述”：全国“十二五”油气资源勘探开发规划是由国家发改委、国家能源局共同发布的关于我国油气资源勘探 开发规划的文件，
 				文件基于“十一五”油气资源勘探开发规划的完成情况，结合当前油气资源勘探开发的背景，
 				对“十二五”期间油气资源勘探开发面临的形式进行了评估， 对油气资源勘探开发的目标进行了规划。 
 			</p>
-		<hr>
-		</div>
-		<%-- <%@ include file="tab4-1.jsp" %> --%>
+		</div> -->
 		<!-- 油气储量 -->
-		<div id="reserveWindow"  style="margin:40px 30px 0 20px;">
-			<!-- <div class="easyui-panel" title="油气储量" data-options="collapsible:true,maximizable:true"> -->
+		<div id="reserveWindow" >
+			<div class="easyui-panel" title="油气储量" data-options="collapsible:true,maximizable:true" style="margin-right:50px">
 				<h1 style="" align="center">油气储量总体情况</h1>
 				<p style="font-size:15px;">"十二五"规划是从2011年到2015年。“规划的简短描述”：全国“十二五”油气资源勘探开发规划是由国家发改委、国家能源局共同发布的关于
 				我国油气资源勘探开发规划的文件，文件基于“十一五”油气资源勘探开发规划的完成情况，结合当前油气资源勘探开发的背景，
 				对“十二五”期间油气资源勘探开发面临的形式进行了评估， 对油气资源勘探开发的目标进行了规划。 
 				</p>
-				<div>
+				<div class="easyui-panel">
 					<h3 style="margin-left:25px">1、新增石油探明地质储量</h3>
 					<div class="charts3" style="width:33%;height:300px;float:left">
 						
@@ -71,7 +69,7 @@
 						text
 					</div>
 				</div>
-				<div>
+				<div class="easyui-panel">
 					<h3 style="margin-left:25px">2、新增煤层气探明地质储量</h3>
 					<div class="charts3" style="width:33%;height:300px;float:left">
 						text
@@ -83,7 +81,7 @@
 						text
 					</div>
 				</div>
-				<div>
+				<div class="easyui-panel">
 					<h3 style="margin-left:25px">3、新增天然气探明地质储量</h3>
 					<div class="charts3" style="width:33%;height:300px;float:left">
 						text
@@ -95,18 +93,17 @@
 						text
 					</div>
 				</div>
-				<hr>
-			<!-- </div> -->
+			</div>
 		</div>
 		<!-- 油气产量 -->
-		<div id="outputWindow" style="margin:40px 30px 0 20px;">
-			<!-- <div class="easyui-panel" title="油气产量" data-options="collapsible:true,maximizable:true" > -->
+		<div id="ouputWindow">
+			<div class="easyui-panel" title="油气产量" data-options="collapsible:true,maximizable:true" style="margin-right:50px">
 				<h1 style="" align="center">油气产量总体情况</h1>
 				<p style="font-size:15px;">"十二五"规划是从2011年到2015年。“规划的简短描述”：全国“十二五”油气资源勘探开发规划是由国家发改委、国家能源局共同发布的关于
 					我国油气资源勘探开发规划的文件，文件基于“十一五”油气资源勘探开发规划的完成情况，结合当前油气资源勘探开发的背景，
 					对“十二五”期间油气资源勘探开发面临的形式进行了评估， 对油气资源勘探开发的目标进行了规划。 
 				</p>
-				<div>
+				<div class="easyui-panel">
 					<h3 style="margin-left:25px">1、新增石油探明地质储量</h3>
 					<div class="charts3" style="width:33%;height:300px;float:left">
 						text
@@ -118,7 +115,7 @@
 						text
 					</div>
 				</div>
-				<div>
+				<div class="easyui-panel">
 					<h3 style="margin-left:25px">2、新增煤层气探明地质储量</h3>
 					<div class="charts3" style="width:33%;height:300px;float:left">
 						text
@@ -130,7 +127,7 @@
 						text
 					</div>
 				</div>
-				<div>
+				<div class="easyui-panel">
 					<h3 style="margin-left:25px">3、新增天然气探明地质储量</h3>
 					<div class="charts3" style="width:33%;height:300px;float:left">
 						text
@@ -142,28 +139,20 @@
 						text
 					</div>
 				</div>
-				<hr>
-			<!-- </div> -->
+			</div>
 		</div>
 	</div>
 	
 	<script type="text/javascript">
 	
 		function openCondition(){
-			$("#conditionWindow").show();
-			
-			$("#outputWindow").hide();
-			$("#reserveWindow").hide();
+			alert('condition');
 		}
 		function openReserve(){
-			$("#reserveWindow").show();
-			$("#conditionWindow").hide();
-			$("#outputWindow").hide();
+			alert('reserve');
 		}
 		function openOutput(){
-			$("#conditionWindow").hide();
-			$("#reserveWindow").hide();
-			$("#outputWindow").show();
+			alert('output');
 		}
 	
 		var option = {
@@ -171,9 +160,7 @@
 	                text: '石油产量',
 	                x:'center'
 	            },
-	            tooltip: {
-	            	trigger:'axis'
-	            },
+	            tooltip: {},
 	            xAxis: {
 	            	name:'年份',
 	            	type:'category',
@@ -199,26 +186,7 @@
 	                				return '#00FF00';
 	                		}
 	                	}
-	                },
-	                markLine : {
-	    				itemStyle : {
-	    					normal : {
-	    						color : "#0000FF"
-	    					}
-	    				},
-	    				color : "#FF0000",
-	    				data : [ [ {
-	    					// 固定起点的 x 像素位置，用于模拟一条指向最大值的水平线
-	    					yAxis : 2.0,
-	    					x : '10%',
-	    					name : "规划目标值",
-	    					value : 2.0
-	    				}, {
-	    					yAxis : 2.0,
-	    					x : '90%'
-	    				} ] ]
-	    			}
-
+	                }
 	            }],
 	            label:{ 
 	            	normal:{ 

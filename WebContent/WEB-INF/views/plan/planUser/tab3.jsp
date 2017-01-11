@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<div title="规划目标">
-		<div class="easyui-panel">
+		<div style="margin-top:50px">
 			<!-- <h3 style="margin-left:25px">历史石油产量及规划目标</h3> -->
 			<div style="width:50%;height:300px;float:left">
 				<div class="charts2" style="width:450px;height:300px;"align="center">
@@ -36,20 +36,6 @@
 	</div>
 	<script type="text/javascript">
 		
-		
-		<%-- require.config({
-			paths:{
-				echarts:'<%=request.getContextPath()%>/resource/dist'
-			}
-		});
-		
-		require(
-			[
-			 	'echarts',
-			 	'echarts/chart/bar',
-			 	'echarts/chart/line'
-			 ],
-			 function(ec){ --%>
 				var option = {
 			            title: {
 			                text: '历史石油产量及规划目标',
