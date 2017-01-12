@@ -5,55 +5,55 @@
 			<level3 id="dq" name="大区" imgName="1.png" url="/dataBrowse">
 				<tab id="zyl_dq_01">年度大区各盆地油气资源量</tab>
 			</level3>
-			<level3 id="qg" name="全国" imgName="2.png" url="">
+			<level3 id="qg" name="全国" imgName="2.png" url="/dataBrowse">
 				<tab id="zyl_qg_01">年度各盆地油气资源量</tab>
 				<tab id="zyl_qg_02">年度各大区油气资源量</tab>
 				<tab id="zyl_qg_03">年度各省区油气资源量</tab>
 			</level3>
 		</level2>
 		<level2 id="chul" name="储量">
-			<level3 id="qg" name="全国" imgName="1.png" url="">
+			<level3 id="qg" name="全国" imgName="1.png" url="/dataBrowse">
 				<tab id="chul_qg_01">历年全国盆地储量</tab>
 				<tab id="chul_qg_02">年度各省区储量</tab>
 				<tab id="chul_qg_03">年度公司各油气田储量</tab>
 				<tab id="chul_qg_04">年度各盆地储量</tab>
 			</level3>
-			<level3 id="sygs" name="石油公司" imgName="2.png" url="">
+			<level3 id="sygs" name="石油公司" imgName="2.png" url="/dataBrowse">
 				<tab id="chul_sygs_01">历年石油总公司储量</tab>
 				<tab id="chul_sygs_02">年度石油子公司储量</tab>
 			</level3>
-			<level3 id="sq" name="省区" imgName="3.png" url="">
+			<level3 id="sq" name="省区" imgName="3.png" url="/dataBrowse">
 				<tab id="chul_sq_01">年度省区油气田储量</tab>
 				<tab id="chul_sq_02">历年各省区储量</tab>
 			</level3>
-			<level3 id="pd" name="盆地" imgName="4.png" url="">
+			<level3 id="pd" name="盆地" imgName="4.png" url="/dataBrowse">
 				<tab id="chul_pd_01">年度盆地油气田储量</tab>
 				<tab id="chul_pd_02">历年各盆地储量</tab>
 			</level3>
 		</level2>
 		<level2 id="chanl" name="产量">
-			<level3 id="qg" name="全国" imgName="1.png" url="">
+			<level3 id="qg" name="全国" imgName="1.png" url="/dataBrowse">
 				<tab id="chanl_qg_01">历年全国油气资源产量概况</tab>
 				<tab id="chanl_qg_02">全国各石油公司油气资源产量概况</tab>
 				<tab id="chanl_qg_03">全国各盆地石油资源产量概况</tab>
 				<tab id="chanl_qg_04">全国各省区油气资源产量概况</tab>
 			</level3>
-			<level3 id="sygs" name="石油公司" imgName="2.png" url="">
+			<level3 id="sygs" name="石油公司" imgName="2.png" url="/dataBrowse">
 				<tab id="chanl_sygs_01">历年全国各石油公司油气资源产量概况</tab>
 				<tab id="chanl_sygs_02">全国各石油公司油气资源产量明细</tab>
 				<tab id="chanl_sygs_03">全国各石油公司油气资源月度产量</tab>
 			</level3>
-			<level3 id="sq" name="省区" imgName="3.png" url="">
+			<level3 id="sq" name="省区" imgName="3.png" url="/dataBrowse">
 				<tab id="chanl_sq_01">历年全国各省区油气资源产量概况</tab>
 				<tab id="chanl_sq_02">全国各省区油气资源产量明细</tab>
 			</level3>
-			<level3 id="pd" name="盆地" imgName="4.png" url="">
+			<level3 id="pd" name="盆地" imgName="4.png" url="/dataBrowse">
 				<tab id="chanl_pd_01">历年全国各盆地油气资源产量概况</tab>
 				<tab id="chanl_pd_02">全国各盆地油气资源产量明细</tab>
 			</level3>
 		</level2>
 		<level2 id="ktkf" name="勘探开发">
-			<level3 id="qg" name="全国" imgName="1.png" url="">
+			<level3 id="qg" name="全国" imgName="1.png" url="/dataBrowse">
 				<tab id="ktkf_qg_01">各石油公司地震勘探情况</tab>
 				<tab id="ktkf_qg_02">各石油公司钻探情况</tab>
 				<tab id="ktkf_qg_03">各石油公司各项勘探工作投入情况</tab>
@@ -61,25 +61,25 @@
 				<tab id="ktkf_qg_05">历年全国地震勘探情况</tab>
 				<tab id="ktkf_qg_06">历年全国勘探工作总投入情况</tab>
 			</level3>
-			<level3 id="sygs" name="石油公司" imgName="2.png" url="">
+			<level3 id="sygs" name="石油公司" imgName="2.png" url="/dataBrowse">
 				<tab id="ktkf_sygs_01">历年全国各石油公司地震勘探情况</tab>
 				<tab id="ktkf_sygs_02">历年各石油公司勘探工作总投入情况</tab>
 				<tab id="ktkf_sygs_03">历年全国各石油公司钻探情况</tab>
 			</level3>
 		</level2>
 		<level2 id="yqmy" name="油气贸易">
-			<level3 id="yj" name="油价" imgName="1.png" url=""></level3>
-			<level3 id="jck" name="进出口" imgName="2.png" url=""></level3>
+			<level3 id="yj" name="油价" imgName="1.png" url="/dataBrowse"></level3>
+			<level3 id="jck" name="进出口" imgName="2.png" url="/dataBrowse"></level3>
 		</level2>
 		<level2 id="kq" name="矿权">
-			<level3 id="sygs" name="石油公司" imgName="1.png" url="">
+			<level3 id="sygs" name="石油公司" imgName="1.png" url="/dataBrowse">
 				<tab id="kq_sygs_01">全国各公司油气资源矿权明细</tab>
 				<tab id="kq_sygs_02">历年全国各公司油气资源矿权概况</tab>
 			</level3>
-			<level3 id="sq" name="省区" imgName="2.png" url="">
+			<level3 id="sq" name="省区" imgName="2.png" url="/dataBrowse">
 				<tab id="kq_sq_01">全国各省区油气资源矿权明细</tab>
 			</level3>
-			<level3 id="qg" name="全国" imgName="3.png" url="">
+			<level3 id="qg" name="全国" imgName="3.png" url="/dataBrowse">
 				<tab id="kq_qg_01">全国各公司油气资源矿权概况</tab>
 				<tab id="kq_qg_02">全国油气资源矿权概况</tab>
 				<tab id="kq_qg_03">全国各省区油气资源矿权概况</tab>
@@ -87,11 +87,11 @@
 			</level3>
 		</level2>
 		<level2 id="fyq" name="非油气">
-			<level3 id="mt" name="煤炭" imgName="1.png" url=""></level3>
-			<level3 id="hd" name="核电" imgName="2.png" url=""></level3>
-			<level3 id="sn" name="水能" imgName="3.png" url=""></level3>
-			<level3 id="fn" name="风能" imgName="4.png" url=""></level3>
-			<level3 id="tyn" name="太阳能" imgName="5.png" url=""></level3>
+			<level3 id="mt" name="煤炭" imgName="1.png" url="/dataBrowse"></level3>
+			<level3 id="hd" name="核电" imgName="2.png" url="/dataBrowse"></level3>
+			<level3 id="sn" name="水能" imgName="3.png" url="/dataBrowse"></level3>
+			<level3 id="fn" name="风能" imgName="4.png" url="/dataBrowse"></level3>
+			<level3 id="tyn" name="太阳能" imgName="5.png" url="/dataBrowse"></level3>
 		</level2>
 		<level2 id="dzfx" name="定制分析" url="/123"></level2>
 	</level1>
