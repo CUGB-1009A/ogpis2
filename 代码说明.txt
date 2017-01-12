@@ -25,4 +25,4 @@
 
 命名约定
 1.Dao中的方法如果获得的是一个实体则以find开头，如findById();如获得一组实体则以get开头，如getUserList();如果是获得的是int型数量则以count开头,如countUserList();
-
+	1234        
