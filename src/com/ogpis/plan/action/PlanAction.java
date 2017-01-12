@@ -226,7 +226,7 @@ public class PlanAction {
 		if(flag.equals("3")){
 			List<IndexManagement> allIndexs=new ArrayList<IndexManagement>();
 			if(plan.getPlanType().equals("358"))
-				allIndexs=indexManagementService.findAllIndexByPriority("GZL");
+				allIndexs=indexManagementService.findAllIndexByPriority("QG");
 			else
 				allIndexs=indexManagementService.findAllIndexByPriority(plan.getPlanType());
 			model.addAttribute("allIndexs", allIndexs);

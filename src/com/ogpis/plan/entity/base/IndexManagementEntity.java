@@ -36,11 +36,11 @@ public class IndexManagementEntity extends BaseEntity{
 	protected String MineType;
 	/**
 	 * 指标类型：1为储量；2为产量
+	 * 扩展为指标类型：工作量、新增探明地质储量、新建产能、产量、投资、成本
 	 */
 	protected String IndexType;
 	/**
 	 * 该指标对应的规划：全国或其他公司
-	 * 转为指标类型：工作量、新增探明地质储量、新建产能、产量、投资、成本
 	 */
 	protected String PlanType;
 	/**

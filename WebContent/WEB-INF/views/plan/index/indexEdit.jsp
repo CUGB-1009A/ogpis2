@@ -36,15 +36,22 @@
 					<td><input class="easyui-textbox" type="text" id="indexUnit" data-options="prompt:'指标单位'" name="indexUnit" value="${index.indexUnit}"></td>
 				</tr>
 				<tr>
-					<td>指标类型</td>
+					<td>指标所属规划类型</td>
 					<td>
 						<select  id="selectType" name="planType" class="easyui-combobox" <c:if test="<%=!isAdd %>"></c:if>>
-							<option value='GZL' <c:if test="${type.equals('GZL') }">selected</c:if>>工作量</option>
+							<%-- <option value='GZL' <c:if test="${type.equals('GZL') }">selected</c:if>>工作量</option>
 							<option value='CL' <c:if test="${type.equals('CL') }">selected</c:if>>新增探明地质储量</option>
 							<option value='CN' <c:if test="${type.equals('CN') }">selected</c:if>>新建产能</option>
 							<option value='CL' <c:if test="${type.equals('CL') }">selected</c:if>>产量</option>
 							<option value='TZ' <c:if test="${type.equals('TZ') }">selected</c:if>>投资</option>
-							<option value='CB' <c:if test="${type.equals('CB') }">selected</c:if>>成本</option>
+							<option value='CB' <c:if test="${type.equals('CB') }">selected</c:if>>成本</option> --%>
+							<option value='QG' <c:if test="${type.equals('QG') }">selected</c:if>>全国</option>
+							<option value='ZSY' <c:if test="${type.equals('ZSY') }">selected</c:if>>中石油</option>
+							<option value='ZSH' <c:if test="${type.equals('ZSH') }">selected</c:if>>中石化</option>
+							<option value='ZHY' <c:if test="${type.equals('ZHY') }">selected</c:if>>中海油</option>
+							<option value='YC' <c:if test="${type.equals('YC') }">selected</c:if>>延长石油</option>
+							<option value='ZLM' <c:if test="${type.equals('ZLM') }">selected</c:if>>中联煤</option>
+							<option value='QT' <c:if test="${type.equals('QT') }">selected</c:if>>其他</option>
 						</select>
 					</td>
 				</tr>
@@ -66,6 +73,19 @@
 							<option class='tz' value='开发' <c:if test="${index.mineType.equals('开发') }">selected</c:if>>开发</option>
 							<option class='cb' value='钻井' <c:if test="${index.mineType.equals('钻井') }">selected</c:if>>钻井</option>
 							<option class='cb' value='油气发现' <c:if test="${index.mineType.equals('油气发现') }">selected</c:if>>油气发现</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>储产量</td>
+					<td>
+						<select id="selectIndexType" name="indexType" class="easyui-combobox">
+							<option value='GZL' <c:if test="${index.indexType.equals('GZL') }">selected</c:if>>工作量</option>
+							<option value='DZCL' <c:if test="${index.indexType.equals('DZCL') }">selected</c:if>>新增探明地质储量</option>
+							<option value='CN' <c:if test="${index.indexType.equals('CN') }">selected</c:if>>新建产能</option>
+							<option value='CL' <c:if test="${index.indexType.equals('CL') }">selected</c:if>>产量</option>
+							<option value='TZ' <c:if test="${index.indexType.equals('TZ') }">selected</c:if>>投资</option>
+							<option value='CB' <c:if test="${index.indexType.equals('CB') }">selected</c:if>>成本</option>
 						</select>
 					</td>
 				</tr>
@@ -95,21 +115,6 @@
 				$('.ty').remove();
 			}
 		});
-		
-		/* $('#selectType').change(function(){
-			var planType=$("#selectType").val();
-			var mineType=$("#selectMineType").val();
-			console.log(mineType+planType);
-			$("#indexName").value=mineType+planType;
-		})
-		$('#selectMineType').change(function(){
-			var planType=$("#selectType").val();
-			var mineType=$("#selectMineType").val();
-			console.log(mineType+planType);
-			$("#indexName").setText(mineType+planType);
-			$("#indexName").setValue(mineType+planType);
-			console.log($("#indexName").val());
-		}) */
 	
 		function back(){
 			window.location.href="<%=path%>/index/list?type=${type}";

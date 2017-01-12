@@ -14,8 +14,9 @@
 	</script>
 	<title>完成情况管理</title>
 </head>
-<body class="easyui-layout">
+<body>
 	<div data-options="region:'north',split:true,collapsedContent:'规划总体情况'" style="height:25%">
+	<!-- <div style="width:100%"> -->
 		<div align="center"><span style="font-size:24px;font-family:微软雅黑">规划概览</span></div>
 		<div style="width:50%;float:left">
 			规划每年完成情况
@@ -29,20 +30,43 @@
 		</div>
 	</div> 
 	<div data-options="region:'center',split:true">
-		<div class="easyui-tabs">
+	<!-- <div  style="width:100%"> -->
+		<div class="easyui-tabs" data-options="narrow:true,plain:true,tabWidth:250,tabHeight:45" id="tt">
 			<%@ include file="tab1.jsp" %>
 			<%@ include file="tab2.jsp" %>
 			<%@ include file="tab3.jsp" %>
 			<%@ include file="tab4.jsp" %>
 		</div>
-	</div>	
-	<script type="text/javascript">
+	</div>
 	
+	<div id="mm" style="width:244px">
+		<!-- href="javascript:void(0)" -->
+		<div  onclick="openCondition()"><span>规划目标和总体情况</span></div>
+		<div  onclick="openReserve()"><span>油气储量</span></div>
+		<div  onclick="openOutput()"><span>油气产量</span></div>
+	</div>
+	
+	<script type="text/javascript">
+		
 		$(function(){
-		   	for(var i=0;i<$('.charts').length();i++){
-		   		$('.charts')[i].addEventListener('dblclick',showDetail,fasle);
-		   	}
-	    })
+			var p = $('#tt').tabs().tabs('tabs')[3];
+			var mb = p.panel('options').tab.find('a.tabs-inner');
+			mb.menubutton({
+				menu:'#mm'
+			}).click(function(){
+				$('#tt').tabs('select',3);
+			});
+			
+			/* var sb=$("#gl");
+			$("#xxx").tooltip({
+				position:'right',
+				content:'<span>dfgdfhhs</span>'
+			}) */
+		});
+	
+		/* $(function(){
+		   	
+	    }) */
 		
 		$('.carousel').carousel({
 			interval:3000

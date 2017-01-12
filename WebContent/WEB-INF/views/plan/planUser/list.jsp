@@ -8,8 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="<%=path%>/resources/bootstrap/css/bootstrap.css">
-    <script type="text/javascript" src="<%=path%>/resource/echart/echart.js"></script>
     <script type="text/javascript" src="<%=path%>/resources/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="<%=path%>/resource/echart/echart.js"></script>
     <script type="text/javascript">
     
 	</script>
@@ -38,14 +38,29 @@
 					</div>
 				</div>
 				<div style="width:50%;float:right">
-					<div class="easyui-panel">
-						<div class="carousel slide" style="height:300px;width:100%" id="lunbo">
+					<div class="easyui-panel" id="futuPanel" style="width:100%">
+						<div class="carousel slide"  id="lunbo">
 							<div class="carousel-inner">
-								<div class="mainCharts" style="height:300px;width:100%" id="futu" align="center"></div>
-								<div class="mainCharts" style="height:300px;width:100%" id="futu2" align="center"></div>
-								<div class="mainCharts" style="height:300px;width:100%" id="futu3" align="center"></div>
-								<div class="mainCharts" style="height:300px;width:100%" id="futu4" align="center"></div>
+								<!-- <div class="item">
+									<div class="mainCharts" style="height:300px;width:100%" id="futu" align="center"></div>
+								</div>
+								<div class="item">
+									<div class="mainCharts" style="height:300px;width:100%" id="futu2" align="center"></div>
+								</div>
+								<div class="item">
+									<div class="mainCharts" style="height:300px;width:100%" id="futu3" align="center"></div>
+								</div>
+								<div class="item">
+									<div class="mainCharts" style="height:300px;width:100%" id="futu4" align="center"></div>
+								</div> -->
+								<div class="item active mainCharts" style="height:300px;width:824px" id="futu" align="center"></div>
+								<div class="item mainCharts" style="height:300px;width:824px" id="futu2" align="center"></div>
+								<div class="item mainCharts" style="height:300px;width:824px" id="futu3" align="center"></div>
+								<div class="item mainCharts" style="height:300px;width:824px" id="futu4" align="center"></div>
 							</div>
+							<a class="carousel-control left" href="#lunbo" data-slide="prev">&lsaquo;</a>
+    						<a class="carousel-control right" href="#lunbo" data-slide="next">&rsaquo;</a>
+							
 						</div>
 					</div>
 				</div>
@@ -176,6 +191,15 @@
 		myChartsF2.setOption(optionFutu);
 		myChartsF3.setOption(optionFutu);
 		myChartsF4.setOption(optionFutu);
+		
+		/* var panelWidth=$("#futuPanel").width();
+		
+		function panelResize(){
+			$(".mainCharts").css('width',panelWidth);
+			console.log(panelWidth);
+			console.log('dsf'+$("#futu").width());
+		} */
+		
 	</script>
 </body>
 </html>
