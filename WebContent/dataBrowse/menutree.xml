@@ -11,46 +11,30 @@
 			<level3 id="zyl_qg" name="全国" imgName="3.png" url="/dataBrowse">
 				<tab id="zyl_dq_01">年度大区各盆地油气资源量</tab>
 			</level3>
-<<<<<<< HEAD
-			<level3 id="qg" name="全国" imgName="2.png" url="/dataBrowse">
-				<tab id="zyl_qg_01">年度各盆地油气资源量</tab>
-				<tab id="zyl_qg_02">年度各大区油气资源量</tab>
-				<tab id="zyl_qg_03">年度各省区油气资源量</tab>
-=======
+
 			<level3 id="zyl_gndq" name="国内大区" imgName="4.png" url="/dataBrowse_Tu?id=zyl_gndq">
 				<tab id="zyl_gndq_01" dataSource="1">年度各盆地油气资源量</tab>
 				<tab id="zyl_gndq_02" dataSource="2">年度各大区油气资源量</tab>
 				<tab id="zyl_gndq_03" dataSource="3">年度各省区油气资源量</tab>
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
 			</level3>
 		</level2>
 		<level2 id="chul" name="储量">
-<<<<<<< HEAD
-			<level3 id="qg" name="全国" imgName="1.png" url="/dataBrowse">
-=======
+
 			<level3 id="sj" name="世界" imgName="1.png" url="">
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
 				<tab id="chul_qg_01">历年全国盆地储量</tab>
 			</level3>
-<<<<<<< HEAD
-			<level3 id="sygs" name="石油公司" imgName="2.png" url="/dataBrowse">
-=======
+
 			<level3 id="sjdq" name="世界大区" imgName="2.png" url="">
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
+
 				<tab id="chul_sygs_01">历年石油总公司储量</tab>
 			</level3>
-<<<<<<< HEAD
-			<level3 id="sq" name="省区" imgName="3.png" url="/dataBrowse">
-=======
+
 			<level3 id="sjgg" name="世界各国" imgName="3.png" url="">
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
+
 				<tab id="chul_sq_01">年度省区油气田储量</tab>
 			</level3>
-<<<<<<< HEAD
-			<level3 id="pd" name="盆地" imgName="4.png" url="/dataBrowse">
-=======
+
 			<level3 id="qg" name="全国" imgName="4.png" url="">
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
 				<tab id="chul_pd_01">年度盆地油气田储量</tab>
 			</level3>
 			<level3 id="sygs" name="石油公司" imgName="5.png" url="">
@@ -64,79 +48,29 @@
 			</level3>
 		</level2>
 		<level2 id="chanl" name="产量">
-<<<<<<< HEAD
-			<level3 id="qg" name="全国" imgName="1.png" url="/dataBrowse">
-				<tab id="chanl_qg_01">历年全国油气资源产量概况</tab>
-				<tab id="chanl_qg_02">全国各石油公司油气资源产量概况</tab>
-				<tab id="chanl_qg_03">全国各盆地石油资源产量概况</tab>
-				<tab id="chanl_qg_04">全国各省区油气资源产量概况</tab>
-=======
 			<level3 id="sj" name="世界" imgName="1.png" url="">
 				<tab id="chul_qg_01">历年全国盆地储量</tab>
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
 			</level3>
-<<<<<<< HEAD
-			<level3 id="sygs" name="石油公司" imgName="2.png" url="/dataBrowse">
-				<tab id="chanl_sygs_01">历年全国各石油公司油气资源产量概况</tab>
-				<tab id="chanl_sygs_02">全国各石油公司油气资源产量明细</tab>
-				<tab id="chanl_sygs_03">全国各石油公司油气资源月度产量</tab>
-=======
 			<level3 id="sjdq" name="世界大区" imgName="2.png" url="">
 				<tab id="chul_sygs_01">历年石油总公司储量</tab>
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
 			</level3>
-<<<<<<< HEAD
-			<level3 id="sq" name="省区" imgName="3.png" url="/dataBrowse">
-				<tab id="chanl_sq_01">历年全国各省区油气资源产量概况</tab>
-				<tab id="chanl_sq_02">全国各省区油气资源产量明细</tab>
-=======
 			<level3 id="sjgg" name="世界各国" imgName="3.png" url="">
 				<tab id="chul_sq_01">年度省区油气田储量</tab>
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
 			</level3>
-<<<<<<< HEAD
-			<level3 id="pd" name="盆地" imgName="4.png" url="/dataBrowse">
-				<tab id="chanl_pd_01">历年全国各盆地油气资源产量概况</tab>
-				<tab id="chanl_pd_02">全国各盆地油气资源产量明细</tab>
-=======
 			<level3 id="qg" name="全国" imgName="4.png" url="">
 				<tab id="chul_pd_01">年度盆地油气田储量</tab>
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
 			</level3>
-<<<<<<< HEAD
-		</level2>
-		<level2 id="ktkf" name="勘探开发">
-			<level3 id="qg" name="全国" imgName="1.png" url="/dataBrowse">
-				<tab id="ktkf_qg_01">各石油公司地震勘探情况</tab>
-				<tab id="ktkf_qg_02">各石油公司钻探情况</tab>
-				<tab id="ktkf_qg_03">各石油公司各项勘探工作投入情况</tab>
-				<tab id="ktkf_qg_04">历年全国钻探情况</tab>
-				<tab id="ktkf_qg_05">历年全国地震勘探情况</tab>
-				<tab id="ktkf_qg_06">历年全国勘探工作总投入情况</tab>
-=======
 			<level3 id="sygs" name="石油公司" imgName="5.png" url="">
 				<tab id="chul_sygs_01">历年石油总公司储量</tab>
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
 			</level3>
-<<<<<<< HEAD
-			<level3 id="sygs" name="石油公司" imgName="2.png" url="/dataBrowse">
-				<tab id="ktkf_sygs_01">历年全国各石油公司地震勘探情况</tab>
-				<tab id="ktkf_sygs_02">历年各石油公司勘探工作总投入情况</tab>
-				<tab id="ktkf_sygs_03">历年全国各石油公司钻探情况</tab>
-=======
 			<level3 id="sq" name="省区" imgName="6.png" url="">
 				<tab id="chul_sq_01">年度省区油气田储量</tab>
 			</level3>
 			<level3 id="pd" name="盆地" imgName="7.png" url="">
 				<tab id="chul_pd_01">年度盆地油气田储量</tab>
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
 			</level3>
 		</level2>
 		<level2 id="yqmy" name="油气贸易">
-<<<<<<< HEAD
-			<level3 id="yj" name="油价" imgName="1.png" url="/dataBrowse"></level3>
-			<level3 id="jck" name="进出口" imgName="2.png" url="/dataBrowse"></level3>
-=======
 			<level3 id="sjyj" name="世界油价" imgName="1.png" url=""></level3>
 			<level3 id="dqyj" name="地区油价" imgName="2.png" url=""></level3>
 			<level3 id="gnjck" name="国内进出口" imgName="3.png" url=""></level3>
@@ -146,33 +80,20 @@
 			<level3 id="sj" name="世界" imgName="1.png" url=""></level3>
 			<level3 id="sjdq" name="世界大区" imgName="2.png" url=""></level3>
 			<level3 id="sjgg" name="世界各国" imgName="3.png" url=""></level3>
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
 		</level2>
 		<level2 id="kq" name="矿权">
-<<<<<<< HEAD
-			<level3 id="sygs" name="石油公司" imgName="1.png" url="/dataBrowse">
-=======
 			<level3 id="qgkq" name="全国矿权" imgName="1.png" url="">
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
 				<tab id="kq_sygs_01">全国各公司油气资源矿权明细</tab>
 				<tab id="kq_sygs_02">历年全国各公司油气资源矿权概况</tab>
 			</level3>
-<<<<<<< HEAD
-			<level3 id="sq" name="省区" imgName="2.png" url="/dataBrowse">
-=======
 			<level3 id="gskq" name="公司矿权" imgName="2.png" url="">
 				<tab id="kq_sygs_01">全国各公司油气资源矿权明细</tab>
 				<tab id="kq_sygs_02">历年全国各公司油气资源矿权概况</tab>
 			</level3>
 			<level3 id="sqkq" name="省区矿权" imgName="3.png" url="">
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
 				<tab id="kq_sq_01">全国各省区油气资源矿权明细</tab>
 			</level3>
-<<<<<<< HEAD
-			<level3 id="qg" name="全国" imgName="3.png" url="/dataBrowse">
-=======
 			<level3 id="qgktkf" name="全国勘探开发" imgName="4.png" url="">
->>>>>>> branch '趋势预测分析' of https://github.com/CUGB-1009A/ogpis2.git
 				<tab id="kq_qg_01">全国各公司油气资源矿权概况</tab>
 			</level3>
 			<level3 id="gsktkf" name="公司勘探开发" imgName="5.png" url="">
