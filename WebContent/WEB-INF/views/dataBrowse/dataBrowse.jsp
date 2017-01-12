@@ -155,7 +155,7 @@
         	<div id="dataBrowseRepDiv" style="width:45%;height:400px;float:left;padding-left:50px">
 				<script>
 					insertReport('dataBrowseReport', 'Rebar=none; Border=none; Ruler=none; PagesTabPercent=0; SeperateBar=none')
-				</script>
+				</script> 
 			</div>
 			<div id="dataBrowseChartDiv"style="width:50%;height:450px;float:left;"></div>
         </div>
