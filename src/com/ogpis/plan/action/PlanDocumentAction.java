@@ -1,6 +1,7 @@
 package com.ogpis.plan.action;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ogpis.base.action.BaseAction;
 import com.ogpis.base.common.page.Pagination;
+import com.ogpis.base.common.page.SimplePage;
 import com.ogpis.plan.entity.PlanDocument;
 import com.ogpis.plan.service.IndexManagementService;
 import com.ogpis.plan.service.PlanDocumentService;
@@ -60,6 +64,18 @@ public class PlanDocumentAction extends BaseAction {
 		model.addAttribute("selectValue", selectValue);*/
 		
 		return "plan/document/list";
+	}
+	
+	@RequestMapping("/getData")
+	@ResponseBody
+	public void getData(HttpServletRequest request,HttpServletResponse response,
+			@RequestParam("page") Integer pageNumber,
+			@RequestParam("rows") Integer pageSize) throws IOException{
+		Pagination pagination = planDocumentService.getPlanDocuments(
+				SimplePage.cpn(pageNumber), pageSize);
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("utf-8");
+	    response.getWriter().write(this.toJsonTableData(pagination, null, true));
 	}
 	
 }

@@ -26,49 +26,33 @@ td, th {
 <body>
 	<div
 		style="width: 100%; height: 100%; display: flex; flex-direction: row; flex-direction: column;">
-		<div style="width: 100%; display: flex; justify-content: flex-end;">
-			<div title="警戒设置">
-				<div class="padding">
-					<div class="inline-block">
-						<select id="field1Value" class="select">
-							<option selected="selected">规划名称</option>
-							<option>规划类型</option>
-							<option>指标统计</option>
-							<option>规模跟踪</option>
-							<option>布局跟踪</option>
-						</select>
-					</div>
-					<div class="inline-block">
-						<select id="field2Value" class="select">
-							<option selected="selected">等于</option>
-							<option>不等于</option>
-							<option>大于</option>
-							<option>小于</option>
-							<option>包含</option>
-						</select>
-					</div>
-					<div class="inline-block">
-						<select id="field3Value" class="select">
-							<option>十三五规划</option>
-							<option>中石油十三五规划</option>
-							<option>中海油十三五规划</option>
-						</select>
-					</div>
-					<div class="inline-block">
-						<button class="select" onclick="queryTest();">查询</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<div title="图表" class="easyui-layout" style="width: 100%;"
 			data-options="fit:true">
 			<div id="panel1" class="border" data-options="region:'center'">
 				<%@ include file="tempFile.jsp"%>
 			</div>
 			<div data-options="region:'west',split:true"
-				style="width: 35%; max-width: 600px;">
-				<table id="table" class="easyui-datagrid table" data-options="singleSelect:true,striped:true"
+				style="width: 35%; max-width: 600px;margin-right:5px">
+				<div style="width: 100%; display: flex;justify-content: flex-start">
+					<div class="inline-block" style="margin:10px">
+						<select id="field1Value" class="select">
+							<option selected="selected">规划名称</option>
+							<option>规划类型</option>
+						</select>
+					</div>
+					<div class="inline-block"  style="margin:10px 10px 10px 0px">
+						<select id="field3Value" class="select">
+							<option>十三五规划</option>
+							<option>中石油十三五规划</option>
+							<option>中海油十三五规划</option>
+						</select>
+					</div>
+					<div class="inline-block"  style="margin:10px 10px 10px 0px;">
+						<button class="select" onclick="queryTest();">查询</button>
+					</div>
+				</div>
+				<table id="table" class="easyui-datagrid table"
+					data-options="singleSelect:true,striped:true"
 					style="width: 100%; flex-grow: 1; flex-shrink: 1;">
 					<thead>
 						<tr>
@@ -135,8 +119,8 @@ td, th {
 				if (field == "layout")
 					window.location = "../track/layoutTrack";
 			},
-			onLoadSuccess:function(){
-				$("#table").datagrid("selectRow",0);
+			onLoadSuccess : function() {
+				$("#table").datagrid("selectRow", 0);
 			}
 		});
 	});

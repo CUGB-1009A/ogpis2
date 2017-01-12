@@ -24,4 +24,12 @@ public class dataBrowseAction {
 		System.out.println("dataBrowse/dataBrowse_reserves_company");
 		return "dataBrowse/dataBrowse_reserves_company";
 	}
+	
+	@RequestMapping(value = "/dataBrowse_Tu")
+	public String dataBrowse_Tu(HttpServletRequest request, ModelMap model) {
+		String id = request.getParameter("id");
+		model.addAttribute("id",id);
+		System.out.println("历史数据要览测试action");
+		return "dataBrowse/dataBrowse_Tu";
+	}
 }

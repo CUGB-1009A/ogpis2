@@ -31,6 +31,10 @@
 <script>
 
 	window.onload = function(){//读取xml显示上方上方、左侧、中间菜单	
+		$("#main_top").contents().find("#mainPage").click(function(){
+			console.log(1)
+			 loadAgain();
+		});
 				 $.ajax({
 			         url: '<%=path%>/dataBrowse/menutree.xml',
 			         dataType: 'xml',
@@ -57,6 +61,8 @@
 			            	if(left=="true"){
 			            		$("#main_left").contents().find("#sider-nav").children("ul").append("<li><a class='"+id+"'>"+name+"</a></li>");
 			            		$("#main_left").contents().find("#sider-nav ."+id).click(function(){
+			            			$("#main_top").contents().find('#nav li').removeClass('current');
+			            			$("#main_top").contents().find("#nav ."+id).parent().addClass("current");
 			            			showMenu($(this).attr("class"));
 			            		});
 			            	}
@@ -65,6 +71,8 @@
 			            			{
 				            			$("#main_center").contents().find("#row1").append("<div class='modal'><a class='"+id+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
 				            			$("#main_center").contents().find("#row1 ."+id).click(function(){
+				            				$("#main_top").contents().find('#nav li').removeClass('current');
+					            			$("#main_top").contents().find("#nav ."+id).parent().addClass("current")
 				            				showMenu($(this).attr("class"));
 				            			});
 			            			}
@@ -72,7 +80,8 @@
 			            			{
 				            			$("#main_center").contents().find("#row2").append("<div class='modal'><a class='"+id+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
 				            			$("#main_center").contents().find("#row2 ."+id).click(function(){
-				            				$("#main_top").contents().find("#nav ."+id).addClass("current");
+				            				$("#main_top").contents().find('#nav li').removeClass('current');
+					            			$("#main_top").contents().find("#nav ."+id).parent().addClass("current");
 				            				showMenu($(this).attr("class"));
 				            			});
 			            			}
@@ -95,33 +104,38 @@
 				         async: false,
 				         success: function(data){
 				        	 var clickNode = $(data).find("level1[id='"+classId+"']");
-				        	 console.log(clickNode)
 				        	 var hasTri = clickNode.attr("hasTri");
+			        		 var select = true ;
 				        	 $("#main_center").contents().find('body').append("<div class='grid'><div class='row' id='row1'></div><div class='row' id='row2'></div></div>")
 				        	 if(hasTri=="false"){
 				        		 var level2Num = clickNode.find("level2").length;
 				        		 var i2 = 0;
 				        		 clickNode.find("level2").each(function(){	
 				        			 	i2++;
+				        			 	var id=$(this).attr("id");
 					        	 		var url = $(this).attr("url");
 					        	 		var name = $(this).attr("name");
 					        	 		var imgName = $(this).attr("imgName");
-					        	 		$("#main_left").contents().find("#sider-nav").children("ul").append("<li><a target=main_center href='<%=path%>"+url+"'>"+name+"</a></li>");
+					        	 		$("#main_left").contents().find("#sider-nav").children("ul").append("<li class='left"+id+"''><a target=main_center href='<%=path%>"+url+"'>"+name+"</a></li>");
 					        	 		if(i2<=Math.ceil(level2Num/2))
 				            			{
-											$("#main_center").contents().find("#row1").append("<div class='modal'><a target=main_center href='<%=path%>"+url+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
+											$("#main_center").contents().find("#row1").append("<div class='modal center"+id+"'><a target=main_center href='<%=path%>"+url+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
+											$("#main_center").contents().find("body .center"+id).click(function(){
+												$("#main_left").contents().find("#sider-nav .left"+id).addClass('current');
+											});
 				            			}
 				            			else
 				            			{
-				            				$("#main_center").contents().find("#row2").append("<div class='modal'><a target=main_center href='<%=path%>"+url+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
+				            				$("#main_center").contents().find("#row2").append("<div class='modal center"+id+"'><a target=main_center href='<%=path%>"+url+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
+				            				$("#main_center").contents().find("body .center"+id).click(function(){
+												$("#main_left").contents().find("#sider-nav .left"+id).addClass('current');
+											});
 				            			}
 					        	 	}) ; 
 				        	 }
 				        	 if(hasTri=="true"){
 				        		 var isFirst = true;
-				        		 var select = true ;
 				        		 clickNode.find("level2").each(function(){
-				        			 
 				        			 if(isFirst){
 				        				 var level3Num = $(this).find("level3").length;
 				        				 var i3=0;
@@ -145,7 +159,13 @@
 				        	 		var url = $(this).attr("url");
 				        	 		if(url==undefined)//二级菜单下有三级菜单
 				        	 			{
-				        	 				$("#main_left").contents().find("#sider-nav").children("ul").append("<li><a class='"+id+"'>"+name+"</a></li>");
+				        	 				if(select){
+				        	 					$("#main_left").contents().find("#sider-nav").children("ul").append("<li class='current'><a class='"+id+"'>"+name+"</a></li>");	
+				        	 					select = false;
+				        	 				}
+				        	 				else{
+				        	 					$("#main_left").contents().find("#sider-nav").children("ul").append("<li><a class='"+id+"'>"+name+"</a></li>");
+				        	 				}
 				        	 				$("#main_left").contents().find("#sider-nav ."+id).click(function(){
 				        	 					level2tolevel3($(this).attr("class"));
 					            			});
@@ -190,7 +210,6 @@
 				        					 }
 				        					 else{
 				        						 $("#main_center").contents().find("#row2").append("<div class='modal'><a target=main_center href='<%=path%>"+url+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
-				        					
 				        				 }
 				       		  });
 				         }
@@ -199,6 +218,70 @@
 		 		}
 		};
 	}
+	
+
+	
+	function loadAgain(){//首页响应事件
+		$("#main_left").contents().find("#sider-nav ul").empty();
+	 	$("#main_center").attr("src","<%=path%>/main/center");
+	 	var first = true;
+	 	document.getElementById("main_center").onload = function(){
+	 		if(first){
+	 			 $.ajax({
+			         url: '<%=path%>/dataBrowse/menutree.xml',
+			         dataType: 'xml',
+			         async: false,
+			         success: function(data){
+			        	 var level1Num = $(data).find("level1[center='true']").length;
+			        	 var i = 0;
+			        	 $("#main_center").contents().find('body').append("<div class='grid'><div class='row' id='row1'></div><div class='row' id='row2'></div></div>")
+			             $(data).find("level1").each(function(){	
+							i++;
+			            	var district=$(this);
+			            	var top = district.attr("top");
+			            	var left = district.attr("left");
+			            	var center = district.attr("center");
+			            	var name = district.attr("name");
+			            	var id = district.attr("id");
+			            	var imgName = district.attr("imgName");
+			            	if(left=="true"){
+			            		$("#main_left").contents().find("#sider-nav").children("ul").append("<li><a class='"+id+"'>"+name+"</a></li>");
+			            		$("#main_left").contents().find("#sider-nav ."+id).click(function(){
+			            			$("#main_top").contents().find('#nav li').removeClass('current');
+			            			$("#main_top").contents().find("#nav ."+id).parent().addClass("current")
+			            			showMenu($(this).attr("class"));
+			            		});
+			            	}
+			            	if(center=="true"){
+			            		if(i<=Math.ceil(level1Num/2))
+			            			{
+				            			$("#main_center").contents().find("#row1").append("<div class='modal'><a class='"+id+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
+				            			$("#main_center").contents().find("#row1 ."+id).click(function(){
+				            				$("#main_top").contents().find('#nav li').removeClass('current');
+					            			$("#main_top").contents().find("#nav ."+id).parent().addClass("current")
+				            				showMenu($(this).attr("class"));
+				            			});
+			            			}
+			            		else
+			            			{
+				            			$("#main_center").contents().find("#row2").append("<div class='modal'><a class='"+id+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
+				            			$("#main_center").contents().find("#row2 ."+id).click(function(){
+				            				$("#main_top").contents().find('#nav li').removeClass('current');
+					            			$("#main_top").contents().find("#nav ."+id).parent().addClass("current")
+				            				$("#main_top").contents().find("#nav ."+id).addClass("current");
+				            				showMenu($(this).attr("class"));
+				            			});
+			            			}
+			            		
+			            	}
+			            });
+		         }
+		}) ;
+			 		first = false ;
+	 		}
+	     };
+	}
+
 
 	
 </script>

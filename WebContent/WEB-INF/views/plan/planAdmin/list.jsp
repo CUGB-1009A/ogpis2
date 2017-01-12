@@ -34,8 +34,8 @@
 				<thead>
 					<tr>
 						<th field="全选" width="5%" class="table-checkbox"><input type="checkbox" class="group-checkable" name="checkboxFirst"/>全选</th>
-						<th field="规划名称" width="20%">规划名称</th>
-						<th field="规划类型" width="20%">规划类型</th>
+						<th field="规划名称" width="20%">规划名称</th><!-- 
+						<th field="规划类型" width="20%">规划类型</th> -->
 						<th field="信息" width="30%">信息</th>
 						<th field="操作" width="25%">操作</th>
 					</tr>
@@ -49,11 +49,11 @@
 								</c:if>
 							</td>
 							<td>${item1.get('plan').planName }</td>
-							<td>
+							<%-- <td>
 								<c:forEach items="${planType }" var="item">
 									<c:if test="${item1.get('plan').planType.equals(item.key) }">${item }</c:if>
 								</c:forEach>							
-							</td>
+							</td> --%>
 							<td>
 								文档 ${item1.get('plan').planDocument.size() }&nbsp;&nbsp;
 								指标个数 ${item1.get('plan').indexs.size() }
@@ -98,7 +98,6 @@
 				</tbody>
 			</table>
 		</div>
-		${mapList }<br>
 	</div>	
 	<script type="text/javascript">
 		var tempType="${type}";

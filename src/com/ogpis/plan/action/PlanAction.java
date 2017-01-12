@@ -105,6 +105,16 @@ public class PlanAction {
 		
 	}
 	
+	@RequestMapping(value = "/userList")
+	public String userList(HttpServletRequest request,ModelMap model,String type,String condition){
+		return "/plan/planUser/list";
+	}
+	
+	@RequestMapping(value="/userDetail")
+	public String userDetail(HttpServletRequest request,ModelMap model,String type,String condition){
+		return "/plan/planUser/userDetail";
+	}
+	
 	@RequestMapping("/toEditPage")
 	public String toEditPage(HttpServletRequest request,ModelMap model,String type){
 		model.addAttribute("planType", PlanType.values());

@@ -33,7 +33,8 @@ public class IndexManagementAction {
 	
 	@RequestMapping("/add")
 	public String add(HttpServletRequest request,ModelMap model){
-		String type="QG";
+		//String type="GZL";
+		String type=request.getParameter("type");
 		model.addAttribute("type", type);
 		return "plan/index/indexEdit";
 	}

@@ -182,8 +182,8 @@ function jarCheck(){
 	</div> 
        <div style="text-align:center;padding:0px 5px 10px 5px">
 			<table id="modelGrid" class="easyui-datagrid .datagrid-btable"></table> 
-			<div id="modelAddDiv" title="添加模型"  data-options="resizable:true,modal:true" style="width:600px; height: 450px; display: none"><!-- 添加模型div -->
-				<div>
+			<div id="modelAddDiv" title="添加模型"  data-options="resizable:true,modal:true" style="width:1000px; height: 500px; display: none"><!-- 添加模型div -->
+				<div style="width:550px;height:450px;float:left">
 					<div style="padding: 15px 0 0 15px; ">
 						<label class="dialog-lable">模型名称:</label> 
 						<input id="dataSourceName" class="dialog-input" type="text"/>
@@ -214,6 +214,22 @@ function jarCheck(){
 						<button onclick="cancleSave()">取消</button>
 					</div>
 				</div>
+				<div style="width:400px;height:450px;float:left">
+					<div>
+						<label class="dialog-lable">选择模拟数据源:</label>
+						<div>
+							<input id="fakeDataSource"  type="radio" name="fakeDataSource"/>模拟数据源1
+							<input id="fakeDataSource"  type="radio" name="fakeDataSource"/>模拟数据源2
+							<input id="fakeDataSource"  type="radio" name="fakeDataSource"/>模拟数据源3
+						</div> 
+						<button onclick="simulation()">模拟</button>
+					</div>
+					<div>
+						<div id="test1" style="width:380px;height:350px;">
+							
+						</div>
+					</div>
+				</div>
 			</div>
 			<div id="modelIntroduction" title="模型介绍" data-options="resizable:true" style="width:600px; height: 500px; display: none"><!-- 介绍模型 -->
 				<div style="width:100%;height:20%">
@@ -242,6 +258,48 @@ function jarCheck(){
 </div>  
 </body>
 <script type="text/javascript">
-
+var option1 = {
+		 title: { 
+					 text: '石油储量',
+					 left:'center'
+				 },
+		 tooltip: {
+			 		 trigger: 'axis'
+		 },
+		  legend: {
+		        data:['历史数据','预测数据'],
+		        right:'right'
+		    },
+		 xAxis : [
+			        {
+			            type : 'category',
+			            boundaryGap : false,
+			            name:"年份",
+			            data : [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025]
+			        }
+			    ],
+			    yAxis : [
+					        {
+					            type : 'value',
+					            name:'万吨'
+					        }
+					    ],
+		 series: [
+			          {
+					     type: 'line',
+					     name:'历史数据',
+					     data: [12,20,31,44,62,79]
+			          },
+			          {
+			        	  type: 'line',
+  					  name:'预测数据',
+  					  data: [10,18,30,45,66,79.5,100,118,150,240,380,550,570,580,648,880] 
+			          }
+		          ]
+		}
+function simulation(){
+	var myChart = echarts.init(document.getElementById("test1"));
+	myChart.setOption(option1);
+}
 </script>
 </html>
