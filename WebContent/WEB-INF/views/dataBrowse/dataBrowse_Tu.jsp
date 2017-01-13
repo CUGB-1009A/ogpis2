@@ -42,8 +42,7 @@ $(function(){
    						i++;
 		   				$('#tt').tabs('add',{    
 		   				    title:$(this).text(),
-			   				closable:false,
-			   				content:getDivContent($(this).attr("dataSource"))
+			   				closable:false
 	   					});
    					});
 	   	}
@@ -55,6 +54,29 @@ $(function(){
 						
 					}
 			first = false ;	
+			var dataSourceId = dataSourceArray[index];
+			$.ajax({
+			    url: '<%=path%>/getTabDimension',
+			    data:{"id":dataSourceId},
+			    dataType: 'json',
+			    async: false,
+			    success: function(data){//将维度信息添加到tab页上
+			    	var content ;
+			    	for(var i=0;i<data.length;i++){
+			    		var dimension = data[i];
+			    	}
+					
+			    	var tab = $('#tt').tabs('getSelected');  
+			    	$('#tt').tabs('update', {
+			    		tab: tab,
+			    		options: {
+			    			content: content 
+			    		}
+			    	});
+
+		   				 	
+			   	}
+			})
 		}
 	
 	});
