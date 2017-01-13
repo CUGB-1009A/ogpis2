@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.data.dao.DataSourceDao;
+import com.ogpis.data.entity.DataSource;
 import com.ogpis.data.service.DataSourceService;
 
 @Service
@@ -18,5 +19,10 @@ public class DataSourceServiceImpl implements DataSourceService{
 	@Override
 	public Pagination getAllDataSource(int cpn, Integer pageSize) {
 		return dataSourceDao.getAllDataSource(cpn,pageSize);
+	}
+
+	@Override
+	public DataSource findById(String id) {
+		return dataSourceDao.findById(id);
 	}
 }

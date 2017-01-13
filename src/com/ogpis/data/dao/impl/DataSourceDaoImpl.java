@@ -20,5 +20,10 @@ public class DataSourceDaoImpl extends HibernateBaseDao<DataSource, String> impl
 		Finder f = Finder.create("select bean from DataSource bean where bean.deleted=false");
 		return find(f,cpn,pageSize);
 	}
+
+	@Override
+	public DataSource findById(String id) {
+		return super.get(id);
+	}
 	
 }

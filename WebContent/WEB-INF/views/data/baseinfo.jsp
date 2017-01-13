@@ -351,11 +351,11 @@ function addInterface(){
 					$("#dimension_subjectId option:selected").each(function(){
 						subjectIds += $(this).val()+";";
 					});
-					if(name==""||priority==""||subjectIds=="")
+					/* if(name==""||priority==""||subjectIds=="")
 						{
 						alert("信息填写不完整");
 						return false;
-						}
+						} */
 					 close(e);
 					 $.ajax({
 							url:"<%=path%>/dimension/save",
@@ -435,11 +435,11 @@ function addInterface(){
 					$("#dimension_subjectId option:selected").each(function(){
 						subjectIds += $(this).val()+";";
 					});
-					if(subjectIds==""||name==""||priority==""||dimensionValues=="")
+				/* 	if(subjectIds==""||name==""||priority==""||dimensionValues=="")
 						{
 						alert("信息填写不完整");
 						return false;
-						}
+						} */
 					 close(e);
 					 $.ajax({
 							url:"<%=path%>/dimension/save",
