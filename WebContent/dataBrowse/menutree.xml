@@ -10,7 +10,7 @@
 			</level3>
 			<level3 id="zyl_qg" name="全国" imgName="3.png" url="/dataBrowse">
 				<tab id="zyl_dq_01">年度大区各盆地油气资源量</tab>
-			</level3>
+			</level3> 
 
 			<level3 id="zyl_gndq" name="国内大区" imgName="4.png" url="/dataBrowse_Tu?id=zyl_gndq">
 				<tab id="zyl_gndq_01" dataSource="1">年度各盆地油气资源量</tab>
