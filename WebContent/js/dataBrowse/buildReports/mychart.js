@@ -12,17 +12,17 @@ function CreatChart(id,data) { //data={"title":"","xName":"","xAxis":[],"yName":
 CreatChart.prototype={
     constructor:CreatChart,
     chart_bar:function () {
-        var myChart = echarts.init(document.getElementById(this.id));
+        var myChart = echarts.init(document.getElementById(this.id));      
         //绘制图表
         myChart.setOption({
-            title: {
-                text: this.title,
-                left:'center'
-            },
-            grid:{
-                top:100,
-                containLabel: true
-            },
+//            title: {
+//                text: this.title,
+//                left:'center'
+//            },
+//            grid:{
+//                width:w,
+//                height:h
+//            },
             tooltip: {},
             xAxis: {
                 name:this.xName,
@@ -63,7 +63,10 @@ CreatChart.prototype={
                     }
                 },
                 data: this.yAxis
-            }]
+            }]           
+        });
+        $(window).resize(function(){
+        	myChart.resize({width:$("#"+this.id).width(),height:$("#"+this.id).height()});
         });
     },
     chart_line1:function () {
