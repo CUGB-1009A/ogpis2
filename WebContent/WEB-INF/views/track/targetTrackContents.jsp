@@ -20,14 +20,6 @@ td, th {
 	text-align: center
 }
 </style>
-<!-- 加载ArcGIS API  -->
-<script type="text/javascript" src="/arcgis/library/3.9/3.9/init.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="/arcgis/library/3.9/3.9/esri/css/esri.css"></link>
-<!-- 加载自定义ArcGIS API  -->
-<script type="text/javascript" src="../js/arcgis/globalFunction.js"></script>
-<script type="text/javascript" src="../js/arcgis/globalVariable.js"></script>
-<script type="text/javascript" src="../js/arcgis/initPage.js"></script>
 <!-- 加载自定义样式 -->
 <link rel="stylesheet" type="text/css" href="../js/arcgis/css/Map.css">
 </head>

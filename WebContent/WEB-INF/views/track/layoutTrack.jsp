@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ include file="../init.jsp"%>
+<%@ include file="../init.jsp"%>
 <%
 	response.setHeader("Access-Control-Allow-Origin", "*");
 %>
@@ -23,6 +23,8 @@
 <link rel="stylesheet" type="text/css"
 	href="/arcgis/library/3.9/3.9/esri/css/esri.css"></link>
 <!-- 加载自定义ArcGIS API  -->
+<script type="text/javascript" src="../js/arcgis/globalOptions.js"></script>
+<script type="text/javascript" src="../js/arcgis/echartOptions.js"></script>
 <script type="text/javascript" src="../js/arcgis/globalFunction.js"></script>
 <script type="text/javascript" src="../js/arcgis/globalVariable.js"></script>
 <script type="text/javascript" src="../js/arcgis/initPage.js"></script>
@@ -30,9 +32,9 @@
 <link rel="stylesheet" type="text/css" href="../js/arcgis/css/Map.css">
 </head>
 <body>
-	<div style="width: 100%; height: 100%">
-		<div id="tab1" class="easyui-tabs" style="width: 100%; height: auto;"
-			data-options="border:false">
+	<div style="width: 100%; height: 100%" class="easyui-layout">
+		<div id="tab1" class="easyui-tabs" style="height: 84px"
+			data-options="border:false,region:'north'">
 			<div title="查询统计">
 				<div class="padding">
 					<div class="inline-block">
@@ -105,10 +107,10 @@
 				</div>
 			</div>
 		</div>
-		<div id="tt" class="easyui-tabs" style="width: 80%; height: auto;"
-			data-options="fit:true,tabPosition:'right',headerWidth:50,">
+		<div id="tt" class="easyui-tabs"
+			data-options="border:false,tabPosition:'right',headerWidth:50,region:'center'">
 			<div title="地图">
-				<div style="width: 100%; height: 88%;">
+				<div style="width: 100%; height: 100%;">
 					<div style="width: 100%; height: 100%; position: relative;">
 						<div id="map" data-options="fit:true,region:'center',border:false"
 							onContextMenu="mapContextMenu('#contextMenu')"></div>
@@ -140,41 +142,46 @@
 							data-options="handle:'#mapToolDiv',onDrag:onDrag"
 							style="position: absolute; display: none">
 							<div id="mapToolDiv" class="mapToolDiv">
-								<div>
+								<div class="mapToolDiv-item-start">
 									<div id="zoomPan" title="漫游" onclick="ZoomPan(mapManager);"></div>
 								</div>
-								<div>
+								<div class="mapToolDiv-item">
 									<div id="zoomIn" title="放大" onClick="ZoomIn(mapManager);"></div>
 								</div>
-								<div>
+								<div class="mapToolDiv-item">
 									<div id="zoomOut" title="缩小" onClick="ZoomOut(mapManager);"></div>
 								</div>
-								<div>
+								<div class="mapToolDiv-item">
 									<div id="selectPlygon" title="框选" onClick="recQuery();"></div>
 								</div>
-								<div>
+								<div class="mapToolDiv-item-end">
 									<div id="zoomHome" title="全图" onClick="Home(mapManager);"></div>
 								</div>
 							</div>
 						</div>
 						<div style="display: none">
 							<div class="mapInfoPanel">
-								<div class="layers">
-									<div class="mapInfo-title">
-										<label>图层</label>
+								<div class="mapInfoPanelStyle">
+									<div class="mapInfoPanel-head">信息板</div>
+									<div class="mapInfoPanel-body">
+										<div class="layers">
+											<div class="mapInfo-title">
+												<label>图层</label>
+											</div>
+											<div id="layers"></div>
+										</div>
+										<div class="legend">
+											<div class="mapInfo-title">
+												<label>图例</label>
+											</div>
+											<div id="legend" style="width: auto"></div>
+										</div>
 									</div>
-									<div id="layers"></div>
-								</div>
-								<div class="legend">
-									<div class="mapInfo-title">
-										<label>图例</label>
-									</div>
-									<div id="legend" style="width: auto"></div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div>
+					<!-- <div>
 						<img style="width: 100%; padding-bottom: 80px"
 							src="../js/arcgis/map.png" /> <img
 							style="width: 100%; padding-bottom: 80px"
@@ -185,7 +192,7 @@
 							src="../js/arcgis/map4.png" /> <img
 							style="width: 100%; padding-bottom: 80px"
 							src="../js/arcgis/map5.png" />
-					</div>
+					</div> -->
 					<!-- <div class="toolBar" style="width: 100%; height: auto">
 						<div class="float-right" style="margin: 1px">
 							<div class="inline-block margin padding-lr border-2">
@@ -206,8 +213,8 @@
 			</div>
 			<div title="图表" class="easyui-layout"
 				style="width: 100%; min-width: 800px; height: 100%;">
-				<div class="border" data-options="region:'center'">
-					<div id="test" style="width:80%;height:400px"></div>
+				<div class="border" data-options="region:'center',border:false,onResize:panelResize">
+					<div id="test" style="width: 600px; height: 400px"></div>
 				</div>
 				<div data-options="region:'west',split:true"
 					style="width: 30%; max-width: 600px;">
@@ -271,7 +278,7 @@
 		})
 	}
 	function render() {
-		initRender(mapManager);
+		initRender(mapManager,renderLayerId);
 	}
 	$(function() {
 		$("#tt").tabs({
@@ -282,39 +289,29 @@
 			}
 		})
 	})
-	
-	var option = {
-	        		 title: { 
-	        					 text: '布局跟踪',
-	        					 left:'center'
-	        				 },
-	        		 tooltip: {
-	        			 		 trigger: 'axis'
-	        		 },
-	        		
-	        		 xAxis : [
-	        			        {
-	        			            type : 'category',
-	        			            boundaryGap : false,
-	        			            name:"年份",
-	        			            data : [2001,2002,2003,2004,2005,2006]
-	        			        }
-	        			    ],
-	        			    yAxis : [
-	        					        {
-	        					            type : 'value',
-	        					            name:'万吨'
-	        					        }
-	        					    ],
-	        		 series: [
-	        			          {
-	        					     type: 'line',
-	        					     name:'历史数据',
-	        					     data: [2001,2002,2003,2004,2005,2006]
-	        			          }
-	        		          ]
-	        		}
-var myChart = echarts.init(document.getElementById("test"));
-myChart.setOption(option);
+
+	function panelResize(width, height) {
+		$(this).children("div")[0].style.width = $(this).width()-17;
+		$(this).children("div")[0].style.height = $(this).height();
+		var chart=$(this).children("div")[0].chart;
+		if(chart==null)
+			chart=getChart();
+		chart.resize();
+	}
+	function getChart(){
+		var myChart = echarts.init(document.getElementById("test"));
+		setOptions1(options1, "油气资源规模跟踪", {
+			type : "category",
+			name : "年份",
+			data : [ 2001, 2002, 2003, 2004, 2005, 2006 ]
+		}, {
+			type : "value",
+			name : "万吨",
+			data : [ 1000, 2000, 3000, 4000, 5000, 4500 ]
+		}, "bar");
+		myChart.setOption(options1);
+		document.getElementById("test").chart=myChart;
+		return myChart;
+	}
 </script>
 </html>

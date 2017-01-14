@@ -13,6 +13,8 @@ import com.ogpis.track.tools.TempTools;
 import com.ogpis.track.webservice.WebServiceParam;
 import com.ogpis.track.webservice.WebServiceParams;
 
+import net.sf.json.JSONArray;
+
 import org.dom4j.Document;
 import org.json.JSONObject;
 import org.junit.Ignore;
@@ -54,15 +56,26 @@ public class TestTools {
 	}
 	@Test
 	public void testDao(){
-		TrackUser user=new TrackUser();
+		/*TrackUser user=new TrackUser();
 		user.setName("zwx");
 		user.setPassword("asd123");
 		TestEntity entity=new TestEntity();
 		entity.setParams("test");
 		entity.setResult("hello");
-		/*entity.setUser(user);*/
-		/*ApplicationContext context=new XML*/
+		entity.setUser(user);
+		ApplicationContext context=new XML
 		MyTestDao dao=new MyTestDaoImpl();
-		dao.insert(entity);
+		dao.insert(entity);*/
+		StringBuilder sb=new StringBuilder();
+		sb.append("[");
+		Integer length=20000;
+		for(int i=0;i<length;++i){
+			sb.append("{\"tableName\":\"test\";\"paramList\":[{\"columsName\":\"zwxasd\",\"relation\":\"=\",\"values\":\"23453325\"}]}");
+			if(i<length-1)
+				sb.append(",");
+		}
+		sb.append("]");
+		JSONArray array=JSONArray.fromObject(sb.toString());
+		System.out.println(array.toString());
 	}
 }
