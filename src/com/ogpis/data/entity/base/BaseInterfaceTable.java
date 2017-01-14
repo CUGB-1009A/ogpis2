@@ -12,6 +12,7 @@ import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.data.entity.DataSource;
 import com.ogpis.data.entity.Field;
 import com.ogpis.data.entity.Subject;
+import com.ogpis.data.entity.TableColumns;
 
 @MappedSuperclass
 public class BaseInterfaceTable extends BaseEntity {
@@ -28,6 +29,9 @@ public class BaseInterfaceTable extends BaseEntity {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="table")
 	protected List<Field> field;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="table")
+	protected List<TableColumns> tableColumns;
 	
 	public List<Field> getField() {
 		return field;
@@ -71,6 +75,14 @@ public class BaseInterfaceTable extends BaseEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<TableColumns> getTableColumns() {
+		return tableColumns;
+	}
+
+	public void setTableColumn(List<TableColumns> tableColumns) {
+		this.tableColumns = tableColumns;
 	}
 
 

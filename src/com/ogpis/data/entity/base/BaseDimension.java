@@ -25,11 +25,12 @@ public class BaseDimension extends BaseEntity{
 	private String name;
 	
 	@Column(name = "priority")//排序
-	private Integer priority;
+	private String priority;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="dimension")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="dimension")//维度值
 	protected List<DimensionValue> dimensionValue ;
 	
+	@Deprecated
 	@ManyToMany(targetEntity = Subject.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "ogpis_Dimension_Subject",joinColumns = @JoinColumn(name = "Dimension_ID"), inverseJoinColumns = @JoinColumn(name = "Subject_ID"))
 	protected List<Subject> subject ;
@@ -53,11 +54,11 @@ public class BaseDimension extends BaseEntity{
 		this.name = name;
 	}
 
-	public Integer getPriority() {
+	public String getPriority() {
 		return priority;
 	}
 
-	public void setPriority(Integer priority) {
+	public void setPriority(String priority) {
 		this.priority = priority;
 	}
 

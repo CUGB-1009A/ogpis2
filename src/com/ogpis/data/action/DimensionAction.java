@@ -87,7 +87,7 @@ public class DimensionAction extends BaseAction{
 		dimension.setYear(dimensionIsYear);
 		dimension.setName(name);
 		dimension.setSubject(subjects);
-		dimension.setPriority(Integer.parseInt(priority));
+		dimension.setPriority(priority);
 		dimensionService.save(dimension);
 		Integer count = 0;
 		if(dimension.getDimensionValue()!=null){
@@ -98,7 +98,7 @@ public class DimensionAction extends BaseAction{
 				DimensionValue dimensionValue = new DimensionValue();
 				dimensionValue.setValue(temp1);
 				dimensionValue.setDimension(dimension);
-				dimensionValue.setPriority(count);
+				dimensionValue.setPriority(count.toString());
 				dimensionValueService.save(dimensionValue);
 				count++;
 			}	

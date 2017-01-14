@@ -11,11 +11,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
+
 import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.data.entity.DataCache;
 import com.ogpis.data.entity.Field;
 import com.ogpis.data.entity.InterfaceTable;
 import com.ogpis.data.entity.Subject;
+import com.ogpis.data.entity.TableColumns;
 
 @MappedSuperclass
 public class BaseDataSource extends BaseEntity{
@@ -23,7 +25,7 @@ public class BaseDataSource extends BaseEntity{
 	@Column(name = "name")//数据源名称
 	private String name;
 	
-	@Column(name = "数据源描述信息")
+	@Column(name = "description")
 	private String description;
 	
 	@ManyToOne
@@ -40,6 +42,18 @@ public class BaseDataSource extends BaseEntity{
 	@ManyToMany(targetEntity = Field.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "ogpis_DataSource_Field",joinColumns = @JoinColumn(name = "DataSource_ID"), inverseJoinColumns = @JoinColumn(name = "Field_ID"))
 	protected List<Field> field ;
+	
+	@ManyToMany(targetEntity = TableColumns.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "ogpis_DataSource_TableColumns",joinColumns = @JoinColumn(name = "DataSource_ID"), inverseJoinColumns = @JoinColumn(name = "TableColumns_ID"))
+	protected List<TableColumns> tableColumns ;
+
+	public List<TableColumns> getTableColumns() {
+		return tableColumns;
+	}
+
+	public void setTableColumns(List<TableColumns> tableColumns) {
+		this.tableColumns = tableColumns;
+	}
 
 	public List<Field> getField() {
 		return field;

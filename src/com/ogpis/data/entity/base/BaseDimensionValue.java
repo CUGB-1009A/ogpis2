@@ -10,11 +10,11 @@ import com.ogpis.data.entity.Dimension;
 @MappedSuperclass
 public class BaseDimensionValue extends BaseEntity{
 	
-	@Column(name = "value")//维度值
+	@Column(name = "value")//对应某个维度的值
 	private String value;
 	
 	@Column(name = "priority")//排序
-	private Integer priority;
+	private String priority;
 	
 	@ManyToOne
 	@JoinColumn(name = "dimensionId")//对应维度id
@@ -28,11 +28,11 @@ public class BaseDimensionValue extends BaseEntity{
 		this.value = value;
 	}
 	
-	public Integer getPriority() {
+	public String getPriority() {
 		return priority;
 	}
 
-	public void setPriority(Integer priority) {
+	public void setPriority(String priority) {
 		this.priority = priority;
 	}
 
