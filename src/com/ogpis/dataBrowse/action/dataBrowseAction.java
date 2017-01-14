@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ogpis.data.entity.DataSource;
 import com.ogpis.data.entity.DimensionValue;
 import com.ogpis.data.entity.Field;
+import com.ogpis.data.entity.TableColumns;
 import com.ogpis.data.service.DataSourceService;
 
 @Controller
@@ -49,10 +50,12 @@ public class dataBrowseAction {
 	@RequestMapping(value = "/getTabDimension")
 	public void getTabDimension(HttpServletRequest request, HttpServletResponse response ,ModelMap model) throws IOException {
 		StringBuilder result = new StringBuilder();
-		result.append("[");
 		String id = request.getParameter("id");
-		DataSource dataSoruce = dataSourceService.findById(id);
-		List<Field> fields = dataSoruce.getField();
+		DataSource dataSource = dataSourceService.findById(id);
+		List<Field> fields = dataSource.getField();
+		result.append("{\"table\":\""+dataSource.getTable().getName()+"\",");
+		List<TableColumns> tableColumns = dataSource.getTableColumns();
+		result.append("\"condition\":[");
 		for(Field temp:fields){
 			result.append("{\"name\":\""+temp.getValue()+"\",\"name_key\":\""+temp.getKey()+"\",\"isYear\":"+temp.getDimension().isYear()+",");
 			if(temp.getDimension().isYear()){
@@ -71,7 +74,17 @@ public class dataBrowseAction {
 			result.append("},");
 		}
 		result.deleteCharAt(result.length()-1);
-		result.append("]");
+		result.append("],\"coordinate\":[");
+		for(TableColumns temp1:tableColumns){
+			if(temp1.getColumnSet().getType().equals("x")){
+				result.append("{\"key\":\""+temp1.getKey()+"\",\"value\":\""+temp1.getValue()+"\",\"x\":true},");
+			}
+			else{
+				result.append("{\"key\":\""+temp1.getKey()+"\",\"value\":\""+temp1.getValue()+"\",\"x\":false},");
+			}
+		}
+		result.deleteCharAt(result.length()-1);
+		result.append("]}");
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("utf-8");
 	    System.out.println(result.toString());

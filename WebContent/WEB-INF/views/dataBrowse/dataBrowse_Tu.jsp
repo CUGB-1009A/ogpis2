@@ -19,7 +19,7 @@
 
 </head>
 <body>
-	<div id="tt" class="easyui-tabs" style="width:100%;height:30%;">       
+	<div id="tt" class="easyui-tabs" style="width:100%;height:40%;">       
 	 
 	</div>
 </body>
@@ -55,35 +55,79 @@ $(function(){
 					}
 			first = false ;	
 			var dataSourceId = dataSourceArray[index];
-			$.ajax({
-			    url: '<%=path%>/getTabDimension',
-			    data:{"id":dataSourceId},
-			    dataType: 'json',
-			    async: false,
-			    success: function(data){//将维度信息添加到tab页上
-			    	var content ;
-			    	for(var i=0;i<data.length;i++){
-			    		var dimension = data[i];
-			    	}
-					
-			    	var tab = $('#tt').tabs('getSelected');  
-			    	$('#tt').tabs('update', {
-			    		tab: tab,
-			    		options: {
-			    			content: content 
-			    		}
-			    	});
-
-		   				 	
-			   	}
-			})
+			var tab = $('#tt').tabs('getSelected');  
+	    	$('#tt').tabs('update', {
+	    		tab: tab,
+	    		options: {
+	    			content: getDivContent(dataSourceId)
+	    		}
+	    	});	
 		}
 	
 	});
 });
 
-function getDivContent(dataSoruce){
-	return "123";
+function getDivContent(dataSourceId){
+	var content;
+	$.ajax({
+	    url: '<%=path%>/getTabDimension',
+	    data:{"id":dataSourceId},
+	    dataType: 'json',
+	    async: false,
+	    success: function(data){//将维度信息添加到tab页上
+	    	content ="x坐标:<select id='x'>";
+	    	for(var i=0;i<data.coordinate.length;i++){
+	    		if(data.coordinate[i].x)
+	    			content +=  "<option value ='"+data.coordinate[i].key+"'>"+data.coordinate[i].value+"</option>";
+	    	}
+	    	content += "</select>";
+	    	content +="y坐标:<select id='y'>";
+	    	for(var i=0;i<data.coordinate.length;i++){
+	    		if(!data.coordinate[i].x)
+	    			content +=  "<option value ='"+data.coordinate[i].key+"'>"+data.coordinate[i].value+"</option>";
+	    	}
+	    	content += "</select><br>";
+	    	for(var i=0;i<data.condition.length;i++){
+	    		content += data.condition[i].name;
+	    		content = content + "<select class='condition' name='"+data.condition[i].name_key+"'>";
+	    		for(var j=0;j<data.condition[i].value.length;j++){
+	    			content = content + "<option value ='"+data.condition[i].value[j]+"'>"+data.condition[i].value[j]+"</option>";			    		
+	    		}
+	    		content += "</select><br>";
+	    	}
+	    	content += "<button onclick=\"search('"+data.table+"')\">查询</button>"
+	   	}
+	});
+	return content ;
+}
+
+function search(table){
+	var sql = writeSQL(table);
+	alert(sql)
+}
+
+function writeSQL(table){
+	var sql = "select ";
+	var x = $("#x").val();
+	var y = $("#y").val();
+	console.log(x+y)
+	var condition = new Array();
+	var value = new Array();
+	var i=0;
+	 $(".condition").each(function(){
+		condition[i] = $(this).attr("name");
+		value[i] = $(this).val();
+		i++;	
+	});
+	sql = sql + x +","+y+" from "+ table +" where " 
+	for(var j=0;j<condition.length;j++){
+		if(j==condition.length-1)
+			sql = sql + condition[j] + "='" + value[j] +"'" 
+		else
+			sql = sql + condition[j] + "='" + value[j] +"' and " 	
+	}
+	return sql ;
+	
 }
 
 function getTabIndex(){
