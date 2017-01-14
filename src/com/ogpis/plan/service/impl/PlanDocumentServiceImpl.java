@@ -73,7 +73,7 @@ public class PlanDocumentServiceImpl implements PlanDocumentService {
 	}
 
 	@Override
-	public PlanDocument updatge(PlanDocument planDocument) {
+	public PlanDocument update(PlanDocument planDocument) {
 		// TODO Auto-generated method stub
 		return planDocumentDao.update(planDocument);
 	}

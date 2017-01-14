@@ -20,5 +20,5 @@ public interface PlanDocumentService  {
 	List<PlanDocument> findByIds(ArrayList idList);
 	
 	PlanDocument save(PlanDocument planDocument);
-	PlanDocument updatge(PlanDocument planDocument);
+	PlanDocument update(PlanDocument planDocument);
 }

@@ -8,13 +8,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="<%=path%>/assets/upload/webuploader.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/plan/planAdmin/detail.js"></script>
 	<title>规划管理</title>
-	<%-- <%
+	<%
 		String type=request.getAttribute("type").toString();
-		String flag=request.getAttribute("flag").toString();
-	%> --%>
+		//String flag=request.getAttribute("flag").toString();
+	%>
 </head>
 <body >
+	
+	<script type="text/javascript">
+		
+	</script>
 	<div>
 		<div>
 			<span>规划编辑</span>
@@ -23,9 +28,9 @@
 			 <div title="规划概述" style="padding:20px;display:none;">   
         		<div class="easyui-panel">
 					<form method="post" action="<%=path%>/plan/save" id="planFrom">	
-						<input type="hidden" value="${type }" name="type">		
+						<input type="hidden" value="${type }" name="type" id="type">		
 						<input type="hidden" value="false" name="isAdd">
-						<input type="hidden" value="${plan.id }" name="id">
+						<input type="hidden" value="${plan.id }" name="id" id="planId">
 						<table cellpadding="5" style="margin:0 auto;text-align:center">
 							<tr>
 								<td>规划名称</td>
@@ -117,205 +122,94 @@
 						</div>
 					</form>
 				</div>    
-   			 </div> 
-   			 <!-- 文档资料tab页 -->  
-		    <div title="文档资料" style="overflow:auto;padding:20px;display:none;">
-		        	<div style="float:right;margin-right:30px">
-		        		<a href="javascript:void(0)" onclick="uploadDocOpen()" class="easyui-linkbutton">上传文档</a>
-		        		<a class="easyui-linkbutton" href="javascript:delChonseDoc();">批量删除</a>
-		        	</div>
-		        	<div class="easyui-window" id="uploadDoc" title="文档上传" 
-		        		style="width:200px;height:100px">
-		        		<div>
-		        			<div id="thelist" class="uploader-list"></div>
-			        		<button id="picker">选择文件</button>
-			        		<button id="ctlBtn" class="easyui-linkbutton">开始上传</button>
-		        		</div>
-		        	</div>
-		        	<div style="margin-top:35px">		        	
-		        		<table id="docTable" class="easyui-datagrid" title="next" 
-		        			data-options="singleSelect:true,collapsible:true,fitColumns:true,pagination:true">
-		        			<thead>
-		        				<tr>
-		        					<th field='itemid' width="5%"><input type="checkbox" name="checkboxFirst"/>全选</th>
-		        					<th field='itemid1' width="30%">文档名称</th>
-		        					<th field='itemid2' width="20%">文档大小</th>
-		        					<th field='itemid3' width="20%">上传时间</th>
-		        					<th field='itemid4' width="25%">操作</th>
-		        				</tr>
-		        			</thead>
-		        			<tbody>
-		        				<tr>
-		        					<td>w</td>
-		        					<td>w</td>
-		        					<td>w</td>
-		        					<td>w</td>
-		        					<td>w</td>
-		        				</tr>
-		        			</tbody>
-		        		</table>
-		        	</div> 
-		    </div>   
+   			 </div>  
 		    <!-- 规划指标tab页 -->
 		    <div title="规划指标" data-options="" style="padding:20px;display:none;">   
 		        <div>
-		        	<a href="javascript:void(0)" onclick="$('#selectWindow').window('open')">指定指标项</a>
+		        	<a class="easyui-linkbutton" href="javascript:void(0)" onclick="$('#selectWindow').window('open')">指定指标项</a>
 		        </div>
-		        <div class="easyui-window" id="selectWindow" title="指定指标项">
+		        <div class="easyui-window" id="selectWindow" title="指定指标项" style="width: 598px;height: 600px;">
 		        	<div>
-		        		<form action="<%=request.getContextPath()%>/plan/admin/selectIndex" method="post">
-		        			<%-- <input type="hidden" name="planId" value="${plan.id }">
-		        			<input type="hidden" name="type" value="${type }"> --%>
-		        			<table id="indexSelect">
-		        				<thead>
-		        					<tr>
-		        						<th><input type="checkbox"></th>
-		        						<th>指标项名称</th>
-		        						<th>类型</th>
-		        						<th>单位</th>
-		        					</tr>
-		        				</thead>
-		        				<tbody>
-		        					<td>wwwwwwww</td>
-		        					<td>wwwwwwww</td>
-		        					<td>wwwwwwww</td>
-		        					<td>wwwwwwww</td>
-		        				</tbody>
-		        			</table>
-		        			<button type="submit" class="easyui-linkbutton">确认</button>
-		        		</form>
+	        			<table id="indexSelect" class="easyui-datagrid">
+	        				
+	        			</table>
+	        			<div align="center" style="margin-top: 10px;">
+		        			<button type="button" class="easyui-linkbutton" style="width: 100px;">确认</button>
+	        			</div>
 		        	</div>
 		        </div>    
 		        <div>
-		        	<table id="index" class="easyui-datagrid" title="指标项" data-options="singleSelect:true,collapsible:true">
-		        		<thead>
-		        				<tr>		        					
-		        					<th field='itemid' width="30%">指标项</th>
-		        					<th field='itemid1' width="5%">类型</th>
-		        					<th field='itemid2' width="10%">单位</th>
-		        					<th field='itemid3' width="10%">目标值</th>
-		        					<th field='itemid4' width="15%">是否跟踪</th>
-		        					<th field='itemid5' width="30%">操作</th>
-		        				</tr>
-		        			</thead>
-		        			<tbody>
-		        				<tr>
-		        					<td>石油新增探明地质储量</td>
-		        					<td>2</td>
-		        					<td>万吨</td>
-		        					<td>10.1</td>
-		        					<td>跟踪</td>
-		        					<td>编辑    删除</td>
-		        				</tr>
-		        				<tr>
-		        					<td>页岩气新增探明地质储量</td>
-		        					<td>2</td>
-		        					<td>亿方</td>
-		        					<td>10.1</td>
-		        					<td>跟踪</td>
-		        					<td>编辑    删除</td>
-		        				</tr>
-		        			</tbody>
+		        	<table id="index" class="easyui-datagrid" title="指标项">
+		        		 <thead>
+		        		 	<tr>
+		        		 		<th field="item1">指标项</th>
+		        		 		<th field="item2">类型</th>
+		        		 		<th field="item3">单位</th>
+		        		 		<th field="item4">目标值</th>
+		        		 		<th field="item5">是否跟踪</th>
+		        		 		<th field="item6">操作</th>
+		        		 	</tr>
+		        		 </thead>
+		        		 <tbody>
+		        		 	<c:forEach items="${plan_indexs }" var="item">
+		        		 		<tr>
+		        		 			<td>${item.index.indexName }</td>
+		        		 			<td>${item.index.indexType }</td>
+		        		 			<td>${item.index.indexUnit }</td>
+		        		 			<td>${item.targetValue }</td>
+		        		 			<td>
+		        		 				<c:if test="${item.index.track }">跟踪</c:if>
+		        		 				<c:if test="${!item.index.track }">不跟踪</c:if>
+		        		 			</td>
+		        		 			<td>
+		        		 				操作
+		        		 			</td>
+		        		 	</c:forEach>
+		        		 </tbody>		        			
 		        	</table>
 		        </div>
 		    </div> 
 		</div>
-	</div>	
+	</div>
 	<script type="text/javascript">
-		var flag=${flag};
-		var id="${plan.id}";
-		var type="${type}";
-	
-		$(function(){
-			$('#selectWindow').window('close');
-		});
-		$(function(){
-			$('#uploadDoc').window('close');
-		});
 		
-		var uploader;
-		function  uploadDocOpen(){
-			$('#uploadDoc').window('open');
-			$('#thelist').empty();
-			uploader=WebUploader.create({
-				swf:'<%=path%>/assets/upload/Uploader.swf',
-				server:'<%=path%>/plan/uploadFiles?type=${type}&time=1&planId=${plan.id}',
-				pick:"#picker"
-			});
-			var total=0;
-			var success=0;
-			var f=1;
-			var hasFile=0;
-			var fileId="";
-			
-			//webuploader注册监听事件，添加文件前先重置uploader
-			uploader.on('beforeFileQueued',function(file){
-				if(f==1){
-					totle=0;
-					uploader.reset();
-					$("#thelist").empty();
-					f=0;
-				}
-			});
-			//文件加入队列之后触发
-			uploader.on('fileQueued',function(file){
-				fileId=fileId+file.id;
-				total=total+1;
-				$("#thelist").append('<div class="item">'+
-						'<h4 class="info">'+file.name+'</h4><div id="'+file.id+'1">');
-			});
-			//一批文件添加进队列以后触发   
-			uploader.on('filesQueued',function(files){
-				hasFile=1;
-				f=1;
-			});
-			
-			uploader.on('uploaderComplete',function(file){
-				if(total==success){
-					$('#uploadDoc').window('close');
-				}
-			});
-			
-			uploader.on('uploadProgress',function(file,percentage){
-				$('#'+file.id+'1').css('width',percentage*100+''+'%');
-				//$('#'+file.id)[0].innerHTML=percentage*100;
-			});
-			
-			$("#ctlBtn").on("click",function(){
-				if(hasFile==0)
-					alert('请选择文件再上传');
-				else{
-					uploader.upload();
-				}
-			})
-		}
-		
-		/* $(function(){
-			$("#uploadDoc").onClose(function(){
-				$("#ctlBtn").off("click");
-				uploader.destory();
-			})
-		}); */
-		//自定义日期格式
-		function myformatter(date){
-			var y = date.getFullYear();
-			var m = date.getMonth()+1;
-			var d = date.getDate();
-			return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
-		}
-		//解析时间格式
-		function myparser(s){
-			if (!s) return new Date();
-			var ss = (s.split('-'));
-			var y = parseInt(ss[0],10);
-			var m = parseInt(ss[1],10);
-			var d = parseInt(ss[2],10);
-			if (!isNaN(y) && !isNaN(m) && !isNaN(d)){
-				return new Date(y,m-1,d);
-			} else {
-				return new Date();
-			}
-		}
+		/* $("#index").datagrid({
+			url:'../plan/getAllIndexs',
+			columns:[[
+			       {field:'indexName',title:'指标项名称',width:'20%',align:'center'},
+			       {field:'indexType',title:'类型',width:'20%',align:'center'},
+			       {field:'indexUnit',title:'单位',width:'5%',align:'center'},
+			       {field:'targetValue',title:'目标值',width:'10%',align:'center'},
+			       {
+			    	   field:'track',title:'是否跟踪',width:'15%',align:'center',
+			    	   formatter:function(value,row,index){
+			    		   if(value){
+			    			   return "跟踪"			    			   
+			    		   }else{
+			    			   return "不跟踪"
+			    		   }			    			   
+			    	   }
+			       },
+			       {
+			    	   field:'_operate',title:'操作',width:'30%',align:'center',
+			    	   formatter : function(value,row,index) {
+							var btn = '<a class="editcls" onclick="" href="javascript:void(0)">编辑</a>'+
+									  '<a class="deletecls" onclick="" href="javascript:void(0)">删除</a>';
+							return btn;
+						}
+			       },
+			  ]],
+			  rownumbers:true,
+			  fitColumns : true,
+			  singleSelect : true,
+			  pagination:true,
+			  height:h,
+			  queryParams:{
+				  planId:planId,
+				  type:type
+			  }
+		})
+	});	 */
 	</script>
 </body>
 </html>

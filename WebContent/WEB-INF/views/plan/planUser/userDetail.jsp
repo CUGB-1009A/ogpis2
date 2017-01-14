@@ -14,7 +14,7 @@
 	</script>
 	<title>完成情况管理</title>
 </head>
-<body>
+<body class="easyui-layout">
 	<div data-options="region:'north',split:true,collapsedContent:'规划总体情况'" style="height:25%">
 	<!-- <div style="width:100%"> -->
 		<div align="center"><span style="font-size:24px;font-family:微软雅黑">规划概览</span></div>

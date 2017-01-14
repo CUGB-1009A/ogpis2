@@ -21,14 +21,21 @@
 	<div style="text-align:right;margin:0 10px 0 10px">
 		
 		<table class="easyui-datagrid" title="资料管理" id="docManage"></table>
-		<div class="easyui-window" id="uploadDoc" title="文档上传">
+		<div class="easyui-window" id="uploadDoc" title="文档上传" style="width:300px;height:200px">
        		<div>
-       			<div id="thelist" class="uploader-list"></div>
+       			<div id="thelist" class="uploader-list" style="width:100%;height:30%"></div>
        			<table>
        				<tbody>
-       					<tr>
+       					<!-- <tr>
        						<td><span>文档类型</span></td>
        						<td><input type="text" class="easyui-textbox"></td>
+       					</tr> -->
+       					<tr>
+       						<td><span>对应规划:</span></td>
+       						<td>
+       							<select id="planning" style="width:151px">
+       							</select>
+       						</td>
        					</tr>
        				</tbody>
        			</table>
@@ -41,6 +48,27 @@
 		$(function(){
 			$('#uploadDoc').window('close');
 		});
+		
+		
+		$(function(){
+			$.ajax({
+				url:"<%=path%>/plan/getPlanning",
+				type:"get",
+				async:false,
+				dataType:"json",
+				success:function(result){
+					for(i in result){
+						var type=eval(result[i]);
+						$("#planning").append("<option value='"+type.planId+"'>"+type.planName+"</option>");
+					}
+				},
+				error:function(e){
+					alert('error');
+				}
+			});
+		});
+		
+		
 		var h = $('body').height() - $('#listTb').height() - 97;
 		$("#docManage").datagrid({
 			height:h,
@@ -96,12 +124,20 @@
 		});
 		//上传文档
 		var uploader;
+		
 		function  uploadDocOpen(){
+			var planId=$("#planning").val();
+			
+			$("#planning").change(function(){
+				planId=$("#planning").val();
+			})
+	
 			$('#uploadDoc').window('open');
 			$('#thelist').empty();
+			
 			uploader=WebUploader.create({
 				swf:'<%=path%>/assets/upload/Uploader.swf',
-				server:'<%=path%>/plan/uploadFiles?',
+				server:'<%=path%>/plan/uploadFiles?planId='+planId,
 				pick:"#picker"
 			});
 			var total=0;
@@ -124,7 +160,8 @@
 				fileId=fileId+file.id;
 				total=total+1;
 				$("#thelist").append('<div class="item">'+
-						'<h4 class="info">'+file.name+'</h4><div id="'+file.id+'1">');
+						'<h4 class="info">'+file.name+'</h4><div  id="'+file.id+'1" class="easyui-progressbar" style="width:100%"><div id="'+file.id+'2">'+
+						'<span id="'+file.id+'"></span></div></div></div>');
 			});
 			//一批文件添加进队列以后触发   
 			uploader.on('filesQueued',function(files){
@@ -132,15 +169,21 @@
 				f=1;
 			});
 			
-			uploader.on('uploaderComplete',function(file){
+			uploader.on('uploadSuccess',function(file){
+				success=success+1;
+			})
+			
+			uploader.on('uploadComplete',function(file){
 				if(total==success){
 					$('#uploadDoc').window('close');
+					$("#docManage").datagrid('reload');
 				}
 			});
 			
 			uploader.on('uploadProgress',function(file,percentage){
-				$('#'+file.id+'1').css('width',percentage*100+''+'%');
-				//$('#'+file.id)[0].innerHTML=percentage*100;
+				$('#'+file.id+'1').progressbar({
+					value:percentage*100
+				})
 			});
 			
 			$("#ctlBtn").on("click",function(){

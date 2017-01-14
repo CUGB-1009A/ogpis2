@@ -39,12 +39,6 @@
 					<td>指标所属规划类型</td>
 					<td>
 						<select  id="selectType" name="planType" class="easyui-combobox" <c:if test="<%=!isAdd %>"></c:if>>
-							<%-- <option value='GZL' <c:if test="${type.equals('GZL') }">selected</c:if>>工作量</option>
-							<option value='CL' <c:if test="${type.equals('CL') }">selected</c:if>>新增探明地质储量</option>
-							<option value='CN' <c:if test="${type.equals('CN') }">selected</c:if>>新建产能</option>
-							<option value='CL' <c:if test="${type.equals('CL') }">selected</c:if>>产量</option>
-							<option value='TZ' <c:if test="${type.equals('TZ') }">selected</c:if>>投资</option>
-							<option value='CB' <c:if test="${type.equals('CB') }">selected</c:if>>成本</option> --%>
 							<option value='QG' <c:if test="${type.equals('QG') }">selected</c:if>>全国</option>
 							<option value='ZSY' <c:if test="${type.equals('ZSY') }">selected</c:if>>中石油</option>
 							<option value='ZSH' <c:if test="${type.equals('ZSH') }">selected</c:if>>中石化</option>
@@ -80,12 +74,12 @@
 					<td>储产量</td>
 					<td>
 						<select id="selectIndexType" name="indexType" class="easyui-combobox">
-							<option value='GZL' <c:if test="${index.indexType.equals('GZL') }">selected</c:if>>工作量</option>
-							<option value='DZCL' <c:if test="${index.indexType.equals('DZCL') }">selected</c:if>>新增探明地质储量</option>
-							<option value='CN' <c:if test="${index.indexType.equals('CN') }">selected</c:if>>新建产能</option>
-							<option value='CL' <c:if test="${index.indexType.equals('CL') }">selected</c:if>>产量</option>
-							<option value='TZ' <c:if test="${index.indexType.equals('TZ') }">selected</c:if>>投资</option>
-							<option value='CB' <c:if test="${index.indexType.equals('CB') }">selected</c:if>>成本</option>
+							<option value='工作量' <c:if test="${index.indexType.equals('工作量') }">selected</c:if>>工作量</option>
+							<option value='新增探明地质储量' <c:if test="${index.indexType.equals('新增探明地质储量') }">selected</c:if>>新增探明地质储量</option>
+							<option value='新建产能' <c:if test="${index.indexType.equals('新建产能') }">selected</c:if>>新建产能</option>
+							<option value='产量' <c:if test="${index.indexType.equals('产量') }">selected</c:if>>产量</option>
+							<option value='投资' <c:if test="${index.indexType.equals('投资') }">selected</c:if>>投资</option>
+							<option value='成本' <c:if test="${index.indexType.equals('成本') }">selected</c:if>>成本</option>
 						</select>
 					</td>
 				</tr>
@@ -111,7 +105,7 @@
 	
 		$(function(){
 			var planType=$('#selectType').val();
-			if(planType=='GZL'){
+			if(planType=='工作量'){
 				$('.ty').remove();
 			}
 		});
