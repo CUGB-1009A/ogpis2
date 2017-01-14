@@ -5,6 +5,6 @@ $(function(){
 	});
 	require([ "myDojo/TrackMap"],function(MapManager){
 		mapManager=MapManager;
-		initMap(mapManager);
+		initMap(mapManager,baseMap,layers);
 	});
 })

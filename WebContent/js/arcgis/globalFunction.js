@@ -306,7 +306,9 @@ function setSymbol(thisObj) {
 	}
 }
 // 初始化地图
-function initMap(mapManager) {
+// baseMap为object类型，内部包含name和url两个属性
+// layers为array，组成元素是包含name和url的object
+function initMap(mapManager,baseMap,layers) {
 	require(
 			[ "dojo/parser", "esri/map", "esri/geometry/Point",
 					"esri/geometry/Polyline", "esri/geometry/Polygon",
@@ -344,41 +346,38 @@ function initMap(mapManager) {
 				mapManager.map = new Map(mapManager.mapDom, {
 					logo : false,
 					wrapAround180 : false,
-				/* basemap : "hybrid", */
-				/*
-				 * center : [ -82.44109, 35.6122 ], zoom : 17
-				 */
+					slider:false
 				});
+				var tempLayers=[];
 				var tiledLayer = new ArcGISTiledMapServiceLayer(
-						"http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer",
-						{
-							className : "地理地图"
-						});
+						baseMap.url,baseMap.layer);
 				mapManager.extent = tiledLayer.initialExtent;
-				var dynLayer = new ArcGISDynamicMapServiceLayer(
-						"http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/Energy/Geology/MapServer");
-				var tree = new FeatureLayer(
-						"https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
-						{
-							id : 5,
-							className : "Tree",
-							outFields : [ "*" ]
-						});
-				var citiesPop = new FeatureLayer(
-						"http://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/WorldCities/FeatureServer/0",
-						{
-							id : 6,
-							className : "人口",
-							outFields : [ "*" ]
-						});
-
-				var graphicsLayer = new GraphicsLayer({
-					className : "MyGraphics",
-					id : "MyGraphics",
-					opacity : 0.75,
-					visible : false
-				});
-				mapManager.map.addLayers([ tiledLayer, tree, citiesPop ]);
+				tempLayers.push(tiledLayer);
+				/*
+				 * var dynLayer = new ArcGISDynamicMapServiceLayer(
+				 * "http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/Energy/Geology/MapServer");
+				 */
+				/*
+				 * var tree = new FeatureLayer(
+				 * "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0", {
+				 * id : 5, className : "Tree", outFields : [ "*" ] }); var
+				 * citiesPop = new FeatureLayer(
+				 * "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/WorldCities/FeatureServer/0", {
+				 * id : 6, className : "人口", outFields : [ "*" ] });
+				 * 
+				 * var graphicsLayer = new GraphicsLayer({ className :
+				 * "MyGraphics", id : "MyGraphics", opacity : 0.75, visible :
+				 * false });
+				 */
+				
+				for(var i=0;i<layers.length;++i){
+					var layer=new FeatureLayer(
+							layers[i].url,layers[i].layer);
+					layer.on("click", lang.hitch(mapManager, mapClick,
+							layer));
+					tempLayers.push(layer);
+				}
+				mapManager.map.addLayers(tempLayers);
 				// mapManager.map.addLayer(tiledLayer);
 				// mapManager.map.addLayer(tree);
 				// mapManager.map.addLayer(citiesPop);
@@ -398,9 +397,11 @@ function initMap(mapManager) {
 					mapManager.drawToolBar = new Draw(mapManager.map);
 					mapManager.drawToolBar.on("draw-end", lang.hitch(
 							mapManager, getDrawResult));
-					citiesPop.on("click", lang.hitch(mapManager, mapClick,
-							citiesPop));
-					tree.on("click", lang.hitch(mapManager, mapClick, tree));
+					/*
+					 * citiesPop.on("click", lang.hitch(mapManager, mapClick,
+					 * citiesPop));
+					 */
+					/* tree.on("click", lang.hitch(mapManager, mapClick, tree)); */
 					// var info = {
 					// field : "C_Storage",
 					// valueUnit : "unknown",
@@ -443,7 +444,7 @@ function getFeatureJson() {
 }
 
 // 符号渲染器
-function initRender(mapManager) {
+function initRender(mapManager,layerId) {
 	require([ "esri/renderers/UniqueValueRenderer",
 			"esri/renderers/ClassBreaksRenderer",
 			"esri/symbols/SimpleMarkerSymbol", "esri/layers/FeatureLayer",
@@ -479,7 +480,7 @@ function initRender(mapManager) {
 			}
 		});
 		render.addBreak(500, 800, symbol2);
-		var layer = mapManager.map.getLayer("5");
+		var layer = mapManager.map.getLayer(layerId);
 		layer.setRenderer(render);
 		layer.redraw();
 		this.legend.refresh();
