@@ -14,8 +14,8 @@
 
 			<level3 id="zyl_gndq" name="国内大区" imgName="4.png" url="/dataBrowse_Tu?id=zyl_gndq">
 				<tab id="zyl_gndq_01" dataSource="1">年度各盆地油气资源量</tab>
-				<tab id="zyl_gndq_02" dataSource="2">年度各大区油气资源量</tab>
-				<tab id="zyl_gndq_03" dataSource="3">年度各省区油气资源量</tab>
+				<tab id="zyl_gndq_02" dataSource="1">年度各大区油气资源量</tab>
+				<tab id="zyl_gndq_03" dataSource="1">年度各省区油气资源量</tab>
 			</level3>
 		</level2>
 		<level2 id="chul" name="储量">

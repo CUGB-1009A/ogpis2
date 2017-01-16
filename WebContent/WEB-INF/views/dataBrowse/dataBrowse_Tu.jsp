@@ -7,7 +7,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Insert title here</title>
-
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/dataBrowse/buildReports/data_mould.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/dataBrowse/buildReports/mychart.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/dataBrowse/buildReports/bulidReport.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/dataBrowse/browseHandle.js"></script>
 <style type="text/css">
 	tr{
 	height:30px;
@@ -19,9 +26,22 @@
 
 </head>
 <body>
-	<div id="tt" class="easyui-tabs" style="width:100%;height:40%;">       
+<div data-options="region:'north'" style="height:200px">
+	<div id="tt" class="easyui-tabs" style="width:100%;height:100%;">       
 	 
 	</div>
+	
+	<div data-options="region:'center' fit:true">
+        <div style="text-align:center;">
+        	<div id="dataBrowseRepDiv" style="width:45%;height:400px;float:left;padding-left:50px">
+				<script>
+					insertReport('dataBrowseReport', 'Rebar=none; Border=none; Ruler=none; PagesTabPercent=0; SeperateBar=none')
+				</script> 
+			</div>
+			<div id="dataBrowseChartDiv"style="width:50%;height:450px;float:left;"></div>
+        </div>
+	</div>
+</div>
 </body>
 <script type="text/javascript">
 var first = true ;
@@ -39,35 +59,27 @@ $(function(){
    					level3.find("tab").each(function(){
    						ids[i] = $(this).attr("dataSource");
    						dataSourceArray[i] = $(this).attr("dataSource");
-   						i++;
 		   				$('#tt').tabs('add',{    
 		   				    title:$(this).text(),
-			   				closable:false
+			   				closable:false,
+			   				content: getDivContent(i,$(this).attr("dataSource"))
 	   					});
+   						i++;
    					});
 	   	}
 	});
+
 	
 	$('#tt').tabs({
 		onSelect:function(title,index){
-			if(!first){
-						
-					}
-			first = false ;	
-			var dataSourceId = dataSourceArray[index];
-			var tab = $('#tt').tabs('getSelected');  
-	    	$('#tt').tabs('update', {
-	    		tab: tab,
-	    		options: {
-	    			content: getDivContent(dataSourceId)
-	    		}
-	    	});	
+			alert(index)
+			$("#btn"+index).click();
 		}
 	
 	});
 });
 
-function getDivContent(dataSourceId){
+function getDivContent(ii,dataSourceId){
 	var content;
 	$.ajax({
 	    url: '<%=path%>/getTabDimension',
@@ -75,13 +87,13 @@ function getDivContent(dataSourceId){
 	    dataType: 'json',
 	    async: false,
 	    success: function(data){//将维度信息添加到tab页上
-	    	content ="x坐标:<select id='x'>";
+	    	content ="x坐标:<select id='x"+ii+"'>";
 	    	for(var i=0;i<data.coordinate.length;i++){
 	    		if(data.coordinate[i].x)
 	    			content +=  "<option value ='"+data.coordinate[i].key+"'>"+data.coordinate[i].value+"</option>";
 	    	}
 	    	content += "</select>";
-	    	content +="y坐标:<select id='y'>";
+	    	content +="y坐标:<select id='y"+ii+"'>";
 	    	for(var i=0;i<data.coordinate.length;i++){
 	    		if(!data.coordinate[i].x)
 	    			content +=  "<option value ='"+data.coordinate[i].key+"'>"+data.coordinate[i].value+"</option>";
@@ -89,32 +101,44 @@ function getDivContent(dataSourceId){
 	    	content += "</select><br>";
 	    	for(var i=0;i<data.condition.length;i++){
 	    		content += data.condition[i].name;
-	    		content = content + "<select class='condition' name='"+data.condition[i].name_key+"'>";
+	    		content = content + "<select class='condition"+ii+"' name='"+data.condition[i].name_key+"'>";
 	    		for(var j=0;j<data.condition[i].value.length;j++){
 	    			content = content + "<option value ='"+data.condition[i].value[j]+"'>"+data.condition[i].value[j]+"</option>";			    		
 	    		}
 	    		content += "</select><br>";
 	    	}
-	    	content += "<button onclick=\"search('"+data.table+"')\">查询</button>"
+	    	content += "<button id='btn"+ii+"'onclick=\"search("+ii+",'"+data.table+"')\">查询</button>"
 	   	}
 	});
 	return content ;
 }
 
-function search(table){
-	var sql = writeSQL(table);
-	alert(sql)
+function search(ii,table){
+	var sql = writeSQL(ii,table);
+	console.log(sql);
+	$.ajax({
+	    url: '<%=path%>/getDataBySql',
+	    data:{"sql":encodeURIComponent(sql)},
+	    dataType: 'json',
+	    async: false,
+	    success: function(data){
+	    	var result = {"xName":"","yName":"","ds1":data};
+	    	result.xName = $("#x"+ii+" option:selected").text();
+	    	result.yName = $("#y"+ii+" option:selected").text();
+	    	BrowseHandle.refreshReportAndChart($("#y"+ii+" option:selected").text(),result);
+	    }
+	});
 }
 
-function writeSQL(table){
+function writeSQL(ii,table){
 	var sql = "select ";
-	var x = $("#x").val();
-	var y = $("#y").val();
+	var x = $("#x"+ii).val();
+	var y = $("#y"+ii).val();
 	console.log(x+y)
 	var condition = new Array();
 	var value = new Array();
 	var i=0;
-	 $(".condition").each(function(){
+	 $(".condition"+ii).each(function(){
 		condition[i] = $(this).attr("name");
 		value[i] = $(this).val();
 		i++;	
