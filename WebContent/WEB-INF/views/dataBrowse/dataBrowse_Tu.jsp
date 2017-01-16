@@ -72,7 +72,6 @@ $(function(){
 	
 	$('#tt').tabs({
 		onSelect:function(title,index){
-			alert(index)
 			$("#btn"+index).click();
 		}
 	

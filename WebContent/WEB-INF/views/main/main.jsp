@@ -32,7 +32,6 @@
 
 	window.onload = function(){//读取xml显示上方上方、左侧、中间菜单	
 		$("#main_top").contents().find("#mainPage").click(function(){
-			console.log(1)
 			 loadAgain();
 		});
 				 $.ajax({
@@ -117,10 +116,15 @@
 					        	 		var name = $(this).attr("name");
 					        	 		var imgName = $(this).attr("imgName");
 					        	 		$("#main_left").contents().find("#sider-nav").children("ul").append("<li class='left"+id+"''><a target=main_center href='<%=path%>"+url+"'>"+name+"</a></li>");
+					        	 		$("#main_left").contents().find("#sider-nav .left"+id).click(function(){
+					        	 			$("#main_left").contents().find('#sider-nav li').removeClass('current');
+											$("#main_left").contents().find("#sider-nav .left"+id).addClass('current');
+										});
 					        	 		if(i2<=Math.ceil(level2Num/2))
 				            			{
 											$("#main_center").contents().find("#row1").append("<div class='modal center"+id+"'><a target=main_center href='<%=path%>"+url+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
 											$("#main_center").contents().find("body .center"+id).click(function(){
+												$("#main_left").contents().find('#sider-nav li').removeClass('current');
 												$("#main_left").contents().find("#sider-nav .left"+id).addClass('current');
 											});
 				            			}
@@ -128,6 +132,7 @@
 				            			{
 				            				$("#main_center").contents().find("#row2").append("<div class='modal center"+id+"'><a target=main_center href='<%=path%>"+url+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
 				            				$("#main_center").contents().find("body .center"+id).click(function(){
+				            					$("#main_left").contents().find('#sider-nav li').removeClass('current');
 												$("#main_left").contents().find("#sider-nav .left"+id).addClass('current');
 											});
 				            			}
@@ -168,6 +173,9 @@
 				        	 				}
 				        	 				$("#main_left").contents().find("#sider-nav ."+id).click(function(){
 				        	 					level2tolevel3($(this).attr("class"));
+				        	 					$("#main_left").contents().find('#sider-nav li').removeClass('current');
+				        	 					$("#main_left").contents().find("#sider-nav ."+id).parent("li").addClass('current');
+				        	 					console.log(1)
 					            			});
 				        	 			}
 				        	 		else//二级菜单下没有菜单
@@ -210,7 +218,7 @@
 				        					 }
 				        					 else{
 				        						 $("#main_center").contents().find("#row2").append("<div class='modal'><a target=main_center href='<%=path%>"+url+"'><img src=<%=path%>/image/"+imgName+"><br/>"+name+"</a></div>");
-				        				 }
+				        				 	 }
 				       		  });
 				         }
 					});
