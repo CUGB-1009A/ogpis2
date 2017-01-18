@@ -14,4 +14,7 @@ public interface Plan_IndexService  {
 	Plan_Index findByP_I(String planId,String indexId);
 	void batchAdd(Plan plan,List<IndexManagement> indexs);
 	List<Plan_Index> findByTypeAndMineType(String planType,String mineType);
+	Plan_Index findById(String id);
+	Plan_Index update(Plan_Index bean);
+	
 }

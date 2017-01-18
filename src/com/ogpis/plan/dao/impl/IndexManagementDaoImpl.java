@@ -65,9 +65,8 @@ public class IndexManagementDaoImpl extends HibernateBaseDao<IndexManagement, St
 			for (int i = 0; i < ids.length; i++) {
 				if(i!=0){
 					sb.append(",");
-				}else{
-					sb.append("'"+ids[i]+"'");
 				}
+				sb.append("'"+ids[i]+"'");
 			}
 		}
 		return sb.toString();

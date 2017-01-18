@@ -142,12 +142,12 @@
 		        	<table id="index" class="easyui-datagrid" title="指标项">
 		        		 <thead>
 		        		 	<tr>
-		        		 		<th field="item1">指标项</th>
-		        		 		<th field="item2">类型</th>
-		        		 		<th field="item3">单位</th>
-		        		 		<th field="item4">目标值</th>
-		        		 		<th field="item5">是否跟踪</th>
-		        		 		<th field="item6">操作</th>
+		        		 		<th field="item1" width="30%" align="center">指标项</th>
+		        		 		<th field="item2" width="20%" align="center">类型</th>
+		        		 		<th field="item3" width="10%" align="center">单位</th>
+		        		 		<th field="item4" width="5%" align="center">目标值</th>
+		        		 		<th field="item5" width="5%" align="center">是否跟踪</th>
+		        		 		<th field="item6" width="30%" align="center">操作</th>
 		        		 	</tr>
 		        		 </thead>
 		        		 <tbody>
@@ -162,7 +162,13 @@
 		        		 				<c:if test="${!item.index.track }">不跟踪</c:if>
 		        		 			</td>
 		        		 			<td>
-		        		 				操作
+		        		 				<p>
+		        		 					<a href="<c:url value='/plan/targetValueEdit?planId=${item.plan.id }&indexId=${item.index.id }'/>"
+		        		 						style="width: 50px;" class="easyui-linkbutton">
+		        		 					编辑</a>
+		        		 					<a href="<c:url value='/plan/tdeleteIndex?planId=${item.plan.id }&indexId=${item.index.id }&&type=${type }'/>"
+		        		 						style="width: 50px;" class="easyui-linkbutton">
+		        		 					删除</a>
 		        		 			</td>
 		        		 	</c:forEach>
 		        		 </tbody>		        			

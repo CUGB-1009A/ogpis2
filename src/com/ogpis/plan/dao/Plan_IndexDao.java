@@ -11,4 +11,6 @@ public interface Plan_IndexDao {
 	Plan_Index findByP_I(String planId,String indexId);
 	void batchAdd(Plan plan,List<IndexManagement> indexs);
 	List<Plan_Index> findByPlanTypeAndMineType(String planType,String mineType);
+	Plan_Index findById(String id);
+	Plan_Index update(Plan_Index bean);
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,6 +48,7 @@ import com.ogpis.plan.service.Plan_IndexService;
 import com.ogpis.system.entity.Role;
 import com.ogpis.system.entity.User;
 import com.ogpis.system.service.UserService;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
@@ -218,7 +220,8 @@ public class PlanAction extends BaseAction {
 	}
 	
 	@RequestMapping("/show")
-	public String show(HttpServletRequest request,HttpServletResponse response,ModelMap model,String id,String flag){
+	public String show(HttpServletRequest request,HttpServletResponse response,ModelMap model,
+			String id,String flag){
 		
 		
 		Plan plan=planService.findById(id);
@@ -326,16 +329,18 @@ public class PlanAction extends BaseAction {
 	}
 	
 	@RequestMapping("/admin/selectIndex")
-	public String selectIndex(HttpServletRequest request,ModelMap model,
-			String type,String planId,String[] indexIds){
-		
+	public void selectIndex(HttpServletRequest request,ModelMap model,
+			String type,String planId,String[] indexIds,HttpServletResponse response) throws IOException{
 		
 		if(indexIds!=null&&indexIds.length!=0){
 			List<IndexManagement> indexs=indexManagementService.findByIds(indexIds);
 			Plan plan=planService.findById(planId);
 			plan_indexService.batchAdd(plan, indexs);
 		}
-		return "redirect:/plan/show";
+		String result="{\"result\":\"success\"}";
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/json");
+		response.getWriter().write(result);
 	}
 	
 	@RequestMapping("/getAllIndexs")
@@ -364,6 +369,27 @@ public class PlanAction extends BaseAction {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		response.getWriter().write(json.toString());
+	}
+	
+	@RequestMapping("/targetValueEdit")
+	public String targetValueEdit(String planId,String indexId,ModelMap model){
+		Plan_Index plan_Index=plan_indexService.findByP_I(planId, indexId);
+		model.addAttribute("plan_Index", plan_Index);
+		return "/plan/planAdmin/targetValueEdit";
+	}
+	
+	@RequestMapping("/savePlan_Index")
+	public String savePlan_Index(String plan_IndexId,Plan_Index plan_Index,ModelMap model){
+		Plan_Index bean=plan_indexService.findById(plan_IndexId);
+		if(bean!=null){
+			bean.setTargetValue(plan_Index.getTargetValue());
+			bean.setIndexPerformance(plan_Index.getIndexPerformance());
+			bean.setHistoryDescription(plan_Index.getHistoryDescription());
+		}
+		plan_indexService.update(bean);
+		model.addAttribute("id", bean.getPlan().getId());
+		model.addAttribute("type",bean.getPlan().getPlanType());
+		return "redirect:/plan/show";
 	}
 	
 }

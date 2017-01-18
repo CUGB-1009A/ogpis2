@@ -29,6 +29,19 @@ public class Plan_IndexEntity extends BaseEntity{
 	 */
 	private String indexPerformance;
 	
+	/**
+	 * 历史数据描述
+	 */
+	private String HistoryDescription;
+	
+	public String getHistoryDescription() {
+		return HistoryDescription;
+	}
+
+	public void setHistoryDescription(String historyDescription) {
+		HistoryDescription = historyDescription;
+	}
+
 	public Plan getPlan() {
 		return plan;
 	}

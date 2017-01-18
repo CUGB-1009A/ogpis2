@@ -43,6 +43,16 @@ public class Plan_IndexServiceImpl implements Plan_IndexService {
 	public List<Plan_Index> findByTypeAndMineType(String planType, String mineType) {
 		return plan_IndexDao.findByPlanTypeAndMineType(planType, mineType);
 	}
+
+	@Override
+	public Plan_Index findById(String id) {
+		return plan_IndexDao.findById(id);
+	}
+
+	@Override
+	public Plan_Index update(Plan_Index bean) {
+		return plan_IndexDao.update(bean);
+	}
 	
 	
 }

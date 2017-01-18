@@ -66,7 +66,7 @@ public class IndexManagementEntity extends BaseEntity{
 	/**
 	 * 是否需要跟踪
 	 */
-	protected String track;
+	protected boolean track;
 	
 	/**
 	 * 目标值
@@ -151,13 +151,6 @@ public class IndexManagementEntity extends BaseEntity{
 		IndexData = indexData;
 	}
 
-	public String getTrack() {
-		return track;
-	}
-
-	public void setTrack(String track) {
-		this.track = track;
-	}
 
 	public float getIndexValue() {
 		return IndexValue;
@@ -169,6 +162,14 @@ public class IndexManagementEntity extends BaseEntity{
 
 	public Plan getPlan() {
 		return plan;
+	}
+
+	public boolean isTrack() {
+		return track;
+	}
+
+	public void setTrack(boolean track) {
+		this.track = track;
 	}
 
 	public void setPlan(Plan plan) {

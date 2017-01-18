@@ -49,7 +49,7 @@ public class IndexManagementAction {
 			bean.setIndexName(indexManagement.getIndexName());
 			bean.setIndexType(indexManagement.getIndexType());
 			bean.setIndexUnit(indexManagement.getIndexUnit());
-			bean.setTrack(indexManagement.getTrack());
+			bean.setTrack(indexManagement.isTrack());
 			bean.setPriority(indexManagement.getPriority());
 			indexManagementService.save(bean);
 		}else{
@@ -59,7 +59,7 @@ public class IndexManagementAction {
 			bean.setIndexName(indexManagement.getIndexName());
 			bean.setIndexType(indexManagement.getIndexType());
 			bean.setIndexUnit(indexManagement.getIndexUnit());
-			bean.setTrack(indexManagement.getTrack());
+			bean.setTrack(indexManagement.isTrack());
 			bean.setPriority(indexManagement.getPriority());
 			indexManagementService.update(bean);
 		}

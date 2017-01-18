@@ -36,7 +36,7 @@ public class Plan_IndexDaoImpl extends HibernateBaseDao<Plan_Index, String> impl
 	@Override
 	public Plan_Index findByP_I(String planId, String indexId) {
 		String hql="from Plan_Index where plan.id=? and index.id=?";
-		Plan_Index plan_Index=(Plan_Index) this.find(hql, planId, indexId);
+		Plan_Index plan_Index=(Plan_Index) this.findUnique(hql, planId, indexId);
 		return plan_Index;
 	}
 
@@ -61,8 +61,18 @@ public class Plan_IndexDaoImpl extends HibernateBaseDao<Plan_Index, String> impl
 
 	@Override
 	protected Class<Plan_Index> getEntityClass() {
-		// TODO Auto-generated method stub
 		return Plan_Index.class;
+	}
+
+	@Override
+	public Plan_Index findById(String id) {
+		return this.findById(id);
+	}
+
+	@Override
+	public Plan_Index update(Plan_Index bean) {
+		getSession().merge(bean);
+		return bean;
 	}
 	
 

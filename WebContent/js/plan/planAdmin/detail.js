@@ -37,21 +37,23 @@
 			
 			$.ajax({
 				async:true,
+				url:'../plan/admin/selectIndex',
 				type:"post",
+				dataType:'json',
+				traditional:true,//阻止深度序列化，是后台接受数组的关键
 				data:{
-					indexs:ids,
+					indexIds:ids,
 					planId:planId,
 					type:type
 				},
 				success:function(result){
 					alert('添加成功');
+					$('#selectWindow').window('close');
 				},
 				error:function(){
 					alert('添加失败');
 				}
 			})
-			
-			console.log(ids);
 		})
 	});	
 	
