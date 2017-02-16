@@ -176,6 +176,44 @@ public class ForecastAction extends BaseAction{
 		
 		}
 		
+		@RequestMapping(value = "/forecast/nameIsValid")//检查成果名称是否合法，不允许重复
+		@ResponseBody
+		public void nameIsValid(HttpServletRequest request,HttpServletResponse response) throws IOException{
+			String name = URLDecoder.decode(request.getParameter("name"), "UTF-8");
+			List<ForecastRecord> forecastRecord = forecastRecordService.findByName(name);
+			response.setContentType("application/json");
+		    response.setCharacterEncoding("utf-8");
+		    System.out.println(forecastRecord.size());
+		    String result ;
+			if(forecastRecord.size()==0){
+				 result = "{\"result\":\"true\"}";
+			}
+			else{
+				 result = "{\"result\":\"false\"}";
+			}
+			 response.getWriter().write(result);
+		}
+		
+		@RequestMapping(value = "/forecast/getHistoryData")//检查成果名称是否合法，不允许重复
+		@ResponseBody
+		public void getHistoryData(HttpServletRequest request,HttpServletResponse response) throws IOException{
+			String result = HistoryData.historyData;
+			response.setContentType("application/json");
+		    response.setCharacterEncoding("utf-8");
+		    System.out.println(result);
+			response.getWriter().write(result);
+		}
+		
+		@RequestMapping(value = "/forecast/forecast")//检查成果名称是否合法，不允许重复
+		@ResponseBody
+		public void forecast(HttpServletRequest request,HttpServletResponse response) throws IOException{
+			String result = ForecastData.forecastData;
+			response.setContentType("application/json");
+		    response.setCharacterEncoding("utf-8");
+		    System.out.println(result);
+			response.getWriter().write(result);
+		}
+		
 		@RequestMapping(value = "/forecast/deleteRecord")
 		public void deleteForecastRecord(HttpServletRequest request,HttpServletResponse response) throws IOException{
 			String id = request.getParameter("id");

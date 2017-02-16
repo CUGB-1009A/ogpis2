@@ -1,5 +1,7 @@
 package com.ogpis.forecast.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.ogpis.base.common.hibernate3.Finder;
@@ -7,6 +9,7 @@ import com.ogpis.base.common.hibernate3.HibernateBaseDao;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.forecast.dao.ForecastRecordDao;
 import com.ogpis.forecast.entity.ForecastRecord;
+import com.ogpis.forecast.entity.ForecastType;
 
 @Repository
 public class ForecastRecordDaoImpl extends HibernateBaseDao<ForecastRecord, String> implements ForecastRecordDao{
@@ -38,6 +41,14 @@ public class ForecastRecordDaoImpl extends HibernateBaseDao<ForecastRecord, Stri
 	public void save(ForecastRecord forecastRecord) {
 		getSession().merge(forecastRecord);
 		
+	}
+
+	@Override
+	public List<ForecastRecord> findByName(String name) {
+		String hql = "From ForecastRecord where forecastName='"+name+"'";
+		@SuppressWarnings("unchecked")
+		List<ForecastRecord> forecastRecord = this.find(hql, null);
+		return forecastRecord;
 	}
 
 }

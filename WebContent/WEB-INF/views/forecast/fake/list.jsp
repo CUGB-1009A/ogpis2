@@ -20,7 +20,7 @@ var forecastType ;
 var dataSourceName;
 var modelName ;
 var pemName ;
-$(function() {
+$(function(){
 	var datagrid = $('#datagrid');
 	var h = $('body').height() - $('#listTb').height()-75;
 	datagrid.datagrid(
@@ -98,6 +98,38 @@ $(function() {
 	});
 });
 
+function nameIsValid(name){//通过名字检查预测成果名称是否有相同的（这里约定成果名称都是唯一，完成未完成都是唯一）
+	var isValid ;
+	$.ajax({
+		url:"<%=path%>/forecast/nameIsValid",
+		dataType:"json",
+		async:true,
+		data:{
+			"name":encodeURIComponent(name)
+			},
+		type:"GET",
+		success:function(result){
+			if(result.result=='false'){
+				alert("预测名已经存在")
+				return false;
+				}
+			else{
+				$('#s2s_forecastName').html(forecastName);
+				$('#s2s_forecastType').html(forecastType);
+				$('#s1_addForecast').dialog({
+					closed:true
+				});
+				$('#s2s_dataSource').dialog({
+					closed:false
+				});
+			}
+		},
+		error:function(){
+			alert("名称检查失败");
+		}
+	});
+}
+
 function inputPEM(){//判断自定义拟合参数是否选中
 	if($('#inputPEM').is(':checked'))
 		document.getElementById("pemParams").style.display="";
@@ -144,14 +176,7 @@ function s1_next(){
 		alert("请填写预测名称");
 		return false;
 	}
-	$('#s2s_forecastName').html(forecastName);
-	$('#s2s_forecastType').html(forecastType);
-	$('#s1_addForecast').dialog({
-		closed:true
-	});
-	$('#s2s_dataSource').dialog({
-		closed:false
-	});
+	nameIsValid(forecastName);
 }
 
 function s1_saveExit(){
@@ -257,7 +282,7 @@ function s4_cancel(){
 	});
 }
 
-var option = {
+var option = {//用作预测的历史数据
 		 title: { 
 					 text: '石油新增探明地质储量',
 					 left:'center'
@@ -273,14 +298,20 @@ var option = {
 		 },
 		 xAxis : [
 			        {
+			        	splitLine:{
+			        		show:false
+			        	},
 			            type : 'category',
 			            boundaryGap : false,
 			            name:"年份",
-			            data : [1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960]
+			            data : []
 			        }
 			    ],
 			    yAxis : [
 					        {
+					        	splitLine:{
+					        		show:false
+					        	},
 					            type : 'value',
 					            name:'万吨'
 					        }
@@ -288,7 +319,7 @@ var option = {
 		 series: [
 			          {
 					     type: 'line',
-					     data: [1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960]
+					     data: []
 			          }
 		          ]
 		}
@@ -305,16 +336,21 @@ var option1 = {
 		        data:['历史数据','预测数据'],
 		        right:'right'
 		    },
-		 xAxis : [
-			        {
-			            type : 'category',
-			            boundaryGap : false,
-			            name:"年份",
-			            data : [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025]
+		 xAxis : [{
+		        	 splitLine:{
+		        		show:false
+		        	},
+		            type : 'category',
+		            boundaryGap : false,
+		            name:"年份",
+		            data : []
 			        }
 			    ],
 			    yAxis : [
 					        {
+					        	splitLine:{
+					        		show:false
+					        	},
 					            type : 'value',
 					            name:'万吨'
 					        }
@@ -323,27 +359,68 @@ var option1 = {
 			          {
 					     type: 'line',
 					     name:'历史数据',
-					     data: [12,20,31,44,62,79]
+					     data: []
 			          },
 			          {
 			        	  type: 'line',
    					  name:'预测数据',
-   					  data: [10,18,30,45,66,79.5,100,118,150,240,380,550,570,580,648,880] 
+   					  data: [] 
 			          }
 		          ]
 		}
 
 function s2s_previewData(){
 	var myChart = echarts.init(document.getElementById("test1"));
-	myChart.setOption(option);
+	$.ajax({
+		url:"<%=path%>/forecast/getHistoryData",
+		dataType:"json",
+		async:true,
+		type:"GET",
+		success:function(result){
+			console.log(result)
+			var temp = {"x":[],"y":[]};
+			for(var i=0;i<result.historyData.length;i++){
+				temp.x[i] = result.historyData[i].year;
+				temp.y[i] = result.historyData[i].value;
+				option.xAxis[0].data = temp.x;
+				option.series[0].data= temp.y;
+				myChart.setOption(option);
+			}
+		},
+		error:function(){
+			alert("获取失败");
+		}
+	});
+	
 }
 
-function s4_predict1(){
+function s4_predict1(){//根据参数拟合方法计算参数
 	document.getElementById("echarts").style.display="";
 	var myChart = echarts.init(document.getElementById("test4"));
-	myChart.setOption(option1);
+	$.ajax({
+		url:"<%=path%>/forecast/forecast",
+		dataType:"json",
+		async:true,
+		type:"GET",
+		success:function(result){
+			console.log(result)
+			var temp = {"x":[],"y":[]};
+			for(var i=0;i<result.forecastData.length;i++){
+				temp.x[i] = result.forecastData[i].year;
+				temp.y[i] = result.forecastData[i].value;
+				option1.xAxis[0].data = temp.x;
+				option1.series[0].data = option.series[0].data;
+				option1.series[1].data= temp.y;
+				myChart.setOption(option1);
+			}
+		},
+		error:function(){
+			alert("预测失败");
+		}
+	});
+
 }
-function s4_predict2(){
+function s4_predict2(){//自定义拟合参数拟合
 	document.getElementById("echarts").style.display="";
 	var myChart = echarts.init(document.getElementById("test4"));
 	myChart.setOption(option1);

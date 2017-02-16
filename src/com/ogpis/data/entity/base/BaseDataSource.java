@@ -1,6 +1,7 @@
 package com.ogpis.data.entity.base;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.OneToMany;
 
 import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.data.entity.DataCache;
+import com.ogpis.data.entity.DataSource;
 import com.ogpis.data.entity.Field;
 import com.ogpis.data.entity.InterfaceTable;
 import com.ogpis.data.entity.Subject;
@@ -28,6 +30,52 @@ public class BaseDataSource extends BaseEntity{
 	@Column(name = "description")
 	private String description;
 	
+	@ManyToOne
+	@JoinColumn(name = "parentId")//父数据源id，如果数据源有子数据源，则没有具体的维度
+	private DataSource parentDataSource;
+
+	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "parentDataSource")
+	private List<DataSource> children;
+	
+	public DataSource getParentDataSource() {
+		return parentDataSource;
+	}
+
+	public void setParentDataSource(DataSource parentDataSource) {
+		this.parentDataSource = parentDataSource;
+	}
+
+	public List<DataSource> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<DataSource> children) {
+		this.children = children;
+	}
+
+	public String getParentNodeName() {
+		return parentNodeName;
+	}
+
+	public void setParentNodeName(String parentNodeName) {
+		this.parentNodeName = parentNodeName;
+	}
+
+	public String getChildNodeName() {
+		return childNodeName;
+	}
+
+	public void setChildNodeName(String childNodeName) {
+		this.childNodeName = childNodeName;
+	}
+
+	@Column(name = "parentNodeName")
+	private String parentNodeName;
+	
+	@Column(name = "childNodeName")
+	private String childNodeName;
+
+
 	@ManyToOne
 	@JoinColumn(name  = "tableId")
 	private InterfaceTable table;

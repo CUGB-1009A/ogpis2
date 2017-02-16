@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../init.jsp"%>
-<%
-	String path1 = request.getContextPath();
-%>
 <title>油气资源规划管理系统</title>
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false"
@@ -175,7 +172,6 @@
 				        	 					level2tolevel3($(this).attr("class"));
 				        	 					$("#main_left").contents().find('#sider-nav li').removeClass('current');
 				        	 					$("#main_left").contents().find("#sider-nav ."+id).parent("li").addClass('current');
-				        	 					console.log(1)
 					            			});
 				        	 			}
 				        	 		else//二级菜单下没有菜单

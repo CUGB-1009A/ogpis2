@@ -79,33 +79,37 @@ $(function(){
 });
 
 function getDivContent(ii,dataSourceId){
-	var content;
+	var content="";
 	$.ajax({
-	    url: '<%=path%>/getTabDimension',
+	    url: '<%=path%>/getTabDimension1',
 	    data:{"id":dataSourceId},
 	    dataType: 'json',
 	    async: false,
-	    success: function(data){//将维度信息添加到tab页上
-	    	content ="x坐标:<select id='x"+ii+"'>";
-	    	for(var i=0;i<data.coordinate.length;i++){
-	    		if(data.coordinate[i].x)
-	    			content +=  "<option value ='"+data.coordinate[i].key+"'>"+data.coordinate[i].value+"</option>";
-	    	}
-	    	content += "</select>";
-	    	content +="y坐标:<select id='y"+ii+"'>";
-	    	for(var i=0;i<data.coordinate.length;i++){
-	    		if(!data.coordinate[i].x)
-	    			content +=  "<option value ='"+data.coordinate[i].key+"'>"+data.coordinate[i].value+"</option>";
-	    	}
-	    	content += "</select><br>";
+	    success: function(data){//将选择的表信息、字段信息、维度信息添加到tab页上
 	    	for(var i=0;i<data.condition.length;i++){
-	    		content += data.condition[i].name;
-	    		content = content + "<select class='condition"+ii+"' name='"+data.condition[i].name_key+"'>";
-	    		for(var j=0;j<data.condition[i].value.length;j++){
-	    			content = content + "<option value ='"+data.condition[i].value[j]+"'>"+data.condition[i].value[j]+"</option>";			    		
+	    		if(data.condition[i].type =="interfaceTable"){
+	    			content += "<span class='interfaceTable"+ii+"'>"+ data.condition[i].name +":</span><select class='interfaceTable"+ii+"' onchange='dataSourceChange("+ii+")'>";
+	    			for(var ll=0;ll<data.condition[i].tableArray.length;ll++){
+	    				content +=  "<option value ='"+data.condition[i].tableArray[ll].id+"'>"+data.condition[i].tableArray[ll].key+"</option>";
+	    			}
+	    			content += "</select><br class='interfaceTable"+ii+"'>";
 	    		}
-	    		content += "</select><br>";
-	    	}
+	    		if(data.condition[i].type =="choice"){
+	    			content += "<span class='choice"+ii+"'>"+data.condition[i].name +":</span><select class='choice"+ii+"'>";
+	    			for(var jj=0;jj<data.condition[i].choiceArray.length;jj++){
+	    				content +=  "<option value ='"+data.condition[i].choiceArray[jj].key+"'>"+data.condition[i].choiceArray[jj].value+"</option>";
+	    			}
+	    			content += "</select><br class='choice"+ii+"'>";
+	    		}
+	    		if(data.condition[i].type =="condition"){
+	    			content += "<span class='condition"+ii+"'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='condition"+ii+"'>";
+	    			for(var kk=0;kk<data.condition[i].value.length;kk++){
+	    				content +=  "<option value ='"+data.condition[i].value[kk]+"'>"+data.condition[i].value[kk]+"</option>";
+	    			}
+	    			content += "</select><br class='condtion"+ii+"'>";
+	    		}
+	    		
+	    	}   
 	    	content += "<button id='btn"+ii+"'onclick=\"search("+ii+",'"+data.table+"')\">查询</button>"
 	   	}
 	});
@@ -131,18 +135,27 @@ function search(ii,table){
 
 function writeSQL(ii,table){
 	var sql = "select ";
-	var x = $("#x"+ii).val();
-	var y = $("#y"+ii).val();
-	console.log(x+y)
+	var temp = $("select[class='choice"+ii+"']");
+	var feilds = new Array();
+	console.log(temp)
+	for(var i=0;i<temp.length;i++){
+		feilds[i] = temp[i].value;
+	}	
+	for(var jj=0;jj<feilds.length;jj++){
+		if(jj==feilds.length-1)
+			sql = sql + feilds[jj] + " from " 
+		else
+			sql = sql + feilds[jj] + ", " 	
+	}
 	var condition = new Array();
 	var value = new Array();
 	var i=0;
-	 $(".condition"+ii).each(function(){
+	$("select[class='condition"+ii+"']").each(function(){
 		condition[i] = $(this).attr("name");
 		value[i] = $(this).val();
 		i++;	
 	});
-	sql = sql + x +","+y+" from "+ table +" where " 
+	sql = sql + table +" where " 
 	for(var j=0;j<condition.length;j++){
 		if(j==condition.length-1)
 			sql = sql + condition[j] + "='" + value[j] +"'" 
@@ -159,6 +172,56 @@ function getTabIndex(){
 	return index ;
 }
 
+function dataSourceChange(ll){
+	var tab = $('#tt').tabs('getSelected');  // 获取选择的面板
+	var dataSourceId = $("select[class='interfaceTable"+ll+"']").val();
+	var temp = $('.interfaceTable'+ll);
+	content = '';
+	for(var i=0;i<temp.length;i++){
+		content += temp[i].outerHTML;
+	}	
+	$.ajax({
+	    url: '<%=path%>/getTabDimension1',
+	    data:{"id":dataSourceId},
+	    dataType: 'json',
+	    async: false,
+	    success: function(data){//将选择的表信息、字段信息、维度信息添加到tab页上
+	    	for(var i=0;i<data.condition.length;i++){
+	    		if(data.condition[i].type =="interfaceTable"){
+	    			content += "<span class='interfaceTable"+ll+"'>"+ data.condition[i].name +":</span><select class='interfaceTable"+ll+"' onchange='dataSourceChange("+ll+")'>";
+	    			for(var ii=0;ii<data.condition[i].tableArray.length;ii++){
+	    				content +=  "<option value ='"+data.condition[i].tableArray[ii].id+"'>"+data.condition[i].tableArray[ii].key+"</option>";
+	    			}
+	    			content += "</select><br class='interfaceTable"+ll+"'>";
+	    		}
+	    		if(data.condition[i].type =="choice"){
+	    			content += "<span class='choice"+ll+"'>"+data.condition[i].name +":</span><select class='choice"+ll+"'>";
+	    			for(var jj=0;jj<data.condition[i].choiceArray.length;jj++){
+	    				content +=  "<option value ='"+data.condition[i].choiceArray[jj].key+"'>"+data.condition[i].choiceArray[jj].value+"</option>";
+	    			}
+	    			content += "</select><br class='choice"+ll+"'>";
+	    		}
+	    		if(data.condition[i].type =="condition"){
+	    			content += "<span class='condition"+ll+"'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='condition"+ll+"'>";
+	    			for(var kk=0;kk<data.condition[i].value.length;kk++){
+	    				content +=  "<option value ='"+data.condition[i].value[kk]+"'>"+data.condition[i].value[kk]+"</option>";
+	    			}
+	    			content += "</select><br class='condtion"+ll+"'>";
+	    		}
+	    		
+	    	}   
+	    	content += "<button id='btn"+ll+"'onclick=\"search("+ll+",'"+data.table+"')\">查询</button>"
+	   	}
+	});
+	$('#tt').tabs('update', {
+		tab: tab,
+		options: {
+			content: content  // 新内容的URL
+		}
+	});
+	$(".interfaceTable"+ll).val(dataSourceId);
+
+}
 
 
 

@@ -290,7 +290,7 @@ public class ForecastData {
 				+ "{"
 				    + "\"year\": 2020,"
 				    + "\"value\": 23202"
-				+ "},"
+				+ "}"
 				+ "]"
 				+ "}";
 

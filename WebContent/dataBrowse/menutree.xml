@@ -11,7 +11,6 @@
 			<level3 id="zyl_qg" name="全国" imgName="3.png" url="/dataBrowse">
 				<tab id="zyl_dq_01">年度大区各盆地油气资源量</tab>
 			</level3>
-
 			<level3 id="zyl_gndq" name="国内大区" imgName="4.png" url="/dataBrowse_Tu?id=zyl_gndq">
 				<tab id="zyl_gndq_01" dataSource="1">年度各盆地油气资源量</tab>
 				<tab id="zyl_gndq_02" dataSource="1">年度各大区油气资源量</tab>
@@ -19,23 +18,22 @@
 			</level3>
 		</level2>
 		<level2 id="chul" name="储量">
-
-			<level3 id="sj" name="世界" imgName="1.png" url="">
+			<level3 id="chul_sj" name="世界" imgName="1.png" url="">
 				<tab id="chul_qg_01">历年全国盆地储量</tab>
 			</level3>
 
 			<level3 id="sjdq" name="世界大区" imgName="2.png" url="">
-
 				<tab id="chul_sygs_01">历年石油总公司储量</tab>
 			</level3>
 
 			<level3 id="sjgg" name="世界各国" imgName="3.png" url="">
-
 				<tab id="chul_sq_01">年度省区油气田储量</tab>
 			</level3>
-
-			<level3 id="qg" name="全国" imgName="4.png" url="">
-				<tab id="chul_pd_01">年度盆地油气田储量</tab>
+			<level3 id="chul_qg" name="全国" imgName="4.png" url="/dataBrowse_Tu?id=chul_qg">
+				<tab id="chul_qg_01" dataSource="2">历年全国储量</tab>
+				<tab id="chul_qg_02" dataSource="3">年度各省区储量</tab>
+				<tab id="chul_qg_03" dataSource="4">年度各盆地储量</tab>
+				<tab id="chul_qg_04">某年各公司储量                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </tab>
 			</level3>
 			<level3 id="sygs" name="石油公司" imgName="5.png" url="">
 				<tab id="chul_sygs_01">历年石油总公司储量</tab>
