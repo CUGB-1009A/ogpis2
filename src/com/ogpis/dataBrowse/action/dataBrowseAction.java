@@ -132,7 +132,7 @@ public class dataBrowseAction {
 			}
 			//--------select A,B from 语句中的A,B搞定了
 			for(Field temp3: dataSource.getField()){
-				result.append("{\"name\":\""+temp3.getValue()+"\",\"key\":\""+temp3.getKey()+"\",\"isYear\":"+temp3.getDimension().isYear()+",");
+				result.append("{\"name\":\""+temp3.getValue()+"\",\"key\":\""+temp3.getKey()+"\",\"isYear\":"+temp3.getDimension().isYear()+",\"yearType\":\""+temp3.getDimension().getYearType()+"\",");
 				if(temp3.getDimension().isYear()){
 					result.append("\"value\":[],");
 					}

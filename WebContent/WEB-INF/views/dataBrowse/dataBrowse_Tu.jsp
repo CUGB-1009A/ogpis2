@@ -48,6 +48,8 @@ var first = true ;
 var id = '${id}';//level3的id
 var ids = new Array();//tab页的id组
 var dataSourceArray = new Array();//tab页的数据源组
+var date = new Date();
+var currentYear =  "" + date.getFullYear();
 $(function(){
 	$.ajax({
 	    url: '<%=path%>/dataBrowse/menutree.xml',
@@ -102,11 +104,34 @@ function getDivContent(ii,dataSourceId){
 	    			content += "</select><br class='choice"+ii+"'>";
 	    		}
 	    		if(data.condition[i].type =="condition"){
-	    			content += "<span class='condition"+ii+"'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='condition"+ii+"'>";
-	    			for(var kk=0;kk<data.condition[i].value.length;kk++){
-	    				content +=  "<option value ='"+data.condition[i].value[kk]+"'>"+data.condition[i].value[kk]+"</option>";
+	    			if(data.condition[i].isYear){//选择条件为时间
+							if(data.condition[i].yearType=="point"){//时间为时间点的处理分支
+								content += "<span class='condition"+ii+"'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='year condition"+ii+"'>";
+				    			for(var kk=1949;kk<currentYear;kk++){
+				    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+				    			}
+				    			content += "</select><br class='condtion"+ii+"'>";
+	    					}
+							else{//时间为时间段的处理分支
+								content += "<span class='condition"+ii+"'>"+"起始年份"+":</span><select name='"+data.condition[i].key+"'class='year condition"+ii+"'>";
+				    			for(var kk=1949;kk<currentYear;kk++){
+				    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+				    			}
+				    			content += "</select><br class='condtion"+ii+"'>";
+				    			content += "<span class='condition"+ii+"'>"+"终止年份" +":</span><select name='"+data.condition[i].key+"'class='year condition"+ii+"'>";
+				    			for(var kk=1949;kk<currentYear;kk++){
+				    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+				    			}
+				    			content += "</select><br class='condtion"+ii+"'>";
+							}
 	    			}
-	    			content += "</select><br class='condtion"+ii+"'>";
+	    			else{//不是年份的处理分支
+		    				content += "<span class='condition"+ii+"'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='notYear condition"+ii+"'>";
+			    			for(var kk=0;kk<data.condition[i].value.length;kk++){
+			    				content +=  "<option value ='"+data.condition[i].value[kk]+"'>"+data.condition[i].value[kk]+"</option>";
+			    			}
+			    			content += "</select><br class='condtion"+ii+"'>";
+	    				}	
 	    		}
 	    		
 	    	}   
@@ -126,9 +151,10 @@ function search(ii,table){
 	    async: false,
 	    success: function(data){
 	    	var result = {"xName":"","yName":"","ds1":data};
-	    	result.xName = $("#x"+ii+" option:selected").text();
-	    	result.yName = $("#y"+ii+" option:selected").text();
-	    	BrowseHandle.refreshReportAndChart($("#y"+ii+" option:selected").text(),result);
+	    	var temp =  $("select[class='choice"+ii+"']");
+	    	result.xName = $(temp[0]).find("option:selected").text();
+	    	result.yName = $(temp[1]).find("option:selected").text();
+	    	BrowseHandle.refreshReportAndChart(result.yName,result);
 	    }
 	});
 }
@@ -137,7 +163,6 @@ function writeSQL(ii,table){
 	var sql = "select ";
 	var temp = $("select[class='choice"+ii+"']");
 	var feilds = new Array();
-	console.log(temp)
 	for(var i=0;i<temp.length;i++){
 		feilds[i] = temp[i].value;
 	}	
@@ -150,7 +175,7 @@ function writeSQL(ii,table){
 	var condition = new Array();
 	var value = new Array();
 	var i=0;
-	$("select[class='condition"+ii+"']").each(function(){
+	$("select[class='notYear condition"+ii+"']").each(function(){
 		condition[i] = $(this).attr("name");
 		value[i] = $(this).val();
 		i++;	
@@ -161,6 +186,14 @@ function writeSQL(ii,table){
 			sql = sql + condition[j] + "='" + value[j] +"'" 
 		else
 			sql = sql + condition[j] + "='" + value[j] +"' and " 	
+	}
+	if($("select[class='year condition"+ii+"']").length==1){//说明是时间点
+		console.log($("select[class='year condition"+ii+"']"));
+		sql = sql + "and "+$("select[class='year condition"+ii+"']")[0].name+"="+$("select[class='year condition"+ii+"']")[0].value;
+	}
+	if($("select[class='year condition"+ii+"']").length==2){//说明是时间区间
+		sql = sql + "and "+$("select[class='year condition"+ii+"']")[0].name+">="+$("select[class='year condition"+ii+"']")[0].value+" and "+$("select[class='year condition"+ii+"']")[1].name+"<="+$("select[class='year condition"+ii+"']")[1].value;
+		console.log($("select[class='year condition"+ii+"']"));
 	}
 	return sql ;
 	

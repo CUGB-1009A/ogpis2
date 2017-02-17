@@ -26,6 +26,17 @@ public class BaseDimension extends BaseEntity{
 	
 	@Column(name = "priority")//排序
 	private String priority;
+	
+	@Column(name = "yearType")//如果是年份字段，则有两种  一种是时间点NF=2010（point）;一种是时间区间1949<=NF<=2014（interval）
+	private String yearType;
+
+	public String getYearType() {
+		return yearType;
+	}
+
+	public void setYearType(String yearType) {
+		this.yearType = yearType;
+	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="dimension")//维度值
 	protected List<DimensionValue> dimensionValue ;
