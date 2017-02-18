@@ -33,4 +33,9 @@ public class ModelInfoServiceImpl implements ModelInfoService{
 		return modelInfoDao.getAllModel(cpn,pageSize);
 	}
 
+	@Override
+	public List<ModelInfo> getAllModel() {
+		return modelInfoDao.getAllModel();
+	}
+
 }

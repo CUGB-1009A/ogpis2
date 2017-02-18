@@ -37,4 +37,12 @@ public class ModelInfoDaoImpl extends HibernateBaseDao<ModelInfo, String> implem
 		return find(f,cpn,pageSize);
 	}
 
+	@Override
+	public List<ModelInfo> getAllModel() {
+		String hql = "From ModelInfo where deleted=false";
+		@SuppressWarnings("unchecked")
+		List<ModelInfo> models = this.find(hql, null);
+		return models;
+	}
+
 }

@@ -23,7 +23,7 @@ public class Poisson implements ForecastModel {
 		LinkedHashMap map = new LinkedHashMap();
 		map.put("最小二乘法",1);
 		map.put("三段估计法",2);
-		map.put("翁氏特有拟合方法",3);
+		map.put("程序自带jar",3);
 		return map;
 	}
 

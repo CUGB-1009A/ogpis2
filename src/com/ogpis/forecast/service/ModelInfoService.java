@@ -13,4 +13,6 @@ public interface ModelInfoService {
 
 	Pagination getAllModel(int cpn, Integer pageSize);
 
+	List<ModelInfo> getAllModel();
+
 }

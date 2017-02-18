@@ -498,7 +498,49 @@ function s2s_next(){
 	});
 	var myChart = echarts.init(document.getElementById("test3"));
 	myChart.setOption(option);
+	//获取模型和对应的参数拟合方法
+	$.ajax({
+		url:"<%=path%>/getModel",
+		dataType:"json",
+		async:true,
+		type:"GET",
+		success:function(result){
+			$("#s3_modelName").empty();
+			for(var i=0;i<result.length;i++){
+				$("#s3_modelName").append("<option value='"+result[i].id+"'>"+result[i].modelName+"</option>");
+			}
+			//通过模型的选择获取对应的参数拟合方法
+			modelChanged();
+		},
+		error:function(){
+			alert("获取模型失败");
+		}
+	});
 }
+
+function modelChanged(){
+	var modelId = $("#s3_modelName").val();
+	$.ajax({
+		url:"<%=path%>/getPem",
+		dataType:"json",
+		async:true,
+		data:{"id":modelId},
+		type:"GET",
+		success:function(result){
+			$("#s3_pemName").empty();
+			$("#s3_modelDescription").empty();
+			$("#s3_modelDescription").html(result.description);
+			console.log(result.description);
+			for(var i=0;i<result.pems.length;i++){
+				$("#s3_pemName").append("<option value='"+result.pems[i].penNum+"'>"+result.pems[i].pemName+"</option>");
+			}
+		},
+		error:function(){
+			alert("获取模型拟合参数失败");
+		}
+	});	
+}
+
 function s2s_saveExit(){
 	$('#s2s_dataSource').dialog({
 		closed:true
@@ -808,28 +850,22 @@ function s4_predict2(){//自定义拟合参数拟合
 		<div style="width:40%;height:100%;float:left">
 			<div style="padding: 5px;">
 				模型选择：
-				    <select id="s3_modelName">
-						<option value="1">翁氏旋回模型</option>
-						<option value="2">冈伯茨模型</option>
-						<option value="3">哈伯特模型</option>
-						<option value="4">对数回归模型</option>
+				    <select id="s3_modelName"  onchange="modelChanged()">
+						
 					</select>
 			</div>
 			<div style="padding: 5px;">
 				参数拟合方法：
 				    <select id="s3_pemName">
-						<option value="1">最小二乘法</option>
-						<option value="2">三段估计法</option>
+						
 					</select>
 			</div>
 			<div style="padding: 5px;">
 				模型介绍：
-				    <p>
-				    翁文波认为这种生命旋回的发展合乎Poisson分布规律，就把它称为“Poisson回归”。后人称这种生命旋回为翁氏回归。该模型为我国建立的第一个预测油气田产量的模型，因而受到石油专家的广泛重视和应用
-				    翁文波认为这种生命旋回的发展合乎Poisson分布规律，就把它称为“Poisson回归”。后人称这种生命旋回为翁氏回归。该模型为我国建立的第一个预测油气田产量的模型，因而受到石油专家的广泛重视和应用
-				    翁文波认为这种生命旋回的发展合乎Poisson分布规律，就把它称为“Poisson回归”。后人称这种生命旋回为翁氏回归。该模型为我国建立的第一个预测油气田产量的模型，因而受到石油专家的广泛重视和应用
-				    翁文波认为这种生命旋回的发展合乎Poisson分布规律，就把它称为“Poisson回归”。后人称这种生命旋回为翁氏回归。该模型为我国建立的第一个预测油气田产量的模型，因而受到石油专家的广泛重视和应用
-				    </p>
+				 <div id="s3_modelDescription" style="padding: 5px;">
+				 
+				 </div>  
+
 			</div>
 		</div>
 	</div>

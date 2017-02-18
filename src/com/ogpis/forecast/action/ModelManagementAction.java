@@ -3,6 +3,7 @@ package com.ogpis.forecast.action;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,9 +32,50 @@ public class ModelManagementAction extends BaseAction{
 	public String list(HttpServletRequest request, ModelMap model) {
 				
 		return "forecast/fake/model/list";
+		
 	}
 	
-	@RequestMapping(value = "/getAllModel")
+	@RequestMapping(value = "/getModel")//在预测的时候选取模型
+	@ResponseBody
+	public void getModel(HttpServletResponse response) throws IOException{
+		StringBuilder result = new StringBuilder();
+		result.append("[");
+		List<ModelInfo> models = modelInfoService.getAllModel();
+		for(ModelInfo temp : models){
+			result.append("{\"modelName\":\""+temp.getModelName()+"\",\"id\":\""+temp.getId()+"\"},");
+		}
+		result.deleteCharAt(result.length()-1);
+		result.append("]");
+		System.out.println(result.toString());
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("utf-8");
+	    response.getWriter().write(result.toString());
+	}
+	
+	@RequestMapping(value = "/getPem")//在预测的时候选取模型
+	@ResponseBody
+	public void getPem(HttpServletResponse response , HttpServletRequest request) throws IOException{
+		String id= request.getParameter("id");
+		ModelInfo modelInfo = modelInfoService.findById(id);
+		StringBuilder result = new StringBuilder();
+		result.append("{\"description\":\""+modelInfo.getModelDescription()+"\",\"pems\":[");
+		System.out.println(result.toString());
+		LinkedHashMap pemList = ForecastUtil.getPEM(modelInfo.getJarName(), modelInfo.getClassName());
+		Iterator<Map.Entry> it= pemList.entrySet().iterator();
+		while(it.hasNext())
+		{
+			Map.Entry entry = it.next(); 
+			result.append("{\"pemName\":\""+entry.getKey()+"\",\"pemNum\":"+entry.getValue()+"},");
+		}
+		result.deleteCharAt(result.length()-1);
+		result.append("]}");
+		System.out.println(result.toString());
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("utf-8");
+	    response.getWriter().write(result.toString());
+	}
+	
+	@RequestMapping(value = "/getAllModel")//管理时候获取模型的信息，通过列表的形式展现出来
 	@ResponseBody
 	public void getAllModel(@RequestParam("page") Integer pageNumber,
 			@RequestParam("rows") Integer pageSize,HttpServletResponse response) throws IOException{
