@@ -30,10 +30,10 @@
 				<tab id="chul_sq_01">年度省区油气田储量</tab>
 			</level3>
 			<level3 id="chul_qg" name="全国" imgName="4.png" url="/dataBrowse_Tu?id=chul_qg">
-				<tab id="chul_qg_01" dataSource="2">历年全国储量</tab>
-				<tab id="chul_qg_02" dataSource="3">年度各省区储量</tab>
-				<tab id="chul_qg_03" dataSource="4">年度各盆地储量</tab>
-				<tab id="chul_qg_04" dataSource="5">某年各公司储量                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </tab>
+				<tab id="chul_qg_01" dataSource="2" title="历年全国">历年全国储量</tab>
+				<tab id="chul_qg_02" dataSource="3" title="">年度各省区储量</tab>
+				<tab id="chul_qg_03" dataSource="4" title="">年度各盆地储量</tab>
+				<tab id="chul_qg_04" dataSource="5" title="">某年各公司储量</tab>
 			</level3>
 			<level3 id="sygs" name="石油公司" imgName="5.png" url="">
 				<tab id="chul_sygs_01">历年石油总公司储量</tab>

@@ -14,7 +14,8 @@ td, th {
 }
 </style>
 <script type="text/javascript">
-
+var date = new Date();
+var currentYear =  "" + date.getFullYear();
 var forecastName ;
 var forecastType ;
 var dataSourceName;
@@ -122,6 +123,84 @@ function nameIsValid(name){//通过名字检查预测成果名称是否有相同
 				$('#s2s_dataSource').dialog({
 					closed:false
 				});
+				//给id='s2s_data'的select添加库中查询出来的数据源,并将第一个数据源的查询条件写出来
+				$.ajax({
+					url:"<%=path%>/dataSource/getAllDataSource",
+					dataType:"json",
+					async:true,
+					type:"GET",
+					success:function(data){
+						$("#s2s_data").empty();
+						for(var i=0;i<data.length;i++){
+							$("#s2s_data").append("<option value='"+data[i].id+"'>"+data[i].name+"</option>");
+						}
+						//获取选定数据源下的interfaceTable，choice，condition三方面的信息
+						var dataSourceId = $("#s2s_data").val();
+						$("#s2s_condition").empty();
+						$.ajax({
+						    url: '<%=path%>/getTabDimension1',
+						    data:{"id":dataSourceId},
+						    dataType: 'json',
+						    async: false,
+						    success: function(data){//将选择的表信息、字段信息、维度信息添加到步骤2上
+						    	var content="";
+				    	    	for(var i=0;i<data.condition.length;i++){
+				    	    		if(data.condition[i].type =="interfaceTable"){
+				    	    			content += "<span class='interfaceTable'>"+ data.condition[i].name +":</span><select class='interfaceTable' onchange='dataSourceChange1()'>";
+				    	    			for(var ll=0;ll<data.condition[i].tableArray.length;ll++){
+				    	    				content +=  "<option value ='"+data.condition[i].tableArray[ll].id+"'>"+data.condition[i].tableArray[ll].key+"</option>";
+				    	    			}
+				    	    			content += "</select><br class='interfaceTable'>";
+				    	    		}
+				    	    		if(data.condition[i].type =="choice"){
+				    	    			content += "<span class='choice'>"+data.condition[i].name +":</span><select class='choice'>";
+				    	    			for(var jj=0;jj<data.condition[i].choiceArray.length;jj++){
+				    	    				content +=  "<option value ='"+data.condition[i].choiceArray[jj].key+"'>"+data.condition[i].choiceArray[jj].value+"</option>";
+				    	    			}
+				    	    			content += "</select><br class='choice'>";
+				    	    		}
+				    	    		if(data.condition[i].type =="condition"){
+				    	    			if(data.condition[i].isYear){//选择条件为时间
+				    							if(data.condition[i].yearType=="point"){//时间为时间点的处理分支
+				    								content += "<span class='condition'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='year condition'>";
+				    				    			for(var kk=1949;kk<currentYear;kk++){
+				    				    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+				    				    			}
+				    				    			content += "</select><br class='condtion'>";
+				    	    					}
+				    							else{//时间为时间段的处理分支
+				    								content += "<span class='condition'>"+"起始年份"+":</span><select name='"+data.condition[i].key+"'class='year condition'>";
+				    				    			for(var kk=1949;kk<currentYear;kk++){
+				    				    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+				    				    			}
+				    				    			content += "</select><br class='condtion'>";
+				    				    			content += "<span class='condition"+ii+"'>"+"终止年份" +":</span><select name='"+data.condition[i].key+"'class='year condition'>";
+				    				    			for(var kk=1949;kk<currentYear;kk++){
+				    				    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+				    				    			}
+				    				    			content += "</select><br class='condtion'>";
+				    							}
+				    	    			}
+				    	    			else{//不是年份的处理分支
+				    		    				content += "<span class='condition'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='notYear condition'>";
+				    			    			for(var kk=0;kk<data.condition[i].value.length;kk++){
+				    			    				content +=  "<option value ='"+data.condition[i].value[kk]+"'>"+data.condition[i].value[kk]+"</option>";
+				    			    			}
+				    			    			content += "</select><br class='condtion'>";
+				    	    				}	
+				    	    		}
+				    	    		
+				    	    	}   
+				    	    	content += "<button id='btn' onclick=\"search('"+data.table+"')\">预览</button>";					    	
+				    	    	$("#s2s_condition").html(content);
+						    }
+						});
+					},
+					error:function(){
+						alert("获取数据源失败");
+					}
+				});
+				
 			}
 		},
 		error:function(){
@@ -130,6 +209,213 @@ function nameIsValid(name){//通过名字检查预测成果名称是否有相同
 	});
 }
 
+function dataSourceChange1(){//二级数据源变化时，重置除数据表的所有条件
+	console.log($("select[class='interfaceTable']"))
+	var dataSourceId = $("select[class='interfaceTable']").val();
+	var temp = $('.interfaceTable');
+	content = '';
+	for(var i=0;i<temp.length;i++){
+		content += temp[i].outerHTML;
+	}	
+	$.ajax({
+	    url: '<%=path%>/getTabDimension1',
+	    data:{"id":dataSourceId},
+	    dataType: 'json',
+	    async: false,
+	    success: function(data){//将选择的表信息、字段信息、维度信息添加到tab页上
+	    	for(var i=0;i<data.condition.length;i++){
+	    		if(data.condition[i].type =="interfaceTable"){
+	    			content += "<span class='interfaceTable'>"+ data.condition[i].name +":</span><select class='interfaceTable' onchange='dataSourceChange1()'>";
+	    			for(var ii=0;ii<data.condition[i].tableArray.length;ii++){
+	    				content +=  "<option value ='"+data.condition[i].tableArray[ii].id+"'>"+data.condition[i].tableArray[ii].key+"</option>";
+	    			}
+	    			content += "</select><br class='interfaceTable'>";
+	    		}
+	    		if(data.condition[i].type =="choice"){
+	    			content += "<span class='choice'>"+data.condition[i].name +":</span><select class='choice'>";
+	    			for(var jj=0;jj<data.condition[i].choiceArray.length;jj++){
+	    				content +=  "<option value ='"+data.condition[i].choiceArray[jj].key+"'>"+data.condition[i].choiceArray[jj].value+"</option>";
+	    			}
+	    			content += "</select><br class='choice'>";
+	    		}
+	    		if(data.condition[i].type =="condition"){
+	    			if(data.condition[i].isYear){//选择条件为时间
+						if(data.condition[i].yearType=="point"){//时间为时间点的处理分支
+							content += "<span class='condition'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='year condition'>";
+			    			for(var kk=1949;kk<currentYear;kk++){
+			    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+			    			}
+			    			content += "</select><br class='condtion'>";
+    					}
+						else{//时间为时间段的处理分支
+							content += "<span class='condition'>"+"起始年份"+":</span><select name='"+data.condition[i].key+"'class='year condition'>";
+			    			for(var kk=1949;kk<currentYear;kk++){
+			    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+			    			}
+			    			content += "</select><br class='condtion'>";
+			    			content += "<span class='condition'>"+"终止年份" +":</span><select name='"+data.condition[i].key+"'class='year condition'>";
+			    			for(var kk=1949;kk<currentYear;kk++){
+			    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+			    			}
+			    			content += "</select><br class='condtion'>";
+						}
+    			}
+    			else{//不是年份的处理分支
+	    				content += "<span class='condition'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='notYear condition'>";
+		    			for(var kk=0;kk<data.condition[i].value.length;kk++){
+		    				content +=  "<option value ='"+data.condition[i].value[kk]+"'>"+data.condition[i].value[kk]+"</option>";
+		    			}
+		    			content += "</select><br class='condtion'>";
+    				}
+	    		}
+	    		
+	    	}   
+	    	content += "<button id='btn' onclick=\"search('"+data.table+"')\">查询</button>"
+	   	}
+	});
+	$("#s2s_condition").html(content);
+	$(".interfaceTable").val(dataSourceId);
+}
+function dataSourceChange(){//一级数据源变化时，重置所有的查询条件
+	content = '';
+	var dataSourceId = $("#s2s_data").val();
+	$("#s2s_condition").empty();
+	$.ajax({
+	    url: '<%=path%>/getTabDimension1',
+	    data:{"id":dataSourceId},
+	    dataType: 'json',
+	    async: false,
+	    success: function(data){//将选择的表信息、字段信息、维度信息添加到tab页上
+	    	for(var i=0;i<data.condition.length;i++){
+	    		if(data.condition[i].type =="interfaceTable"){
+	    			content += "<span class='interfaceTable'>"+ data.condition[i].name +":</span><select class='interfaceTable' onchange='dataSourceChange1()'>";
+	    			for(var ii=0;ii<data.condition[i].tableArray.length;ii++){
+	    				content +=  "<option value ='"+data.condition[i].tableArray[ii].id+"'>"+data.condition[i].tableArray[ii].key+"</option>";
+	    			}
+	    			content += "</select><br class='interfaceTable'>";
+	    		}
+	    		if(data.condition[i].type =="choice"){
+	    			content += "<span class='choice'>"+data.condition[i].name +":</span><select class='choice'>";
+	    			for(var jj=0;jj<data.condition[i].choiceArray.length;jj++){
+	    				content +=  "<option value ='"+data.condition[i].choiceArray[jj].key+"'>"+data.condition[i].choiceArray[jj].value+"</option>";
+	    			}
+	    			content += "</select><br class='choice'>";
+	    		}
+	    		if(data.condition[i].type =="condition"){
+	    			if(data.condition[i].isYear){//选择条件为时间
+						if(data.condition[i].yearType=="point"){//时间为时间点的处理分支
+							content += "<span class='condition'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='year condition'>";
+			    			for(var kk=1949;kk<currentYear;kk++){
+			    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+			    			}
+			    			content += "</select><br class='condtion'>";
+    					}
+						else{//时间为时间段的处理分支
+							content += "<span class='condition'>"+"起始年份"+":</span><select name='"+data.condition[i].key+"'class='year condition'>";
+			    			for(var kk=1949;kk<currentYear;kk++){
+			    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+			    			}
+			    			content += "</select><br class='condtion'>";
+			    			content += "<span class='condition'>"+"终止年份" +":</span><select name='"+data.condition[i].key+"'class='year condition'>";
+			    			for(var kk=1949;kk<currentYear;kk++){
+			    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+			    			}
+			    			content += "</select><br class='condtion'>";
+						}
+    			}
+    			else{//不是年份的处理分支
+	    				content += "<span class='condition'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='notYear condition'>";
+		    			for(var kk=0;kk<data.condition[i].value.length;kk++){
+		    				content +=  "<option value ='"+data.condition[i].value[kk]+"'>"+data.condition[i].value[kk]+"</option>";
+		    			}
+		    			content += "</select><br class='condtion'>";
+    				}
+	    		}
+	    		
+	    	}   
+	    	content += "<button id='btn' onclick=\"search('"+data.table+"')\">预览</button>"
+	    	$("#s2s_condition").html(content);
+	   	}
+	});
+}
+
+function search(table){
+	var myChart = echarts.init(document.getElementById("test1"));
+	var sql = writeSQL(table);
+	console.log(sql);
+	$.ajax({
+	    url: '<%=path%>/getDataBySql',
+	    data:{"sql":encodeURIComponent(sql)},
+	    dataType: 'json',
+	    async: false,
+	    success: function(data){
+	    	var title = $(".interfaceTable option:selected").text()+$(".notYear .condition option:selected").text()+data.yName;
+	    	var temp = $("select[class='year condition']");
+	    	if(temp.length==1){
+	    		title += $(temp[0]).find("option:selected").text()+"年";
+	    	}
+	    	if(temp.length==2){
+		    		title += $(temp[0]).find("option:selected").text()+"──"+$(temp[1]).find("option:selected").text()+"年";
+	    	}
+	    	var temp = {"x":[],"y":[]};
+			for(var i=0;i<data.data.length;i++){
+				var flag = 0;
+				for(var key in data.data[i]){
+					if(flag==0) {
+						temp.x[i] = data.data[i][key];
+						console.log(data.data[i][key])
+					}
+					if(flag==1){
+						temp.y[i] =  data.data[i][key];
+					}
+					flag++;
+				}
+				option.title.text = title ;
+				option.xAxis[0].data = temp.x;
+				option.series[0].data= temp.y;
+				myChart.setOption(option);
+			}
+	    }
+	});
+}
+
+function writeSQL(table){
+	var sql = "select ";
+	var temp = $("select[class='choice']");
+	var feilds = new Array();
+	for(var i=0;i<temp.length;i++){
+		feilds[i] = temp[i].value;
+	}	
+	for(var jj=0;jj<feilds.length;jj++){
+		if(jj==feilds.length-1)
+			sql = sql + feilds[jj] + " from " 
+		else
+			sql = sql + feilds[jj] + ", " 	
+	}
+	var condition = new Array();
+	var value = new Array();
+	var i=0;
+	$("select[class='notYear condition']").each(function(){
+		condition[i] = $(this).attr("name");
+		value[i] = $(this).val();
+		i++;	
+	});
+	sql = sql + table +" where " 
+	for(var j=0;j<condition.length;j++){
+		if(j==condition.length-1)
+			sql = sql + condition[j] + "='" + value[j] +"'" 
+		else
+			sql = sql + condition[j] + "='" + value[j] +"' and " 	
+	}
+	if($("select[class='year condition']").length==1){//说明是时间点
+		sql = sql + "and "+$("select[class='year condition']")[0].name+"="+$("select[class='year condition']")[0].value;
+	}
+	if($("select[class='year condition']").length==2){//说明是时间区间
+		sql = sql + "and "+$("select[class='year condition']")[0].name+">="+$("select[class='year condition']")[0].value+" and "+$("select[class='year condition']")[1].name+"<="+$("select[class='year condition']")[1].value;
+	}
+	return sql ;
+	
+}
 function inputPEM(){//判断自定义拟合参数是否选中
 	if($('#inputPEM').is(':checked'))
 		document.getElementById("pemParams").style.display="";
@@ -284,7 +570,7 @@ function s4_cancel(){
 
 var option = {//用作预测的历史数据
 		 title: { 
-					 text: '石油新增探明地质储量',
+					 text: '',
 					 left:'center'
 				 },
 		 tooltip: {
@@ -448,7 +734,6 @@ function s4_predict2(){//自定义拟合参数拟合
 		</div>
 		<div style="text-align:center;padding-top:10px">
 			<button onclick="s1_next()">下一步</button>
-			<button onclick="s1_saveExit()">保存退出</button>
 			<button onclick="s1_cancel()">取消</button>
 		</div>
 	</div>
@@ -469,54 +754,15 @@ function s4_predict2(){//自定义拟合参数拟合
 			</div>
 			<div style="padding: 10px;">
 				数据源：
-				<select id="s2s_data">
-					<option value="1">石油数据</option>
-					<option value="2">天然气数据</option>
-					<option value="3">煤层气数据</option>
-					<option value="4">页岩气数据</option>
+				<select id="s2s_data" onchange="dataSourceChange()">
+					
 				</select>
 				<input type="checkbox"/>显示所有数据源
 			</div>
 			<div style="padding: 10px;">
 				查询条件：<br/><br/> 
-		   			<div style="padding:20px">
-		   			 	资源类型：
-					    <select id="s2s_mineType">
-							<option value="1">石油</option>
-							<option value="2">天然气</option>
-							<option value="3">煤层气</option>
-							<option value="4">页岩气</option>
-						</select><br/><br/>
-						储量类型：
-					    <select id="s2s_mineType">
-							<option value="1">新增探明地质储量</option>
-							<option value="2">累计储量</option>
-							<option value="3">经济可采储量</option>
-						</select><br/><br/>
-						实体类型：
-					    <select id="s2s_entityType">
-							<option value="1">全国</option>
-							<option value="2">公司</option>
-							<option value="3">盆地</option>
-						</select><br/><br/>
-						时间选择：
-					    <select id="s2s_beginYear">
-							<option value="1949">1949</option>
-							<option value="1950">1950</option>
-							<option value="1951">1951</option>
-							<option value="1952">1952</option>
-							<option value="1953">1953</option>
-							<option value="1954">1954</option>
-						</select>--
-						 <select id="s2s_endYear">
-							<option value="2010">2010</option>
-							<option value="2011">2011</option>
-							<option value="2012">2012</option>
-							<option value="2013">2013</option>
-							<option value="2014">2014</option>
-							<option value="2015">2015</option>
-						</select>
-						<button onclick="s2s_previewData()">预览</button>
+		   			<div style="padding:20px" id="s2s_condition">
+		   			
 		   			</div>
 			</div>
 		</div>

@@ -15,10 +15,10 @@ CreatChart.prototype={
         var myChart = echarts.init(document.getElementById(this.id));      
         //绘制图表
         myChart.setOption({
-//            title: {
-//                text: this.title,
-//                left:'center'
-//            },
+            title: {
+                text: this.title,//取消了title的注释  @author:tudou
+                left:'center'
+            },
 //            grid:{
 //                width:w,
 //                height:h
@@ -38,7 +38,7 @@ CreatChart.prototype={
                 }
             },
             series: [{
-                name: '销量',
+                name: this.yName,//改了原来的定值’销量‘  @author:tudou
                 type: 'bar',
                 itemStyle: {
                     normal: {

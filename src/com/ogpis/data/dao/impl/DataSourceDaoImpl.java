@@ -1,5 +1,7 @@
 package com.ogpis.data.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.ogpis.base.common.hibernate3.Finder;
@@ -7,6 +9,7 @@ import com.ogpis.base.common.hibernate3.HibernateBaseDao;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.data.dao.DataSourceDao;
 import com.ogpis.data.entity.DataSource;
+import com.ogpis.data.entity.Subject;
 @Repository
 public class DataSourceDaoImpl extends HibernateBaseDao<DataSource, String> implements DataSourceDao{
 
@@ -24,6 +27,13 @@ public class DataSourceDaoImpl extends HibernateBaseDao<DataSource, String> impl
 	@Override
 	public DataSource findById(String id) {
 		return super.get(id);
+	}
+
+	@Override
+	public List<DataSource> findAll() {
+		String hql = "From DataSource where deleted=false and parentId is null";
+		List<DataSource> dataSources = this.find(hql, null);
+		return dataSources;
 	}
 	
 }

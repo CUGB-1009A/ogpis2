@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ogpis.base.action.BaseAction;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.base.common.page.SimplePage;
+import com.ogpis.data.entity.DataSource;
 import com.ogpis.data.entity.Field;
 import com.ogpis.data.entity.InterfaceTable;
 import com.ogpis.data.entity.Subject;
@@ -62,6 +63,23 @@ public class DataSourceAction extends BaseAction{
 	    response.setCharacterEncoding("utf-8");
 	    System.out.println(this.toJsonTableData(pagination, null, true));
 	    response.getWriter().write(this.toJsonTableData(pagination, null, true));
+		}
+	
+	@RequestMapping(value = "/dataSource/getAllDataSource")//获取数据源（有子数据源的显示父数据源）
+	@ResponseBody
+	public void getAllDataSource(HttpServletResponse response) throws IOException{
+		StringBuilder result = new StringBuilder();
+		result.append("[");
+		List<DataSource> dataSources = dataSourceService.findAll();
+		System.out.println(dataSources.size());
+		for(DataSource temp : dataSources){
+			result.append("{\"id\":\""+temp.getId()+"\",\"name\":\""+temp.getName()+"\"},");
+		}
+		result.deleteCharAt(result.length()-1);
+		result.append("]");
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("utf-8");
+	    response.getWriter().write(result.toString());
 		}
 
 }

@@ -48,6 +48,7 @@ var first = true ;
 var id = '${id}';//level3的id
 var ids = new Array();//tab页的id组
 var dataSourceArray = new Array();//tab页的数据源组
+var titles = new Array();//每个tab页的图标的标题的固定部分
 var date = new Date();
 var currentYear =  "" + date.getFullYear();
 $(function(){
@@ -60,6 +61,7 @@ $(function(){
    				 	var i = 0 ;
    					level3.find("tab").each(function(){
    						ids[i] = $(this).attr("dataSource");
+   						titles[i] = $(this).attr("title");
    						dataSourceArray[i] = $(this).attr("dataSource");
 		   				$('#tt').tabs('add',{    
 		   				    title:$(this).text(),
@@ -70,13 +72,10 @@ $(function(){
    					});
 	   	}
 	});
-
-	
 	$('#tt').tabs({
 		onSelect:function(title,index){
 			$("#btn"+index).click();
 		}
-	
 	});
 });
 
@@ -150,11 +149,16 @@ function search(ii,table){
 	    dataType: 'json',
 	    async: false,
 	    success: function(data){
-	    	var result = {"xName":"","yName":"","ds1":data};
-	    	var temp =  $("select[class='choice"+ii+"']");
-	    	result.xName = $(temp[0]).find("option:selected").text();
-	    	result.yName = $(temp[1]).find("option:selected").text();
-	    	BrowseHandle.refreshReportAndChart(result.yName,result);
+	    	var result = {"xName":data.xName,"yName":data.yName+"("+data.unit+")","ds1":data.data};
+	    	var title = titles[ii]+$(".interfaceTable"+ii+" option:selected").text()+$(".notYear .condition"+ii+" option:selected").text()+data.yName;
+	    	var temp = $("select[class='year condition"+ii+"']");
+	    	if(temp.length==1){
+	    		title += $(temp[0]).find("option:selected").text()+"年";
+	    	}
+	    	if(temp.length==2){
+		    		title += $(temp[0]).find("option:selected").text()+"──"+$(temp[1]).find("option:selected").text()+"年";
+	    	}
+	    	BrowseHandle.refreshReportAndChart(title,result);
 	    }
 	});
 }
@@ -188,12 +192,10 @@ function writeSQL(ii,table){
 			sql = sql + condition[j] + "='" + value[j] +"' and " 	
 	}
 	if($("select[class='year condition"+ii+"']").length==1){//说明是时间点
-		console.log($("select[class='year condition"+ii+"']"));
 		sql = sql + "and "+$("select[class='year condition"+ii+"']")[0].name+"="+$("select[class='year condition"+ii+"']")[0].value;
 	}
 	if($("select[class='year condition"+ii+"']").length==2){//说明是时间区间
 		sql = sql + "and "+$("select[class='year condition"+ii+"']")[0].name+">="+$("select[class='year condition"+ii+"']")[0].value+" and "+$("select[class='year condition"+ii+"']")[1].name+"<="+$("select[class='year condition"+ii+"']")[1].value;
-		console.log($("select[class='year condition"+ii+"']"));
 	}
 	return sql ;
 	
@@ -235,11 +237,39 @@ function dataSourceChange(ll){
 	    			content += "</select><br class='choice"+ll+"'>";
 	    		}
 	    		if(data.condition[i].type =="condition"){
-	    			content += "<span class='condition"+ll+"'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='condition"+ll+"'>";
+	    			if(data.condition[i].isYear){//选择条件为时间
+						if(data.condition[i].yearType=="point"){//时间为时间点的处理分支
+							content += "<span class='condition"+ll+"'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='year condition"+ll+"'>";
+			    			for(var kk=1949;kk<currentYear;kk++){
+			    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+			    			}
+			    			content += "</select><br class='condtion"+ll+"'>";
+    					}
+						else{//时间为时间段的处理分支
+							content += "<span class='condition"+ll+"'>"+"起始年份"+":</span><select name='"+data.condition[i].key+"'class='year condition"+ll+"'>";
+			    			for(var kk=1949;kk<currentYear;kk++){
+			    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+			    			}
+			    			content += "</select><br class='condtion"+ll+"'>";
+			    			content += "<span class='condition"+ll+"'>"+"终止年份" +":</span><select name='"+data.condition[i].key+"'class='year condition"+ll+"'>";
+			    			for(var kk=1949;kk<currentYear;kk++){
+			    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+			    			}
+			    			content += "</select><br class='condtion"+ll+"'>";
+						}
+    			}
+    			else{//不是年份的处理分支
+	    				content += "<span class='condition"+ll+"'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='notYear condition"+ll+"'>";
+		    			for(var kk=0;kk<data.condition[i].value.length;kk++){
+		    				content +=  "<option value ='"+data.condition[i].value[kk]+"'>"+data.condition[i].value[kk]+"</option>";
+		    			}
+		    			content += "</select><br class='condtion"+ll+"'>";
+    				}
+	    			/* content += "<span class='condition"+ll+"'>"+data.condition[i].name +":</span><select name='"+data.condition[i].key+"'class='condition"+ll+"'>";
 	    			for(var kk=0;kk<data.condition[i].value.length;kk++){
 	    				content +=  "<option value ='"+data.condition[i].value[kk]+"'>"+data.condition[i].value[kk]+"</option>";
 	    			}
-	    			content += "</select><br class='condtion"+ll+"'>";
+	    			content += "</select><br class='condtion"+ll+"'>"; */
 	    		}
 	    		
 	    	}   
