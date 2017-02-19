@@ -32,7 +32,7 @@
 					</tr>
 					<c:if test="${plan_Index.index.track }">
 						<tr>
-							<td>目标值</td>
+							<td>目标值(${plan_Index.index.indexUnit })</td>
 							<td>
 								<input type="text" id="targetValue" name="targetValue" data-options="prompt:'目标值...'"
 									value="${plan_Index.targetValue }" class="easyui-textbox"
@@ -59,14 +59,11 @@
 						</td>
 					</tr>
 				</table>
-				<div>
-					<button type="submit">确认</button>
-					<button type="button" onclick="back()">返回</button>
+				<div style="margin: 20px 0 0 50px">
+					<button type="submit" class="easyui-linkbutton" style="width: 100px;">确认</button>&nbsp;&nbsp;
+					<button type="button" onclick="back()" class="easyui-linkbutton" style="width: 100px;">返回</button>
 				</div>
 			</form>
-			<div>
-				this is ${plan_Index.index.track }
-			</div>
 		</div>
 	</div>
 	<script type="text/javascript">

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<div title="规划背景">
-		<div>
-			<h2 >发展现状</h2>
+		<div style="text-align: center;">
+			<h2>发展现状</h2>
 			<h3>（一）取得成就</h3>
 			<p>十一五时期，我国能源快速发展，供应能力明显提高，产业体系进一步完善，基本满足了经济社会发展需要，为十二五能源发展奠定了坚实基础</p>
 			<h3>（二）取得成就</h3>

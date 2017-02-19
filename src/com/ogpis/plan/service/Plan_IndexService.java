@@ -16,5 +16,6 @@ public interface Plan_IndexService  {
 	List<Plan_Index> findByTypeAndMineType(String planType,String mineType);
 	Plan_Index findById(String id);
 	Plan_Index update(Plan_Index bean);
+	void delete(Plan_Index plan_Index);
 	
 }

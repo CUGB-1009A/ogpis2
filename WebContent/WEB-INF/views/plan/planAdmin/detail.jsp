@@ -24,7 +24,7 @@
 		<div>
 			<span>规划编辑</span>
 		</div>
-		<div id="detail" class="easyui-tabs">
+		<div id="detail" class="easyui-tabs" data-options="narrow:true,tabWidth:250,tabHeight:35">
 			 <div title="规划概述" style="padding:20px;display:none;">   
         		<div class="easyui-panel">
 					<form method="post" action="<%=path%>/plan/save" id="planFrom">	
@@ -63,7 +63,7 @@
 								<td>
 									<input id="startTime" class="easyui-datebox" name="startTime" 
 										data-options="formatter:myformatter,parser:myparser,prompt:'规划起始时间'"
-										style="width: 50%;height:32px" value="startTime">
+										style="width: 50%;height:32px" value="${plan.startTime }">
 								</td>
 							</tr>
 							<tr>
@@ -166,7 +166,7 @@
 		        		 					<a href="<c:url value='/plan/targetValueEdit?planId=${item.plan.id }&indexId=${item.index.id }'/>"
 		        		 						style="width: 50px;" class="easyui-linkbutton">
 		        		 					编辑</a>
-		        		 					<a href="<c:url value='/plan/tdeleteIndex?planId=${item.plan.id }&indexId=${item.index.id }&&type=${type }'/>"
+		        		 					<a href="<c:url value='/plan/deleteIndex?planId=${item.plan.id }&indexId=${item.index.id }&&type=${type }'/>"
 		        		 						style="width: 50px;" class="easyui-linkbutton">
 		        		 					删除</a>
 		        		 			</td>

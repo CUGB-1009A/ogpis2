@@ -129,7 +129,7 @@ padding-right:10px;
     <div title="规划展示" iconCls="" style="overflow:auto;" >
 		<ul class="sider-nav">
 			<li>
-				<span><a href="<%=path%>/plan/userList" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-file-text"></i>规划概览</a></span>
+				<span><a href="<%=path%>/plan/userList?type=All&&condition=" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-file-text"></i>规划概览</a></span>
 			</li>
 			<li>
 				<span><a href="<%=path%>/indexData/list?type=QG&id=0" target=main_center><i class="fa fa-angle-right" style="float:right;padding-top:13px"></i><i class="fa fa-line-chart"></i>规划指标</a></span>

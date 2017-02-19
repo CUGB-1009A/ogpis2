@@ -121,11 +121,55 @@ public class PlanAction extends BaseAction {
 	
 	@RequestMapping(value = "/userList")
 	public String userList(HttpServletRequest request,ModelMap model,String type,String condition){
+		
+		LinkedHashMap map;
+		List<LinkedHashMap> mapList=new ArrayList<LinkedHashMap>();
+		
+		//String currentUserName=request.getUserPrincipal().getName();
+		String currentUserName="admin";
+		User user=userService.findByUserName(currentUserName);
+		Set<Role> roles=user.getRoles();
+		boolean isManager=true;
+		/*for(Role role:roles){
+			if(role.getIsSuper())
+				isManager=true;
+		}*/
+		
+		//查询用户对应角色所能看到的规划
+		List<Plan> plans=planService.findAll(isManager, type, condition);
+		//将用户关注的规划用字符串连接起来
+		String conceredPlanId="";
+		for(Plan concern :user.getPlans()){
+			conceredPlanId+=concern.getId();
+		}
+		
+		model.addAttribute("plansNumber", plans.size());
+		for(Plan temp:plans){
+			map =new LinkedHashMap();
+			map.put("plan", temp);
+			if(conceredPlanId.contains(temp.getId()))
+				map.put("isConcerned", true);
+			else
+				map.put("isConcerned", false);
+			Set<PlanDocument> document = temp.getPlanDocument();
+			map.put("planDocument", document);
+			mapList.add(map);
+		}
+		model.addAttribute("mapList", mapList);
+		model.addAttribute("type", type);
+		model.addAttribute("condition", condition);
+		model.addAttribute("planType", PlanType.values());
+		model.addAttribute("listType", "user");
+
 		return "/plan/planUser/list";
 	}
 	
 	@RequestMapping(value="/userDetail")
-	public String userDetail(HttpServletRequest request,ModelMap model,String type,String condition){
+	public String userDetail(HttpServletRequest request,ModelMap model,String id,String listType){
+		Plan plan=planService.findById(id);
+		model.addAttribute("plan", plan);
+		model.addAttribute("type", plan.getPlanType());
+		model.addAttribute("listType", listType);
 		return "/plan/planUser/userDetail";
 	}
 	
@@ -389,6 +433,19 @@ public class PlanAction extends BaseAction {
 		plan_indexService.update(bean);
 		model.addAttribute("id", bean.getPlan().getId());
 		model.addAttribute("type",bean.getPlan().getPlanType());
+		return "redirect:/plan/show";
+	}
+	
+	@RequestMapping("/deleteIndex")
+	public String deleteIndex(HttpServletRequest request,ModelMap model,String planId,
+			String indexId,String type){
+		Plan_Index plan_Index=plan_indexService.findByP_I(planId, indexId);
+		if(plan_Index!=null){
+			plan_indexService.delete(plan_Index);
+		}
+		model.addAttribute("id", planId);
+		model.addAttribute("type", type);
+		
 		return "redirect:/plan/show";
 	}
 	

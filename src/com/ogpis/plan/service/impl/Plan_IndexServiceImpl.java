@@ -53,6 +53,12 @@ public class Plan_IndexServiceImpl implements Plan_IndexService {
 	public Plan_Index update(Plan_Index bean) {
 		return plan_IndexDao.update(bean);
 	}
+
+	@Override
+	public void delete(Plan_Index plan_Index) {
+		plan_IndexDao.delete(plan_Index);
+		
+	}
 	
 	
 }

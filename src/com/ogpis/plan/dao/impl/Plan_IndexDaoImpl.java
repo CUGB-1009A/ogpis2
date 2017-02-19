@@ -66,13 +66,18 @@ public class Plan_IndexDaoImpl extends HibernateBaseDao<Plan_Index, String> impl
 
 	@Override
 	public Plan_Index findById(String id) {
-		return this.findById(id);
+		return this.get(id);
 	}
 
 	@Override
 	public Plan_Index update(Plan_Index bean) {
 		getSession().merge(bean);
 		return bean;
+	}
+
+	@Override
+	public void delete(Plan_Index plan_Index) {
+		getSession().delete(plan_Index);
 	}
 	
 

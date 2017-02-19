@@ -13,4 +13,5 @@ public interface Plan_IndexDao {
 	List<Plan_Index> findByPlanTypeAndMineType(String planType,String mineType);
 	Plan_Index findById(String id);
 	Plan_Index update(Plan_Index bean);
+	void delete(Plan_Index plan_Index);
 }
