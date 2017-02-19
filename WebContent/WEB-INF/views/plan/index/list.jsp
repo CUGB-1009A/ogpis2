@@ -65,12 +65,12 @@
 							<%-- <c:if test="${item1.indexType.equals('1') }">新增探明地质储量</c:if>
 							<c:if test="${item1.indexType.equals('2') }">产量</c:if>
 							<c:if test="${item1.indexType.equals('3') }">其他</c:if> --%>
-							<c:if test="${item1.indexType.equals('GZL') }">工作量</c:if>
-							<c:if test="${item1.indexType.equals('DZCL') }">新增探明地质储量</c:if>
-							<c:if test="${item1.indexType.equals('CN') }">新建产能</c:if>
-							<c:if test="${item1.indexType.equals('CL') }">产量</c:if>
-							<c:if test="${item1.indexType.equals('TZ') }">投资</c:if>
-							<c:if test="${item1.indexType.equals('CB') }">成本</c:if>
+							<c:if test="${item1.indexType.equals('工作量') }">工作量</c:if>
+							<c:if test="${item1.indexType.equals('新增探明地质储量') }">新增探明地质储量</c:if>
+							<c:if test="${item1.indexType.equals('新建产能') }">新建产能</c:if>
+							<c:if test="${item1.indexType.equals('产量') }">产量</c:if>
+							<c:if test="${item1.indexType.equals('投资') }">投资</c:if>
+							<c:if test="${item1.indexType.equals('成本') }">成本</c:if>
 						</td>
 						<td>${item1.priority }</td>
 						<td>

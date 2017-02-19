@@ -7,35 +7,9 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="<%=path%>/resources/bootstrap/css/bootstrap.css">
+    <script type="text/javascript" src="<%=path%>/resources/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="<%=path%>/resource/dist/echarts.js"></script>
-    <script type="text/javascript" src="<%=path%>/resources/unslider.js"></script>
-    <link type="text/css" rel="stylesheet" href="<%=path %>/resources/unslider.css">
-    <style>
-    	.unslider-nav ol {display: none}
-    	.unslider-arrow {
-            display: block;
-            width: 32px;
-            height: 32px;
-            top: 30%;
-            right: -100px;
-            left: auto;
-            margin-top: -16px;
-            overflow: hidden;
-            background: rgba(0,0,0,.2) no-repeat 50% 50%;
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAQCAQAAABuQZ3IAAAAi0lEQVR4AU3OISBEQQBAwS0AACS9NxqQgCZpkiYBVddFvWhAAUABAPQCAGC4g/0vTnrBqCfDIZl70J+kMUBPpEwT4FNXxBxz4F1HxHyr4EVTxBLb4EFNxEon4CJSlVNw9AcV9sC16h8osgke1P1ArgXwouVvdQq86ww/GQefusNf7kBviBlxpT8k+gL/Wox4r1d4MwAAAABJRU5ErkJggg==');
-            background-size: 7px 11px;
-            border-radius: 32px;
-            text-indent: -999em;
-            opacity: .6;
-            transition: opacity .2s;
-        }
-        .unslider-arrow.prev {
-            left: 50%;
-            right: auto;
-            -ms-transform: rotate(-180deg);
-            transform: rotate(-180deg);
-        }
-    </style>
 	<title>完成情况管理</title>
 </head>
 <body class="easyui-layout">
@@ -65,20 +39,25 @@
 					</div>
 					<div style="width:50%;float:right">
 						<textarea class="inputsindex" style="display: none;">${item1.get('plan').indexDataInBoth }</textarea>
-						<div id="lunbo${status.index }" class="banner" style="height: 300px;width: 100%">
-							<c:set var="temp" value="0"/>
-							<ul>
+						<div id="lunbo${status.index }" class="carousel slide" style="height: 300px;width: 100%">
+							<div class="carousel-inner activeCharts">
+								<c:set var="temp" value="0"/>
 								<c:forEach items="${item1.get('plan').indexs }"	var="indexTemp">
 									<c:if test="${indexTemp.track }">
-										<li>
+										<div class="item">
 											<div class="mainCharts mainCharts_${status.index } first_${temp}"
 												style="height: 300px;width: 100%;" id="${item1.get('plan').id}_${listType }">
+												<p>This is Why we play!</p>
 											</div>
-										</li>
+										</div>
 										<c:set var="temp" value="${temp+1 }"/>
 									</c:if>
 								</c:forEach>
-							</ul>
+							</div>
+							<a class="carousel-control left" href="#lunbo${status.index }"
+								data-slide="prev" style="padding-top: 15%">&lsaquo;</a>
+							<a class="carousel-control right" href="#lunbo${status.index }"
+								data-slide="next" style="padding-top: 15%">&rsaquo;</a>
 						</div>
 					</div>
 				</div>
@@ -87,27 +66,8 @@
 		<div id="test" style="height: 400px;width: 400px;float: left;display: none;"></div>
 	</div>	
 	<script type="text/javascript">
-	
-		$(function(){
-			var mySlider=$('.banner').unslider({
-				speed:500,
-	            delay:3000,
-	            keys:true,
-	            fluid:true,
-	            autoplay: true,
-	            infinite: true,
-	            arrow:true
-			});
-			data=mySlider.data('unslider');
-			$('.banner').hover(function(){
-				data.stop();
-			},function(){
-				data.start();
-			})
-		})	
-	
 		function showDetail(){
-			var temp=this.id;
+			/*var temp=this.id;
 			var id=temp.substring(0,temp.indexOf("_"));
 			var listType=temp.substring(temp.indexOf("_")+1,temp.length);
 			var $expandingMenus=$("ul .in");
@@ -117,10 +77,9 @@
 				if(i!=$expandingMenus.length-1){
 					appendURL+=",";
 				}
-			}
-			console.log("<%=path%>/plan/userDetail?id="+id+"&&listType="+listType+appendURL);
-			window.location.href="<%=path%>/plan/userDetail?id="+id+"&&listType="+listType+appendURL;
-			<%-- window.location.href="<%=path%>/plan/userDetail"; --%>
+			}*/
+			<%-- window.location.href="<%=path%>/plan/userDetail?id="+id+"&&listType="+listType+appendURL; --%>
+			window.location.href="<%=path%>/plan/userDetail";
 		}
 	</script>
 	<script type="text/javascript" src="<%=path%>/js/plan/planUser/list.js"></script>

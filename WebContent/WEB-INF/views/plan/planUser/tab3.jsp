@@ -3,32 +3,32 @@
 		<div style="margin-top:50px">
 			<!-- <h3 style="margin-left:25px">历史石油产量及规划目标</h3> -->
 			<div style="width:50%;height:300px;float:left">
-				<div class="charts2" style="width:450px;height:300px;"align="center">
+				<div class="charts2" style="width:450px;height:300px;" align="center">
 					
 				</div>
 			</div>
 			<div style="width:50%;height:300px;float:right">
-				<div class="charts2" style="width:450px;height:300px;"align="center">
+				<div class="charts2" style="width:450px;height:300px;" align="center">
 					
 				</div>
 			</div>
 			<div style="width:50%;height:300px;float:left">
-				<div class="charts2" style="width:450px;height:300px;"align="center">
+				<div class="charts2" style="width:450px;height:300px;" align="center">
 					
 				</div>
 			</div>
 			<div style="width:50%;height:300px;float:right">
-				<div class="charts2" style="width:450px;height:300px;"align="center">
+				<div class="charts2" style="width:450px;height:300px;" align="center">
 					
 				</div>
 			</div>
 			<div style="width:50%;height:300px;float:left">
-				<div class="charts2" style="width:450px;height:300px;"align="center">
+				<div class="charts2" style="width:450px;height:300px;" align="center">
 					
 				</div>
 			</div>
 			<div style="width:50%;height:300px;float:right">
-				<div class="charts2" style="width:450px;height:300px;"align="center">
+				<div class="charts2" style="width:450px;height:300px;" align="center">
 					
 				</div>
 			</div>

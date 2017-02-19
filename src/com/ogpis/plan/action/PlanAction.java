@@ -5,11 +5,13 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,23 +29,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ogpis.base.action.BaseAction;
 import com.ogpis.base.common.page.Pagination;
+import com.ogpis.base.common.page.SimplePage;
 import com.ogpis.plan.entity.IndexDataManagement;
 import com.ogpis.plan.entity.IndexManagement;
 import com.ogpis.plan.entity.Plan;
 import com.ogpis.plan.entity.PlanDocument;
 import com.ogpis.plan.entity.PlanType;
+import com.ogpis.plan.entity.Plan_Index;
 import com.ogpis.plan.service.IndexManagementService;
 import com.ogpis.plan.service.PlanDocumentService;
 import com.ogpis.plan.service.PlanService;
+import com.ogpis.plan.service.Plan_IndexService;
 import com.ogpis.system.entity.Role;
 import com.ogpis.system.entity.User;
 import com.ogpis.system.service.UserService;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
 
 @Controller
 @RequestMapping("/plan")
-public class PlanAction {
+public class PlanAction extends BaseAction {
 	@Autowired
 	private IndexManagementService indexManagementService;
 	@Autowired
@@ -52,6 +64,8 @@ public class PlanAction {
 	private UserService userService;
 	@Autowired
 	private PlanDocumentService planDocumentService;
+	@Autowired
+	private Plan_IndexService plan_indexService;
 	
 
 	@RequestMapping(value = "/list")
@@ -107,11 +121,55 @@ public class PlanAction {
 	
 	@RequestMapping(value = "/userList")
 	public String userList(HttpServletRequest request,ModelMap model,String type,String condition){
+		
+		LinkedHashMap map;
+		List<LinkedHashMap> mapList=new ArrayList<LinkedHashMap>();
+		
+		//String currentUserName=request.getUserPrincipal().getName();
+		String currentUserName="admin";
+		User user=userService.findByUserName(currentUserName);
+		Set<Role> roles=user.getRoles();
+		boolean isManager=true;
+		/*for(Role role:roles){
+			if(role.getIsSuper())
+				isManager=true;
+		}*/
+		
+		//查询用户对应角色所能看到的规划
+		List<Plan> plans=planService.findAll(isManager, type, condition);
+		//将用户关注的规划用字符串连接起来
+		String conceredPlanId="";
+		for(Plan concern :user.getPlans()){
+			conceredPlanId+=concern.getId();
+		}
+		
+		model.addAttribute("plansNumber", plans.size());
+		for(Plan temp:plans){
+			map =new LinkedHashMap();
+			map.put("plan", temp);
+			if(conceredPlanId.contains(temp.getId()))
+				map.put("isConcerned", true);
+			else
+				map.put("isConcerned", false);
+			Set<PlanDocument> document = temp.getPlanDocument();
+			map.put("planDocument", document);
+			mapList.add(map);
+		}
+		model.addAttribute("mapList", mapList);
+		model.addAttribute("type", type);
+		model.addAttribute("condition", condition);
+		model.addAttribute("planType", PlanType.values());
+		model.addAttribute("listType", "user");
+
 		return "/plan/planUser/list";
 	}
 	
 	@RequestMapping(value="/userDetail")
-	public String userDetail(HttpServletRequest request,ModelMap model,String type,String condition){
+	public String userDetail(HttpServletRequest request,ModelMap model,String id,String listType){
+		Plan plan=planService.findById(id);
+		model.addAttribute("plan", plan);
+		model.addAttribute("type", plan.getPlanType());
+		model.addAttribute("listType", listType);
 		return "/plan/planUser/userDetail";
 	}
 	
@@ -173,7 +231,7 @@ public class PlanAction {
 		for(PlanDocument temp:planDocumentSet){
 			temp.setDeleted(true);
 			temp.setPlan(null);
-			//planDocumentService.update(temp);
+			planDocumentService.update(temp);
 		}
 		planService.update(plan);
 		String result="{\"result\":\"success\"}";
@@ -206,34 +264,22 @@ public class PlanAction {
 	}
 	
 	@RequestMapping("/show")
-	public String show(HttpServletRequest request,HttpServletResponse response,ModelMap model,String id,String flag){
-		System.out.println("hasdkfj");
-		HashMap hashMap=new HashMap();
-		List<IndexDataManagement> indexDataManagement;
+
+	public String show(HttpServletRequest request,HttpServletResponse response,ModelMap model,
+			String id,String flag){
+		
+		
+
 		Plan plan=planService.findById(id);
 		model.addAttribute("plan", plan);
-		
-		int pageNo=1;
-		int pageSize=10;
-		if(flag.equals("1")){
-			model.addAttribute("flag", 1);
-		}
-		if(flag.equals("2")){
-			Pagination planDocument=planDocumentService.getOnePlanDocument(pageNo, pageSize, plan.getId());
-			model.addAttribute("planDocumentSet", planDocument);
-			model.addAttribute("flag", 2);
-		}
-		if(flag.equals("3")){
-			List<IndexManagement> allIndexs=new ArrayList<IndexManagement>();
-			if(plan.getPlanType().equals("358"))
-				allIndexs=indexManagementService.findAllIndexByPriority("QG");
-			else
-				allIndexs=indexManagementService.findAllIndexByPriority(plan.getPlanType());
-			model.addAttribute("allIndexs", allIndexs);
-			model.addAttribute("plan_indexs", plan.getPlan_Indexs());
-			model.addAttribute("flag", 3);
-		}
-		
+	
+		/*List<IndexManagement> allIndexs=new ArrayList<IndexManagement>();
+		if(plan.getPlanType().equals("358"))
+			allIndexs=indexManagementService.findAllIndexByPriority("QG");
+		else
+			allIndexs=indexManagementService.findAllIndexByPriority(plan.getPlanType());
+		model.addAttribute("allIndexs", allIndexs);*/
+		model.addAttribute("plan_indexs", plan.getPlan_Indexs());		
 		model.addAttribute("type", plan.getPlanType());
 		System.out.println("13254");
 		
@@ -243,14 +289,14 @@ public class PlanAction {
 	@RequestMapping("/uploadFiles")
 	public void uploadFiles(HttpServletRequest request,HttpServletResponse response,ModelMap model) 
 			throws Exception{
-		System.out.println("234+++=========");
 		float fileSize=0;
 		String[] fileSizeUnit={"B","KB","MB","GB","TB"};
 		final HttpSession hs=request.getSession();
 		
 		String id=request.getParameter("planId");
 		Plan plan=planService.findById(id);
-		String type=request.getParameter("type");
+		//String type=request.getParameter("type");
+		String type=plan.getPlanType();
 		//PlanDocument bean;
 		request.setCharacterEncoding("utf-8");
 		boolean isMultipart=ServletFileUpload.isMultipartContent(request);
@@ -274,7 +320,6 @@ public class PlanAction {
 				
 			}else{
 				PlanDocument bean=new PlanDocument();
-				System.out.println(bean.getId());
 				String fileName=item.getName();
 				fileSize=item.getSize();
 				fileName=fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length());
@@ -301,9 +346,7 @@ public class PlanAction {
 				bean.setDocumentName(fileName);
 				bean.setPlan(plan);
 				bean.setDocumentType(fileName.substring(fileName.lastIndexOf(".")+1,fileName.length()));
-				System.out.println(fileName+"===fgjhghj==");
 				planDocumentService.save(bean);
-				System.out.println("pass");
 			}
 		}
 		model.addAttribute("id", id);
@@ -312,6 +355,101 @@ public class PlanAction {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		response.getWriter().write("{\"rate\":"+request.getSession().getAttribute("proInfo")+"}");
+	}
+	
+	@RequestMapping("/getPlanning")
+	@ResponseBody
+	 public void getPlanning(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		List<Plan> plans=planService.getAllPlans();
+		List<HashMap<String, Object>> result=new ArrayList<>();
+		for(Plan plan : plans){
+			HashMap<String, Object> map=new HashMap<String, Object>();
+			map.put("planId", plan.getId());
+			map.put("planName", plan.getPlanName());
+			map.put("planType", plan.getPlanType());
+			result.add(map);
+		}
+		JSONArray json=JSONArray.fromObject(result);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().write(json.toString());
+	}
+	
+	@RequestMapping("/admin/selectIndex")
+	public void selectIndex(HttpServletRequest request,ModelMap model,
+			String type,String planId,String[] indexIds,HttpServletResponse response) throws IOException{
+		
+		if(indexIds!=null&&indexIds.length!=0){
+			List<IndexManagement> indexs=indexManagementService.findByIds(indexIds);
+			Plan plan=planService.findById(planId);
+			plan_indexService.batchAdd(plan, indexs);
+		}
+		String result="{\"result\":\"success\"}";
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/json");
+		response.getWriter().write(result);
+	}
+	
+	@RequestMapping("/getAllIndexs")
+	@ResponseBody
+	public void getAllIndexs(@RequestParam("page") Integer pageNumber,
+			@RequestParam("rows") Integer pageSize,HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+		
+		String planType=request.getParameter("type");
+		Pagination pagination=indexManagementService.getAllIndexs
+				(SimplePage.cpn(pageNumber), pageSize, planType);
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("utf-8");
+	    response.getWriter().write(this.toJsonTableData(pagination, null, true));
+	}
+	
+	@RequestMapping("/getPlan_Indexs")
+	@ResponseBody
+	public void getPlan_Indexs(@RequestParam("page") Integer pageNumber,
+			@RequestParam("rows") Integer pageSize,HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+		String planId=request.getParameter("planId");
+		Plan plan=planService.findById(planId);
+		List<Plan_Index> indexs=plan.getPlan_Indexs();
+		JSONArray json=JSONArray.fromObject(indexs);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().write(json.toString());
+	}
+	
+	@RequestMapping("/targetValueEdit")
+	public String targetValueEdit(String planId,String indexId,ModelMap model){
+		Plan_Index plan_Index=plan_indexService.findByP_I(planId, indexId);
+		model.addAttribute("plan_Index", plan_Index);
+		return "/plan/planAdmin/targetValueEdit";
+	}
+	
+	@RequestMapping("/savePlan_Index")
+	public String savePlan_Index(String plan_IndexId,Plan_Index plan_Index,ModelMap model){
+		Plan_Index bean=plan_indexService.findById(plan_IndexId);
+		if(bean!=null){
+			bean.setTargetValue(plan_Index.getTargetValue());
+			bean.setIndexPerformance(plan_Index.getIndexPerformance());
+			bean.setHistoryDescription(plan_Index.getHistoryDescription());
+		}
+		plan_indexService.update(bean);
+		model.addAttribute("id", bean.getPlan().getId());
+		model.addAttribute("type",bean.getPlan().getPlanType());
+		return "redirect:/plan/show";
+	}
+	
+	@RequestMapping("/deleteIndex")
+	public String deleteIndex(HttpServletRequest request,ModelMap model,String planId,
+			String indexId,String type){
+		Plan_Index plan_Index=plan_indexService.findByP_I(planId, indexId);
+		if(plan_Index!=null){
+			plan_indexService.delete(plan_Index);
+		}
+		model.addAttribute("id", planId);
+		model.addAttribute("type", type);
+		
+		return "redirect:/plan/show";
 	}
 	
 }

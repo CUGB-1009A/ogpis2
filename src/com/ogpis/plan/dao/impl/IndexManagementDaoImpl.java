@@ -9,7 +9,10 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ogpis.base.common.hibernate3.Finder;
 import com.ogpis.base.common.hibernate3.HibernateBaseDao;
+import com.ogpis.base.common.page.Pagination;
+import com.ogpis.base.common.util.StringUtils;
 import com.ogpis.plan.dao.IndexManagementDao;
 import com.ogpis.plan.entity.IndexManagement;
 
@@ -20,7 +23,6 @@ public class IndexManagementDaoImpl extends HibernateBaseDao<IndexManagement, St
 
 	@Override
 	public List<IndexManagement> findAllIndexByPrority(String type) {
-		//String hql="from IndexManagement m where m.type='"+type+"'order by priority asc";
 		String hql="from IndexManagement m where m.deleted=false and m.PlanType='"+type+"' order by priority asc";
 		List<IndexManagement> items=this.find(hql, null);
 		return items;
@@ -47,6 +49,35 @@ public class IndexManagementDaoImpl extends HibernateBaseDao<IndexManagement, St
 	public IndexManagement findById(String id) {
 		IndexManagement indexManagement=get(id);
 		return indexManagement;
+	}
+
+	@Override
+	public List<IndexManagement> findByIds(String[] ids) {
+		String hql="from IndexManagement m where m.deleted=false and m.id in("
+				+toIdString(ids)+") order by indexType asc";
+		List<IndexManagement> items=this.find(hql, null);
+		return items;
+	}
+	
+	public static String toIdString(String[] ids){
+		StringBuilder sb = new StringBuilder();
+		if(ids!=null&&ids.length!=0){
+			for (int i = 0; i < ids.length; i++) {
+				if(i!=0){
+					sb.append(",");
+				}
+				sb.append("'"+ids[i]+"'");
+			}
+		}
+		return sb.toString();
+	}
+
+	@Override
+	public Pagination getAllIndexs(int pageNo, int pageSize, String planType) {
+		String hql="from IndexManagement bean where bean.deleted=false and bean.PlanType='"+
+				planType+"' order by priority asc";
+		Finder finder=Finder.create(hql);
+		return find(finder, pageNo, pageSize);
 	}
 	
 	
