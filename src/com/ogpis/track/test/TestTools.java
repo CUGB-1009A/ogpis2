@@ -66,7 +66,7 @@ public class TestTools {
 		ApplicationContext context=new XML
 		MyTestDao dao=new MyTestDaoImpl();
 		dao.insert(entity);*/
-		StringBuilder sb=new StringBuilder();
+		/*StringBuilder sb=new StringBuilder();
 		sb.append("[");
 		Integer length=20000;
 		for(int i=0;i<length;++i){
@@ -76,6 +76,6 @@ public class TestTools {
 		}
 		sb.append("]");
 		JSONArray array=JSONArray.fromObject(sb.toString());
-		System.out.println(array.toString());
+		System.out.println(array.toString());*/
 	}
 }

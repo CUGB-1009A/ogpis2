@@ -27,6 +27,8 @@
 <script type="text/javascript" src="../js/arcgis/echartOptions.js"></script>
 <script type="text/javascript" src="../js/arcgis/globalFunction.js"></script>
 <script type="text/javascript" src="../js/arcgis/globalVariable.js"></script>
+<script type="text/javascript" src="../js/arcgis/OilGasSpaceAnalysis.js"></script>
+<script type="text/javascript" src="../js/arcgis/map/symbol.js"></script>
 <script type="text/javascript" src="../js/arcgis/initPage.js"></script>
 <!-- 加载自定义样式 -->
 <link rel="stylesheet" type="text/css" href="../js/arcgis/css/Map.css">
@@ -213,8 +215,9 @@
 			</div>
 			<div title="图表" class="easyui-layout"
 				style="width: 100%; min-width: 800px; height: 100%;">
-				<div class="border" data-options="region:'center',border:false,onResize:panelResize">
-					<div id="test" style="width: 600px; height: 400px"></div>
+				<div class="border"
+					data-options="region:'center',border:false,onResize:panelResize">
+					<div id="test" class="echart" style="width: 600px; height: 400px"></div>
 				</div>
 				<div data-options="region:'west',split:true"
 					style="width: 30%; max-width: 600px;">
@@ -265,6 +268,8 @@
 </body>
 <script type="text/javascript">
 	function queryTest() {
+		mapManager.age="asd";
+		console.log(mapManager);
 		var options = {
 			url : "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer",
 			layerId : 0,
@@ -278,7 +283,7 @@
 		})
 	}
 	function render() {
-		initRender(mapManager,renderLayerId);
+		initRender(mapManager, renderLayerId);
 	}
 	$(function() {
 		$("#tt").tabs({
@@ -289,29 +294,18 @@
 			}
 		})
 	})
-
+	
+	var options=setChartOption(options1,{
+		title:"油气资源布局跟踪",
+		xAxisData:[2011,2012,2013,2014,2015,2016],
+		yAxisName:"万吨",
+		yAxisData:[ 1000, 2000, 3000, 4000, 5000, 4500 ]
+	});
+	bindOptionToDiv("test",options);
 	function panelResize(width, height) {
-		$(this).children("div")[0].style.width = $(this).width()-17;
-		$(this).children("div")[0].style.height = $(this).height();
-		var chart=$(this).children("div")[0].chart;
-		if(chart==null)
-			chart=getChart();
-		chart.resize();
-	}
-	function getChart(){
-		var myChart = echarts.init(document.getElementById("test"));
-		setOptions1(options1, "油气资源规模跟踪", {
-			type : "category",
-			name : "年份",
-			data : [ 2001, 2002, 2003, 2004, 2005, 2006 ]
-		}, {
-			type : "value",
-			name : "万吨",
-			data : [ 1000, 2000, 3000, 4000, 5000, 4500 ]
-		}, "bar");
-		myChart.setOption(options1);
-		document.getElementById("test").chart=myChart;
-		return myChart;
+		$(this).children("div.echart")[0].style.width = $(this).width() - 17;
+		$(this).children("div.echart")[0].style.height = $(this).height();
+		echartResize($(this).children("div.echart")[0]);
 	}
 </script>
 </html>

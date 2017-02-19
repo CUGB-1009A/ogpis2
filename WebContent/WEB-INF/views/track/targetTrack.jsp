@@ -212,7 +212,7 @@
 					</table>
 				</div>
 				<div data-options="region:'center',border:false,onResize:panelResize">
-					<div id="test" style="width: 600px; height: 400px"></div>
+					<div id="test" class="echart" style="width: 600px; height: 400px"></div>
 				</div>
 				<!-- <div class="toolBar" style="width: 100%; height: auto">
 					<div class="float-right">
@@ -260,54 +260,18 @@
 			}
 		})
 	})
-
-	/*  var option = {
-		title : {
-			text : '规模跟踪',
-			left : 'center'
-		},
-		tooltip : {
-			trigger : 'axis'
-		},
-
-		xAxis : [ {
-			type : 'category',
-			boundaryGap : false,
-			name : "年份",
-			data : [ 2001, 2002, 2003, 2004, 2005, 2006 ]
-		} ],
-		yAxis : [ {
-			type : 'value',
-			name : '万吨'
-		} ],
-		series : [ {
-			type : 'line',
-			name : '历史数据',
-			data : [ 2001, 2002, 2003, 2004, 2005, 2006 ]
-		} ]
-	}  */
+	
+	var options=setChartOption(options1,{
+		title:"油气资源规模跟踪",
+		xAxisData:[2011,2012,2013,2014,2015,2016],
+		yAxisName:"万吨",
+		yAxisData:[ 1000, 2000, 3000, 4000, 5000, 4500 ]
+	});
+	bindOptionToDiv("test",options);
 	function panelResize(width, height) {
-		$(this).children("div")[0].style.width = $(this).width()-17;
-		$(this).children("div")[0].style.height = $(this).height();
-		var chart=$(this).children("div")[0].chart;
-		if(chart==null)
-			chart=getChart();
-		chart.resize();
-	}
-	function getChart(){
-		var myChart = echarts.init(document.getElementById("test"));
-		setOptions1(options1, "油气资源规模跟踪", {
-			type : "category",
-			name : "年份",
-			data : [ 2001, 2002, 2003, 2004, 2005, 2006 ]
-		}, {
-			type : "value",
-			name : "万吨",
-			data : [ 1000, 2000, 3000, 4000, 5000, 4500 ]
-		}, "bar");
-		myChart.setOption(options1);
-		document.getElementById("test").chart=myChart;
-		return myChart;
+		$(this).children("div.echart")[0].style.width = $(this).width() - 17;
+		$(this).children("div.echart")[0].style.height = $(this).height();
+		echartResize($(this).children("div.echart")[0]);
 	}
 </script>
 </html>

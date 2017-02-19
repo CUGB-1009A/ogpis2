@@ -20,6 +20,7 @@ td, th {
 	text-align: center
 }
 </style>
+<script type="text/javascript" src="../js/arcgis/echartOptions.js"></script>
 <!-- 加载自定义样式 -->
 <link rel="stylesheet" type="text/css" href="../js/arcgis/css/Map.css">
 </head>

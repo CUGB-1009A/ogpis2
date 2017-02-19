@@ -18,5 +18,14 @@ var layers=[{
 		outFields : [ "*" ],
 		id:"人口"
 	}
+},{
+	url:"https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer/3",
+	layer:{
+		/*mode: FeatureLayer.MODE_SNAPSHOT,*/
+		definitionExpression:"POP2007=8760",
+        outFields: ["*"],
+		className:"地区",
+		id:"地区"
+	}
 }]
 var renderLayerId="Tree"

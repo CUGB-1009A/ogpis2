@@ -92,15 +92,14 @@ function mapContextMenu(domId) {
 
 // 地图点击响应
 function mapClick(layer, e) {
-	console.log(e.graphic);
 	var attr = e.graphic.attributes;
 	var content = "";
 	for ( var i in attr) {
-		console.log(i);
 		content += "<p>" + i + ":" + attr[i] + "</p>"
 	}
 	this.map.infoWindow.setContent(content);
-	this.map.infoWindow.setTitle(layer.className + "信息框");
+	this.map.infoWindow.setTitle(layer.className ? layer.className : layer.id
+			+ "信息框");
 	this.map.infoWindow.show(e.graphic.geometry, this.map
 			.getInfoWindowAnchor(e.graphic.geometry));
 }
@@ -194,8 +193,6 @@ function queryTaskByGeometry(mapManager, options) {
 				query.geometry = options.geometry;
 				// 执行查询
 				task.execute(query, function(results) {
-					console.log(123);
-					console.log(results);
 					if (results.features && results.features.length > 0) {
 						/* console.log(map.graphicsLayerIds); */
 						/* mapManager.map.getLayer("graphicsLayer1").hide(); */
@@ -308,7 +305,7 @@ function setSymbol(thisObj) {
 // 初始化地图
 // baseMap为object类型，内部包含name和url两个属性
 // layers为array，组成元素是包含name和url的object
-function initMap(mapManager,baseMap,layers) {
+function initMap(mapManager, baseMap, layers) {
 	require(
 			[ "dojo/parser", "esri/map", "esri/geometry/Point",
 					"esri/geometry/Polyline", "esri/geometry/Polygon",
@@ -346,35 +343,21 @@ function initMap(mapManager,baseMap,layers) {
 				mapManager.map = new Map(mapManager.mapDom, {
 					logo : false,
 					wrapAround180 : false,
-					slider:false
+					slider : false
 				});
-				var tempLayers=[];
-				var tiledLayer = new ArcGISTiledMapServiceLayer(
-						baseMap.url,baseMap.layer);
+				var tempLayers = [];
+				var tiledLayer = new ArcGISTiledMapServiceLayer(baseMap.url,
+						baseMap.layer);
 				mapManager.extent = tiledLayer.initialExtent;
 				tempLayers.push(tiledLayer);
-				/*
-				 * var dynLayer = new ArcGISDynamicMapServiceLayer(
-				 * "http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/Energy/Geology/MapServer");
-				 */
-				/*
-				 * var tree = new FeatureLayer(
-				 * "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0", {
-				 * id : 5, className : "Tree", outFields : [ "*" ] }); var
-				 * citiesPop = new FeatureLayer(
-				 * "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/WorldCities/FeatureServer/0", {
-				 * id : 6, className : "人口", outFields : [ "*" ] });
-				 * 
-				 * var graphicsLayer = new GraphicsLayer({ className :
-				 * "MyGraphics", id : "MyGraphics", opacity : 0.75, visible :
-				 * false });
-				 */
-				
-				for(var i=0;i<layers.length;++i){
-					var layer=new FeatureLayer(
-							layers[i].url,layers[i].layer);
-					layer.on("click", lang.hitch(mapManager, mapClick,
-							layer));
+
+				for (var i = 0; i < layers.length; ++i) {
+					var layer = new FeatureLayer(layers[i].url, layers[i].layer);
+					layer.on("click", lang.hitch(mapManager, mapClick, layer));
+					if (layer.id == "地区") {
+						layer.setDefinitionExpression("POP2007 <5000 and POP2007 >2000 ");
+						layer.dataAttributes = [ "value1", "value2", "zwx" ];
+					}
 					tempLayers.push(layer);
 				}
 				mapManager.map.addLayers(tempLayers);
@@ -390,6 +373,8 @@ function initMap(mapManager,baseMap,layers) {
 				mapManager.map.on("layers-add-result", lang.hitch(mapManager,
 						addLegend));
 				mapManager.map.on("load", function() {
+					mapManager.map.graphics.on("click", lang.hitch(mapManager,
+							mapClick, mapManager.map.graphics));
 					mapManager.layers = mapManager.map.graphicsLayerIds.concat(
 							mapManager.map.layerIds, "graphics");
 					mapManager.setLayers();
@@ -397,6 +382,8 @@ function initMap(mapManager,baseMap,layers) {
 					mapManager.drawToolBar = new Draw(mapManager.map);
 					mapManager.drawToolBar.on("draw-end", lang.hitch(
 							mapManager, getDrawResult));
+					getLayoutInfo(mapManager);
+					setFillRender(mapManager, "地区");
 					/*
 					 * citiesPop.on("click", lang.hitch(mapManager, mapClick,
 					 * citiesPop));
@@ -414,7 +401,6 @@ function initMap(mapManager,baseMap,layers) {
 					// 3000, 5000, 10000 ]
 					// }
 					// };
-
 					// var render = new
 					// SimpleRenderer(mapManager.symbol.pointSymbol);
 					// tree.on("load", function() {
@@ -444,7 +430,7 @@ function getFeatureJson() {
 }
 
 // 符号渲染器
-function initRender(mapManager,layerId) {
+function initRender(mapManager, layerId) {
 	require([ "esri/renderers/UniqueValueRenderer",
 			"esri/renderers/ClassBreaksRenderer",
 			"esri/symbols/SimpleMarkerSymbol", "esri/layers/FeatureLayer",
@@ -487,6 +473,25 @@ function initRender(mapManager,layerId) {
 	});
 }
 
+// 测试面符号分级渲染
+function setFillRender(mapManager, layerId) {
+	require([ "esri/renderers/ClassBreaksRenderer", "esri/layers/FeatureLayer",
+			"dojo/_base/lang" ], function(ClassBreaksRenderer, FeatureLayer,
+			lang) {
+		var render = new ClassBreaksRenderer(Symbols.FillSymbol.DefaultSymbol,
+				"POP2007");
+		var symbol1 = Symbols.FillSymbol.HlightSymbol;
+		render.addBreak(2300, 2400, symbol1);
+		var symbol2 = Symbols.FillSymbol.HlightSymbol2;
+		render.addBreak(2400, 2500, symbol2);
+		var symbol3 = Symbols.FillSymbol.HlightSymbo3;
+		render.addBreak(2500, 5000, symbol3);
+		var layer = mapManager.map.getLayer(layerId);
+		layer.setRenderer(render);
+		layer.redraw();
+	});
+}
+
 // 添加地图图例
 function addLegend(e) {
 	var map = this.map;
@@ -511,6 +516,31 @@ function addLegend(e) {
 		this.legend = legend;
 	});
 }
+//修改渲染字段的值
+/**
+ * @param layerInfo
+ * @param dataInfo
+ */
+function updateRenderField(renderInfo,dataInfo){
+	var graphics=renderInfo.graphcis;
+	var length=graphics.length;
+	for(var i=0;i<length;++i){
+		var field=graphics[i].attributes[layerFiled];
+		for(var j=0;j<data.length;++j){
+			if(data[j].dataName==field){
+				graphics[i].attributes[fieldName]=data.splice(j,1)[0].valueName;
+				break;
+			}
+		}
+	}
+}
+
+function checkData(attributes,dataInfo){
+	if(data[j].dataName==attributes[renderName]){
+		attributes[renderValue]=data.splice(j,1)[0].dataValue;
+		break;
+	}
+}
 
 function setRendererInfo(layer, info) {
 	var info = info
@@ -527,4 +557,20 @@ function setRendererInfo(layer, info) {
 				}
 			};
 	layer.renderer.setProportionalSymbolInfo(info);
+}
+
+function pointTrans(mapManager, data) {
+	require([ "esri/geometry/Point", "esri/symbols/SimpleMarkerSymbol",
+			"esri/graphic", "esri/SpatialReference" ], function(Point,
+			SimpleMarkerSymbol, Graphic, SpatialReference) {
+		for ( var i in data) {
+			var tempPoint = new Point(data[i].x, data[i].y,
+					new SpatialReference({
+						wkid : 4326
+					}));
+			var graphic = new Graphic(tempPoint,
+					Symbols.PointSymbol.DefaultSymbol, data[i]);
+			mapManager.map.graphics.add(graphic);
+		}
+	});
 }

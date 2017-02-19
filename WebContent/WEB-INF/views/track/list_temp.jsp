@@ -9,6 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>油气资源规划信息系统</title>
+<script type="text/javascript" src="../../js/arcgis/echartOptions.js"></script>
 <!-- 加载bootstrap -->
 <script type="text/javascript" src="../../js/arcgis/bootstrap.js"></script>
 <link type="text/css" rel="stylesheet"
@@ -33,14 +34,17 @@
 			</ol>
 			<!-- 轮播（Carousel）项目 -->
 			<div class="carousel-inner">
-				<div class="item active" data-options="onResize:panelResize">
-					<div id="chart21" style="width: 700px; height: 220px"></div>
+				<div class="item active">
+					<div id="chart21" class="echart"
+						style="width: 700px; height: 220px"></div>
 				</div>
-				<div class="item" data-options="onResize:panelResize">
-					<div id="chart22" style="width: 700px; height: 220px"></div>
+				<div class="item">
+					<div id="chart22" class="echart"
+						style="width: 700px; height: 220px"></div>
 				</div>
-				<div class="item" data-options="onResize:panelResize">
-					<div id="chart23" style="width: 700px; height: 220px"></div>
+				<div class="item">
+					<div id="chart23" class="echart"
+						style="width: 700px; height: 220px"></div>
 				</div>
 			</div>
 			<!-- 轮播（Carousel）导航 -->
@@ -54,97 +58,57 @@
 	</div> -->
 	</div>
 	<script type="text/javascript">
-		var option2 = {
-			title : {
-				text : '指标跟踪',
-				left : 'center'
-			},
-			tooltip : {
-				trigger : 'axis'
-			},
+		var options21 = setChartOption(options1, {
+			title : "石油产量",
+			xAxisData : [ 2011, 2012, 2013, 2014, 2015 ],
+			yAxisName : "亿吨",
+			yAxisData : [ 2.03, 2.07, 2.09, 2.11, 2.15 ]
+		});
+		options21.series[0].barWidth = 30;
+		bindOptionToDiv("chart21", options21);
 
-			xAxis : [ {
-				type : 'category',
-				/* boundaryGap : false, */
-				name : "年份",
-				data : [ 2011, 2012, 2013, 2014, 2015 ]
-			} ],
-			yAxis : [ {
-				type : 'value',
-				name : '万吨'
-			} ],
-			series : [ {
-				type : 'bar',
-				barWidth:30,
-				name : '历史数据',
-				itemStyle : {
-					normal : {
-						label : {
-							show : true,
-							position : 'top'
-						}
-					}
-				},
-				data : [ 1215, 8545, 5442, 78854, 4564, 4788 ]
-			} ]
-		}
-		function setChartOption(单位, 名称, 数据, 目标) {
-			option2.yAxis[0].name = 单位;
-			option2.title.text = 名称;
-			option2.series[0].name = 名称;
-			option2.series[0].data = 数据;
-			/* option2.series[0].markLine.data[0][0].yAxis = 目标;
-			option2.series[0].markLine.data[0][0].value = 目标;
-			option2.series[0].markLine.data[0][1].yAxis = 目标; */
-		}
-		/* var myChart12 = echarts.init(document.getElementById("chart1"));
-		option2.title.text = "规划完成情况";
-		myChart12.setOption(option2); */
-		var myChart221 = echarts.init(document.getElementById("chart21"));
-		/* option2.title.text = "石油产量"; */
-		setChartOption("亿吨", "石油产量", [ 2.03, 2.07, 2.09, 2.11, 2.15 ], 2.0);
-		myChart221.setOption(option2);
-		document.getElementById("chart21").chart=myChart221;
-		var myChart222 = echarts.init(document.getElementById("chart22"));
-		/* option2.title.text = "天然气产量"; */
-		setChartOption("亿立方米", "天然气产量",
-			[ 1013.00, 1071.00, 1166.00, 1248.00, 1300 ], 1385.00);
-		myChart222.setOption(option2);
-		document.getElementById("chart22").chart=myChart222;
-		var myChart223 = echarts.init(document.getElementById("chart23"));
-		/* option2.title.text = "煤层气产量"; */
-		setChartOption("亿立方米", "煤层气产量", [ 20.70, 25.73, 29.26, 36.90, 42.00 ],
-			160.00);
-		myChart223.setOption(option2);
-		document.getElementById("chart23").chart=myChart223;
+		var options22 = setChartOption(options1, {
+			title : "天然气产量",
+			xAxisData : [ 2011, 2012, 2013, 2014, 2015 ],
+			yAxisName : "亿立方米",
+			yAxisData : [ 1013.00, 1071.00, 1166.00, 1248.00, 1300 ]
+		});
+		options22.series[0].barWidth = 30;
+		bindOptionToDiv("chart22", options22);
+
+		var options23 = setChartOption(options1, {
+			title : "煤层气产量",
+			xAxisData : [ 2011, 2012, 2013, 2014, 2015 ],
+			yAxisName : "亿立方米",
+			yAxisData : [ 20.70, 25.73, 29.26, 36.90, 42.00 ]
+		});
+		options23.series[0].barWidth = 30;
+		bindOptionToDiv("chart23", options23);
+		
+		$(window).resize(windowResize);
 		window.onload = function() {
+			windowResize();
 			$(".carousel").carousel({
 				interval : 3000
 			});
 		}
-		function panelResize(width,height) {
-			$(this).children("div")[0].style.width=$(this).width();
-			$(this).children("div")[0].style.height=$(this).height();
-			$(this).children("div")[0].chart.resize();
-		};
-		//函数参数为dom元素
-		var resizeWorldMapContainer = function (chartDiv,chartDiv) {
-			chartDiv.style.width = chartDiv.style.width;
-			chartDiv.style.height = chartDiv.style.height;
-		};
-		$(window).resize(function(){
-			width=window.innerWidth;
-			height=window.innerHeight;
-			document.getElementById("chart21").style.width=width;
-			document.getElementById("chart21").style.height=height-2;
-			document.getElementById("chart21").chart.resize();
-			document.getElementById("chart22").style.width=width;
-			document.getElementById("chart22").style.height=height-2;
-			document.getElementById("chart22").chart.resize();
-			document.getElementById("chart23").style.width=width;
-			document.getElementById("chart23").style.height=height-2;
-			document.getElementById("chart23").chart.resize();
-			});
+		
+		function windowResize(array) {
+			width = window.innerWidth;
+			height = window.innerHeight;
+			document.getElementById("chart21").style.width = width;
+			document.getElementById("chart21").style.height = height - 2;
+			echartResize("chart21");
+			/* document.getElementById("chart21").chart.resize(); */
+			document.getElementById("chart22").style.width = width;
+			document.getElementById("chart22").style.height = height - 2;
+			echartResize("chart22");
+			/* document.getElementById("chart22").chart.resize(); */
+			document.getElementById("chart23").style.width = width;
+			document.getElementById("chart23").style.height = height - 2;
+			echartResize("chart23");
+			/* document.getElementById("chart23").chart.resize(); */
+		}
 	</script>
 </body>
 </html>
