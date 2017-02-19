@@ -207,11 +207,57 @@ public class ForecastAction extends BaseAction{
 		@RequestMapping(value = "/forecast/forecast")//检查成果名称是否合法，不允许重复
 		@ResponseBody
 		public void forecast(HttpServletRequest request,HttpServletResponse response) throws IOException{
-			String result = ForecastData.forecastData;
+			StringBuilder result = new StringBuilder();
+			String tempX = request.getParameter("x");
+			String tempY = request.getParameter("y");
+			String[] x = tempX.split(";");
+			String[] y = tempY.split(";");
+			LinkedHashMap historyDataMap = new LinkedHashMap();
+			for(int i=0;i<x.length;i++){
+				historyDataMap.put(Integer.parseInt(x[i]), Float.parseFloat(y[i]));
+			}
+			String modelId = request.getParameter("modelId");
+			ModelInfo model = modelInfoService.findById(modelId);
+			String pemNum = request.getParameter("pemNum");
+			String beginYear = request.getParameter("beginYear");
+			String endYear = request.getParameter("endYear");
+			InputParameter input = new InputParameter();
+			input.setPEM(Integer.parseInt(pemNum));
+			input.setHistoryDataMap(historyDataMap);
+			input.setFutureBeginYear(Integer.parseInt(beginYear));
+			input.setFutureEndYear(Integer.parseInt(endYear));
+			OutputParameter output = ForecastUtil.compute(model.getJarName(),model.getClassName(), input);
+			Iterator<Map.Entry> it= output.getPredictData().entrySet().iterator();
+			Iterator<Map.Entry> it1= output.getParamValueMap().entrySet().iterator();
+			StringBuilder resultX = new StringBuilder("\"x\":[");
+			StringBuilder resultY = new StringBuilder("\"y\":[");
+			StringBuilder pemName = new StringBuilder("\"pemName\":[");
+			StringBuilder pemValue = new StringBuilder("\"pemValue\":[");
+			while(it.hasNext())
+			{
+				Map.Entry entry = it.next(); 
+				resultX.append(entry.getKey().toString()+",");
+				resultY.append(entry.getValue().toString()+",");
+			}
+			while(it1.hasNext())
+			{
+				Map.Entry entry = it1.next(); 
+				pemName.append("\""+entry.getKey().toString()+"\",");
+				pemValue.append(entry.getValue().toString()+",");
+			}
+			resultX.deleteCharAt(resultX.length()-1);
+			resultX.append("]");
+			resultY.deleteCharAt(resultY.length()-1);
+			resultY.append("]");
+			pemName.deleteCharAt(pemName.length()-1);
+			pemName.append("]");
+			pemValue.deleteCharAt(pemValue.length()-1);
+			pemValue.append("]");
+			result.append("{"+resultX+","+resultY+","+pemName+","+pemValue+"}");
 			response.setContentType("application/json");
 		    response.setCharacterEncoding("utf-8");
-		    System.out.println(result);
-			response.getWriter().write(result);
+		    System.out.println(result.toString());
+			response.getWriter().write(result.toString());
 		}
 		
 		@RequestMapping(value = "/forecast/deleteRecord")

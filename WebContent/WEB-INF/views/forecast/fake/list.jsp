@@ -88,12 +88,10 @@ $(function(){
 						}
 					});
 	$(":radio[name='forecastTime']").click(function(){//时间选择方式有两种：一种是长中短期、一种是自定义时间段
-		if($(this).val()=='4'){
-			$('#s4_beginYear').attr('disabled',false);
+		if($(this).val()=='0'){
 			$('#s4_endYear').attr('disabled',false);
 		}
 		else{
-			$('#s4_beginYear').attr('disabled',true);
 			$('#s4_endYear').attr('disabled',true);
 		}
 	});
@@ -532,7 +530,7 @@ function modelChanged(){
 			$("#s3_modelDescription").html(result.description);
 			console.log(result.description);
 			for(var i=0;i<result.pems.length;i++){
-				$("#s3_pemName").append("<option value='"+result.pems[i].penNum+"'>"+result.pems[i].pemName+"</option>");
+				$("#s3_pemName").append("<option value='"+result.pems[i].pemNum+"'>"+result.pems[i].pemName+"</option>");
 			}
 		},
 		error:function(){
@@ -654,7 +652,7 @@ var option = {//用作预测的历史数据
 		
 var option1 = {
 		 title: { 
-					 text: '石油储量',
+					 text: '',
 					 left:'center'
 				 },
 		 tooltip: {
@@ -691,8 +689,8 @@ var option1 = {
 			          },
 			          {
 			        	  type: 'line',
-   					  name:'预测数据',
-   					  data: [] 
+	   					  name:'预测数据',
+	   					  data: [] 
 			          }
 		          ]
 		}
@@ -713,6 +711,7 @@ function s2s_previewData(){
 				option.xAxis[0].data = temp.x;
 				option.series[0].data= temp.y;
 				myChart.setOption(option);
+				console.log(option.xAxis[0].data);
 			}
 		},
 		error:function(){
@@ -723,24 +722,50 @@ function s2s_previewData(){
 }
 
 function s4_predict1(){//根据参数拟合方法计算参数
+	var endYear;
+	var beginYear = option.xAxis[0].data[0];
+	var x = "";
+	var y = "";
+	if($("input[name='forecastTime']:checked").val()=='0')
+		endYear = $("#s4_endYear").val();
+	else
+		endYear = parseInt(currentYear) + parseInt($("input[name='forecastTime']:checked").val());
+
+	for(var i=0;i<option.xAxis[0].data.length;i++){
+		x += option.xAxis[0].data[i]+";";
+		y += option.series[0].data[i]+";";
+	}
 	document.getElementById("echarts").style.display="";
 	var myChart = echarts.init(document.getElementById("test4"));
+
 	$.ajax({
 		url:"<%=path%>/forecast/forecast",
 		dataType:"json",
 		async:true,
+		data:{
+		"x":x,
+		"y":y,
+		"modelId":$("#s3_modelName").val(),
+		"pemNum":$("#s3_pemName").val(),
+		"beginYear":beginYear,
+		"endYear":endYear	
+		},
 		type:"GET",
 		success:function(result){
-			console.log(result)
-			var temp = {"x":[],"y":[]};
-			for(var i=0;i<result.forecastData.length;i++){
-				temp.x[i] = result.forecastData[i].year;
-				temp.y[i] = result.forecastData[i].value;
-				option1.xAxis[0].data = temp.x;
-				option1.series[0].data = option.series[0].data;
-				option1.series[1].data= temp.y;
-				myChart.setOption(option1);
+			document.getElementById("echarts").style.display="";
+			var myChart = echarts.init(document.getElementById("test4"));
+			option1.xAxis[0].data = result.x;
+			option1.series[0].data= option.series[0].data;
+			option1.series[1].data= result.y;
+			var content ="";
+			for(var i=0;i<result.pemName.length;i++){
+				content += result.pemName[i]+":<input type='text' value='"+result.pemValue[i]+"'><br>"
 			}
+			content += "<button onclick='s4_predict2()'>预测</button>";
+			$("#pemParams").empty();
+			$("#pemParams").html(content);
+			document.getElementById("pemParams").style.display="";
+			myChart.setOption(option1);
 		},
 		error:function(){
 			alert("预测失败");
@@ -904,40 +929,23 @@ function s4_predict2(){//自定义拟合参数拟合
 		   	</div>
 		   	<div style="padding: 5px;">
 		   		预测时间范围选择：<br/><br/> 
-			   		<label><input name="forecastTime" type="radio" value="1" checked/>短期(5年) </label> 
-					<label><input name="forecastTime" type="radio" value="2" />中期(10年) </label> 
-					<label><input name="forecastTime" type="radio" value="3" />中长期(20年) </label> 
+			   		<label><input name="forecastTime" type="radio" value="5" checked/>短期(5年) </label> 
+					<label><input name="forecastTime" type="radio" value="10" />中期(10年) </label> 
+					<label><input name="forecastTime" type="radio" value="20" />中长期(20年) </label> 
 					<br><br>
-					<label><input name="forecastTime" type="radio" value="4" />自定义</label> 
-					 <select id="s4_beginYear" disabled>
-							<option value="1949">1949</option>
-							<option value="1950">1950</option>
-							<option value="1951">1951</option>
-							<option value="1952">1952</option>
-							<option value="1953">1953</option>
-							<option value="1954">1954</option>
-						</select>--
-						 <select id="s4_endYear" disabled>
-							<option value="2010">2010</option>
-							<option value="2011">2011</option>
-							<option value="2012">2012</option>
-							<option value="2013">2013</option>
-							<option value="2014">2014</option>
-							<option value="2015">2015</option>
-						</select>
+					<label><input name="forecastTime" type="radio" value="0" />自定义 预测截止年份</label> 
+						<input id="s4_endYear" disabled/>
+						
 						<button onclick="s4_predict1()">预测</button>
 		   	</div>
 		   	<div style="padding: 5px;">
-		   		<input type="checkbox" id="inputPEM" onclick="inputPEM()">自定义拟合参数：
-		   		<div style="display:none;text-align:center" id="pemParams">
-		   			a:<input type="text" id="pem_a"><br>
-		   			b:<input type="text" id="pem_b"><br>
-		   			K:<input type="text" id="pem_K"><br>
+		   		<input type="checkbox" id="inputPEM" onclick="inputPEM()">修改拟合参数：
+			   		<div style="display:none;text-align:center" id="pemParams">
+			   			
+			   		</div>
 		   			<div style="text-align:center">
 		   				<button onclick="s4_predict2()">预测</button>
 		   			</div>
-		   		</div>
-		   			
 		   	</div>
 		</div>
 		<div style="width:60%;height:100%;float:left;display:none" id="echarts">
@@ -945,7 +953,7 @@ function s4_predict2(){//自定义拟合参数拟合
 			
 			</div>
 			<div style="height:40px;width:450px;text-align:right">
-				a=12;b=23;K=23
+				
 			</div>
 			
 		</div>
