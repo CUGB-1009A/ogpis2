@@ -15,10 +15,12 @@ CreatChart.prototype={
         var myChart = echarts.init(document.getElementById(this.id));      
         //绘制图表
         myChart.setOption({
+
             title: {
                 text: this.title,//取消了title的注释  @author:tudou
                 left:'center'
             },
+
 //            grid:{
 //                width:w,
 //                height:h
