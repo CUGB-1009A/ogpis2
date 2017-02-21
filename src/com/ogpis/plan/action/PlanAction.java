@@ -48,7 +48,6 @@ import com.ogpis.plan.service.Plan_IndexService;
 import com.ogpis.system.entity.Role;
 import com.ogpis.system.entity.User;
 import com.ogpis.system.service.UserService;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
@@ -224,7 +223,6 @@ public class PlanAction extends BaseAction {
 	@RequestMapping("/deletePlan")
 	public void delete(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String id=request.getParameter("planId");
-		System.out.println(id);
 		Plan plan=planService.findById(id);
 		plan.setDeleted(true);
 		Set<PlanDocument> planDocumentSet=plan.getPlanDocument();

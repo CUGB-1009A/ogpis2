@@ -24,7 +24,7 @@
 		<a class="easyui-linkbutton" data-options="size:'large'" href="<%=path%>/index/add?type=${type}"><i class="fa fa-plus" style="margin-right:3px"></i>添加指标</a>
 	</div>
 	<div style="margin:0 10px 0 10px">
-		<table class="easyui-datagrid" title="指标项管理" data-options="pagination:true">
+		<table class="easyui-datagrid" title="指标项管理" data-options="pagination:false,striped:true,singleSelect:true,rownumbers:true">
 			<thead>
 				<tr>
 					<th field='indexName' width="25%" align="center">指标名称</th>
