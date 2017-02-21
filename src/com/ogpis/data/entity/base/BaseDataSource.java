@@ -1,25 +1,21 @@
 package com.ogpis.data.entity.base;
 
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.data.entity.DataCache;
 import com.ogpis.data.entity.DataSource;
-import com.ogpis.data.entity.Field;
+import com.ogpis.data.entity.DataSourceField;
+import com.ogpis.data.entity.DataSourceMetric;
 import com.ogpis.data.entity.InterfaceTable;
 import com.ogpis.data.entity.Subject;
-import com.ogpis.data.entity.TableColumns;
 
 @MappedSuperclass
 public class BaseDataSource extends BaseEntity{
@@ -34,9 +30,48 @@ public class BaseDataSource extends BaseEntity{
 	@JoinColumn(name = "parentId")//父数据源id，如果数据源有子数据源，则没有具体的维度
 	private DataSource parentDataSource;
 
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "parentDataSource")
+	@OneToMany(mappedBy = "parentDataSource")
 	private List<DataSource> children;
 	
+	@OneToOne(mappedBy="dataSource")
+	private DataSourceMetric dataSourceMetric;
+	
+	@Column(name="dimensionName")
+	private String dimensionName;
+	
+	@Column(name="dimensionValue")
+	private String dimensionValue;
+	
+	@ManyToOne
+	@JoinColumn(name  = "tableId")
+	private InterfaceTable table;
+	
+	@ManyToOne
+	@JoinColumn(name = "subjectId")
+	private Subject subject;
+	
+	@OneToMany(mappedBy="dataSource")
+	protected List<DataCache> dataCache;
+	
+	@OneToMany(mappedBy="dataSource")
+	protected List<DataSourceField> dataSourceFields;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public DataSource getParentDataSource() {
 		return parentDataSource;
 	}
@@ -53,78 +88,20 @@ public class BaseDataSource extends BaseEntity{
 		this.children = children;
 	}
 
-	public String getParentNodeName() {
-		return parentNodeName;
+	public String getDimensionName() {
+		return dimensionName;
 	}
 
-	public void setParentNodeName(String parentNodeName) {
-		this.parentNodeName = parentNodeName;
+	public void setDimensionName(String dimensionName) {
+		this.dimensionName = dimensionName;
 	}
 
-	public String getChildNodeName() {
-		return childNodeName;
+	public String getDimensionValue() {
+		return dimensionValue;
 	}
 
-	public void setChildNodeName(String childNodeName) {
-		this.childNodeName = childNodeName;
-	}
-
-	@Column(name = "parentNodeName")
-	private String parentNodeName;
-	
-	@Column(name = "childNodeName")
-	private String childNodeName;
-
-
-	@ManyToOne
-	@JoinColumn(name  = "tableId")
-	private InterfaceTable table;
-	
-	@ManyToOne
-	@JoinColumn(name = "subjectId")
-	private Subject subject;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="dataSource")
-	protected List<DataCache> dataCache;
-	
-	@ManyToMany(targetEntity = Field.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "ogpis_DataSource_Field",joinColumns = @JoinColumn(name = "DataSource_ID"), inverseJoinColumns = @JoinColumn(name = "Field_ID"))
-	protected List<Field> field ;
-	
-	@ManyToMany(targetEntity = TableColumns.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "ogpis_DataSource_TableColumns",joinColumns = @JoinColumn(name = "DataSource_ID"), inverseJoinColumns = @JoinColumn(name = "TableColumns_ID"))
-	protected List<TableColumns> tableColumns ;
-
-	public List<TableColumns> getTableColumns() {
-		return tableColumns;
-	}
-
-	public void setTableColumns(List<TableColumns> tableColumns) {
-		this.tableColumns = tableColumns;
-	}
-
-	public List<Field> getField() {
-		return field;
-	}
-
-	public void setField(List<Field> field) {
-		this.field = field;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDimensionValue(String dimensionValue) {
+		this.dimensionValue = dimensionValue;
 	}
 
 	public InterfaceTable getTable() {
@@ -151,5 +128,19 @@ public class BaseDataSource extends BaseEntity{
 		this.dataCache = dataCache;
 	}
 	
+	public DataSourceMetric getDataSourceMetric() {
+		return dataSourceMetric;
+	}
 
+	public void setDataSourceMetric(DataSourceMetric dataSourceMetric) {
+		this.dataSourceMetric = dataSourceMetric;
+	}
+
+	public List<DataSourceField> getDataSourceFields() {
+		return dataSourceFields;
+	}
+
+	public void setDataSourceFields(List<DataSourceField> dataSourceFields) {
+		this.dataSourceFields = dataSourceFields;
+	}
 }

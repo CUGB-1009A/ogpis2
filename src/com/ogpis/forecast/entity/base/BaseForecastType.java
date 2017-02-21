@@ -16,7 +16,7 @@ import com.ogpis.forecast.entity.ModelInfo;
 @MappedSuperclass
 public class BaseForecastType extends BaseEntity{
 	
-	@Column(name = "预测类型")
+	@Column(name = "type")
 	private String type ;
 	
 	@ManyToMany(targetEntity = ModelInfo.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)

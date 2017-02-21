@@ -16,12 +16,5 @@ public class Subject extends BaseSubject implements Comparable{
 		Subject subject=(Subject) o;
 		return this.getPriority().compareTo(subject.getPriority());
 	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Dimension> getOrederdDimension() {
-		List<Dimension> list=(List<Dimension>)this.getDimension();
-		Collections.sort(list);
-		return list;
-	}
 
 }

@@ -86,12 +86,10 @@ public class DimensionAction extends BaseAction{
 		}	
 		dimension.setYear(dimensionIsYear);
 		dimension.setName(name);
-		dimension.setSubject(subjects);
-		dimension.setPriority(priority);
 		dimensionService.save(dimension);
 		Integer count = 0;
-		if(dimension.getDimensionValue()!=null){
-			List<DimensionValue> dimensionValuesOld = dimension.getDimensionValue();
+		if(dimension.getDimensionValues()!=null){
+			List<DimensionValue> dimensionValuesOld = dimension.getDimensionValues();
 			dimensionValueService.delete(dimensionValuesOld);
 		}
 			for(String temp1 : dimensionValueArray){
@@ -115,7 +113,6 @@ public class DimensionAction extends BaseAction{
 		for(String temp : idArray){
 			ids1 = ids1 + "\'" + temp + "\',";
 			Dimension dimension = dimensionService.findById(temp);
-			dimension.setSubject(null);
 			dimensionService.update(dimension);
 		}
 		response.setContentType("application/json");
@@ -127,18 +124,17 @@ public class DimensionAction extends BaseAction{
 	public void getDimensionInfo(HttpServletRequest request,  HttpServletResponse response,ModelMap model) throws IOException {
 		String id = request.getParameter("id");
 		Dimension dimension = dimensionService.findById(id);
-		List<Subject> subjects = dimension.getSubject();
-		List<DimensionValue> dimensionValues = dimension.getDimensionValue();
+		List<DimensionValue> dimensionValues = dimension.getDimensionValues();
 		String dimensionValueString = "";
 		for(DimensionValue temp : dimensionValues){
 			dimensionValueString += temp.getValue()+";";
 		}
 		dimensionValueString = dimensionValueString.substring(0,dimensionValueString.length()-1);
 		StringBuilder result = new StringBuilder();
-		result.append("{\"dimensionValues\":\""+dimensionValueString+"\",\"name\":\""+dimension.getName()+"\",\"year\":\""+dimension.isYear()+"\",\"priority\":"+dimension.getPriority()+",\"ids\":[");
-		for(Subject temp : subjects){
+		result.append("{\"dimensionValues\":\""+dimensionValueString+"\",\"name\":\""+dimension.getName()+"\",\"year\":\""+dimension.isYear()+"\",\"ids\":[");
+	/*	for(Subject temp : subjects){
 			result.append("\""+temp.getId()+"\",");
-		}
+		}*/
 		result.deleteCharAt(result.length()-1);
 		result.append("]}");
 		System.out.println(result.toString());

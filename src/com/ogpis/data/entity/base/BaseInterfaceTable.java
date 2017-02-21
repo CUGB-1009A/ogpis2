@@ -10,63 +10,49 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.data.entity.DataSource;
-import com.ogpis.data.entity.Field;
 import com.ogpis.data.entity.Subject;
 import com.ogpis.data.entity.TableColumns;
 
 @MappedSuperclass
 public class BaseInterfaceTable extends BaseEntity {
+
+	
+	@Column(name = "name_CN")//接口表名称
+	private String name_CN;
+	
+	@Column(name = "name_EN")//接口表名称
+	private String name_EN;
+	
+	@Column(name = "description")//接口描述
+	private String description;
 	
 	@ManyToOne
 	@JoinColumn(name = "subjectId")//主题id
 	private Subject subject;
 	
-	@Column(name = "name")//接口名称
-	private String name;
-	
-	@Column(name = "description")//接口描述
-	private String description;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="table")
-	protected List<Field> field;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="table")
-	protected List<TableColumns> tableColumns;
-	
-	public List<Field> getField() {
-		return field;
-	}
+	@Column(name = "isLocal")
+	private boolean isLocal;
 
-	public void setField(List<Field> field) {
-		this.field = field;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="table")
+	@OneToMany(mappedBy="table")
 	protected List<DataSource> dataSource;
+	
+	@OneToMany(mappedBy="table")
+	protected List<TableColumns> tableColumns;
 
-
-	public Subject getSubject() {
-		return subject;
+	public String getName_CN() {
+		return name_CN;
 	}
 
-	public void setSubject(Subject subject) {
-		this.subject = subject;
+	public void setName_CN(String name_CN) {
+		this.name_CN = name_CN;
 	}
 
-	public List<DataSource> getDataSource() {
-		return dataSource;
+	public String getName_EN() {
+		return name_EN;
 	}
 
-	public void setDataSource(List<DataSource> dataSource) {
-		this.dataSource = dataSource;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setName_EN(String name_EN) {
+		this.name_EN = name_EN;
 	}
 
 	public String getDescription() {
@@ -77,13 +63,36 @@ public class BaseInterfaceTable extends BaseEntity {
 		this.description = description;
 	}
 
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
+	public boolean isLocal() {
+		return isLocal;
+	}
+
+	public void setLocal(boolean isLocal) {
+		this.isLocal = isLocal;
+	}
+
+	public List<DataSource> getDataSource() {
+		return dataSource;
+	}
+
+	public void setDataSource(List<DataSource> dataSource) {
+		this.dataSource = dataSource;
+	}
+
 	public List<TableColumns> getTableColumns() {
 		return tableColumns;
 	}
 
-	public void setTableColumn(List<TableColumns> tableColumns) {
+	public void setTableColumns(List<TableColumns> tableColumns) {
 		this.tableColumns = tableColumns;
 	}
-
 
 }

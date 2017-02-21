@@ -1,6 +1,5 @@
 package com.ogpis.data.entity.base;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,9 +12,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import com.ogpis.base.entity.BaseEntity;
 import com.ogpis.data.entity.DataSource;
-import com.ogpis.data.entity.Dimension;
 import com.ogpis.data.entity.InterfaceTable;
-import com.ogpis.data.entity.Subject;
 import com.ogpis.forecast.entity.ForecastType;
 
 @MappedSuperclass
@@ -27,14 +24,11 @@ public class BaseSubject extends BaseEntity{
 	@Column(name = "priority")//排序
 	private Integer priority;
 	
-	@ManyToMany(targetEntity = Dimension.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "ogpis_Dimension_Subject",joinColumns = @JoinColumn(name = "Subject_ID"), inverseJoinColumns = @JoinColumn(name = "Dimension_ID"))
-	protected List<Dimension> dimension ;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="subject")
+	@OneToMany(mappedBy="subject")
 	protected List<InterfaceTable> interfaceTables ;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="subject")
+	@OneToMany(mappedBy="subject")
 	protected List<DataSource> dataSource;
 	
 	@ManyToMany(targetEntity = ForecastType.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -81,11 +75,5 @@ public class BaseSubject extends BaseEntity{
 		this.priority = priority;
 	}
 
-	public List<Dimension> getDimension() {
-		return this.dimension;
-	}
 
-	public void setDimension(List<Dimension> dimension) {
-		this.dimension = dimension;
-	}
 }

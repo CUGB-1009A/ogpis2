@@ -8,10 +8,10 @@ import com.ogpis.base.entity.BaseEntity;
 @MappedSuperclass
 public class BasePeriodDefinition extends BaseEntity {
 	
-	@Column(name = "年份间隔名称")//长、中、短期
+	@Column(name = "periodName")//长、中、短期
 	private String periodName;
 	
-	@Column(name = "年份间隔长度")
+	@Column(name = "periodInterval")
 	private int periodInterval ;
 
 	public String getPeriodName() {

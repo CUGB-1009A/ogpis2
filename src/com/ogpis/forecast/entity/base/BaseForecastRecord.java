@@ -13,28 +13,28 @@ import com.ogpis.system.entity.User;
 @MappedSuperclass
 public class BaseForecastRecord extends BaseEntity {
 	
-	@Column(name = "预测成果名称")
+	@Column(name = "forecastName")
 	private String forecastName;
 	
-	@Column(name = "预测步骤名称")
+	@Column(name = "forecastStep")
 	private String forecastStep;
 	
-	@Column(name = "共享状态")
-	private boolean shared;
+	@Column(name = "isShared")
+	private boolean isShared;
 	
 	@ManyToOne
-	@JoinColumn(name = "用户id")
+	@JoinColumn(name = "userId")
 	private User user;
 	
-	@Column(name = "成果路径")
+	@Column(name = "xmlUrl")
 	private String xmlUrl;
 	
 	@ManyToOne
-	@JoinColumn(name = "预测类型id")
+	@JoinColumn(name = "forecastTypeId")
 	private ForecastType forecastType;
 	
-	@Column(name = "是否完成")
-	private boolean finished;
+	@Column(name = "isFinished")
+	private boolean isFinished;
 	
 	public String getForecastName() {
 		return forecastName;
@@ -50,14 +50,6 @@ public class BaseForecastRecord extends BaseEntity {
 
 	public void setForecastStep(String forecastStep) {
 		this.forecastStep = forecastStep;
-	}
-
-	public boolean isShared() {
-		return shared;
-	}
-
-	public void setShared(boolean shared) {
-		this.shared = shared;
 	}
 
 	public User getUser() {
@@ -84,14 +76,20 @@ public class BaseForecastRecord extends BaseEntity {
 		this.forecastType = forecastType;
 	}
 
+	public boolean isShared() {
+		return isShared;
+	}
+
+	public void setShared(boolean isShared) {
+		this.isShared = isShared;
+	}
+
 	public boolean isFinished() {
-		return finished;
+		return isFinished;
 	}
 
-	public void setFinished(boolean finished) {
-		this.finished = finished;
+	public void setFinished(boolean isFinished) {
+		this.isFinished = isFinished;
 	}
 
-	
-	
 }

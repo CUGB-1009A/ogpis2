@@ -17,19 +17,19 @@ import com.ogpis.forecast.entity.ForecastType;
 @MappedSuperclass
 public class BaseModelInfo extends BaseEntity{
 	
-	@Column(name = "模型名称")
+	@Column(name = "modelName")
 	private String modelName;
 	
-	@Column(name = "Jar包名")
-	private String jarName;
+	@Column(name = "jarUrl")
+	private String jarUrl;
 	
-	@Column(name = "类名")
+	@Column(name = "className")
 	private String className;
 	
-	@Column(name = "模型描述",columnDefinition="Text")
+	@Column(name = "modelDescription",columnDefinition="Text")
 	private String modelDescription;
 	
-	@Column(name = "拟合方法")
+	@Column(name = "pem")
 	private String pem;
 	
 	@ManyToMany(targetEntity = ForecastType.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -44,12 +44,12 @@ public class BaseModelInfo extends BaseEntity{
 		this.modelName = modelName;
 	}
 
-	public String getJarName() {
-		return jarName;
+	public String getJarUrl() {
+		return jarUrl;
 	}
 
-	public void setJarName(String jarName) {
-		this.jarName = jarName;
+	public void setJarUrl(String jarUrl) {
+		this.jarUrl = jarUrl;
 	}
 
 	public String getClassName() {

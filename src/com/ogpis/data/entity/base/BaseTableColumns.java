@@ -1,83 +1,83 @@
 package com.ogpis.data.entity.base;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
 import com.ogpis.base.entity.BaseEntity;
-import com.ogpis.data.entity.ColumnSet;
-import com.ogpis.data.entity.DataSource;
+import com.ogpis.data.entity.DataSourceField;
+import com.ogpis.data.entity.DataSourceMetric;
 import com.ogpis.data.entity.InterfaceTable;
-import com.ogpis.data.entity.TableColumns;
+import com.ogpis.data.entity.MultiDataSourceMetric;
+
 @MappedSuperclass
 public class BaseTableColumns extends BaseEntity{
 
 
-	@Column(name = "tablecolumn_key")//
-	private String key;
+	@Column(name = "name")//
+	private String name;
 	
-	@Column(name = "tablecolumn_value")//
-	private String value;
-	
-	@ManyToOne
-	@JoinColumn(name = "parentId")//父数据源id，如果数据源有子数据源，则没有具体的维度
-	private TableColumns parentTableColumn;
-
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "parentTableColumn")
-	private Set<TableColumns> children;
-	
-	public TableColumns getParentTableColumn() {
-		return parentTableColumn;
-	}
-
-	public void setParentTableColumn(TableColumns parentTableColumn) {
-		this.parentTableColumn = parentTableColumn;
-	}
-
-	public Set<TableColumns> getChildren() {
-		return children;
-	}
-
-	public void setChildren(Set<TableColumns> children) {
-		this.children = children;
-	}
+	@Column(name = "code")//
+	private String code;
 
 	@ManyToOne
 	@JoinColumn(name = "tableId")//
 	private InterfaceTable table;
 	
-	@ManyToOne
-	@JoinColumn(name = "columnSetId")//
-	private ColumnSet columnSet;
+	@OneToMany(mappedBy = "tableColumns")
+	private List<DataSourceMetric> dataSourceMetrics;
 	
-	@ManyToMany(targetEntity = DataSource.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "ogpis_DataSource_TableColumns",joinColumns = @JoinColumn(name = "TableColumns_ID"), inverseJoinColumns = @JoinColumn(name = "DataSource_ID"))
-	protected List<DataSource> dataSource ;
+	@OneToMany(mappedBy = "tableColumns")
+	private List<MultiDataSourceMetric> multiDataSourceMetrics;
+	
+	@OneToMany(mappedBy = "tableColumns")
+	private List<DataSourceField> dataSourceFields;
 
-	public String getKey() {
-		return key;
+	public List<DataSourceMetric> getDataSourceMetrics() {
+		return dataSourceMetrics;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setDataSourceMetrics(List<DataSourceMetric> dataSourceMetrics) {
+		this.dataSourceMetrics = dataSourceMetrics;
 	}
 
-	public String getValue() {
-		return value;
+	public List<MultiDataSourceMetric> getMultiDataSourceMetrics() {
+		return multiDataSourceMetrics;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setMultiDataSourceMetrics(List<MultiDataSourceMetric> multiDataSourceMetrics) {
+		this.multiDataSourceMetrics = multiDataSourceMetrics;
 	}
+
+	public List<DataSourceField> getDataSourceFields() {
+		return dataSourceFields;
+	}
+
+	public void setDataSourceFields(List<DataSourceField> dataSourceFields) {
+		this.dataSourceFields = dataSourceFields;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	public InterfaceTable getTable() {
 		return table;
 	}
@@ -86,22 +86,5 @@ public class BaseTableColumns extends BaseEntity{
 		this.table = table;
 	}
 
-	public ColumnSet getColumnSet() {
-		return columnSet;
-	}
-
-	public void setColumnSet(ColumnSet columnSet) {
-		this.columnSet = columnSet;
-	}
-
-	public List<DataSource> getDataSource() {
-		return dataSource;
-	}
-
-	public void setDataSource(List<DataSource> dataSource) {
-		this.dataSource = dataSource;
-	}
-	
-	
 }
 

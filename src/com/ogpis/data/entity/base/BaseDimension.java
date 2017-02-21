@@ -10,44 +10,40 @@ import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import com.ogpis.base.entity.BaseEntity;
+import com.ogpis.data.entity.DataSourceField;
+import com.ogpis.data.entity.DataSourceMetric;
 import com.ogpis.data.entity.DimensionValue;
-import com.ogpis.data.entity.Field;
 import com.ogpis.data.entity.Subject;
 
 
 @MappedSuperclass
 public class BaseDimension extends BaseEntity{
 	
+	@Column(name = "name")//维度显示名
+	private String name;
+	
 	@Column(name = "isYear")//是否为年份
 	private boolean isYear;
 	
-	@Column(name = "name")//维度名
-	private String name;
-	
-	@Column(name = "priority")//排序
-	private String priority;
-	
-	@Column(name = "yearType")//如果是年份字段，则有两种  一种是时间点NF=2010（point）;一种是时间区间1949<=NF<=2014（interval）
-	private String yearType;
+	@Column(name = "isMetric")//是否是度量维度
+	private boolean isMetric;
 
-	public String getYearType() {
-		return yearType;
+	@OneToMany(mappedBy="dimension")//维度值
+	protected List<DimensionValue> dimensionValues ;
+	
+	@OneToMany(mappedBy="dimension")
+	protected List<DataSourceMetric> dataSourceMetrics ;
+	
+	@OneToMany(mappedBy="dimension")
+	protected List<DataSourceField> dataSourceField;
+	
+	public String getName() {
+		return name;
 	}
 
-	public void setYearType(String yearType) {
-		this.yearType = yearType;
+	public void setName(String name) {
+		this.name = name;
 	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="dimension")//维度值
-	protected List<DimensionValue> dimensionValue ;
-	
-	@Deprecated
-	@ManyToMany(targetEntity = Subject.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "ogpis_Dimension_Subject",joinColumns = @JoinColumn(name = "Dimension_ID"), inverseJoinColumns = @JoinColumn(name = "Subject_ID"))
-	protected List<Subject> subject ;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy="dimension")
-	protected List<Field> field ;
 	
 	public boolean isYear() {
 		return isYear;
@@ -57,44 +53,36 @@ public class BaseDimension extends BaseEntity{
 		this.isYear = isYear;
 	}
 
-	public String getName() {
-		return name;
+	public boolean isMetric() {
+		return isMetric;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setMetric(boolean isMetric) {
+		this.isMetric = isMetric;
 	}
 
-	public String getPriority() {
-		return priority;
+	public List<DimensionValue> getDimensionValues() {
+		return dimensionValues;
 	}
 
-	public void setPriority(String priority) {
-		this.priority = priority;
+	public void setDimensionValues(List<DimensionValue> dimensionValues) {
+		this.dimensionValues = dimensionValues;
 	}
 
-	public List<DimensionValue> getDimensionValue() {
-		return this.dimensionValue;
+	public List<DataSourceMetric> getDataSourceMetrics() {
+		return dataSourceMetrics;
 	}
 
-	public void setDimensionValue(List<DimensionValue> dimensionValue) {
-		this.dimensionValue = dimensionValue;
+	public void setDataSourceMetrics(List<DataSourceMetric> dataSourceMetrics) {
+		this.dataSourceMetrics = dataSourceMetrics;
 	}
 
-	public List<Subject> getSubject() {
-		return this.subject;
+	public List<DataSourceField> getDataSourceField() {
+		return dataSourceField;
 	}
 
-	public void setSubject(List<Subject> subject) {
-		this.subject = subject;
-	}
-
-	public List<Field> getField() {
-		return field;
-	}
-
-	public void setField(List<Field> field) {
-		this.field = field;
+	public void setDataSourceField(List<DataSourceField> dataSourceField) {
+		this.dataSourceField = dataSourceField;
 	}
 
 }

@@ -17,7 +17,6 @@ import com.ogpis.base.action.BaseAction;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.base.common.page.SimplePage;
 import com.ogpis.data.entity.DataSource;
-import com.ogpis.data.entity.Field;
 import com.ogpis.data.entity.InterfaceTable;
 import com.ogpis.data.entity.Subject;
 import com.ogpis.data.service.DataSourceService;
@@ -34,23 +33,13 @@ public class DataSourceAction extends BaseAction{
 	
 	@RequestMapping(value = "/dataSource/list")
 	public String list(HttpServletRequest request, ModelMap model) {
-		List<Subject> subjects = subjectService.findAll();
-		List<InterfaceTable> interfaceTables = null;
-		List<Field> fields = null;
-		if(subjects.size()>0)
-			interfaceTables = subjects.get(0).getInterfaceTables();
-		if(interfaceTables.size()>0)
-			fields = interfaceTables.get(0).getField();
-		model.addAttribute("fields",fields);
-		model.addAttribute("interfaceTables",interfaceTables);
-		model.addAttribute("subjects",subjects);
+	
 		return "data/dataSource";
 	}
 	
 	@RequestMapping(value = "/data/dataMaintain")
 	public String dataMaintain(HttpServletRequest request, ModelMap model) {
-		String historyData = HistoryData.historyData;
-		model.addAttribute("historyData",historyData);
+		
 		return "data/dataMaintain";
 	}
 	

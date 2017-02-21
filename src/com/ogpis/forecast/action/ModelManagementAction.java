@@ -60,7 +60,7 @@ public class ModelManagementAction extends BaseAction{
 		StringBuilder result = new StringBuilder();
 		result.append("{\"description\":\""+modelInfo.getModelDescription()+"\",\"pems\":[");
 		System.out.println(result.toString());
-		LinkedHashMap pemList = ForecastUtil.getPEM(modelInfo.getJarName(), modelInfo.getClassName());
+		LinkedHashMap pemList = ForecastUtil.getPEM(modelInfo.getJarUrl(), modelInfo.getClassName());
 		Iterator<Map.Entry> it= pemList.entrySet().iterator();
 		while(it.hasNext())
 		{
@@ -94,7 +94,7 @@ public class ModelManagementAction extends BaseAction{
 		String modelDescription = modelInfo.getModelDescription().replaceAll("\"","'");
 		StringBuilder result = new StringBuilder();
 		result.append("{\"modelDescription\":\""+modelDescription+"\",\"pemList\":[");
-		LinkedHashMap pemList = ForecastUtil.getPEM(modelInfo.getJarName(), modelInfo.getClassName());
+		LinkedHashMap pemList = ForecastUtil.getPEM(modelInfo.getJarUrl(), modelInfo.getClassName());
 		Iterator<Map.Entry> it= pemList.entrySet().iterator();
 		while(it.hasNext())
 		{

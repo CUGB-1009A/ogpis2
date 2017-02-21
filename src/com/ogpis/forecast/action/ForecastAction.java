@@ -109,7 +109,7 @@ public class ForecastAction extends BaseAction{
 		String forecastData = ForecastData.forecastData;
 		List<ModelInfo> modelInfoList = modelInfoService.findAll();
 		ModelInfo tempModel = modelInfoList.get(0);
-		LinkedHashMap pemList = ForecastUtil.getPEM(tempModel.getJarName(),tempModel.getClassName());
+		LinkedHashMap pemList = ForecastUtil.getPEM(tempModel.getJarUrl(),tempModel.getClassName());
 		List<PeriodDefinition> periodIntervalList = periodDefinitionService.findAll();
 		model.addAttribute("periodIntervalList",periodIntervalList);
 		model.addAttribute("modelInfoList",modelInfoList);
@@ -128,7 +128,7 @@ public class ForecastAction extends BaseAction{
 		public void modelChanged(HttpServletRequest request, ModelMap model,HttpServletResponse response) {
 			String modelId = request.getParameter("modelId");
 			ModelInfo modelInfo = modelInfoService.findById(modelId);
-			LinkedHashMap pemList = ForecastUtil.getPEM(modelInfo.getJarName(), modelInfo.getClassName());
+			LinkedHashMap pemList = ForecastUtil.getPEM(modelInfo.getJarUrl(), modelInfo.getClassName());
 			StringBuilder result = new StringBuilder(); 
 			result.append("{\"pem\":[");
 			Iterator<Map.Entry> it= pemList.entrySet().iterator();
@@ -226,7 +226,7 @@ public class ForecastAction extends BaseAction{
 			input.setHistoryDataMap(historyDataMap);
 			input.setFutureBeginYear(Integer.parseInt(beginYear));
 			input.setFutureEndYear(Integer.parseInt(endYear));
-			OutputParameter output = ForecastUtil.compute(model.getJarName(),model.getClassName(), input);
+			OutputParameter output = ForecastUtil.compute(model.getJarUrl(),model.getClassName(), input);
 			Iterator<Map.Entry> it= output.getPredictData().entrySet().iterator();
 			Iterator<Map.Entry> it1= output.getParamValueMap().entrySet().iterator();
 			StringBuilder resultX = new StringBuilder("\"x\":[");
