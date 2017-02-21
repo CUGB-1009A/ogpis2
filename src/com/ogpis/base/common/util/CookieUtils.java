@@ -1,5 +1,6 @@
 package com.ogpis.base.common.util;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,13 +9,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CookieUtils {
-	public static void addCookie(HttpServletResponse response, String loginName,String loginNameValue,int maxAge){
-		Cookie  cookie = new Cookie(loginName, loginNameValue);
-		cookie.setPath("/");
-		if (maxAge>0) {
-			cookie.setMaxAge(maxAge);
+	public static void addCookie(HttpServletResponse response, String loginName,String loginNameValue
+			,String userRole,String userRoleValue,int maxAge){
+		Cookie  loginCookie = new Cookie(loginName, loginNameValue);
+		
+		Cookie roleCookie=null;
+		try {
+			roleCookie=new Cookie(userRole, java.net.URLEncoder.encode(userRoleValue, "GBK"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
-		response.addCookie(cookie);
+		
+		loginCookie.setPath("/");
+		roleCookie.setPath("/");
+		if (maxAge>0) {
+			loginCookie.setMaxAge(maxAge);
+			roleCookie.setMaxAge(maxAge);
+		}
+		response.addCookie(loginCookie);
+		response.addCookie(roleCookie);
 	}
 	
 	public static Cookie getCookieByName(HttpServletRequest request,String name){

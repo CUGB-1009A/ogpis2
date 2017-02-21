@@ -19,11 +19,19 @@ public class MainAction {
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main(HttpServletRequest request,HttpServletResponse response) {
 		
-		String loginName=request.getParameter("username");
-		CookieUtils.addCookie(response, ConstantsUtils.LOGIN_NAME, loginName, 3600);
+		/**
+		 * 获取到前台的基本信息，并添加至Cookie中
+		 */
 		
+		/*
+		 * AttributePrincipal principal=(AttributePrincipal)reuqest.getUserPrincipal();
+		 * String loginName=principal.getName();
+		 * 
+		 * String loginName=request.getParameter("username");
+		String userRole="管理员";
+		CookieUtils.addCookie(response, ConstantsUtils.LOGIN_NAME, loginName, 
+				ConstantsUtils.USER_TYPE,userRole,3600);*/
 		
-		System.out.println(loginName);
 		return "main/main";
 	}
 	
