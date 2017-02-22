@@ -130,28 +130,10 @@
 									}
 								},
 								{
-									field : 'name',
+									field : 'name_CN',
 									sortable:true,
 									title : '接口名称',
 									width : 20
-								},
-								{
-									field : 'description',
-									title : '接口描述',
-									width : 20
-								},
-								{
-									field : 'field',
-									title : '维度信息',
-									width : 20,
-									formatter : function(value,row,index){
-										var result = "";
-										for(var i=0;i<value.length;i++){
-											result += value[i].value +"；";
-										}
-										result = result.substring(0,result.length-1);
-										return result;
-									}
 								},
 								{
 									field:'subject',
@@ -186,21 +168,33 @@
 				<table id="interfaceGrid" class="easyui-datagrid .datagrid-btable"></table> 
 				<div id="interfaceAddDiv" style="width:600px; height: 400px; display: none"><!-- 添加维度div -->
 					<div>
-						<div style="padding: 15px 0 0 15px; ">
-							<label class="dialog-lable">接口名称:</label> 
-							<input id="interfaceName" class="dialog-input" type="text"/>
+						<div style="padding: 10px 0 0 10px; ">
+							<label class="dialog-lable">接口中文名：</label> 
+							<input id="interfaceNameCN" class="dialog-input" type="text"/>
 						</div>
-						<div style="padding: 15px 0 0 15px;">
-							<label class="dialog-lable">主题（可多选）:</label> 
-							<select class="dialog-input" id="interface_subjectId" multiple="multiple">
-								<c:forEach items="${subjects}" var="item">
-									<option value="${item.id}">${item.name}</option>
+						<div style="padding: 10px 0 0 10px; ">
+							<label class="dialog-lable">接口英文名：</label> 
+							<input id="interfaceNameEN" class="dialog-input" type="text"/>
+						</div>
+						<div style="padding: 10px 0 0 10px; ">
+							<label class="dialog-lable">接口描述：</label> 
+							<textarea id="interfaceDescription"  style="resize:none;"  class="dialog-input" rows="3"></textarea>
+						</div>
+						<div style="padding: 10px 0 0 10px;">
+							<label class="dialog-lable">主题：</label> 
+							<div class="dialog-input">
+								<c:forEach items="${subjects}" var="item" varStatus="status">
+									 <input name="interfaceSubject" type="checkbox" value="${item.id}" /><span style="font-size:12px">${item.name}</span>
+									 <c:if test="${status.count%4==0}">
+									 	<br>
+									 </c:if>
 								</c:forEach>
-							</select>
+							</div>
 						</div>
-						<div style="padding: 15px 0 0 15px; ">
-							<label class="dialog-lable">排序（数字）:</label> 
-							<input id="interfacePriority" class="dialog-input easyui-numberbox" type="text"/>
+						<div style="padding: 10px 0 0 10px;">
+							<label class="dialog-lable">是否是本地表：</label>
+							<input name="isLocal" type="radio" value="true" checked/>是
+							<input name="isLocal" type="radio" value="false" />否	
 						</div>
 					</div>
 				</div>
@@ -240,8 +234,8 @@
 						</div>
 						<div style="padding: 15px 0 0 15px;">
 							<label class="dialog-lable">是否是年份:</label> 
-							<label><input id="notyear" type="radio" name="year" value="no" checked/>不是</label> 
-							<label><input id="isyear" type="radio" name="year" value="yes"/>是</label> 
+							<label><input id="notyear" type="radio" name="year" value="false" checked/>不是</label> 
+							<label><input id="isyear" type="radio" name="year" value="true"/>是</label> 
 						</div>
 						<div style="padding: 15px 0 0 15px; ">
 							<label class="dialog-lable">排序（数字）:</label> 
@@ -264,6 +258,17 @@
 </body>
 <script type="text/javascript">
 /* ---------------------对接口进行操作开始------------------------------------ */
+
+function clearinterfaceAddDiv(){//清空添加接口表的dialog中信息
+	$("#interfaceNameCN").val("");
+	$("#interfaceNameEN").val("");
+	$("#interfaceDescription").val("");//可以不填写描述信息，所以这里对interfaceDescription不做判断
+	$('input[name="interfaceSubject"]').each(function(){ 
+		$(this).attr("checked",false);
+	});
+	$('input[name="isLocal"]').get(0).checked = true;
+}
+
 function addInterface(){
 	$('#interfaceAddDiv').dialog({
 		title : '添加接口信息',
@@ -271,13 +276,57 @@ function addInterface(){
 		cache : false,
 		modal : true,
 		resizable:true,
+		onOpen:function(){
+			clearinterfaceAddDiv(); //清空interfaceAddDiv中的勾选信息
+			},
 		buttons:[{
 			text:'保存',
 			handler:function(e)
 			{
+				var interfaceNameCN = $("#interfaceNameCN").val();
+				if(interfaceNameCN==""){
+					alert("请填写接口中文名！");
+					return false;
+				}
+				var interfaceNameEN = $("#interfaceNameEN").val();
+				if(interfaceNameEN==""){
+					alert("请填写接口英文名！");
+					return false;
+				}
+				var interfaceDescription = $("#interfaceDescription").val();//可以不填写描述信息，所以这里对interfaceDescription不做判断
+				var subjectIds = [];
+				      $('input[name="interfaceSubject"]:checked').each(function(){ 
+				      subjectIds.push($(this).val());
+				});
+				if(subjectIds.length==0){
+					alert("请至少选择一个主题！");
+					return false;
+				}
+				var isLocal = $('input[name="isLocal"]:checked').val();
 				$('#interfaceAddDiv').dialog({
 					closed:true
+				}); 
+				$.ajax({
+					url:"<%=path%>/interfaceTable/add",
+					dataType:"json",
+					async:true,
+					data:{
+						"interfaceNameCN":interfaceNameCN,
+						"interfaceNameEN":interfaceNameEN,
+						"interfaceDescription":interfaceDescription,
+						"subjectIds":subjectIds + "",
+						"isLocal":isLocal,	
+						},
+					type:"GET",
+					success:function(result){
+						
+						alert("添加接口表成功！")
+					},
+					error:function(){
+						alert("添加接口表失败！");
+					}
 				});
+				
 			}
 		},{
 			text:'取消',

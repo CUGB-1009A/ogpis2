@@ -26,4 +26,9 @@ public class InterfaceTableServiceImpl implements InterfaceTableService {
 		return interfaceTableDao.findById(id);
 	}
 
+	@Override
+	public InterfaceTable save(InterfaceTable interfaceTable) {
+		return interfaceTableDao.save(interfaceTable);
+	}
+
 }

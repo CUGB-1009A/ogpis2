@@ -25,7 +25,8 @@ public class BaseSubject extends BaseEntity{
 	private Integer priority;
 	
 	
-	@OneToMany(mappedBy="subject")
+	@ManyToMany(targetEntity = InterfaceTable.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "ogpis_InterfaceTable_Subject",joinColumns = @JoinColumn(name = "Subject_ID"), inverseJoinColumns = @JoinColumn(name = "InterfaceTable_ID"))
 	protected List<InterfaceTable> interfaceTables ;
 	
 	@OneToMany(mappedBy="subject")

@@ -39,6 +39,27 @@ public class InterfaceTableAction extends BaseAction{
 	    response.getWriter().write(this.toJsonTableData(pagination, null, true));
 		}
 	
+	@RequestMapping(value = "/interfaceTable/add")
+	@ResponseBody
+	public void add(HttpServletRequest request , HttpServletResponse response) throws IOException{
+		String interfaceNameCN = request.getParameter("interfaceNameCN");
+		String interfaceNameEN = request.getParameter("interfaceNameEN");
+		String interfaceDescription = request.getParameter("interfaceDescription");
+		String subjectIds = request.getParameter("subjectIds");
+		String isLocal = request.getParameter("isLocal");
+		System.out.println(interfaceNameCN+interfaceNameEN+interfaceDescription+subjectIds+isLocal);
+		InterfaceTable interfaceTable = new InterfaceTable();
+		interfaceTable.setLocal(isLocal.equals("true"));
+		interfaceTable.setName_CN(interfaceNameCN);
+		interfaceTable.setName_EN(interfaceNameEN);
+		interfaceTable.setDeleted(false);
+		interfaceTable.setDescription(interfaceDescription);
+		interfaceTableService.save(interfaceTable);
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("utf-8");
+	    response.getWriter().write("{\"result\":\"success\"}");
+		}
+	
 	
 	@RequestMapping(value = "/interfaceTable/getInterfaceBysubject")
 	@ResponseBody

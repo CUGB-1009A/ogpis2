@@ -22,7 +22,7 @@ public class BaseDimensionValue extends BaseEntity{
 	private String displayValue;
 	
 	@Column(name = "priority")//排序
-	private String priority;
+	private Integer priority;
 	
 	@ManyToOne
 	@JoinColumn(name = "dimensionId")//对应维度id
@@ -46,12 +46,12 @@ public class BaseDimensionValue extends BaseEntity{
 	public void setDisplayValue(String displayValue) {
 		this.displayValue = displayValue;
 	}
-	
-	public String getPriority() {
+
+	public Integer getPriority() {
 		return priority;
 	}
 
-	public void setPriority(String priority) {
+	public void setPriority(Integer priority) {
 		this.priority = priority;
 	}
 

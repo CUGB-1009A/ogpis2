@@ -5,6 +5,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
@@ -26,9 +28,9 @@ public class BaseInterfaceTable extends BaseEntity {
 	@Column(name = "description")//接口描述
 	private String description;
 	
-	@ManyToOne
-	@JoinColumn(name = "subjectId")//主题id
-	private Subject subject;
+	@ManyToMany
+	@JoinTable(name = "ogpis_InterfaceTable_Subject",joinColumns = @JoinColumn(name = "InterfaceTable_ID"), inverseJoinColumns = @JoinColumn(name = "Subject_ID"))
+	protected List<Subject> subjects;
 	
 	@Column(name = "isLocal")
 	private boolean isLocal;
@@ -63,12 +65,12 @@ public class BaseInterfaceTable extends BaseEntity {
 		this.description = description;
 	}
 
-	public Subject getSubject() {
-		return subject;
+	public List<Subject> getSubjects() {
+		return subjects;
 	}
 
-	public void setSubject(Subject subject) {
-		this.subject = subject;
+	public void setSubjects(List<Subject> subjects) {
+		this.subjects = subjects;
 	}
 
 	public boolean isLocal() {

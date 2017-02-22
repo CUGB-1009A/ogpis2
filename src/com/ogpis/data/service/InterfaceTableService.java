@@ -9,4 +9,6 @@ public interface InterfaceTableService {
 
 	InterfaceTable findById(String id);
 
+	InterfaceTable save(InterfaceTable interfaceTable);
+
 }

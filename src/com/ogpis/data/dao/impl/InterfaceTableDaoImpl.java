@@ -27,4 +27,10 @@ public class InterfaceTableDaoImpl extends HibernateBaseDao<InterfaceTable, Stri
 		return super.get(id);
 	}
 
+	@Override
+	public InterfaceTable save(InterfaceTable interfaceTable) {
+		getSession().save(interfaceTable);
+		return interfaceTable;
+	}
+
 }

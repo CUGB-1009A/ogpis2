@@ -96,7 +96,7 @@ public class DimensionAction extends BaseAction{
 				DimensionValue dimensionValue = new DimensionValue();
 				dimensionValue.setValue(temp1);
 				dimensionValue.setDimension(dimension);
-				dimensionValue.setPriority(count.toString());
+				dimensionValue.setPriority(count);
 				dimensionValueService.save(dimensionValue);
 				count++;
 			}	

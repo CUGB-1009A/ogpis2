@@ -9,4 +9,6 @@ public interface InterfaceTableDao {
 
 	InterfaceTable findById(String id);
 
+	InterfaceTable save(InterfaceTable interfaceTable);
+
 }
