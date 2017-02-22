@@ -9,6 +9,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <script type="text/javascript" src="<%=path%>/resource/dist/echarts.js"></script>
 	    <script type="text/javascript" src="<%=path%>/resources/stickUp.js"></script>
+	    <script type="text/javascript" src="<%=path%>/resources/jquery.table2excel.js"></script>
 		<title>${plan.planName }详情</title>
 		<style type="text/css">
 			.navbox {
@@ -194,18 +195,18 @@
 								
 							</div> 
 						</div>								
-						<div style="width: 20%;float: left;"> 
+						<div style="width: 20%;float: left;" class="tableClass"> 
 							<div style="height:300px;width:100%" align="center">	
 								<div>
-									<button></button>
+									<button id="btn_1${status.index}" class="exportExcel fa fa-download" onclick="exportExcel(this)">&nbsp;导出</button>
+								    <table class='table_1'
+								    	   id="table_1${status.index}"
+								           data-toggle="table_1${status.index}" 
+								           data-height="300">
+								        <thead>
+								        </thead>
+								    </table>
 								</div>
-							    <table class='table_1'
-							    	   id="table_1${status.index}"
-							           data-toggle="table_1${status.index}" 
-							           data-height="300">
-							        <thead>
-							        </thead>
-							    </table>
 							</div>
 						</div>									
 						<div style="width: 20%;float: right;margin-right: 50px;"> 
@@ -268,10 +269,26 @@
 		/*侧边栏停靠  */
 		jQuery(function($) {
 	        $(document).ready( function() {
-	            $('.navbox').stickUp();	            	            
+	            $('.navbox').stickUp();
+	            $(".exportExcel").hide();	            
 	        });
 	    });		
 		
+		$(".tableClass").hover(function(){
+			    $(".exportExcel").show();
+			},function(){
+			    $(".exportExcel").hide();
+			});
+		
+		function exportExcel(th){
+			var btnId=th.id;
+			var tableId=btnId.replace("btn","table");
+			$("#"+tableId).table2excel({
+	            exclude: ".noExl",
+	            name: "Worksheet Name",
+	            filename: "myFileName"
+	        });
+		}
 		
 		
 		var startYear='${plan.startTime}';

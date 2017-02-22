@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -35,6 +36,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ogpis.base.action.BaseAction;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.base.common.page.SimplePage;
+import com.ogpis.base.common.util.ConstantsUtils;
+import com.ogpis.base.common.util.CookieUtils;
 import com.ogpis.plan.entity.IndexDataManagement;
 import com.ogpis.plan.entity.IndexManagement;
 import com.ogpis.plan.entity.Plan;
@@ -51,6 +54,9 @@ import com.ogpis.system.service.UserService;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
+import net.sf.json.JsonConfig;
 
 @Controller
 @RequestMapping("/plan")
@@ -117,6 +123,39 @@ public class PlanAction extends BaseAction {
 		}
 		
 	}
+	/*
+	 * 这是个失败的东西
+	 */
+	@RequestMapping(value = "/planList")
+	public void getPlanList(HttpServletRequest request,HttpServletResponse response,
+			String type,String condition) throws IOException{
+		
+		LinkedHashMap map;
+		List<LinkedHashMap> mapList=new ArrayList<LinkedHashMap>();
+		
+		boolean isManager=true;
+		
+		//查询用户对应角色所能看到的规划
+		List<Plan> plans=planService.findAll(isManager, type, condition);
+		String[] excludes={"planDocument","index","plan_Indexs","users"};		
+		JsonConfig jsonConfig=new JsonConfig();
+		jsonConfig.setIgnoreDefaultExcludes(false);
+		jsonConfig.setExcludes(excludes);
+		
+		String result = "[{";
+		for(Plan temp:plans){
+			result+="\"planId\":"+temp.getId()+",\"planName\":"+temp.getPlanName()+"},";
+			result=result.substring(0, result.length()-1);
+		}				
+		
+		result+="}]";
+		System.out.println(result);
+		
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/json");
+		response.getWriter().write(result);		
+		
+	}
 	
 	@RequestMapping(value = "/userList")
 	public String userList(HttpServletRequest request,ModelMap model,String type,String condition){
@@ -133,6 +172,11 @@ public class PlanAction extends BaseAction {
 			if(role.getIsSuper())
 				isManager=true;
 		}*/
+		
+		Cookie cookie=CookieUtils.getCookieByName(request, ConstantsUtils.LOGIN_NAME);
+		String loginName=cookie.getValue();
+		System.out.println(loginName);
+		
 		
 		//查询用户对应角色所能看到的规划
 		List<Plan> plans=planService.findAll(isManager, type, condition);

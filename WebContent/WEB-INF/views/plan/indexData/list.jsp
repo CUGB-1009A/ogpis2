@@ -14,7 +14,7 @@
 		<div style="margin:10px 10px 10px 10px;">
 			<span style="font-size:24px;font-family:微软雅黑">完成情况管理</span>
 		</div>
-		<div>
+		<div style="margin-left:20px; ">
 			<span>指标类型：</span>
 			<select id="selectType" name="planType" class="select">
 				<%-- <option value='GZL' <c:if test="${type.equals('GZL') }">selected</c:if>>工作量</option>
@@ -42,22 +42,22 @@
 			&nbsp;&nbsp;
 			<c:if test="${!id.equals('0') }">
 				<a class="easyui-linkbutton" data-options="size:'large'" href="javascript:void(0)" onclick="$('#add').window('open')">
-					<i class="fa fa-edit" style="margin-right:3px"></i>录入信息
+					<i class="fa fa-plus" style="margin-right:3px"></i>录入信息
 				</a>				
 				<a class="easyui-linkbutton" data-options="size:'large'" href="javascript:void(0)" onclick="$dataFetch.window('open')">
-					<i class="fa fa-edit" style="margin-right:3px"></i>获取数据
+					<i class="fa fa-plus-circle" style="margin-right:3px"></i>获取数据
 				</a>				
 			</c:if>
 		</div>
 		
 		<div>
-			<div style="text-align:right;margin:0 10px 0 10px">
+			<div style="margin:10px 10px 0 10px">
 				<table id="indexDataGrid" class="easyui-datagrid" title="完成情况" data-options="striped:true,singleSelect:true,rownumbers:true">
 					<thead>
 						<tr>
-							<th field='indexYear' width='20%'>年度</th>
-							<th field="finished" width='40%'>完成量</th>
-							<th field="operate" width='40%'>操作</th>
+							<th field='indexYear' width='20%' align="center">年度</th>
+							<th field="finished" width='40%' align="center">完成量</th>
+							<th field="operate" width='40%' align="center">操作</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -70,16 +70,18 @@
 								<td><input id="input_${item1.id }" class="input_${item1.id }" type="text" value="${item1.finishedWorkload }" lastValue="${item1.finishedWorkload }" disabled="true"></td>
 								<td>
 									<p>
-										<a href="javascript:saveEditIndexData('${item1.id }')" id="ok_${item1.id }" style="display:none" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">
-											<i>ok</i>
+										<a href="javascript:saveEditIndexData('${item1.id }')" id="ok_${item1.id }" style="display:none" class="easyui-linkbutton">
+											<i class="fa fa-check" style="margin-right:3px">确定</i>
 										</a>&nbsp;
-										<a href="javascript:cancleIndexData('${item1.id }')" id="cancle_${item1.id }" style="display:none" class="easyui-linkbutton" data-options="iconCls:'icon-no'">
-											<i>cancle</i>
+										<a href="javascript:cancleIndexData('${item1.id }')" id="cancle_${item1.id }" style="display:none" class="easyui-linkbutton">
+											<i class="fa fa-times" style="margin-right:3px">取消</i>
 										</a>&nbsp;
-										<a href="javascript:editIndexData('${item1.id }')" id="edit_${item1.id }" class="easyui-linkbutton" ><i class="fa fa-edit" style="margin-right:3px"></i>
+										<a href="javascript:editIndexData('${item1.id }')" id="edit_${item1.id }" class="easyui-linkbutton" >
+											<i class="fa fa-edit" style="margin-right:3px"></i>
 											编辑
 										</a>&nbsp;
-										<a href="javascript:deleteIndexData('${item1.id }');" id="delete_${item1.id }" class="easyui-linkbutton" ><i class="fa fa-remove" style="margin-right:3px"></i>
+										<a href="javascript:deleteIndexData('${item1.id }');" id="delete_${item1.id }" class="easyui-linkbutton" >
+											<i class="fa fa-remove" style="margin-right:3px"></i>
 											删除
 										</a>&nbsp;
 									</p>
@@ -202,8 +204,7 @@
 				 $('#backBtn').hide();
 			 }
 
-		})
-	
+		})	
 		
 		var historyData = {"historyData": [{"year": 1949,"value": 12},{"year": 1950,"value": 20},{"year": 1951,"value": 31},{"year": 1952,"value": 44},{"year": 1953,"value": 62},{"year": 1954,"value": 79},{"year": 1955,"value": 97},{"year": 1956,"value": 116},{"year": 1957,"value": 146},{ "year": 1958,"value": 227},{"year": 1959,"value": 373},{"year": 1960,"value": 521},{"year": 1961,"value": 531},{"year": 1962,"value":575},{"year": 1963,"value": 648},{"year": 1964,"value": 848},{"year": 1965,"value": 1131},{"year": 1966,"value": 1454},{"year": 1967,"value": 1388},{"year": 1968,"value": 1599 },{"year": 1969,"value": 2175},{"year": 1970,"value": 3065},{"year": 1971,"value": 3941},{"year": 1972,"value": 4567},{"year": 1973,"value": 5361},{"year": 1974,"value": 6485},{"year": 1975,"value": 7706},{"year": 1976,"value": 8716},{"year": 1977,"value": 9364},{"year": 1978,"value": 10405},{"year": 1979,"value": 10615},{"year": 1980,"value": 10594},{"year": 1981,"value": 10122},{"year": 1982,"value": 10221},{"year": 1983,"value": 10607},{"year": 1984,"value": 11460},{"year": 1985,"value": 12489},{"year": 1986,"value": 13067},{"year": 1987,"value": 13413},{"year": 1988,"value": 13703},{"year": 1989,"value": 13765},{"year": 1990,"value": 13828},{"year": 1991,"value": 13979},{"year": 1992,"value": 14204},{"year": 1993,"value": 14400},{"year": 1994,"value": 14607},{"year": 1995,"value": 14905},{"year": 1996,"value": 15729},{"year": 1997,"value": 16044},{"year": 1998,"value": 16052},{"year": 1999,"value": 16000},{"year": 2000,"value": 16200},{"year": 2001,"value": 16500},{"year": 2002,"value": 16700},{"year": 2003,"value": 17010},{"year": 2004,"value": 17500},{"year": 2005,"value": 18150},{"year": 2006,"value": 18376},{"year": 2007,"value": 18666},{"year": 2008,"value": 18946},{"year": 2009,"value": 18821},{"year": 2010,"value": 19276},{"year": 2011,"value": 19250},{"year": 2012,"value": 20683},{"year": 2013,"value": 20902},{"year": 2014,"value": 21141}]};
 		var historyDataString;
@@ -317,8 +318,8 @@
 		function editIndexData(id){
 			$('.input_'+id).attr("disabled",false);
 			$('.input_'+id).focus();
-			document.getElementById('ok_'+id).style.display=" ";
-			document.getElementById('cancle_'+id).style.display=" ";
+			document.getElementById('ok_'+id).style.display="";
+			document.getElementById('cancle_'+id).style.display="";
 			document.getElementById('edit_'+id).style.display="none";
 			document.getElementById('delete_'+id).style.display="none";
 		}
