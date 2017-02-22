@@ -217,11 +217,16 @@
 						</div>
 					</div>
 				</div>
+				<div id="tableColumnsDiv" style="width:560px; height: 360px; display: none">
+					<table id="tableColumnsGrid">
+					</table> 
+				</div>
 			</div> 
 			<div id="interfaceButtons"style="text-align:center">
 				<a id="interfaceAdd" href="javascript:saveInterface('add')" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>  
 				<a id="interfaceEdit" href="javascript:saveInterface('edit')" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a> 
 				<a id="interfaceDelete" href="javascript:deleteInterface()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>  
+				<a id="tableColumnsEdit" href="javascript:tableColumnsEdit()" class="easyui-linkbutton" data-options="iconCls:'icon-large-smartart'">编辑表字段</a>  
 			</div> 
 	    </div>
 	    
@@ -328,7 +333,7 @@ function saveInterface(type){ //type='add' or 'edit' 判断是新加接口表还
 	}
 	if(type=='edit'){
 		title = "修改接口信息";
-		      $('input[name="interface"]:checked').each(function(){ 
+		$('input[name="interface"]:checked').each(function(){ 
 		      interfaceIds.push($(this).val());
 		});
 		if(interfaceIds.length!=1){
@@ -404,7 +409,7 @@ function saveInterface(type){ //type='add' or 'edit' 判断是新加接口表还
 	});
 }
 
-function deleteInterface(){
+function deleteInterface(){ //批量删除接口表
 	var interfaceIds = [];
          $('input[name="interface"]:checked').each(function(){ 
 	      interfaceIds.push($(this).val());
@@ -431,8 +436,134 @@ function deleteInterface(){
 	
 }
  
- 
- 
+function tableColumnsEdit(){//编辑表字段
+	var interfaceIds = [];
+	$('input[name="interface"]:checked').each(function(){ 
+		      interfaceIds.push($(this).val());
+		});
+		if(interfaceIds.length!=1){
+			alert("只能且必须选择一个服务接口表！");
+			return false;
+		}
+		$('#tableColumnsDiv').dialog({
+			title : '编辑表字段信息',
+			closed : false,
+			cache : false,
+			modal : true,
+			resizable:true,
+			buttons:[{
+				text:'返回',
+				handler:function(e){
+					$('#tableColumnsDiv').dialog({
+						closed:true
+					});
+				}
+			},
+			{
+				text:'添加',
+				handler:function(e){
+					newColumnsRow();
+				}
+			}]
+		});
+		$.ajax({
+			url:"<%=path%>/interfaceTable/getInterfaceMsg",
+			dataType:"json",
+			async:true,
+			data:{
+				"id":interfaceIds[0]	
+				},
+			type:"GET",
+			success:function(result){ 
+				$("#tableColumnsGrid").empty();
+				$("#tableColumnsGrid").append("<tr><td>字段中文名</td><td>字段英文名</td><td>操作</td></tr>")
+				for(var i=0;i<result.tableColumns.length;i++){
+					if(!result.tableColumns[i].deleted)
+						$("#tableColumnsGrid").append("<tr><td>"+result.tableColumns[i].name+"</td><td>"+result.tableColumns[i].code+"</td><td>"+"<input type='button' value='编辑' onclick='editColumnsRow(this,\""+result.tableColumns[i].id+"\")'><input type='button' value='删除' onclick='deleteColumnsRow(this,\""+result.tableColumns[i].id+"\")'>"+"</td></tr>")
+				}
+			},
+			error:function(){
+				alert("读取接口表信息失败！");
+			}
+		});
+}
+function newColumnsRow(){
+	$("#tableColumnsGrid").append("<tr><td><input type='text' value=''></td><td><input type='text' value=''></td><td>"+"<input type='button' value='确定' onclick='editColumnsRow(this,\"\")'><input type='button' value='删除' onclick='deleteColumnsRow(this,\"\")'>"+"</td></tr>")
+	
+}
+
+function editColumnsRow(dom,tableColumnsId){
+	var str = $(dom).val()=="编辑"?"确定":"编辑";  
+	if($(dom).val()=="确定"){
+		saveColumnsRow(dom,tableColumnsId);
+	}
+     $(dom).parent().siblings("td").each(function() {  // 获取当前行的其他单元格
+            obj_text = $(this).find("input:text");    // 判断单元格下是否有文本框
+            if(!obj_text.length)   // 如果没有文本框，则添加文本框使之可以编辑
+                $(this).html("<input type='text' value='"+$(this).text()+"'>");
+            else   // 如果已经存在文本框，则将其显示为文本框修改的值
+                $(this).html(obj_text.val()); 
+       });
+	 $(dom).val(str);   // 按钮被点击后，在“编辑”和“确定”之间切换
+}
+
+function saveColumnsRow(dom,tableColumnsId){
+	var type = 'update';
+	var name = $(dom).parent().parent().find('input').eq(0).val();
+	var code = $(dom).parent().parent().find('input').eq(1).val();
+	var tableId ;
+	$('input[name="interface"]:checked').each(function(){ 
+		     tableId = $(this).val();
+		});
+	if(tableColumnsId==""){
+		type = 'new';
+	}
+	$.ajax({
+		url:"<%=path%>/tableColumns/save",
+		dataType:"json",
+		async:true,
+		data:{
+			"tableId":tableId,
+			"name":encodeURIComponent(name),
+			"code":encodeURIComponent(code),
+			"type":type,
+			"id":tableColumnsId,
+			},
+		type:"GET",
+		success:function(result){ 
+			console.log(result.id);//此处将两个按钮重写一下就行了
+			var temp = $(dom).parent();
+			$(dom).parent().empty();
+			temp.append("<input type='button' value='编辑' onclick='editColumnsRow(this,\""+result.id+"\")'><input type='button' value='删除' onclick='deleteColumnsRow(this,\""+result.id+"\")'>");
+		},
+		error:function(){
+			alert("删除字段失败！");
+		}
+	});
+	
+}
+
+function deleteColumnsRow(dom,tableColumnsId){
+	if(tableColumnsId==""){
+		$(dom).parent().parent().remove();
+		return ;
+	}
+	$.ajax({
+		url:"<%=path%>/tableColumns/delete",
+		dataType:"json",
+		async:true,
+		data:{
+			"id":tableColumnsId	
+			},
+		type:"GET",
+		success:function(result){ 
+			$(dom).parent().parent().remove();
+		},
+		error:function(){
+			alert("删除字段失败！");
+		}
+	});
+}
  
  
 /* ---------------------对接口进行操作结束------------------------------------ */

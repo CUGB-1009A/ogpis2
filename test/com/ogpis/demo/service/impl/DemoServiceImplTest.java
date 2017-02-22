@@ -4,6 +4,9 @@ package com.ogpis.demo.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.CycleDetectionStrategy;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.ogpis.data.entity.InterfaceTable;
 import com.ogpis.data.service.DimensionService;
+import com.ogpis.data.service.InterfaceTableService;
 import com.ogpis.demo.entity.Demo;
 import com.ogpis.demo.service.DemoService;
 import com.ogpis.track.webservice.WebServiceParam;
@@ -90,4 +96,25 @@ public class DemoServiceImplTest {
 		WebServiceParams serviceParam=(WebServiceParams) JSONObject.toBean(obj, WebServiceParams.class, classMap);
 		System.out.println(serviceParam.getParamList().get(0).getColumsName());
 	}
+	
+	@Autowired
+	private InterfaceTableService service2;
+	@Test
+	public void testInterfaceTable(){
+		JsonConfig jsonConfig = new JsonConfig();
+//		jsonConfig.setIgnoreDefaultExcludes(false);
+		jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+//		jsonConfig.setExcludes(new String[]{"dataSource","forecastType","interfaceTables"}); // 过滤不需输出的属性
+
+		/*List<Subject> list=service.findAll();
+		JSONArray obj=JSONArray.fromObject(list,jsonConfig);*/
+		/*JSONArray array=JSONArray.fromObject(service.findAll());*/
+		InterfaceTable t=service2.findById("1ddf4371-add5-4a72-b231-559f5a8eef41");
+		System.out.println(t.getName_CN());
+		JSONObject obj=JSONObject.fromObject(t,jsonConfig);
+		System.out.println(obj.toString());
+		/*List<InterfaceTable> list=t.getInterfaceTables();*/
+		/*System.out.println(list.size());*/
+	}
+
 }
