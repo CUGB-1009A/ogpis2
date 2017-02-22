@@ -1,5 +1,7 @@
 package com.ogpis.data.service;
 
+import java.util.List;
+
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.data.entity.InterfaceTable;
 
@@ -10,5 +12,9 @@ public interface InterfaceTableService {
 	InterfaceTable findById(String id);
 
 	InterfaceTable save(InterfaceTable interfaceTable);
+
+	List<InterfaceTable> findByIds(String ids);
+
+	void delete(List<InterfaceTable> interfaceTables);
 
 }

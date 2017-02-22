@@ -77,17 +77,6 @@
 										return result;
 									}
 								}, 
-							/* 	{
-									field : 'createTime',
-									title : '创建时间',
-									width : 20,
-									formatter : function(value,row,index) {
-										var year = value.year+1900;
-										var month = value.month+1;
-										var date = value.date;
-										return year+"-"+month+"-"+date;
-									}
-								}, */
 								{
 									field : 'year',
 									title : '是否为年份',
@@ -122,7 +111,7 @@
 						columns : [ [
 								{
 									field : 'id',
-									title : '<input name="interfaceAll" type="checkbox" value=""/>',
+									title : '',
 									width : 0,
 									formatter : function(value,row,index) {
 										var option = '<input name="interface" type="checkbox" value="'+value+'" />';
@@ -132,16 +121,46 @@
 								{
 									field : 'name_CN',
 									sortable:true,
-									title : '接口名称',
+									title : '接口中文名称',
 									width : 20
 								},
 								{
-									field:'subject',
+									field : 'name_EN',
+									sortable:true,
+									title : '接口英文名称',
+									width : 20
+								},
+								{
+									field : 'createTime',
+									title : '创建时间',
+									width : 20,
+									formatter : function(value,row,index) {
+										var year = value.year+1900;
+										var month = value.month+1;
+										var date = value.date;
+										return year+"-"+month+"-"+date;
+									}
+								},
+								{
+									field:'subjects',
 									title:'所属主题',
 									width:20,
 									formatter : function(value,row,index){
-										return value.name;
+										var subjects = "" ;
+										for(var i=0;i<value.length;i++)
+											subjects += value[i].name + ";"
+										return subjects.substring(0,subjects.length-1);
 									}
+								},
+								{
+									field : 'local',
+									sortable:true,
+									title : '是否是本地表',
+									width : 20,
+									formatter : function(value,row,index){
+										var local = value?"是":"否";
+											return local;
+								}
 								}] ],
 						onLoadSuccess : function(data) {
 							$('#interfaceGrid').datagrid('fixRowHeight');//为了对齐行号
@@ -200,8 +219,8 @@
 				</div>
 			</div> 
 			<div id="interfaceButtons"style="text-align:center">
-				<a id="interfaceAdd" href="javascript:addInterface()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>  
-				<a id="interfaceEdit" href="javascript:editInterface()" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a> 
+				<a id="interfaceAdd" href="javascript:saveInterface('add')" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>  
+				<a id="interfaceEdit" href="javascript:saveInterface('edit')" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a> 
 				<a id="interfaceDelete" href="javascript:deleteInterface()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>  
 			</div> 
 	    </div>
@@ -249,8 +268,8 @@
 				</div>
 			</div> 
 			<div id="dimensionButtons"style="text-align:center">
-				<a id="dimensionAdd" href="javascript:addDimension()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>  
-				<a id="dimensionEdit" href="javascript:editDimension()" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a>   
+				<a id="dimensionAdd" href="javascript:addDimension('add')" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>  
+				<a id="dimensionEdit" href="javascript:editDimension('edit')" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a>   
 				<a id="dimensionDelete" href="javascript:deleteDimension()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>  
 			</div> 
 	    </div>    
@@ -264,21 +283,66 @@ function clearinterfaceAddDiv(){//清空添加接口表的dialog中信息
 	$("#interfaceNameEN").val("");
 	$("#interfaceDescription").val("");//可以不填写描述信息，所以这里对interfaceDescription不做判断
 	$('input[name="interfaceSubject"]').each(function(){ 
-		$(this).attr("checked",false);
+		$(this).prop("checked",false);
 	});
 	$('input[name="isLocal"]').get(0).checked = true;
 }
 
-function addInterface(){
+function showInterfaceMsg(id){//回显要修改的接口表信息
+	clearinterfaceAddDiv();
+	$.ajax({
+		url:"<%=path%>/interfaceTable/getInterfaceMsg",
+		dataType:"json",
+		async:true,
+		data:{
+			"id":id	
+			},
+		type:"GET",
+		success:function(result){ 
+			$("#interfaceNameCN").val(result.name_CN);
+			$("#interfaceNameEN").val(result.name_EN);
+			$("#interfaceDescription").val(result.description);
+			var subjectIds = [];
+			for(var i=0;i<result.subjects.length;i++){
+				subjectIds.push(result.subjects[i].id);
+			}
+			console.log(subjectIds);
+			$('input[name="interfaceSubject"]').each(function(){ 
+				if(subjectIds.indexOf($(this).val())!=-1)
+					$(this).prop("checked",true) ;
+			});
+			$(":radio[name='isLocal'][value='" + result.local + "']").prop("checked", "checked");
+		},
+		error:function(){
+			alert("读取接口表信息失败！");
+		}
+	});
+}
+
+function saveInterface(type){ //type='add' or 'edit' 判断是新加接口表还是修改接口表
+	var interfaceIds = [];
+	var title = "";
+	if(type=='add'){
+		title = "添加接口信息";
+		clearinterfaceAddDiv(); //清空interfaceAddDiv中的勾选信息
+	}
+	if(type=='edit'){
+		title = "修改接口信息";
+		      $('input[name="interface"]:checked').each(function(){ 
+		      interfaceIds.push($(this).val());
+		});
+		if(interfaceIds.length!=1){
+			alert("只能并必须选择一条记录修改！");
+			return false;
+		}
+		showInterfaceMsg(interfaceIds[0]);
+	}
 	$('#interfaceAddDiv').dialog({
-		title : '添加接口信息',
+		title : title,
 		closed : false,
 		cache : false,
 		modal : true,
 		resizable:true,
-		onOpen:function(){
-			clearinterfaceAddDiv(); //清空interfaceAddDiv中的勾选信息
-			},
 		buttons:[{
 			text:'保存',
 			handler:function(e)
@@ -307,23 +371,24 @@ function addInterface(){
 					closed:true
 				}); 
 				$.ajax({
-					url:"<%=path%>/interfaceTable/add",
+					url:"<%=path%>/interfaceTable/save",
 					dataType:"json",
 					async:true,
 					data:{
-						"interfaceNameCN":interfaceNameCN,
-						"interfaceNameEN":interfaceNameEN,
-						"interfaceDescription":interfaceDescription,
-						"subjectIds":subjectIds + "",
+						"id":interfaceIds[0],
+						"type":type,
+						"interfaceNameCN":encodeURIComponent(interfaceNameCN),
+						"interfaceNameEN":encodeURIComponent(interfaceNameEN),
+						"interfaceDescription":encodeURIComponent(interfaceDescription),
+						"subjectIds":subjectIds,
 						"isLocal":isLocal,	
 						},
 					type:"GET",
 					success:function(result){
-						
-						alert("添加接口表成功！")
+						$('#interfaceGrid').datagrid('reload');//新建完成后从新获取列表信息
 					},
 					error:function(){
-						alert("添加接口表失败！");
+						alert("保存接口表信息失败！");
 					}
 				});
 				
@@ -333,10 +398,37 @@ function addInterface(){
 			handler:function(e){
 				$('#interfaceAddDiv').dialog({
 					closed:true
-			});
-				}
+				});
+			}
 		}]
 	});
+}
+
+function deleteInterface(){
+	var interfaceIds = [];
+         $('input[name="interface"]:checked').each(function(){ 
+	      interfaceIds.push($(this).val());
+		 });
+	if(interfaceIds.length==0){
+		alert("至少选择一个接口表进行删除！");
+		return false;
+	}
+	$.ajax({
+		url:"<%=path%>/interfaceTable/delete",
+		dataType:"json",
+		async:true,
+		data:{
+			"ids":interfaceIds	
+			},
+		type:"GET",
+		success:function(result){
+			$('#interfaceGrid').datagrid('reload');//新建完成后从新获取列表信息
+		},
+		error:function(){
+			alert("保存接口表信息失败！");
+		}
+	});
+	
 }
  
  

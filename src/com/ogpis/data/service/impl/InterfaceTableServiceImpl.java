@@ -1,5 +1,7 @@
 package com.ogpis.data.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,16 @@ public class InterfaceTableServiceImpl implements InterfaceTableService {
 	@Override
 	public InterfaceTable save(InterfaceTable interfaceTable) {
 		return interfaceTableDao.save(interfaceTable);
+	}
+
+	@Override
+	public List<InterfaceTable> findByIds(String ids) {
+		return interfaceTableDao.findByIds(ids);
+	}
+
+	@Override
+	public void delete(List<InterfaceTable> interfaceTables) {
+		interfaceTableDao.delete(interfaceTables);
 	}
 
 }
