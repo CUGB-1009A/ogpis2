@@ -1,0 +1,66 @@
+{
+    "table": "DK08_NATIONRESERVES0",
+    "condition": [
+        {
+            "name": "资源类型",
+            "name_key": "ZYLX",
+            "isYear": false,
+            "value": [
+                "石油",
+                "天然气",
+                "煤层气",
+                "页岩气"
+            ]
+        },
+        {
+            "name": "国家或地区名称",
+            "name_key": "GJHDQMC",
+            "isYear": false,
+            "value": [
+                "全国",
+                "北京",
+                "上海",
+                "天津",
+                "湖北",
+                "山西"
+            ]
+        },
+        {
+            "name": "储量类型",
+            "name_key": "CLLX",
+            "isYear": false,
+            "value": [
+                "新增",
+                "剩余",
+                "累计"
+            ]
+        }
+    ],
+    "coordinate": [
+        {
+            "key": "NF",
+            "value": "年份",
+            "x": true
+        },
+        {
+            "key": "TMDZCLTJ",
+            "value": "探明地质储量体积",
+            "x": false
+        },
+        {
+            "key": "TMDZCLZL",
+            "value": "探明地质储量重量",
+            "x": false
+        },
+        {
+            "key": "JSKCCLZL",
+            "value": "技术可采储量重量",
+            "x": false
+        },
+        {
+            "key": "JSKCCLTJ",
+            "value": "技术可采储量体积",
+            "x": false
+        }
+    ]
+}
