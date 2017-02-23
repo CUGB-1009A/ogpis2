@@ -21,18 +21,21 @@ import com.ogpis.base.common.page.Pagination;
 import com.ogpis.base.common.page.SimplePage;
 import com.ogpis.data.entity.Dimension;
 import com.ogpis.data.entity.DimensionValue;
+import com.ogpis.data.entity.InterfaceTable;
 import com.ogpis.data.entity.Subject;
 import com.ogpis.data.service.DimensionService;
 import com.ogpis.data.service.DimensionValueService;
 import com.ogpis.data.service.SubjectService;
+
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.CycleDetectionStrategy;
 
 @Controller
 public class DimensionAction extends BaseAction{
 	
 	@Autowired
 	private DimensionService dimensionService;
-	@Autowired
-	private DimensionValueService dimensionValueService;
 	@Autowired
 	private SubjectService subjectService;
 	
@@ -60,58 +63,29 @@ public class DimensionAction extends BaseAction{
 	@RequestMapping(value = "/dimension/save")
 	public void save(HttpServletRequest request, HttpServletResponse response,ModelMap model) throws IOException {
 		String name = URLDecoder.decode(request.getParameter("name"), "UTF-8");
-		String subjectIds = request.getParameter("subjectIds");
-		String priority = request.getParameter("priority");
-		String flag = request.getParameter("flag");
-		String isYear = request.getParameter("isYear");
-		String dimensionValues = URLDecoder.decode(request.getParameter("dimensionValues"), "UTF-8");
-		System.out.println(isYear);
-		boolean dimensionIsYear = isYear.equals("yes");
-		System.out.println(name+subjectIds+priority);
-		String[] idArray= subjectIds.split(";");
-		String[] dimensionValueArray = dimensionValues.split(";");
-		String ids = "";
-		for(String temp : idArray){
-			ids = ids + "\'" + temp + "\',";
-		}
-		ids = ids.substring(0,ids.length()-1);
-		List<Subject> subjects = subjectService.findByIds(ids);
-		Dimension dimension = null;
-		if(flag.equals("new")){//新建维度信息
+		boolean isYear = request.getParameter("isYear").equals("true");
+		boolean isMetric = request.getParameter("isMetric").equals("true");
+		boolean type = request.getParameter("type").equals("add");
+		Dimension dimension ;
+		if(type){//新建
 			dimension = new Dimension();
 		}
-		if(flag.equals("update")){//修改维度信息
-			String id = request.getParameter("id");
+		else{
+			String id = request.getParameter("id"); 
 			dimension = dimensionService.findById(id);
-		}	
-		dimension.setYear(dimensionIsYear);
-		dimension.setName(name);
-		dimensionService.save(dimension);
-		Integer count = 0;
-		if(dimension.getDimensionValues()!=null){
-			List<DimensionValue> dimensionValuesOld = dimension.getDimensionValues();
-			dimensionValueService.delete(dimensionValuesOld);
 		}
-			for(String temp1 : dimensionValueArray){
-				DimensionValue dimensionValue = new DimensionValue();
-				dimensionValue.setValue(temp1);
-				dimensionValue.setDimension(dimension);
-				dimensionValue.setPriority(count);
-				dimensionValueService.save(dimensionValue);
-				count++;
-			}	
+		dimension.setYear(isYear);
+		dimension.setName(name);
+		dimension.setMetric(isMetric);
+		dimensionService.save(dimension);
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("utf-8");
 	    response.getWriter().write("{\"result\":\"success\"}");
 	}
 	
 	@RequestMapping(value = "/dimension/delete")
-	public void delete(HttpServletRequest request,  HttpServletResponse response,ModelMap model) throws IOException {
-		String ids = request.getParameter("ids");
-		String[] idArray= ids.split(";");
-		String ids1 = "";
-		for(String temp : idArray){
-			ids1 = ids1 + "\'" + temp + "\',";
+	public void delete(@RequestParam(value="ids[]") String[] ids,HttpServletRequest request,  HttpServletResponse response,ModelMap model) throws IOException {
+		for(String temp : ids){
 			Dimension dimension = dimensionService.findById(temp);
 			dimensionService.update(dimension);
 		}
@@ -124,23 +98,13 @@ public class DimensionAction extends BaseAction{
 	public void getDimensionInfo(HttpServletRequest request,  HttpServletResponse response,ModelMap model) throws IOException {
 		String id = request.getParameter("id");
 		Dimension dimension = dimensionService.findById(id);
-		List<DimensionValue> dimensionValues = dimension.getDimensionValues();
-		String dimensionValueString = "";
-		for(DimensionValue temp : dimensionValues){
-			dimensionValueString += temp.getValue()+";";
-		}
-		dimensionValueString = dimensionValueString.substring(0,dimensionValueString.length()-1);
-		StringBuilder result = new StringBuilder();
-		result.append("{\"dimensionValues\":\""+dimensionValueString+"\",\"name\":\""+dimension.getName()+"\",\"year\":\""+dimension.isYear()+"\",\"ids\":[");
-	/*	for(Subject temp : subjects){
-			result.append("\""+temp.getId()+"\",");
-		}*/
-		result.deleteCharAt(result.length()-1);
-		result.append("]}");
-		System.out.println(result.toString());
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+		JSONObject json = JSONObject.fromObject(dimension,jsonConfig);
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("utf-8");
-	    response.getWriter().write(result.toString());
+	    System.out.println(json.toString());
+	    response.getWriter().write(json.toString());
 	}
 	
 }

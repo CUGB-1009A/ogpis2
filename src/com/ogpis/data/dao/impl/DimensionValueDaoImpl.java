@@ -28,4 +28,9 @@ public class DimensionValueDaoImpl extends HibernateBaseDao<DimensionValue, Stri
 		
 	}
 
+	@Override
+	public DimensionValue findById(String id) {
+		return super.get(id);
+	}
+
 }

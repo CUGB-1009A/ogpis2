@@ -25,6 +25,11 @@ public class DimensionValueServiceImpl implements DimensionValueService{
 	public void delete(List<DimensionValue> dimensionValuesOld) {
 		dimensionValueDao.delete(dimensionValuesOld);
 	}
+
+	@Override
+	public DimensionValue findById(String id) {
+		return dimensionValueDao.findById(id);
+	}
 	
 
 }

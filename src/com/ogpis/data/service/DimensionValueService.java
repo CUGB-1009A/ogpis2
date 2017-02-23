@@ -10,4 +10,6 @@ public interface DimensionValueService {
 
 	void delete(List<DimensionValue> dimensionValuesOld);
 
+	DimensionValue findById(String id);
+
 }

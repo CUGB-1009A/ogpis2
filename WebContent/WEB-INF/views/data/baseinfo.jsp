@@ -16,7 +16,6 @@
 	}
 	</style>
 <script type="text/javascript">
-
  $(function(){
 	 //加载维度信息表
 	var datagridDimension = $('#dimensionGrid');
@@ -38,7 +37,7 @@
 						columns : [ [
 								{
 									field : 'id',
-									title : '<input name="dimensionAll" type="checkbox" value=""/>',
+									title : '',
 									width : 0,
 									formatter : function(value,row,index) {
 										var option = '<input name="dimension" type="checkbox" value="'+value+'" />';
@@ -49,43 +48,33 @@
 									field : 'name',
 									sortable:true,
 									title : '维度名称',
-									width : 20
+									width : 25
 								},
 								{
-									field : 'dimensionValue',
-									title : '维度值',
-									width : 20,
-									formatter : function(value,row,index){
-										var result = "";
-										for(var i=0;i<value.length;i++){
-											result += value[i].value +"；";
-										}
-										result = result.substring(0,result.length-1);
-										return result;
+									field : 'createTime',
+									title : '创建时间',
+									width : 25,
+									formatter : function(value,row,index) {
+										var year = value.year+1900;
+										var month = value.month+1;
+										var date = value.date;
+										return year+"-"+month+"-"+date;
 									}
 								},
-								 {
-									field:'subject',
-									title:'所属主题',
-									width:20,
-									formatter : function(value,row,index){
-										var result = "";
-										for(var i=0;i<value.length;i++){
-											result += value[i].name +"；";
-										}
-										result = result.substring(0,result.length-1);
-										return result;
-									}
-								}, 
 								{
 									field : 'year',
 									title : '是否为年份',
-									width : 20,
+									width : 25,
 									formatter : function(value,row,index){
-										if(value==true)
-											return "是";
-										if(value==false)
-											return "不是";
+										return value?'是':'否';
+									}
+								},
+								{
+									field : 'metric',
+									title : '是否是度量值',
+									width : 25,
+									formatter : function(value,row,index){
+										return value?'是':'否'
 									}
 								}] ],
 						onLoadSuccess : function(data) {
@@ -168,7 +157,6 @@
 					});
 	
 });
-
 </script>
 </head>
 <body>
@@ -180,7 +168,7 @@
 							<option value="${item.id}">${item.name}</option>
 						</c:forEach>
 					</select>
-				查询条件：<input class="easyui-validatebox" type="text" name="interfaceName"/>   
+				按接口中文名查询：<input class="easyui-validatebox" type="text" name="interfaceName"/>   
 				<a id="btn" href="javascript:void(0)" class="easyui-linkbutton" ><i class="fa fa-search" style="margin-right:3px"></i>查  询</a> 
 			</div> 
 	        <div style="text-align:center;padding:0px 5px 10px 5px">
@@ -232,57 +220,302 @@
 	    
 	    <div title="维度表维护" style="padding:10px;display:none;">  
 	    	<div id="dimensionListTb" style="padding-bottom:10px"> 
-	    		主题：<select id="dimensionSubject">
-						<c:forEach items="${subjects}" var="item">
-							<option value="${item.id}">${item.name}</option>
-						</c:forEach>
-					</select>
-				查询条件：<input class="easyui-validatebox" type="text" name="dimensionName"/>   
+				按维度名查询：<input class="easyui-validatebox" type="text" name="dimensionName"/>   
 				<a id="btn" href="javascript:void(0)" class="easyui-linkbutton" ><i class="fa fa-search" style="margin-right:3px"></i>查  询</a> 
 			</div> 
 	        <div style="text-align:center;padding:0px 5px 10px 5px">
 				<table id="dimensionGrid" class="easyui-datagrid .datagrid-btable"></table> 
-				<div id="dimensionAddDiv" style="width:600px; height: 400px; display: none"><!-- 添加维度div -->
+				<div id="dimensionAddDiv" style="width:600px; height: 250px; display: none"><!-- 添加维度div -->
 					<div>
 						<div style="padding: 15px 0 0 15px; ">
 							<label class="dialog-lable">维度名:</label> 
 							<input id="dimensionName" class="dialog-input" type="text"/>
 						</div>
 						<div style="padding: 15px 0 0 15px;">
-							<label class="dialog-lable">主题（可多选）:</label> 
-							<select class="dialog-input" id="dimension_subjectId" multiple="multiple">
-								<c:forEach items="${subjects}" var="item">
-									<option value="${item.id}">${item.name}</option>
-								</c:forEach>
-							</select>
-						</div>
-						<div style="padding: 15px 0 0 15px;">
-							<label class="dialog-lable">是否是年份:</label> 
-							<label><input id="notyear" type="radio" name="year" value="false" checked/>不是</label> 
+							<label class="dialog-lable">是否是年份值:</label> 
+							<label><input id="notyear" type="radio" name="year" value="false" checked/>否</label> 
 							<label><input id="isyear" type="radio" name="year" value="true"/>是</label> 
 						</div>
-						<div style="padding: 15px 0 0 15px; ">
-							<label class="dialog-lable">排序（数字）:</label> 
-							<input id="dimensionPriority" class="dialog-input easyui-numberbox" type="text"/>
-						</div>
-						<div style="padding: 15px 0 0 15px; ">
-							<label class="dialog-lable">维度值（分隔符；）:</label> 
-							<input id="dimensionValue" class="dialog-input" type="text"/>
+						<div style="padding: 15px 0 0 15px;">
+							<label class="dialog-lable">是否是度量值:</label> 
+							<label><input id="notMetric" type="radio" name="metric" value="false" checked/>否</label> 
+							<label><input id="isMetric" type="radio" name="metric" value="true"/>是</label> 
 						</div>
 					</div>
 				</div>
+				<div id="dimensionValueDiv" style="width:650px; height: 400px; display: none">
+					<table id="dimensionValueGrid">
+					</table> 
+				</div>
 			</div> 
 			<div id="dimensionButtons"style="text-align:center">
-				<a id="dimensionAdd" href="javascript:addDimension('add')" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>  
-				<a id="dimensionEdit" href="javascript:editDimension('edit')" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a>   
+				<a id="dimensionAdd" href="javascript:saveDimension('add')" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
+				<a id="dimensionEdit" href="javascript:saveDimension('edit')" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a>    
 				<a id="dimensionDelete" href="javascript:deleteDimension()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>  
+				<a id="dimensionValueEdit" href="javascript:editDimensionValue()" class="easyui-linkbutton" data-options="iconCls:'icon-large-smartart'">编辑维度值</a>   
+
 			</div> 
 	    </div>    
 	</div> 
 </body>
 <script type="text/javascript">
-/* ---------------------对接口进行操作开始------------------------------------ */
+/* ---------------------对维度进行操作开始------------------------------------ */
+function saveDimension(type){//保存维度信息
+	var dimensionIds = [] ;
+	var title;
+	if(type=='add'){
+		title = "添加维度信息";
+	}
+	if(type=='edit'){
+		title = "修改维度信息";
+		$('input[name="dimension"]:checked').each(function(){ 
+		      dimensionIds.push($(this).val());
+		});
+		if(dimensionIds.length!=1){
+			alert("只能并必须选择一条记录修改！");
+			return false;
+		}
+		 $.ajax({
+				url:"<%=path%>/dimension/getDimensionInfo",
+				dataType:"json",
+				async:true,
+				data:{
+					"id":dimensionIds[0]
+					},
+				type:"GET",
+				success:function(result){
+					if(result.year){
+						document.getElementById("isyear").checked = true;
+					}
+					if(result.metric){
+						document.getElementById("isMetric").checked = true;
+					}
+					$("#dimensionName").val(result.name);
+				},
+				error:function(){
+					alert("获取维度信息失败");
+					return false;
+				}
+			});
+	}
+	$('#dimensionAddDiv').dialog({
+		title : title,
+		closed : false,
+		cache : false,
+		modal : true,
+		resizable:true,
+		buttons:[{
+			text:'确定',
+			handler:function(e)
+			{
+				var name = $("#dimensionName").val();
+				var isYear = $("input[name='year']:checked").val();
+				var isMetric = $("input[name='metric']:checked").val();
+				if(name=="")
+					{
+					alert("请填写维度名称！");
+					return false;
+				}
+				 close(e);
+				 $.ajax({
+						url:"<%=path%>/dimension/save",
+						dataType:"json",
+						async:true,
+						data:{
+							"name":encodeURIComponent(name),
+							"type":type,
+							"id":dimensionIds[0],
+							"isMetric":isMetric,
+							"isYear":isYear
+							},
+						type:"GET",
+						success:function(result){
+							$('#dimensionGrid').datagrid('reload');    
+						},
+						error:function(){
+							alert("保存失败");
+						}
+					});
+			}
+		},{
+			text:'取消',
+			handler:function(e){close(e)}
+		}]
+	});
+}
+	
+	function deleteDimension(){
+		var number =$("input[name='dimension']:checked").length;
+		if(number<1){
+			alert("请至少选择一条记录再删除");
+			return false;
+		}
+		if(confirm("你确定要删除所选维度吗？")){
+			var dimensionIds = [] ;
+			$("input[name='dimension']:checked").each(function(){
+				dimensionIds.push($(this).val());
+			});
+			 $.ajax({
+					url:"<%=path%>/dimension/delete",
+					dataType:"json",
+					async:true,
+					data:{
+						"ids":dimensionIds
+						},
+					type:"GET",
+					success:function(result){
+						$('#dimensionGrid').datagrid('reload');    
+					},
+					error:function(){
+						alert("删除失败");
+					}
+				});
+		}		
+	}
+	
+	function close(e){//关闭添加、修改维度信息对话框，清空所填信息
+		document.getElementById("notyear").checked = true;
+		document.getElementById("notMetric").checked = true;
+		$("#dimensionName").val("");
+		$('#dimensionAddDiv').dialog({
+			closed : true,
+		});
+	}
+	
+function editDimensionValue(){//编辑维度值
+	var dimensionIds = [];
+	$('input[name="dimension"]:checked').each(function(){ 
+		      dimensionIds.push($(this).val());
+		});
+		if(dimensionIds.length!=1){
+			alert("只能且必须选择一个服务接口表！");
+			return false;
+		}
+		$('#dimensionValueDiv').dialog({
+			title : '编辑维度值',
+			closed : false,
+			cache : false,
+			modal : true,
+			resizable:true,
+			buttons:[{
+				text:'返回',
+				handler:function(e){
+					$('#dimensionValueDiv').dialog({
+						closed:true
+					});
+				}
+			},
+			{
+				text:'添加',
+				handler:function(e){
+					newColumnsRow1();
+				}
+			}]
+		});
+		$.ajax({
+			url:"<%=path%>/dimension/getDimensionInfo",
+			dataType:"json",
+			async:true,
+			data:{
+				"id":dimensionIds[0]	
+				},
+			type:"GET",
+			success:function(result){ 
+				$("#dimensionValueGrid").empty();
+				$("#dimensionValueGrid").append("<tr><td>维度值显示名</td><td>维度值真实值</td><td>排序</td><td>操作</td></tr>")
+				for(var i=0;i<result.orederdDimensionValue.length;i++){
+					if(!result.orederdDimensionValue[i].deleted)
+						$("#dimensionValueGrid").append("<tr><td>"+result.orederdDimensionValue[i].displayValue+"</td><td>"+result.orederdDimensionValue[i].value+"</td><td>"+result.orederdDimensionValue[i].priority+"</td><td>"+"<input type='button' value='编辑' onclick='editColumnsRow1(this,\""+result.orederdDimensionValue[i].id+"\")'><input type='button' value='删除' onclick='deleteColumnsRow1(this,\""+result.orederdDimensionValue[i].id+"\")'>"+"</td></tr>")
+				}
+			},
+			error:function(){
+				alert("读取接口表信息失败！");
+			}
+		});
+}
+function newColumnsRow1(){
+	$("#dimensionValueGrid").append("<tr><td><input type='text' value=''></td><td><input type='text' value=''></td><td><input type='text' value=''></td><td>"+"<input type='button' value='确定' onclick='editColumnsRow1(this,\"\")'><input type='button' value='删除' onclick='deleteColumnsRow1(this,\"\")'>"+"</td></tr>")
+	
+}
 
+function editColumnsRow1(dom,dimensionValueId){
+	var str = $(dom).val()=="编辑"?"确定":"编辑";  
+	if($(dom).val()=="确定"){
+		saveColumnsRow1(dom,dimensionValueId);
+	}
+     $(dom).parent().siblings("td").each(function() {  // 获取当前行的其他单元格
+            obj_text = $(this).find("input:text");    // 判断单元格下是否有文本框
+            if(!obj_text.length)   // 如果没有文本框，则添加文本框使之可以编辑
+                $(this).html("<input type='text' value='"+$(this).text()+"'>");
+            else   // 如果已经存在文本框，则将其显示为文本框修改的值
+                $(this).html(obj_text.val()); 
+       });
+	 $(dom).val(str);   // 按钮被点击后，在“编辑”和“确定”之间切换
+}
+
+function saveColumnsRow1(dom,dimensionValueId){
+	var type = 'update';
+	var displayValue = $(dom).parent().parent().find('input').eq(0).val();
+	var value = $(dom).parent().parent().find('input').eq(1).val();
+	var priority = $(dom).parent().parent().find('input').eq(2).val();
+	var dimensionId ;
+	$('input[name="dimension"]:checked').each(function(){ 
+		     dimensionId = $(this).val();
+		});
+	if(dimensionValueId==""){
+		type = 'new';
+	}
+	$.ajax({
+		url:"<%=path%>/dimensionValue/save",
+		dataType:"json",
+		async:true,
+		data:{
+			"dimensionId":dimensionId,
+			"displayValue":encodeURIComponent(displayValue),
+			"value":encodeURIComponent(value),
+			"priority":priority,
+			"type":type,
+			"id":dimensionValueId,
+			},
+		type:"GET",
+		success:function(result){ 
+			console.log(result.id);//此处将两个按钮重写一下就行了
+			var temp = $(dom).parent();
+			$(dom).parent().empty();
+			temp.append("<input type='button' value='编辑' onclick='editColumnsRow1(this,\""+result.id+"\")'><input type='button' value='删除' onclick='deleteColumnsRow1(this,\""+result.id+"\")'>");
+		},
+		error:function(){
+			alert("删除字段失败！");
+		}
+	});
+	
+}
+
+function deleteColumnsRow1(dom,dimensionValueId){
+	if(dimensionValueId==""){
+		$(dom).parent().parent().remove();
+		return ;
+	}
+	$.ajax({
+		url:"<%=path%>/dimensionValue/delete",
+		dataType:"json",
+		async:true,
+		data:{
+			"id":dimensionValueId	
+			},
+		type:"GET",
+		success:function(result){ 
+			$(dom).parent().parent().remove();
+		},
+		error:function(){
+			alert("删除字段失败！");
+		}
+	});
+}
+/* ---------------------对维度进行操作结束------------------------------------ */
+
+
+/* ---------------------对接口进行操作开始------------------------------------ */
 function clearinterfaceAddDiv(){//清空添加接口表的dialog中信息
 	$("#interfaceNameCN").val("");
 	$("#interfaceNameEN").val("");
@@ -416,7 +649,10 @@ function deleteInterface(){ //批量删除接口表
 		 });
 	if(interfaceIds.length==0){
 		alert("至少选择一个接口表进行删除！");
-		return false;
+		return ;
+	}
+	if(!confirm("你确定要删除所选维度吗？")){
+		return ;
 	}
 	$.ajax({
 		url:"<%=path%>/interfaceTable/delete",
@@ -564,193 +800,6 @@ function deleteColumnsRow(dom,tableColumnsId){
 		}
 	});
 }
- 
- 
 /* ---------------------对接口进行操作结束------------------------------------ */
-
-
-
-/* ---------------------对维度进行操作开始------------------------------------ */
-	function editDimension(){//编辑维度信息
-		var number =$("input[name='dimension']:checked").length;
-		if(number!=1){
-			alert("只能选择一条记录进行操作");
-			return false;
-		}
-		var id = $("input[name='dimension']:checked").val();
-		 $.ajax({
-				url:"<%=path%>/dimension/getDimensionInfo",
-				dataType:"json",
-				async:true,
-				data:{
-					"id":id
-					},
-				type:"GET",
-				success:function(result){
-					if(result.year=="true"){
-						document.getElementById("isyear").checked = true;
-					}
-					$("#dimensionValue").val(result.dimensionValues);
-					$("#dimensionName").val(result.name);
-					$('#dimensionPriority').numberbox('setValue', result.priority);
-					$("#dimension_subjectId option").each(function(){
-						for(var i=0;i<result.ids.length;i++){
-							if($(this).val()==result.ids[i])
-								$(this).attr("selected",true);
-						}
-					});
-				},
-				error:function(){
-					alert("获取维度信息失败");
-					return false;
-				}
-			});
-		$('#dimensionAddDiv').dialog({
-			title : '修改维度信息',
-			closed : false,
-			cache : false,
-			modal : true,
-			resizable:true,
-			buttons:[{
-				text:'确定',
-				handler:function(e)
-				{
-					var subjectIds = "";
-					var dimensionValues = $("#dimensionValue").val();
-					var name = $("#dimensionName").val();
-					var priority = $("#dimensionPriority").val();
-					var isYear = $("input[name='year']:checked").val();
-					$("#dimension_subjectId option:selected").each(function(){
-						subjectIds += $(this).val()+";";
-					});
-					/* if(name==""||priority==""||subjectIds=="")
-						{
-						alert("信息填写不完整");
-						return false;
-						} */
-					 close(e);
-					 $.ajax({
-							url:"<%=path%>/dimension/save",
-							dataType:"json",
-							async:true,
-							data:{
-								"name":encodeURIComponent(name),
-								"priority":priority,
-								"subjectIds":subjectIds,
-								"flag":"update",
-								"id":id,
-								"dimensionValues":encodeURIComponent(dimensionValues),
-								"isYear":isYear
-								},
-							type:"GET",
-							success:function(result){
-								$('#dimensionGrid').datagrid('reload');    
-							},
-							error:function(){
-								alert("修改失败");
-							}
-						});
-				}
-			},{
-				text:'取消',
-				handler:function(e){close(e)}
-			}]
-		});
-		
-	}
-	
-	function deleteDimension(){
-		var number =$("input[name='dimension']:checked").length;
-		if(number<1){
-			alert("请至少选择一条记录再删除");
-			return false;
-		}
-		if(confirm("你确定要删除所选维度吗？")){
-			var ids = "";
-			$("input[name='dimension']:checked").each(function(){
-				ids += $(this).val()+";";
-			});
-			 $.ajax({
-					url:"<%=path%>/dimension/delete",
-					dataType:"json",
-					async:true,
-					data:{
-						"ids":ids
-						},
-					type:"GET",
-					success:function(result){
-						$('#dimensionGrid').datagrid('reload');    
-					},
-					error:function(){
-						alert("删除失败");
-					}
-				});
-		}		
-	}
-	
-	function addDimension(){ //添加维度信息
-		$('#dimensionAddDiv').dialog({
-			title : '添加维度信息',
-			closed : false,
-			cache : false,
-			modal : true,
-			resizable:true,
-			buttons:[{
-				text:'确定',
-				handler:function(e)
-				{
-					var subjectIds = "";
-					var dimensionValues = $("#dimensionValue").val();
-					var name = $("#dimensionName").val();
-					var priority = $("#dimensionPriority").val();
-					var isYear = $("input[name='year']:checked").val();
-					$("#dimension_subjectId option:selected").each(function(){
-						subjectIds += $(this).val()+";";
-					});
-				/* 	if(subjectIds==""||name==""||priority==""||dimensionValues=="")
-						{
-						alert("信息填写不完整");
-						return false;
-						} */
-					 close(e);
-					 $.ajax({
-							url:"<%=path%>/dimension/save",
-							dataType:"json",
-							async:true,
-							data:{
-								"name":encodeURIComponent(name),
-								"priority":priority,
-								"subjectIds":subjectIds,
-								"flag":"new",
-								"dimensionValues":encodeURIComponent(dimensionValues),
-								"isYear":isYear
-								},
-							type:"GET",
-							success:function(result){
-								$('#dimensionGrid').datagrid('reload');    
-							},
-							error:function(){
-								alert("添加失败");
-							}
-						});
-				}
-			},{
-				text:'取消',
-				handler:function(e){close(e)}
-			}]
-		});
-	}
-	
-	function close(e){//关闭添加、修改维度信息对话框，清空所填信息
-		document.getElementById("notyear").checked = true;
-		$("#dimensionName").val("");
-		$('#dimensionPriority').numberbox('setValue', '');
-		$("#dimension_subjectId").val("");
-		$("#dimensionValue").val("");
-		$('#dimensionAddDiv').dialog({
-			closed : true,
-		});
-	}
-/* ---------------------对维度进行操作结束------------------------------------ */
 </script>
 </html>
