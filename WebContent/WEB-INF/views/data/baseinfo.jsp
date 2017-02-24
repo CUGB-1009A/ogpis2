@@ -14,7 +14,7 @@
 		height: 35px;
 		text-align: center
 	}
-	</style>
+</style>
 <script type="text/javascript">
  $(function(){
 	 //加载维度信息表
@@ -367,7 +367,7 @@ function saveDimension(type){//保存维度信息
 						$('#dimensionGrid').datagrid('reload');    
 					},
 					error:function(){
-						alert("删除失败");
+						alert("删除维度失败");
 					}
 				});
 		}		
@@ -388,7 +388,7 @@ function editDimensionValue(){//编辑维度值
 		      dimensionIds.push($(this).val());
 		});
 		if(dimensionIds.length!=1){
-			alert("只能且必须选择一个服务接口表！");
+			alert("只能且必须选择一个维度！");
 			return false;
 		}
 		$('#dimensionValueDiv').dialog({
@@ -397,18 +397,19 @@ function editDimensionValue(){//编辑维度值
 			cache : false,
 			modal : true,
 			resizable:true,
-			buttons:[{
+			buttons:[
+			{
+				text:'添加',
+				handler:function(e){
+					newColumnsRow1();
+				}
+			},
+			{
 				text:'返回',
 				handler:function(e){
 					$('#dimensionValueDiv').dialog({
 						closed:true
 					});
-				}
-			},
-			{
-				text:'添加',
-				handler:function(e){
-					newColumnsRow1();
 				}
 			}]
 		});
@@ -422,14 +423,14 @@ function editDimensionValue(){//编辑维度值
 			type:"GET",
 			success:function(result){ 
 				$("#dimensionValueGrid").empty();
-				$("#dimensionValueGrid").append("<tr><td>维度值显示名</td><td>维度值真实值</td><td>排序</td><td>操作</td></tr>")
+				$("#dimensionValueGrid").append("<tr><td style='width:170px'>维度值显示名</td><td style='width:170px'>维度值真实值</td><td style='width:170px'>排序</td><td style='width:170px'>操作</td></tr>")
 				for(var i=0;i<result.orederdDimensionValue.length;i++){
 					if(!result.orederdDimensionValue[i].deleted)
 						$("#dimensionValueGrid").append("<tr><td>"+result.orederdDimensionValue[i].displayValue+"</td><td>"+result.orederdDimensionValue[i].value+"</td><td>"+result.orederdDimensionValue[i].priority+"</td><td>"+"<input type='button' value='编辑' onclick='editColumnsRow1(this,\""+result.orederdDimensionValue[i].id+"\")'><input type='button' value='删除' onclick='deleteColumnsRow1(this,\""+result.orederdDimensionValue[i].id+"\")'>"+"</td></tr>")
 				}
 			},
 			error:function(){
-				alert("读取接口表信息失败！");
+				alert("读取维度值信息失败！");
 			}
 		});
 }
@@ -441,6 +442,13 @@ function newColumnsRow1(){
 function editColumnsRow1(dom,dimensionValueId){
 	var str = $(dom).val()=="编辑"?"确定":"编辑";  
 	if($(dom).val()=="确定"){
+		var displayValue = $(dom).parent().parent().find('input').eq(0).val();
+		var value = $(dom).parent().parent().find('input').eq(1).val();
+		var priority = $(dom).parent().parent().find('input').eq(2).val();
+		if(displayValue==""||value==""||priority==""){
+			alert('信息填写不完整');
+			return false;
+		}
 		saveColumnsRow1(dom,dimensionValueId);
 	}
      $(dom).parent().siblings("td").each(function() {  // 获取当前行的其他单元格
@@ -485,13 +493,16 @@ function saveColumnsRow1(dom,dimensionValueId){
 			temp.append("<input type='button' value='编辑' onclick='editColumnsRow1(this,\""+result.id+"\")'><input type='button' value='删除' onclick='deleteColumnsRow1(this,\""+result.id+"\")'>");
 		},
 		error:function(){
-			alert("删除字段失败！");
+			alert("保存维度值失败！");
 		}
 	});
 	
 }
 
 function deleteColumnsRow1(dom,dimensionValueId){
+	if(!confirm("你确定要删除该维度值吗？")){
+		return ;
+	}
 	if(dimensionValueId==""){
 		$(dom).parent().parent().remove();
 		return ;
@@ -508,7 +519,7 @@ function deleteColumnsRow1(dom,dimensionValueId){
 			$(dom).parent().parent().remove();
 		},
 		error:function(){
-			alert("删除字段失败！");
+			alert("删除维度值失败！");
 		}
 	});
 }
@@ -651,7 +662,7 @@ function deleteInterface(){ //批量删除接口表
 		alert("至少选择一个接口表进行删除！");
 		return ;
 	}
-	if(!confirm("你确定要删除所选维度吗？")){
+	if(!confirm("你确定要删除所选接口表吗？")){
 		return ;
 	}
 	$.ajax({
@@ -688,17 +699,16 @@ function tableColumnsEdit(){//编辑表字段
 			modal : true,
 			resizable:true,
 			buttons:[{
+				text:'添加',
+				handler:function(e){
+					newColumnsRow();
+				}
+			},{
 				text:'返回',
 				handler:function(e){
 					$('#tableColumnsDiv').dialog({
 						closed:true
 					});
-				}
-			},
-			{
-				text:'添加',
-				handler:function(e){
-					newColumnsRow();
 				}
 			}]
 		});
@@ -712,7 +722,7 @@ function tableColumnsEdit(){//编辑表字段
 			type:"GET",
 			success:function(result){ 
 				$("#tableColumnsGrid").empty();
-				$("#tableColumnsGrid").append("<tr><td>字段中文名</td><td>字段英文名</td><td>操作</td></tr>")
+				$("#tableColumnsGrid").append("<tr><td style='width:170px'>字段中文名</td><td style='width:170px'>字段英文名</td><td style='width:170px'>操作</td></tr>")
 				for(var i=0;i<result.tableColumns.length;i++){
 					if(!result.tableColumns[i].deleted)
 						$("#tableColumnsGrid").append("<tr><td>"+result.tableColumns[i].name+"</td><td>"+result.tableColumns[i].code+"</td><td>"+"<input type='button' value='编辑' onclick='editColumnsRow(this,\""+result.tableColumns[i].id+"\")'><input type='button' value='删除' onclick='deleteColumnsRow(this,\""+result.tableColumns[i].id+"\")'>"+"</td></tr>")
@@ -731,6 +741,12 @@ function newColumnsRow(){
 function editColumnsRow(dom,tableColumnsId){
 	var str = $(dom).val()=="编辑"?"确定":"编辑";  
 	if($(dom).val()=="确定"){
+		var name = $(dom).parent().parent().find('input').eq(0).val();
+		var code = $(dom).parent().parent().find('input').eq(1).val();
+		if(name==""||code==""){
+			alert('信息填写不完整');
+			return false;
+		}
 		saveColumnsRow(dom,tableColumnsId);
 	}
      $(dom).parent().siblings("td").each(function() {  // 获取当前行的其他单元格
@@ -773,13 +789,16 @@ function saveColumnsRow(dom,tableColumnsId){
 			temp.append("<input type='button' value='编辑' onclick='editColumnsRow(this,\""+result.id+"\")'><input type='button' value='删除' onclick='deleteColumnsRow(this,\""+result.id+"\")'>");
 		},
 		error:function(){
-			alert("删除字段失败！");
+			alert("保存表字段失败！");
 		}
 	});
 	
 }
 
 function deleteColumnsRow(dom,tableColumnsId){
+	if(!confirm("你确定要删除表字段吗？")){
+		return ;
+	}
 	if(tableColumnsId==""){
 		$(dom).parent().parent().remove();
 		return ;
@@ -796,7 +815,7 @@ function deleteColumnsRow(dom,tableColumnsId){
 			$(dom).parent().parent().remove();
 		},
 		error:function(){
-			alert("删除字段失败！");
+			alert("删除表字段失败！");
 		}
 	});
 }
