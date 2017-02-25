@@ -87,7 +87,8 @@ public class DimensionAction extends BaseAction{
 	public void delete(@RequestParam(value="ids[]") String[] ids,HttpServletRequest request,  HttpServletResponse response,ModelMap model) throws IOException {
 		for(String temp : ids){
 			Dimension dimension = dimensionService.findById(temp);
-			dimensionService.update(dimension);
+			dimension.setDeleted(true);
+			dimensionService.save(dimension);
 		}
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("utf-8");

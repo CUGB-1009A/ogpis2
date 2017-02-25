@@ -29,6 +29,9 @@ public class BaseForecastRecord extends BaseEntity {
 	@Column(name = "xmlUrl")
 	private String xmlUrl;
 	
+	@Column(name = "result")//存储预测过程和结果，json格式
+	private String result;
+	
 	@ManyToOne
 	@JoinColumn(name = "forecastTypeId")
 	private ForecastType forecastType;

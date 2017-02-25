@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ogpis.base.action.BaseAction;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.base.common.page.SimplePage;
+import com.ogpis.data.entity.Dimension;
 import com.ogpis.forecast.ForecastData;
 import com.ogpis.forecast.HistoryData;
 import com.ogpis.forecast.entity.ForecastRecord;
@@ -75,6 +76,8 @@ public class ForecastAction extends BaseAction{
 	@RequestMapping(value = "/forecast/list")
 	public String list(HttpServletRequest request, ModelMap model) {
 		List<ForecastType> forecastType = forecastTypeService.findAll();
+		List<PeriodDefinition> perfiodDifinition = periodDefinitionService.findAll();
+		model.addAttribute("perfiodDifinition",perfiodDifinition);
 		model.addAttribute("forecastType",forecastType);
 		return "forecast/fake/list";
 	}
@@ -179,19 +182,36 @@ public class ForecastAction extends BaseAction{
 		@RequestMapping(value = "/forecast/nameIsValid")//检查成果名称是否合法，不允许重复
 		@ResponseBody
 		public void nameIsValid(HttpServletRequest request,HttpServletResponse response) throws IOException{
+			String result = "";
 			String name = URLDecoder.decode(request.getParameter("name"), "UTF-8");
+			String id = request.getParameter("id");
 			List<ForecastRecord> forecastRecord = forecastRecordService.findByName(name);
 			response.setContentType("application/json");
 		    response.setCharacterEncoding("utf-8");
-		    System.out.println(forecastRecord.size());
-		    String result ;
-			if(forecastRecord.size()==0){
-				 result = "{\"result\":\"true\"}";
-			}
-			else{
-				 result = "{\"result\":\"false\"}";
-			}
-			 response.getWriter().write(result);
+		    if(id.equals("")){//说明是新建
+		    	System.out.println("新建");
+		    	if(forecastRecord.size()==0){
+					 result = "{\"result\":\"true\"}";
+				}
+				else{
+					 result = "{\"result\":\"false\"}";
+				}
+		    }
+		    else{//说明是修改
+		    	if(forecastRecord.size()==0){
+					 result = "{\"result\":\"true\"}";
+				}
+		    	else{
+		    		if(forecastRecord.size()==1&&forecastRecord.get(0).getId().equals(id)){
+		    			 result = "{\"result\":\"true\"}";
+			    	}
+		    		else{
+		    			result = "{\"result\":\"false\"}";
+		    		}
+		    	}	
+		    }	
+		    System.out.println(result);
+			response.getWriter().write(result);
 		}
 		
 		@RequestMapping(value = "/forecast/getHistoryData")//检查成果名称是否合法，不允许重复
@@ -291,5 +311,18 @@ public class ForecastAction extends BaseAction{
 		    response.setCharacterEncoding("utf-8");
 		    response.getWriter().write("{\"id\":\""+forecastRecord.getId()+"\"}");
 		}
+		
+		@RequestMapping(value = "/forecast/delete")//删除未完成的预测
+		@ResponseBody
+			public void delete(@RequestParam(value="ids[]") String[] ids,HttpServletRequest request,  HttpServletResponse response,ModelMap model) throws IOException {
+				for(String temp : ids){
+					ForecastRecord forecastRecord = forecastRecordService.findById(temp);
+					forecastRecord.setDeleted(true);
+					forecastRecordService.save(forecastRecord);
+				}
+				response.setContentType("application/json");
+			    response.setCharacterEncoding("utf-8");
+			    response.getWriter().write("{\"result\":\"success\"}");
+			}
 		
 }
