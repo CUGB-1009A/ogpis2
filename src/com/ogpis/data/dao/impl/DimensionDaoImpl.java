@@ -1,5 +1,7 @@
 package com.ogpis.data.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.ogpis.base.common.hibernate3.Finder;
@@ -36,6 +38,13 @@ public class DimensionDaoImpl extends HibernateBaseDao<Dimension, String> implem
 	public void update(Dimension dimension) {
 		getSession().merge(dimension);
 		getSession().delete(super.get(dimension.getId()));
+	}
+
+	@Override
+	public List<Dimension> getAllDimension() {
+		// TODO Auto-generated method stub
+		String hql="From Dimension";
+		return this.find(hql, null);
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.data.entity.InterfaceTable;
+import com.ogpis.data.entity.TableColumns;
 
 public interface InterfaceTableDao {
 
@@ -16,5 +17,8 @@ public interface InterfaceTableDao {
 	List<InterfaceTable> findByIds(String ids);
 
 	void delete(List<InterfaceTable> interfaceTables);
+	List<TableColumns> getColumnsById(String interfaceId);
+
+	List<TableColumns> getColumnsByIds(String interfaceIds);
 
 }

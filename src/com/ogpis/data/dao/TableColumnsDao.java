@@ -8,7 +8,8 @@ public interface TableColumnsDao {
 	Pagination getTableColumnsByTableId(String id ,int cpn, Integer pageSize);
 
 	TableColumns findById(String id);
+	
+	TableColumns getColumnsById(String tableColumnsId);
 
 	void save(TableColumns tableColumn);
-
 }

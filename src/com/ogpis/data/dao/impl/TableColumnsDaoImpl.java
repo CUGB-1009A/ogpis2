@@ -33,5 +33,12 @@ public class TableColumnsDaoImpl extends HibernateBaseDao<TableColumns, String> 
 	public void save(TableColumns tableColumn) {
 		getSession().merge(tableColumn);
 	}
+	
+	@Override
+	public TableColumns getColumnsById(String tableColumnsId) {
+		// TODO Auto-generated method stub
+		String hql="From TableColumns where id = ?";
+		return (TableColumns) this.findUnique(hql, tableColumnsId);
+	}
 
 }

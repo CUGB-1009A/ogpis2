@@ -9,7 +9,8 @@ public interface DimensionValueService {
 	void save(DimensionValue dimensionValue);
 
 	void delete(List<DimensionValue> dimensionValuesOld);
-
 	DimensionValue findById(String id);
+	List<DimensionValue> getByDimensionId(String dimensionId);
+	DimensionValue getById(String dimensionValueId);
 
 }

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.data.dao.InterfaceTableDao;
 import com.ogpis.data.entity.InterfaceTable;
+import com.ogpis.data.entity.TableColumns;
 import com.ogpis.data.service.InterfaceTableService;
 
 @Service
@@ -41,6 +42,16 @@ public class InterfaceTableServiceImpl implements InterfaceTableService {
 	@Override
 	public void delete(List<InterfaceTable> interfaceTables) {
 		interfaceTableDao.delete(interfaceTables);
+	}
+
+	public List<TableColumns> getColumnsById(String interfaceId) {
+		return interfaceTableDao.getColumnsById(interfaceId);
+	}
+
+	@Override
+	public List<TableColumns> getColumnsByIds(String interfaceIds) {
+		return interfaceTableDao.getColumnsByIds(interfaceIds);
+
 	}
 
 }

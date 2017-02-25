@@ -13,4 +13,12 @@ public interface DataSourceDao {
 
 	List<DataSource> findAll();
 
+	String addDataSource(DataSource dataSource);
+
+	List<DataSource> findRealDSBySujectId(String subjectId);
+
+	String updateDataSource(DataSource dataSource);
+
+	List<DataSource> findByIds(String dataSourceIds);
+
 }

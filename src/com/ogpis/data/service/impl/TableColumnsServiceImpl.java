@@ -15,6 +15,11 @@ public class TableColumnsServiceImpl implements TableColumnsService{
 	
 	@Autowired 
 	private TableColumnsDao tableColumnsDao;
+	
+	@Override
+	public TableColumns getColumnsById(String tableColumnsId) {
+		return tableColumnsDao.getColumnsById(tableColumnsId);
+	}
 
 	@Override
 	public Pagination getTableColumnsByTableId(String id ,int cpn, Integer pageSize) {

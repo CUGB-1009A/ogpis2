@@ -7,37 +7,40 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.CycleDetectionStrategy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.ogpis.base.action.BaseAction;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.base.common.page.SimplePage;
 import com.ogpis.data.entity.InterfaceTable;
 import com.ogpis.data.entity.Subject;
+import com.ogpis.data.entity.TableColumns;
 import com.ogpis.data.service.InterfaceTableService;
 import com.ogpis.data.service.SubjectService;
 
-import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
-import net.sf.json.util.CycleDetectionStrategy;
-
 @Controller
-public class InterfaceTableAction extends BaseAction{
-	
+public class InterfaceTableAction extends BaseAction {
+
 	@Autowired
 	private InterfaceTableService interfaceTableService;
 	@Autowired
 	private SubjectService subjectService;
-	
+
 	@RequestMapping(value = "/interfaceList")
 	@ResponseBody
 	public void dimensionList(@RequestParam("page") Integer pageNumber,
-				@RequestParam("rows") Integer pageSize,HttpServletResponse response) throws IOException{
-		Pagination pagination = interfaceTableService.getAllInterface(SimplePage.cpn(pageNumber), pageSize);
+			@RequestParam("rows") Integer pageSize, HttpServletResponse response)
+			throws IOException {
+		Pagination pagination = interfaceTableService.getAllInterface(
+				SimplePage.cpn(pageNumber), pageSize);
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("utf-8");
 	    System.out.println(this.toJsonTableData(pagination, null, true));
@@ -104,10 +107,23 @@ public class InterfaceTableAction extends BaseAction{
 	    response.setCharacterEncoding("utf-8");
 	    response.getWriter().write("{\"result\":\"success\"}");
 	}
-	
+
 	@RequestMapping(value = "/interfaceTable/getInterfaceBysubject")
 	@ResponseBody
-	public void getInterfaceBysubject(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		
+	public void getInterfaceBysubject(String id,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+			List<InterfaceTable> list=subjectService.findById(id).getInterfaceTables();
+			String[] filter=new String[]{"modifiedTime","createTime"};
+			JSONArray array=JSONArray.fromObject(list,getJsonConfig(null));
+			responseJson(response, array.toString());
+	}
+	@RequestMapping(value = "/interfaceTable/getColumnsById")
+	@ResponseBody
+	public void getColumnsById(String interfaceId, HttpServletResponse response)
+			throws IOException {
+			List<TableColumns> list=interfaceTableService.getColumnsById(interfaceId);
+			JSONArray array=JSONArray.fromObject(list,getJsonConfig(null));
+			responseJson(response, array.toString());
 	}
 }

@@ -10,5 +10,7 @@ public interface TableColumnsService {
 	TableColumns findById(String id);
 
 	void save(TableColumns tableColumn);
+	
+	TableColumns getColumnsById(String tableColumnsId);
 
 }

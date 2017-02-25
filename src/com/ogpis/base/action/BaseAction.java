@@ -1,6 +1,9 @@
 package com.ogpis.base.action;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -58,5 +61,34 @@ public class BaseAction {
 	 */
 	protected boolean isNotNull(String param) {
 		return (param != null) && (param.length() > 0);
+	}
+	
+	protected JsonConfig getJsonConfig(String[] filterFields){
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.setIgnoreDefaultExcludes(false);
+		jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+		jsonConfig.setExcludes(filterFields); // 过滤不需输出的属性
+		return jsonConfig;
+	}
+	
+	protected void responseJson(HttpServletResponse response,String result){
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		try {
+			response.getWriter().write(result);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	protected void responseText(HttpServletResponse response,String result){
+		response.setContentType("text/html");
+		response.setCharacterEncoding("utf-8");
+		try {
+			response.getWriter().write(result);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
