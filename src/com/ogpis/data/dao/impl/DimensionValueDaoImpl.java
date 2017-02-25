@@ -3,6 +3,7 @@ package com.ogpis.data.dao.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+
 import com.ogpis.base.common.hibernate3.HibernateBaseDao;
 import com.ogpis.data.dao.DimensionValueDao;
 import com.ogpis.data.entity.DimensionValue;
@@ -25,7 +26,20 @@ public class DimensionValueDaoImpl extends HibernateBaseDao<DimensionValue, Stri
 		for(DimensionValue temp : dimensionValuesOld){
 			getSession().delete(temp);
 		}
-		
+	}
+
+	@Override
+	public List<DimensionValue> getByDimensionId(String dimensionId) {
+		// TODO Auto-generated method stub
+		String hql="From DimensionValue where dimension.id=?";
+		return this.find(hql, dimensionId);
+	}
+
+	@Override
+	public DimensionValue getById(String dimensionValueId) {
+		// TODO Auto-generated method stub
+		String hql="From DimensionValue where id=?";
+		return (DimensionValue) this.findUnique(hql, dimensionValueId);
 	}
 
 }

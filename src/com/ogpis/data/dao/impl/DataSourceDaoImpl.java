@@ -35,5 +35,35 @@ public class DataSourceDaoImpl extends HibernateBaseDao<DataSource, String> impl
 		List<DataSource> dataSources = this.find(hql, null);
 		return dataSources;
 	}
+
+	@Override
+	public String addDataSource(DataSource dataSource) {
+		// TODO Auto-generated method stub
+		getSession().save(dataSource);
+		return "success";
+	}
+
+	@Override
+	public List<DataSource> findRealDSBySujectId(String subjectId) {
+		// TODO Auto-generated method stub
+		String hql = "From DataSource where (dimensionName is null or dimensionName='')  and (dimensionValue is null or dimensionValue='') and subject.id=?";
+		List<DataSource> dataSources = this.find(hql, subjectId);
+		return dataSources;
+	}
+
+	@Override
+	public String updateDataSource(DataSource dataSource) {
+		// TODO Auto-generated method stub
+		getSession().update(dataSource);
+		return "success";
+	}
+
+	@Override
+	public List<DataSource> findByIds(String dataSourceIds) {
+		// TODO Auto-generated method stub
+		String hql = "From DataSource where id in "+dataSourceIds;
+		List<DataSource> dataSources = this.find(hql, null);
+		return dataSources;
+	}
 	
 }

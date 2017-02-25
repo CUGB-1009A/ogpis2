@@ -9,5 +9,8 @@ public interface SubjectService {
 	List<Subject> findAll();
 
 	List<Subject> findByIds(String ids);
-
+	
+	Subject findById(String id);
+	
+	
 }

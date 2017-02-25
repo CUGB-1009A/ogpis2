@@ -3,6 +3,7 @@ package com.ogpis.data.dao.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+
 import com.ogpis.base.common.hibernate3.HibernateBaseDao;
 import com.ogpis.data.dao.SubjectDao;
 import com.ogpis.data.entity.Subject;
@@ -27,6 +28,12 @@ public class SubjectDaoImpl extends HibernateBaseDao<Subject, String> implements
 		String hql = "From Subject where deleted=false and id in ("+ids+")";
 		List<Subject> subjects = this.find(hql, null);
 		return subjects;
+	}
+
+	@Override
+	public Subject findById(String id) {
+		// TODO Auto-generated method stub
+		return this.get(id);
 	}
 
 }

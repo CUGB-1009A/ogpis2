@@ -10,4 +10,8 @@ public interface DimensionValueDao {
 
 	void delete(List<DimensionValue> dimensionValuesOld);
 
+	List<DimensionValue> getByDimensionId(String dimensionId);
+
+	DimensionValue getById(String dimensionValueId);
+
 }

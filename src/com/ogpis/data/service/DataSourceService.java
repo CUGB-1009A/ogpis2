@@ -13,4 +13,12 @@ public interface DataSourceService {
 
 	List<DataSource> findAll();
 
+	String addDataSource(String json);
+
+	List<DataSource> findRealDSBySujectId(String subjectId);
+	
+	String updateDataSource(DataSource dataSource);
+
+	List<DataSource> findByIds(String string);
+
 }

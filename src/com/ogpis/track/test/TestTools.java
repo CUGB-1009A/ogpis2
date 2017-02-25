@@ -50,7 +50,7 @@ public class TestTools {
 		params.add(param);
 		System.out.println(params.toString());
 	}
-
+	@Ignore
 	@Test
 	public void testDao(){
 		/*TrackUser user=new TrackUser();
@@ -74,6 +74,14 @@ public class TestTools {
 		sb.append("]");
 		JSONArray array=JSONArray.fromObject(sb.toString());
 		System.out.println(array.toString());
+	}
+	
+	@Test
+	public void testJson(){
+		String test="{'isTrue':''}";
+		JSONObject obj=new JSONObject(test);
+		Boolean bool=obj.getBoolean("isTrue");
+		System.out.println(bool);
 	}
 
 }

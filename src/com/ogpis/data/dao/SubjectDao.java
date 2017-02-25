@@ -10,4 +10,6 @@ public interface SubjectDao {
 
 	List<Subject> findByIds(String ids);
 
+	Subject findById(String id);
+
 }

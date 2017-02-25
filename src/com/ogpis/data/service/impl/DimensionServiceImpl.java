@@ -1,5 +1,7 @@
 package com.ogpis.data.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +36,12 @@ public class DimensionServiceImpl implements DimensionService{
 	@Override
 	public void update(Dimension dimension) {
 		dimensionDao.update(dimension);
+	}
+
+	@Override
+	public List<Dimension> getAllDimension() {
+		// TODO Auto-generated method stub
+		return dimensionDao.getAllDimension();
 	}
 
 }

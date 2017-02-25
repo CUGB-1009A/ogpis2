@@ -1,5 +1,7 @@
 package com.ogpis.data.service;
 
+import java.util.List;
+
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.data.entity.Dimension;
 
@@ -12,5 +14,7 @@ public interface DimensionService {
 	void save(Dimension dimension);
 
 	void update(Dimension dimension);
+
+	List<Dimension> getAllDimension();
 
 }

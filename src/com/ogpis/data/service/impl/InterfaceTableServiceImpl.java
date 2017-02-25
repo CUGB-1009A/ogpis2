@@ -1,5 +1,7 @@
 package com.ogpis.data.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.data.dao.InterfaceTableDao;
 import com.ogpis.data.entity.InterfaceTable;
+import com.ogpis.data.entity.TableColumns;
 import com.ogpis.data.service.InterfaceTableService;
 
 @Service
@@ -29,6 +32,19 @@ public class InterfaceTableServiceImpl implements InterfaceTableService {
 	@Override
 	public InterfaceTable save(InterfaceTable interfaceTable) {
 		return interfaceTableDao.save(interfaceTable);
+	}
+
+	@Override
+	public List<TableColumns> getColumnsById(String interfaceId) {
+		// TODO Auto-generated method stub
+		return interfaceTableDao.getColumnsById(interfaceId);
+	}
+
+	@Override
+	public List<TableColumns> getColumnsByIds(String interfaceIds) {
+		// TODO Auto-generated method stub
+		
+		return interfaceTableDao.getColumnsByIds(interfaceIds);
 	}
 
 }
