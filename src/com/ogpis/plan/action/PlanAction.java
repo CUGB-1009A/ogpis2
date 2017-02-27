@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -35,6 +37,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ogpis.base.action.BaseAction;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.base.common.page.SimplePage;
+import com.ogpis.base.common.util.ConstantsUtils;
+import com.ogpis.base.common.util.CookieUtils;
 import com.ogpis.plan.entity.IndexDataManagement;
 import com.ogpis.plan.entity.IndexManagement;
 import com.ogpis.plan.entity.Plan;
@@ -48,10 +52,12 @@ import com.ogpis.plan.service.Plan_IndexService;
 import com.ogpis.system.entity.Role;
 import com.ogpis.system.entity.User;
 import com.ogpis.system.service.UserService;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
+import net.sf.json.JsonConfig;
 
 @Controller
 @RequestMapping("/plan")
@@ -125,16 +131,14 @@ public class PlanAction extends BaseAction {
 		LinkedHashMap map;
 		List<LinkedHashMap> mapList=new ArrayList<LinkedHashMap>();
 		
-		//String currentUserName=request.getUserPrincipal().getName();
+		Cookie cookie=CookieUtils.getCookieByName(request, ConstantsUtils.LOGIN_NAME);
+		String loginName=cookie.getValue();
+		System.out.println(loginName);
 		String currentUserName="admin";
 		User user=userService.findByUserName(currentUserName);
 		Set<Role> roles=user.getRoles();
 		boolean isManager=true;
-		/*for(Role role:roles){
-			if(role.getIsSuper())
-				isManager=true;
-		}*/
-		
+				
 		//查询用户对应角色所能看到的规划
 		List<Plan> plans=planService.findAll(isManager, type, condition);
 		//将用户关注的规划用字符串连接起来
@@ -164,12 +168,48 @@ public class PlanAction extends BaseAction {
 		return "/plan/planUser/list";
 	}
 	
+	@RequestMapping("/myConcern")
+	public String myConcern(HttpServletRequest request,HttpServletResponse response,
+			ModelMap model){
+		LinkedHashMap map;
+		List<LinkedHashMap> mapList=new ArrayList<LinkedHashMap>();
+		Cookie cookie=CookieUtils.getCookieByName(request, ConstantsUtils.LOGIN_NAME);
+		String currentUserName=cookie.getValue();
+		User user=userService.findByUserName(currentUserName);
+		Set<Plan> planConcern=user.getPlans();
+		model.addAttribute("plansNumber", planConcern.size());
+		for(Plan temp:planConcern){
+			map=new LinkedHashMap();
+			map.put("plan", temp);
+			map.put("isconcern", true);
+			mapList.add(map);
+		}
+		model.addAttribute("mapList",mapList);
+		model.addAttribute("listType","concern");
+		
+		return "/plan/planUser/list";
+	}
+	
 	@RequestMapping(value="/userDetail")
 	public String userDetail(HttpServletRequest request,ModelMap model,String id,String listType){
 		Plan plan=planService.findById(id);
+		Cookie cookie=CookieUtils.getCookieByName(request, ConstantsUtils.LOGIN_NAME);
+		String currentUserName=cookie.getValue();
+		User user=userService.findByUserName(currentUserName);
+		boolean isconcerned;
+		String conceredPlanId="";
+		for(Plan concern :user.getPlans()){
+			conceredPlanId+=concern.getId();
+		}
+		if (conceredPlanId.contains(id)) {
+			isconcerned=true;
+		}else {
+			isconcerned=false;
+		}
 		model.addAttribute("plan", plan);
 		model.addAttribute("type", plan.getPlanType());
 		model.addAttribute("listType", listType);
+		model.addAttribute("isconcered",isconcerned);
 		return "/plan/planUser/userDetail";
 	}
 	
@@ -224,7 +264,6 @@ public class PlanAction extends BaseAction {
 	@RequestMapping("/deletePlan")
 	public void delete(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String id=request.getParameter("planId");
-		System.out.println(id);
 		Plan plan=planService.findById(id);
 		plan.setDeleted(true);
 		Set<PlanDocument> planDocumentSet=plan.getPlanDocument();
@@ -450,6 +489,55 @@ public class PlanAction extends BaseAction {
 		model.addAttribute("type", type);
 		
 		return "redirect:/plan/show";
+	}
+	
+	
+	@RequestMapping("/concern")
+	public void concern(HttpServletRequest request,HttpServletResponse response,
+			ModelMap model) throws IOException{
+		String result="";
+		Cookie cookie=CookieUtils.getCookieByName(request, ConstantsUtils.LOGIN_NAME);
+		String currentUserName=cookie.getValue();
+		User user=userService.findByUserName(currentUserName);
+		String planId=request.getParameter("planId");
+		Set<Plan> plans=user.getPlans();
+		Set<Plan> planConcern=new HashSet<Plan>();
+		Plan plan=planService.findById(planId);
+		for(Plan temp:plans){
+			planConcern.add(temp);
+		}
+		planConcern.add(plan);
+		user.getPlans().clear();
+		user.setPlans(planConcern);
+		userService.update(user);
+		result="{\"result\":\"success\"}";
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().write(result);
+	}
+	
+	@RequestMapping("/disconcern")
+	public void disconcern(HttpServletRequest request,HttpServletResponse response,
+			ModelMap model) throws IOException{
+		Cookie cookie=CookieUtils.getCookieByName(request, ConstantsUtils.LOGIN_NAME);
+		String currentUserName=cookie.getValue();
+		User user=userService.findByUserName(currentUserName);
+		String planId=request.getParameter("planId");
+		Set<Plan> plans=user.getPlans();
+		Set<Plan> planConcern=new HashSet<Plan>();
+		Plan plan=planService.findById(planId);
+		for(Plan temp:plans){
+			if (!temp.getId().equals(planId)) {
+				planConcern.add(temp);
+			}
+		}
+		user.getPlans().clear();
+		user.setPlans(planConcern);
+		userService.update(user);
+		String result="{\"result\":\"success\"}";
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().write(result);
 	}
 	
 }

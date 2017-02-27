@@ -9,22 +9,22 @@
 	<title>规划指标管理</title>
 </head>
 <body>
-	<div class="title" style="font-size:24px; font-family:微软雅黑;margin:10px 10px 10px 10px;">
+	<div class="title" style="font-size:24px; font-family:微软雅黑;margin:10px 10px 10px 10px;float: left;">
 		<c:forEach items="${planType }" var="item">
 			<c:if test="${item.key.equals(type) }">${item }规划指标项定制</c:if>
 		</c:forEach>
 	</div>
-	<div style="text-align:right;margin:0 10px 0 10px">
-	
-		<select id="selectType" name="planType" class="easyui-combox">
+	<div style="text-align:right;margin:10px 10px 0 10px">	
+		<select id="selectType" name="planType" class="easyui-combox" style="height: 30px;width: 70px;">
 			<c:forEach items="${planType }" var="item">
 				<option value="${item.key }"<c:if test="${item.key.equals(type) }">selected</c:if>>${item}</option>
 			</c:forEach>
 		</select>&nbsp;&nbsp;
 		<a class="easyui-linkbutton" data-options="size:'large'" href="<%=path%>/index/add?type=${type}"><i class="fa fa-plus" style="margin-right:3px"></i>添加指标</a>
 	</div>
-	<div style="margin:0 10px 0 10px">
-		<table class="easyui-datagrid" title="指标项管理" data-options="pagination:true">
+	<br>
+	<div style="margin:0 10px 0 10px;">
+		<table class="easyui-datagrid" title="指标项管理" data-options="pagination:false,striped:true,singleSelect:true,rownumbers:true">
 			<thead>
 				<tr>
 					<th field='indexName' width="25%" align="center">指标名称</th>

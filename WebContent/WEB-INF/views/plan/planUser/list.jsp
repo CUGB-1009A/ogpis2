@@ -46,7 +46,7 @@
 			<div style="float:right;">
 				<form action="<%=path%>/plan/userList">
 					<input type="hidden" value="${type }" name="type">
-					<input type="text"  class="easyui-textbox" id="inputFuzzyQuery" data-options="prompt:'模糊查询条件'" name="condition">
+					<input type="text"  class="easyui-textbox" id="inputFuzzyQuery" data-options="prompt:'模糊查询条件'" name="condition" value="">
 					&nbsp;&nbsp;&nbsp;
 					<button type="submit" class="easyui-linkbutton">查询</button>					
 				</form>			

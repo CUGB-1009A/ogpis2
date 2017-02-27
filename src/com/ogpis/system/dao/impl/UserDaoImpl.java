@@ -62,4 +62,10 @@ public class UserDaoImpl extends HibernateBaseDao<User, String> implements
 		return User.class;
 	}
 
+	@Override
+	public User update(User user) {
+		getSession().merge(user);
+		return user;
+	}
+
 }

@@ -9,13 +9,13 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <script type="text/javascript" src="<%=path%>/resource/dist/echarts.js"></script>
 	    <script type="text/javascript" src="<%=path%>/resources/stickUp.js"></script>
+	    <script type="text/javascript" src="<%=path%>/resources/jquery.table2excel.js"></script>
 		<title>${plan.planName }详情</title>
 		<style type="text/css">
 			.navbox {
             height: 0;
             width: 0;
-            top:40px;
-            margin:0 10% 20px 80%;
+            margin:0 5% 20px 80%;
 	        }
 	        ul.nav {
 	            list-style: none;
@@ -51,12 +51,36 @@
 	            color: #67a5cd;
 	            padding: 7px 15px 7px 30px;
 	        }
+	        
+	        /*表格样式  */
+	        th {
+            background: #7bbafc;
+            color: #fff;
+            line-height: 20px;
+            height: 30px;
+	        }
+	        td {
+	            padding: 6px 11px;
+	            border-bottom: 1px solid #95bce2;
+	            vertical-align: top;
+	            text-align: center;
+	        }
+	        td * {
+	            padding: 6px 11px;
+	        }
+	
+	        tr.alt td {
+	            background: #ecf6fc;
+	        }
+	
+	        tr.over td {
+	            background: #bcd4ec;
+	        }
 		</style>
 	</head>
-<body>
+<body>	 
 	<!-- 头部 -->
 	<div id="thisHead" style="height:40%">
-
 	<!-- <div style="width:100%"> -->
 		<div align="center"><span style="font-size:24px;font-family:微软雅黑">规划概览</span></div>
 		<div style="width:50%;float:left">
@@ -73,40 +97,46 @@
 			</p>
 		</div>
 	</div> 
-	
+	<br>
+	<br>
+	<!-- 规划背景 -->
+	<div id="description" class="description">
+		<div style="text-align: center;">
+			<div style="text-align: center;width: 100%">
+				<h1>规划背景</h1>
+			</div>
+			<div style="width: 80%;">
+				<script id="container" name="planDescription"  type="text/plain" style="height:auto;">${plan.planDescription}</script>
+				<!-- 配置文件 -->
+				<script type="text/javascript" src="<%=request.getContextPath()%>/assets/ueditor/ueditor.config.js"></script>
+				<!-- 编辑器源码文件 -->
+				<script type="text/javascript" src="<%=request.getContextPath()%>/assets/ueditor/ueditor.all.js"></script>
+				<!-- 实例化编辑器 -->
+				<script type="text/javascript">
+					var ue=UE.getEditor('container', {
+						toolbars:[],
+						wordCount:false,
+						elementPathEnabled:false,
+						readOnly:true
+					});
+				</script>
+			</div>
+		</div>
+	</div>
 	<!-- 导航 -->
 	<div class="navbox">
         <ul class="nav">
+        	<li><a href="" class="disconcern"><i class=" fa fa-heart">取消收藏</i></a></li>
+        	<li><a href="" class="concern"><i class="fa fa-heart-o">收藏</i></a></li>
             <li><a href="#description">规划背景</a></li>
             <li><a href="#target">规划目标</a></li>
             <li><a href="#tarAndFin">规划总体情况</a></li>
-            <li><a href="#">油气储量</a></li>
-            <li><a href="#">油气产量</a></li>
+            <li><a href="#storage">油气储量</a></li>
+            <li><a href="#output">油气产量</a></li>
             <li><a href="#thisHead">回到顶部</a></li>
+            
         </ul>
     </div>
-	<!-- 规划背景 -->
-	<div id="description">
-		<div style="width: 100%">
-			<div style="text-align: center;">
-				<h1>规划背景</h1>
-			</div>
-			<script id="container" name="planDescription"  type="text/plain" style="height:auto;">${plan.planDescription}</script>
-			<!-- 配置文件 -->
-			<script type="text/javascript" src="<%=request.getContextPath()%>/assets/ueditor/ueditor.config.js"></script>
-			<!-- 编辑器源码文件 -->
-			<script type="text/javascript" src="<%=request.getContextPath()%>/assets/ueditor/ueditor.all.js"></script>
-			<!-- 实例化编辑器 -->
-			<script type="text/javascript">
-				var ue=UE.getEditor('container', {
-					toolbars:[],
-					wordCount:false,
-					elementPathEnabled:false,
-					readOnly:true
-				});
-			</script>
-		</div>
-	</div>
 	<!-- 规划目标 -->
 	<div id="target" style="width: 100%">
 		<div style="text-align: center;">
@@ -140,6 +170,7 @@
 	
 	<!-- 规划目标和总体情况 -->
 	<div id="tarAndFin" style="width: 100%">
+	<textarea class="inputs3" style="display: none;">${plan.allHistoryIndexData }</textarea>
 		<div style="text-align: center;">
 			<h1>规划目标和总体情况</h1>			
 		</div>
@@ -153,31 +184,79 @@
 		<div style="text-align: center;">
 			<h1>油气储量总体情况</h1>
 			<div style="width: 80%;margin-left: 10%;margin-bottom: 20px;">
-				<p>${plan.targetAndFinished }
+				<p>${plan.storageDescription }
 			</div>
 		</div>
 		<c:set var="temp1" value="0"></c:set>
 		<c:forEach items="${plan.orderedPlan_Index}" var="item" varStatus="status">
-			<c:if test="${item.index.indexType=='1'&&item.index.track}">
+			<c:if test="${item.index.indexType=='新增探明地质储量'&&item.index.track}">
+			<c:set var="temp1" value="${temp1+1 }"/>
 				<div>
-					<div class="col-xs-12">  					    		
-			    		<div> 
+					<div>  					    		
+		    			<h2>&nbsp;&nbsp;${temp1 }、${item.index.indexName }</h2>
+			    		<div style="width: 50%;float: left;"> 
 							<div class="storageCharts" style="height:300px;width:600px;" align="center">	
-							
+								
 							</div> 
 						</div>								
-						<div class="col-xs-2"> 
-							<div  style="height:300px;width:100%" align="center">
-							    <table class='table_1'
-							    	   id="table_1${status.index}"
-							           data-toggle="table_1${status.index}" 
+						<div style="width: 20%;float: left;" class="tableClass"> 
+							<div style="height:300px;width:100%" align="center">	
+								<div>
+									<button id="btn_1${status.index}" class="exportExcel fa fa-download" onclick="exportExcel(this)">&nbsp;导出</button>
+								    <table class='table_1'
+								    	   id="table_1${status.index}"
+								           data-toggle="table_1${status.index}" 
+								           data-height="300">
+								        <thead>
+								        </thead>
+								    </table>
+								</div>
+							</div>
+						</div>									
+						<div style="width: 20%;float: right;margin-right: 50px;"> 
+							<div style="height:300px;" align="center">
+							${item.indexPerformance}
+							</div> 
+						</div>								
+					</div>
+				</div><!-- /row -->
+				<hr style="width:100%">
+			</c:if>
+		</c:forEach>
+	</div>
+	
+	<!-- 油气产量总体情况 -->
+	<div id="output" style="width: 100%">
+		<div style="text-align: center;">
+			<h1>油气产量总体情况</h1>
+			<div style="width: 80%;margin-left: 10%;margin-bottom: 20px;">
+				<p>${plan.outputDescription }
+			</div>
+		</div>
+		<c:set var="temp2" value="0"></c:set>
+		<c:forEach items="${plan.orderedPlan_Index}" var="item" varStatus="status">
+			<c:if test="${item.index.indexType=='产量'&&item.index.track}">
+			<c:set var="temp2" value="${temp2+1 }"/>
+				<div>
+					<div>  					    		
+		    			<h2>&nbsp;&nbsp;${temp2 }、${item.index.indexName }</h2>
+			    		<div style="width: 50%;float: left;"> 
+							<div class="outputCharts" style="height:300px;width:600px;" align="center">	
+								
+							</div> 
+						</div>								
+						<div style="width: 30%;float: left;"> 
+							<div style="height:300px;width:100%" align="center">
+							    <table class='table_2'
+							    	   id="table_2${status.index}"
+							           data-toggle="table_2${status.index}" 
 							           data-height="300">
 							        <thead>
 							        </thead>
 							    </table>
 							</div>	
 						</div>									
-						<div class="col-xs-4"> 
+						<div style="width: 20%;float: right;"> 
 							<div style="height:300px;" align="center">
 							${item.indexPerformance}
 							</div> 
@@ -191,12 +270,86 @@
 	
 	<script type="text/javascript">
 		
+		var isconcered='${isconcered}';
 		/*侧边栏停靠  */
 		jQuery(function($) {
 	        $(document).ready( function() {
 	            $('.navbox').stickUp();
+	            $(".exportExcel").hide();	
+	            if(isconcered){
+	            	$('.disconcern').hide();
+	            }else{
+	            	$('.concern').hide();
+	            }
 	        });
-	    });					
+	    });		
+		
+		$(".tableClass").hover(function(){
+			    $(".exportExcel").show();
+			},function(){
+			    $(".exportExcel").hide();
+			});
+		
+		function exportExcel(th){
+			var btnId=th.id;
+			var tableId=btnId.replace("btn","table");
+			$("#"+tableId).table2excel({
+	            exclude: ".noExl",
+	            name: "Worksheet Name",
+	            filename: "myFileName"
+	        });
+		}
+		
+		
+		/* 关注、取消关注按钮 */
+		var planId='${plan.id}';
+		$('.concern').bind("click",function(event){
+			event.preventDefault();
+			event.stopPropagation();
+			var getTimestamp=new Date().getTime();
+			$.ajax({
+				url:"<%=request.getContextPath()%>/plan/concern?time="+getTimestamp,
+				dataType:"json",
+				async:true,
+				data:{"planId":planId},
+				type:"GET",
+				success:function(result){
+					$(".concern").hide();
+					$(".disconcern").show();
+					alert("收藏成功");
+				},
+				error:function(){
+					alert("出意外错误了");
+				}
+			})
+		});
+		$('.disconcern').bind("click",function(event){
+			event.preventDefault();
+			event.stopPropagation();
+			var getTimestamp=new Date().getTime();
+			$.ajax({
+				url:"<%=request.getContextPath()%>/plan/disconcern?time="+getTimestamp,
+				dataType:"json",
+				async:true,
+				data:{"planId":planId},
+				type:"GET",
+				success:function(result){
+					$(".concern").show();
+					$(".disconcern").hide();
+					alert("取消收藏成功");
+				},
+				error:function(){
+					alert("出意外错误了");
+				}
+			})
+		});
+		
+		var startYear='${plan.startTime}';
+		var endYear='${plan.endTime}';
+		startYear=startYear.substring(0,4);
+		endYear=endYear.substring(0,4);
+		var planType='${plan.planType}';
+		
 		/*规划每年完成情况  */	
 		var option = {
 			 title: {
@@ -291,6 +444,7 @@
 	           ]
     	};
 		
+		
 		require.config({
 			paths:{
 				echarts:'<%=request.getContextPath()%>/resource/dist'
@@ -351,8 +505,169 @@
 				   option1.series[0].data = targetObj[jj].value;
 				   targetChart.setOption(option1);
 				}
+				
+				/*油气储量、产量  */
+				var $storageCharts=$('.storageCharts');
+				var $outputCharts=$('.outputCharts');
+				var $storageData=$('.inputs3')[0].value;
+				var storageObj=eval("("+$storageData+")");
+				
+				var storageCharts;
+				var outputCharts;
+				var m=0,n=0;
+				var rows;
+				var $table1=$('.table_1');
+				var $table2=$('.table_2');
+				var tableshow;
+				var tableId;
+				for(var kk=0;kk<storageObj.length;kk++){
+					var firstIndex=1000;
+					for(i=0;i<storageObj[kk].year.length;i++){
+						if(storageObj[kk].year[i]==startYear){
+							firstIndex=i;
+						}
+					}
+					/*油气储量 、产量总体情况 */
+					var option2 = {
+							title:{
+								text: '',
+					            x: 'center',            
+					            y: 'top'
+							},
+						    tooltip : {
+						        trigger: 'axis'
+						    },
+						    toolbox:{
+						    	show:true,
+						    	feature:{
+						    		saveAsImage:{show:true}
+						    	}
+						    },
+						    /* dataZoom : {
+						        show : true,
+						        realtime : true,
+						        end : 100
+						    }, */
+						    xAxis : [
+						        {
+						            type : 'category',
+						            name:'年份',
+						            data : []
+						        }
+						    ],
+						    yAxis : [
+						        {
+						        	name:'',
+						            type : 'value'
+						        }
+						    		],
+						    series : [
+						        {
+						            type:'bar',
+						            data:[],
+						            itemStyle:{
+						            	normal:{
+						            		color:function(params){
+						            			if(params.dataIndex>=firstIndex)
+						            				return '#FF0000';
+						            			else
+						            				return '#00FF00';
+						            		},
+						            		lable:{
+						            			show:true
+						            		}
+						            	}
+						            },
+						            markLine:{
+						            	itemStyle:{
+						            		normal:{
+						            			color:'#0000FF'
+						            		}
+						            	},
+						            	color:'#FF0000',
+						            	data:[
+						            	      [
+						            	       	{name:'规划目标值',value:0,xAxis:-1,yAxis:0},
+						            	       	{xAxis:20,yAxis:0}
+						            	       ]
+						            	      ]
+						            }
+						        }  
+						    		] 
+						    };
+					
+					var targetValue=(storageObj[kk].indexValue/(endYear-startYear+1)).toFixed(1);
+					var yMax=targetValue;
+					for(var m1=0;m1<storageObj[kk].length;m1++){
+						if(yMax<storageObj[kk].value[m1]){
+							yMax=storageObj[kk].value[m1];
+						}
+					}
+					var hasFinished=0;
+					columns=[],datas=[];
+					option2.title.text=storageObj[kk].indexName;
+					option2.yAxis[0].name=storageObj[kk].indexUnit;
+					option2.yAxis[0].max=yMax;
+					option2.xAxis[0].data=storageObj[kk].year;
+					option2.series[0].data=storageObj[kk].value;
+					option2.series[0].markLine.data[0][0].value=targetValue;
+					option2.series[0].markLine.data[0][0].yAxis=targetValue;
+					option2.series[0].markLine.data[0][1].yAxis=targetValue;
+					columns.push({
+						field:'field0',
+						title:'年份'
+					});
+					columns.push({
+						field:'field1',
+						title:'完成('+storageObj[kk].indexUnit+')'
+					});
+					columns.push({
+						field:'field2',
+						title:'比例'
+					});
+					/* option2.dataZoom.start=0; */
+					if(storageObj[kk].indexType=='新增探明地质储量'){
+						storageCharts=ec.init($storageCharts[m]);
+						
+						//填充表格数据
+						for(var ll=0;ll<storageObj[kk].year.length;ll++){
+							if(storageObj[kk].year[ll]>=startYear&&storageObj[kk].year[ll]<=endYear){
+								row={};
+								hasFinished=hasFinished+storageObj[kk].value[ll];
+								row['field0']=storageObj[kk].year[ll];
+								row['field1']=storageObj[kk].value[ll].toFixed(2);
+								row['field2']=(storageObj[kk].value[ll]/storageObj[kk].indexValue*100).toFixed(1)+'%';
+								datas.push(row);
+							}
+							if(ll==storageObj[kk].year.length-1){
+								row={};
+								row['field0']='合计';
+								row['field1']=hasFinished.toFixed(2);
+								row['field2']=(hasFinished/storageObj[kk].indexValue*100).toFixed(1)+'%';
+								datas.push(row);
+							}
+						}
+						
+						var id=$('.table_1')[m].id;
+						$('#'+id).append("<tr><td>年份</td><td>完成量("+storageObj[kk].indexUnit+")</td><td>完成百分比</td>");
+						for(var excel=0;excel<datas.length;excel++){
+							$('#'+id).append("<tr><td>"+datas[excel].field0+"</td><td>"+
+									datas[excel].field1+"</td><td>"+datas[excel].field2+
+									"</td></tr>")
+						}
+						
+						m=m+1;
+						storageCharts.setOption(option2);						
+					}
+					/* if(storageObj[kk].indexType=='产量'){
+						storageCharts=ec.init($outputCharts[n]);
+						n=n+1;
+						//outputCharts.setOption(option2);						
+					} */
+				}
 			}
-		)
+		);
+		
 	</script>
 </body>
 </html>

@@ -13,7 +13,7 @@
 			</level3>
 			<level3 id="zyl_gndq" name="国内大区" imgName="4.png" url="/dataBrowse_Tu?id=zyl_gndq">
 				<tab id="zyl_gndq_01" dataSource="1">年度各盆地油气资源量</tab>
-				<tab id="zyl_gndq_02" dataSource="1">年度各大区油气资源量</tab>
+				<tab id="zyl_gndq_02" dataSource="1">年度z各大区油气资源量</tab>
 				<tab id="zyl_gndq_03" dataSource="1">年度各省区油气资源量</tab>
 			</level3>
 		</level2>
@@ -112,12 +112,13 @@
 	    <level2 id="ycgl" name="预测管理" url="/forecast/finishedList" imgName="2.png"></level2>
 	    <level2 id="mxgl" name="模型管理" url="/model/list" imgName="3.png"></level2>		
 	</level1>
-	<level1 id="ghzs" name="规划展示" imgName="ghzs.png" hasTri="false">
-		<level2 id="ghzs" name="规划概览" imgName="1.png" url="/plan/userList"></level2>
-	    <level2 id="ghzb" name="规划指标" imgName="2.png" url="/indexData/list?type=GZL&amp;id=0"></level2>  
+
+	<level1 id="ghzs" name="规划展示" top="true" left="true" center="true" imgName="ghzs.png" hasTri="false">
+		<level2 id="ghzs" name="规划概览" imgName="1.png" url="/plan/userList?type=All&amp;condition="></level2>
+	    <level2 id="ghzb" name="规划指标" imgName="2.png" url="/indexData/list?type=QG&amp;id=0"></level2>  
 	    <level2 id="ssqk" name="实施情况" imgName="3.png" url="/plan/list?type=All&amp;condition="></level2>
 	    <level2 id="zlgl" name="规划资料" imgName="4.png" url="/document/list"></level2>
-	    <level2 id="scgl" name="收藏管理" imgName="5.png" url="/plan/list?type=All&amp;condition="></level2>
+	    <level2 id="scgl" name="我的收藏" imgName="5.png" url="/plan/myConcern"></level2>
 	</level1>	      
 	<level1 id="ghgzpg" name="规划跟踪评估" imgName="ghgzpg.png" hasTri="false">
 		<level2 id="zbgz" name="指标跟踪" url="/track/indexTrackContents" imgName="1.png" ></level2>
@@ -127,8 +128,8 @@
 	<level1 id="ghgl" name="规划管理" imgName="1.png" hasTri="false">
 	    <level2 id="ghgl" name="规划管理" imgName="1.png" url="/plan/list?type=All&amp;condition="></level2>  
 	    <level2 id="zlgl" name="资料管理" imgName="2.png" url="/document/list"></level2>
-	    <level2 id="zbgl" name="指标管理" imgName="3.png" url="/index/list?type=GZL"></level2>
-	    <level2 id="ssgzgl" name="实施跟踪管理" imgName="4.png" url="/indexData/list?type=GZL&amp;id=0"></level2>		
+	    <level2 id="zbgl" name="指标管理" imgName="3.png" url="/index/list?type=QG"></level2>
+	    <level2 id="ssgzgl" name="实施跟踪管理" imgName="4.png" url="/indexData/list?type=QG&amp;id=0"></level2>		
 	</level1>
 	<level1 id="sjgl" name="数据管理" imgName="2.png" hasTri="false">
 		<level2 id="jcxxwh" name="基础信息维护" imgName="1.png" url="/baseinfo/list"></level2>  

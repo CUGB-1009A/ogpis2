@@ -23,8 +23,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User update(User user) {
-		Updater<User> updater = new Updater<User>(user);
-		user = userDao.updateByUpdater(updater);
+		/*Updater<User> updater = new Updater<User>(user);
+		user = userDao.updateByUpdater(updater);*/
+		user = userDao.update(user);
 		return user;
 	}
 

@@ -1,7 +1,5 @@
 package com.ogpis.demo.service.impl;
 
-
-
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +9,6 @@ import java.util.Map;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import net.sf.json.util.CycleDetectionStrategy;
-
 import org.junit.Ignore;
 
 import org.junit.Test;
@@ -27,6 +24,8 @@ import com.ogpis.data.service.DimensionService;
 import com.ogpis.data.service.InterfaceTableService;
 import com.ogpis.demo.entity.Demo;
 import com.ogpis.demo.service.DemoService;
+import com.ogpis.plan.entity.IndexManagement;
+import com.ogpis.plan.service.IndexManagementService;
 import com.ogpis.track.webservice.WebServiceParam;
 import com.ogpis.track.webservice.WebServiceParams;
 import com.ogpis.data.entity.DataSource;
@@ -48,6 +47,8 @@ public class DemoServiceImplTest {
 	@Autowired
 	private DimensionService dimensionService;
 	
+	@Autowired
+	private IndexManagementService indexManagementService;
 
 
 	@Ignore
@@ -85,6 +86,8 @@ public class DemoServiceImplTest {
 	@Ignore
 	@Test
 	public void testDao(){
+		List<IndexManagement> indexList = indexManagementService.findAllIndexByPriority("QG");
+		System.out.println(indexList.size());
 		/*TrackUser user=new TrackUser();
 		user.setName("zwx2");
 		user.setPassword("asd1233");

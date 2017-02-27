@@ -101,6 +101,7 @@
 	</div>	
 	<script type="text/javascript">
 		var tempType="${type}";
+		console.log('${mapList }');
 		function deletePlan(id){		
 			var getTimestamp=new Date().getTime();
 			var isDel=confirm('确认删除该规划吗？','确认对话框');
