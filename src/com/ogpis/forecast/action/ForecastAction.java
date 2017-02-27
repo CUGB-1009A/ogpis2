@@ -217,7 +217,7 @@ public class ForecastAction extends BaseAction{
 		@RequestMapping(value = "/forecast/getHistoryData")//检查成果名称是否合法，不允许重复
 		@ResponseBody
 		public void getHistoryData(HttpServletRequest request,HttpServletResponse response) throws IOException{
-			String result = HistoryData.historyData;
+			String result = HistoryData.historyData1;
 			response.setContentType("application/json");
 		    response.setCharacterEncoding("utf-8");
 		    System.out.println(result);

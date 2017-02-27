@@ -155,9 +155,10 @@ function openRecord(id){
 }
 
 function newRecord(){
+	tempResult.step='1'
 	isNew = true ;
 	clearMsg();
-	openRecord();
+	openRecord('');
 }
 
 function editRecord(){
@@ -198,10 +199,89 @@ function s1_next(){
 	tempResult.result[0].forecastTypeName =  $('#s1_forecastType option:selected').text();
 	tempResult.result[0].forecastTypeId = $('#s1_forecastType').val();
 	console.log(nameIsValid(tempResult.result[0].forecastId,tempResult.result[0].forecastName));
+	if(tempResult.result[0].forecastName==""){
+		alert("请填写预测名称");
+		return false;
+	}
 	if(!nameIsValid(tempResult.result[0].forecastId,tempResult.result[0].forecastName)){
 		alert("预测名已经存在！");
 		return ;
 	}
+	$('#s1_addForecast').dialog({
+		closed:true
+	});
+	$('#s2s_dataSource').dialog({
+		closed:false
+	});
+	$('#s2s_forecastName').html(tempResult.result[0].forecastName);
+	$('#s2s_forecastType').html(tempResult.result[0].forecastTypeName);
+	$.ajax({
+		url:"<%=path%>/dataSource/getAllDataSource",
+		dataType:"json",
+		async:true,
+		type:"GET",
+		success:function(data){
+			$("#s2s_data").empty();
+			for(var i=0;i<data.length;i++){
+				$("#s2s_data").append("<option value='"+data[i].id+"'>"+data[i].name+"</option>");
+			}
+			//获取选定数据源下的interfaceTable，choice，condition三方面的信息
+			var dataSourceId = $("#s2s_data").val();
+			$("#s2s_condition").empty();
+			$.ajax({
+			    url: '<%=path%>/dataBrowser/getTabContentByDSId',
+			    data:{"id":dataSourceId},
+			    dataType: 'json',
+			    async: false,
+			    success: function(data){//将选择的表信息、字段信息、维度信息添加到步骤2上
+			    	var content="";
+	    	    	if(data.dataSource.isVirtual){//如果是虚拟数据源，则数据源也有下拉框选择
+	    	    		
+	    	    	}
+	    	    	if(data.y.isMulti){//如果度量值有多个的话，也有下拉框选择
+	    	    		content += "<span class='choice'>"+data.y.CN_name +":</span><select class='choice'>";
+    	    			for(var jj=0;jj<data.y.value.length;jj++){
+    	    				content +=  "<option value ='"+data.y.value[jj].key+"'>"+data.y.value[jj].value+"</option>";
+    	    			}
+    	    			content += "</select><br class='choice'>";
+	    	    	}
+	    	    	for(var i=0;i<data.condition.length;i++){
+	    	    		if(data.condition[i].isYear){//为某年，即为点
+	    	    			content += "<span class='condition'>"+data.condition[i].CN_name +":</span><select name='"+data.condition[i].EN_name+"'class='year condition'>";
+			    			for(var kk=1949;kk<currentYear;kk++){
+			    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+			    			}
+			    			content += "</select><br class='condtion'>";
+	    	    		}
+	    	    		else{
+	    	    			content += "<span class='condition'>"+data.condition[i].CN_name +":</span><select name='"+data.condition[i].EN_name+"'class='notYear condition'>";
+			    			for(var kk=0;kk<data.condition[i].value.length;kk++){
+			    				content +=  "<option value ='"+data.condition[i].value[kk].key+"'>"+data.condition[i].value[kk].value+"</option>";
+			    			}
+			    			content += "</select><br class='condtion'>";
+	    	    		}
+	    	    	}	
+	    	    	if(data.x.isYear){//则condition中year为区间，也添加到condition中去
+	    	    		content += "<span class='condition'>"+"起始年份"+":</span><select name='"+data.x.EN_name+"'class='year condition'>";
+		    			for(var kk=1949;kk<currentYear;kk++){
+		    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+		    			}
+		    			content += "</select><br class='condtion'>";
+		    			content += "<span class='condition'>"+"终止年份" +":</span><select name='"+data.x.EN_name+"'class='year condition'>";
+		    			for(var kk=1949;kk<currentYear;kk++){
+		    				content +=  "<option value ='"+kk+"'>"+kk+"</option>";
+		    			}
+		    			content += "</select><br class='condtion'>";
+					}
+	    	    	content += "<button id='btn' onclick='s2s_previewData()'>预览</button>";					    	
+	    	    	$("#s2s_condition").html(content);
+			    }
+			});
+		},
+		error:function(){
+			alert("获取数据源失败");
+		}
+	});
 }
 
 function s1_saveExit(){
@@ -226,8 +306,8 @@ function s2s_previous(){
 	});
 }
 function s2s_next(){
-	$('#s3_forecastName').html(forecastName);
-	$('#s3_forecastType').html(forecastType);
+	$('#s3_forecastName').html(tempResult.result[0].forecastName);
+	$('#s3_forecastType').html(tempResult.result[0].forecastTypeName);
 	dataSourceName = $('#s2s_data option:selected').text();
 	$('#s3_data').html(dataSourceName);
 	$('#s2s_dataSource').dialog({
@@ -304,8 +384,8 @@ function s3_previous(){
 function s3_next(){
 	modelName = $('#s3_modelName option:selected').text();
 	pemName =  $('#s3_pemName option:selected').text();
-	$('#s4_forecastName').html(forecastName);
-	$('#s4_forecastType').html(forecastType);
+	$('#s4_forecastName').html(tempResult.result[0].forecastName);
+	$('#s4_forecastType').html(tempResult.result[0].forecastTypeName);
 	$('#s4_data').html(dataSourceName);
 	$('#s4_modelName').html(modelName);
 	$('#s4_pemName').html(pemName);
