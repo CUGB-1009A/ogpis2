@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../init.jsp"%>
 <style>
@@ -22,85 +21,12 @@
 		font-size:14px;
 		color:#999999;
 	}
-	.headdiv a{
-		color:#0e69a2;
-		text-decoration:none;
-		float:right;
-	}
-	.hds3{
-		line-height:65px;
-		font-size:14px;
-	}
-	.bodydiv1{
-		margin-top:10px;
-	}
-    .gridtable{
-    	display:table;
-    	border-collapse:separate;
-    	border-spacing:20px;
-    }
-    .cell{
-    	display:table-cell;
-    }
-    .cell a{
-    	text-decoration:none;
-    	text-align:center;
-    }
-    .cell a img{
-    	height:100px;
-    	width:100px;
-    }
-    .cell a p{
-    	font-family: "微软雅黑";
-		font-size:15px;
-		color:#555;
-    }
-	.ldiv{
-		width:49%;
-		margin-right:1%;
+	.bodydiv{
+		margin-top:33px;
 	}
 	.rdiv{
-		width:49%;
-		margin-left:1%;
-		float:right;
+		width:100%;
 	}
-	.bodydiv2{
-		background:url(<%=path%>/image/newimg/13.png) no-repeat center;
-		margin-top:30px;
-	}
-	.txt1{
-		height:144px;
-		width:210px;
-		line-height:1.5;
-		text-align:center;
-		padding-top:10px;
-		padding-left:25px;
-		margin-bottom:30px;
-		display:block;
-		text-decoration:none;
-	}
-	.txt2{
-		height:100px;
-		width:210px;
-		line-height:1.5;
-		text-align:center;
-		margin-left:260px;
-		display:block;
-		text-decoration:none;
-	}
-	.ti{
-		font-family: "微软雅黑";
-		font-size:18px;
-		color:#fff;
-	}
-	.co{
-		font-family: "微软雅黑";
-		font-size:12px;
-		color:#fff;
-		text-align:left;
-		width:210px;
-	}
-	.co:first-letter{margin-left:2em}
 	.grid{
 		display: table;		
 	}
@@ -110,46 +36,43 @@
 	.row a{
 		text-decoration:none;
 		display:table-cell;
+		text-align:left;
+		line-height:2
 	}
 	.row a .modal{
 		display: table-cell;
 		width:100px;
-		padding:0 5px 0 8px;
+		padding-right:20px;
 	}
 	.row a .modal img{
 		max-height:100px;
-		line-height:1.5;
-		text-align:left;	
 	}
 	.row a .modal1{
 		display:table-cell;
-		width:130px;
-		padding-top:20px
+		width:880px;
+		
 	}
 	.titi{
 		font-family: "微软雅黑";
-		font-size:14px;
+		font-size:20px;
 		color:#666666;
 		vertical-align:top;
 	}
 	.coco{
 		font-family: "微软雅黑";
-		font-size:12px;
+		font-size:14px;
 		color:#999999;
 		vertical-align:top;
-	}
-	.bodydiv3{
-		margin-top:33px;
+		display:inline-block;
+		text-indent:2em;
 	}
 </style>
 <body id="ctdiv">
-	<div id="title">
 		<div class="headdiv">
 			<span class="hds1" id="titleCN"></span>
 			<span class="hds2" id="titleEN"></span>
 		</div>
-		<div class="bodydiv1">
-			
+		<div class="bodydiv" id="showTwo">
+
 		</div>
-	</div>
 </body>

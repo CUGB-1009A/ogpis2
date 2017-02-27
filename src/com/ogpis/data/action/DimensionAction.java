@@ -56,8 +56,9 @@ public class DimensionAction extends BaseAction{
 		Pagination pagination = dimensionService.getAllDimension(SimplePage.cpn(pageNumber), pageSize);
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("utf-8");
-	    System.out.println(this.toJsonTableData(pagination, null, true));
-	    response.getWriter().write(this.toJsonTableData(pagination, null, true));
+	    String filter[] = new String[]{"dataSource","tableColumns"};
+	    System.out.println(this.toJsonTableData(pagination, filter, true));
+	    response.getWriter().write(this.toJsonTableData(pagination, filter, true));
 		}
 	
 	@RequestMapping(value = "/dimension/save")
@@ -100,6 +101,8 @@ public class DimensionAction extends BaseAction{
 		String id = request.getParameter("id");
 		Dimension dimension = dimensionService.findById(id);
 		JsonConfig jsonConfig = new JsonConfig();
+		String filter[] = new String[]{"dataSourceMetrics","dataSourceField"};
+		jsonConfig.setExcludes(filter);
 		jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
 		JSONObject json = JSONObject.fromObject(dimension,jsonConfig);
 		response.setContentType("application/json");

@@ -2,139 +2,139 @@
 <menutree>
 	<level1 id="lssjyl" name="历史数据要览" nameEN="Historical Data Is Key" imgName="lssjyl.png" hasTri="true">
 		<level2 id="zyl" name="资源量">
-			<level3 id="zyl_sj" name="世界" imgName="1.png" url="/dataBrowse">
+			<level3 id="zyl_sj" name="世界" imgName="1.jpg" url="/dataBrowse">
 				<tab id="zyl_sj_01">年度大区各盆地油气资源量</tab>
 			</level3>
-			<level3 id="zyl_sjdq" name="世界大区" imgName="2.png" url="/dataBrowse">
+			<level3 id="zyl_sjdq" name="世界大区" imgName="2.jpg" url="/dataBrowse">
 				<tab id="zyl_sjdq_01">年度大区各盆地油气资源量</tab>
 			</level3>
-			<level3 id="zyl_qg" name="全国" imgName="3.png" url="/dataBrowse">
+			<level3 id="zyl_qg" name="全国" imgName="3.jpg" url="/dataBrowse">
 				<tab id="zyl_dq_01">年度大区各盆地油气资源量</tab>
 			</level3>
-			<level3 id="zyl_gndq" name="国内大区" imgName="4.png" url="/dataBrowse_Tu?id=zyl_gndq">
+			<level3 id="zyl_gndq" name="国内大区" imgName="4.jpg" url="/dataBrowse_Tu?id=zyl_gndq">
 				<tab id="zyl_gndq_01" dataSource="1">年度各盆地油气资源量</tab>
 				<tab id="zyl_gndq_02" dataSource="1">年度z各大区油气资源量</tab>
 				<tab id="zyl_gndq_03" dataSource="1">年度各省区油气资源量</tab>
 			</level3>
 		</level2>
 		<level2 id="chul" name="储量">
-			<level3 id="chul_sj" name="世界" imgName="1.png" url="">
+			<level3 id="chul_sj" name="世界" imgName="1.jpg" url="">
 				<tab id="chul_qg_01">历年全国盆地储量</tab>
 			</level3>
 
-			<level3 id="sjdq" name="世界大区" imgName="2.png" url="">
+			<level3 id="sjdq" name="世界大区" imgName="2.jpg" url="">
 				<tab id="chul_sygs_01">历年石油总公司储量</tab>
 			</level3>
 
-			<level3 id="sjgg" name="世界各国" imgName="3.png" url="">
+			<level3 id="sjgg" name="世界各国" imgName="3.jpg" url="">
 				<tab id="chul_sq_01">年度省区油气田储量</tab>
 			</level3>
-			<level3 id="chul_qg" name="全国" imgName="4.png" url="/dataBrowse_Tu?id=chul_qg">
+			<level3 id="chul_qg" name="全国" imgName="4.jpg" url="/dataBrowse_Tu?id=chul_qg">
 				<tab id="chul_qg_01" dataSource="2" title="历年全国">历年全国储量</tab>
 				<tab id="chul_qg_02" dataSource="3" title="">年度各省区储量</tab>
 				<tab id="chul_qg_03" dataSource="4" title="">年度各盆地储量</tab>
 				<tab id="chul_qg_04" dataSource="5" title="">某年各公司储量</tab>
 			</level3>
-			<level3 id="sygs" name="石油公司" imgName="5.png" url="">
+			<level3 id="sygs" name="石油公司" imgName="5.jpg" url="">
 				<tab id="chul_sygs_01">历年石油总公司储量</tab>
 			</level3>
-			<level3 id="sq" name="省区" imgName="6.png" url="">
+			<level3 id="sq" name="省区" imgName="6.jpg" url="">
 				<tab id="chul_sq_01">年度省区油气田储量</tab>
 			</level3>
-			<level3 id="pd" name="盆地" imgName="7.png" url="">
+			<level3 id="pd" name="盆地" imgName="7.jpg" url="">
 				<tab id="chul_pd_01">年度盆地油气田储量</tab>
 			</level3>
 		</level2>
 		<level2 id="chanl" name="产量">
-			<level3 id="sj" name="世界" imgName="1.png" url="">
+			<level3 id="sj" name="世界" imgName="1.jpg" url="">
 				<tab id="chul_qg_01">历年全国盆地储量</tab>
 			</level3>
-			<level3 id="sjdq" name="世界大区" imgName="2.png" url="">
+			<level3 id="sjdq" name="世界大区" imgName="2.jpg" url="">
 				<tab id="chul_sygs_01">历年石油总公司储量</tab>
 			</level3>
-			<level3 id="sjgg" name="世界各国" imgName="3.png" url="">
+			<level3 id="sjgg" name="世界各国" imgName="3.jpg" url="">
 				<tab id="chul_sq_01">年度省区油气田储量</tab>
 			</level3>
-			<level3 id="qg" name="全国" imgName="4.png" url="">
+			<level3 id="qg" name="全国" imgName="4.jpg" url="">
 				<tab id="chul_pd_01">年度盆地油气田储量</tab>
 			</level3>
-			<level3 id="sygs" name="石油公司" imgName="5.png" url="">
+			<level3 id="sygs" name="石油公司" imgName="5.jpg" url="">
 				<tab id="chul_sygs_01">历年石油总公司储量</tab>
 			</level3>
-			<level3 id="sq" name="省区" imgName="6.png" url="">
+			<level3 id="sq" name="省区" imgName="6.jpg" url="">
 				<tab id="chul_sq_01">年度省区油气田储量</tab>
 			</level3>
-			<level3 id="pd" name="盆地" imgName="7.png" url="">
+			<level3 id="pd" name="盆地" imgName="7.jpg" url="">
 				<tab id="chul_pd_01">年度盆地油气田储量</tab>
 			</level3>
 		</level2>
 		<level2 id="yqmy" name="油气贸易">
-			<level3 id="sjyj" name="世界油价" imgName="1.png" url=""></level3>
-			<level3 id="dqyj" name="地区油价" imgName="2.png" url=""></level3>
-			<level3 id="gnjck" name="国内进出口" imgName="3.png" url=""></level3>
-			<level3 id="lyg" name="来源国" imgName="4.png" url=""></level3>
+			<level3 id="sjyj" name="世界油价" imgName="1.jpg" url=""></level3>
+			<level3 id="dqyj" name="地区油价" imgName="2.jpg" url=""></level3>
+			<level3 id="gnjck" name="国内进出口" imgName="3.jpg" url=""></level3>
+			<level3 id="lyg" name="来源国" imgName="4.jpg" url=""></level3>
 		</level2>
 		<level2 id="nyxf" name="能源消费">
-			<level3 id="sj" name="世界" imgName="1.png" url=""></level3>
-			<level3 id="sjdq" name="世界大区" imgName="2.png" url=""></level3>
-			<level3 id="sjgg" name="世界各国" imgName="3.png" url=""></level3>
+			<level3 id="sj" name="世界" imgName="1.jpg" url=""></level3>
+			<level3 id="sjdq" name="世界大区" imgName="2.jpg" url=""></level3>
+			<level3 id="sjgg" name="世界各国" imgName="3.jpg" url=""></level3>
 		</level2>
 		<level2 id="kq" name="矿权">
-			<level3 id="qgkq" name="全国矿权" imgName="1.png" url="">
+			<level3 id="qgkq" name="全国矿权" imgName="1.jpg" url="">
 				<tab id="kq_sygs_01">全国各公司油气资源矿权明细</tab>
 				<tab id="kq_sygs_02">历年全国各公司油气资源矿权概况</tab>
 			</level3>
-			<level3 id="gskq" name="公司矿权" imgName="2.png" url="">
+			<level3 id="gskq" name="公司矿权" imgName="2.jpg" url="">
 				<tab id="kq_sygs_01">全国各公司油气资源矿权明细</tab>
 				<tab id="kq_sygs_02">历年全国各公司油气资源矿权概况</tab>
 			</level3>
-			<level3 id="sqkq" name="省区矿权" imgName="3.png" url="">
+			<level3 id="sqkq" name="省区矿权" imgName="3.jpg" url="">
 				<tab id="kq_sq_01">全国各省区油气资源矿权明细</tab>
 			</level3>
-			<level3 id="qgktkf" name="全国勘探开发" imgName="4.png" url="">
+			<level3 id="qgktkf" name="全国勘探开发" imgName="4.jpg" url="">
 				<tab id="kq_qg_01">全国各公司油气资源矿权概况</tab>
 			</level3>
-			<level3 id="gsktkf" name="公司勘探开发" imgName="5.png" url="">
+			<level3 id="gsktkf" name="公司勘探开发" imgName="5.jpg" url="">
 				<tab id="kq_qg_01">全国各公司油气资源矿权概况</tab>
 			</level3>
 		</level2>
 		<level2 id="fyq" name="非油气">
-			<level3 id="mt" name="煤炭" imgName="1.png" url="/dataBrowse"></level3>
-			<level3 id="hd" name="核电" imgName="2.png" url="/dataBrowse"></level3>
-			<level3 id="sn" name="水能" imgName="3.png" url="/dataBrowse"></level3>
-			<level3 id="fn" name="风能" imgName="4.png" url="/dataBrowse"></level3>
-			<level3 id="tyn" name="太阳能" imgName="5.png" url="/dataBrowse"></level3>
+			<level3 id="mt" name="煤炭" imgName="1.jpg" url="/dataBrowse"></level3>
+			<level3 id="hd" name="核电" imgName="2.jpg" url="/dataBrowse"></level3>
+			<level3 id="sn" name="水能" imgName="3.jpg" url="/dataBrowse"></level3>
+			<level3 id="fn" name="风能" imgName="4.jpg" url="/dataBrowse"></level3>
+			<level3 id="tyn" name="太阳能" imgName="5.jpg" url="/dataBrowse"></level3>
 		</level2>
 		<level2 id="dzfx" name="定制分析" url="/123"></level2>
 	</level1>
-	<level1 id="ghfzbz" name="规划辅助编制" imgName="ghfzbz.png" hasTri="false">
-	    <level2 id="qsyc" name="趋势预测" url="/forecast/list" imgName="1.png"></level2>  
-	    <level2 id="ycgl" name="预测管理" url="/forecast/finishedList" imgName="2.png"></level2>
-	    <level2 id="mxgl" name="模型管理" url="/model/list" imgName="3.png"></level2>		
+	<level1 id="ghfzbz" name="规划辅助编制" nameEN="Planning assistant " imgName="ghfzbz.png" hasTri="false">
+	    <level2 id="qsyc" name="趋势预测" url="/forecast/list" imgName="1.jpg"></level2>  
+	    <level2 id="ycgl" name="预测管理" url="/forecast/finishedList" imgName="2.jpg"></level2>
+	    <level2 id="mxgl" name="模型管理" url="/model/list" imgName="3.jpg"></level2>		
 	</level1>
 
-	<level1 id="ghzs" name="规划展示" top="true" left="true" center="true" imgName="ghzs.png" hasTri="false">
-		<level2 id="ghzs" name="规划概览" imgName="1.png" url="/plan/userList?type=All&amp;condition="></level2>
-	    <level2 id="ghzb" name="规划指标" imgName="2.png" url="/indexData/list?type=QG&amp;id=0"></level2>  
-	    <level2 id="ssqk" name="实施情况" imgName="3.png" url="/plan/list?type=All&amp;condition="></level2>
-	    <level2 id="zlgl" name="规划资料" imgName="4.png" url="/document/list"></level2>
-	    <level2 id="scgl" name="我的收藏" imgName="5.png" url="/plan/myConcern"></level2>
+	<level1 id="ghzs" name="规划展示" nameEN="Planning display"  imgName="ghzs.png" hasTri="false">
+		<level2 id="ghzs" name="规划概览" imgName="1.jpg" url="/plan/userList?type=All&amp;condition="></level2>
+	    <level2 id="ghzb" name="规划指标" imgName="2.jpg" url="/indexData/list?type=QG&amp;id=0"></level2>  
+	    <level2 id="ssqk" name="实施情况" imgName="3.jpg" url="/plan/list?type=All&amp;condition="></level2>
+	    <level2 id="zlgl" name="规划资料" imgName="4.jpg" url="/document/list"></level2>
+	    <level2 id="scgl" name="我的收藏" imgName="5.jpg" url="/plan/myConcern"></level2>
 	</level1>	      
-	<level1 id="ghgzpg" name="规划跟踪评估" imgName="ghgzpg.png" hasTri="false">
-		<level2 id="zbgz" name="指标跟踪" url="/track/indexTrackContents" imgName="1.png" ></level2>
-	    <level2 id="gmgz" name="规划跟踪" url="/track/targetTrackContents" imgName="2.png"></level2>  
-	    <level2 id="bjgz" name="布局跟踪" url="/track/layoutTrackContents" imgName="3.png"></level2>
+	<level1 id="ghgzpg" name="规划跟踪评估" nameEN="Planning Follow-up Assessments" imgName="ghgzpg.png" hasTri="false">
+		<level2 id="zbgz" name="指标跟踪" url="/track/indexTrackContents" imgName="1.jpg" ></level2>
+	    <level2 id="gmgz" name="规划跟踪" url="/track/targetTrackContents" imgName="2.jpg"></level2>  
+	    <level2 id="bjgz" name="布局跟踪" url="/track/layoutTrackContents" imgName="3.jpg"></level2>
 	</level1>
-	<level1 id="ghgl" name="规划管理" imgName="1.png" hasTri="false">
-	    <level2 id="ghgl" name="规划管理" imgName="1.png" url="/plan/list?type=All&amp;condition="></level2>  
-	    <level2 id="zlgl" name="资料管理" imgName="2.png" url="/document/list"></level2>
-	    <level2 id="zbgl" name="指标管理" imgName="3.png" url="/index/list?type=QG"></level2>
-	    <level2 id="ssgzgl" name="实施跟踪管理" imgName="4.png" url="/indexData/list?type=QG&amp;id=0"></level2>		
+	<level1 id="ghgl" name="规划管理" imgName="1.jpg" nameEN="Planning management" hasTri="false">
+	    <level2 id="ghgl" name="规划管理" imgName="1.jpg" url="/plan/list?type=All&amp;condition="></level2>  
+	    <level2 id="zlgl" name="资料管理" imgName="2.jpg" url="/document/list"></level2>
+	    <level2 id="zbgl" name="指标管理" imgName="3.jpg" url="/index/list?type=QG"></level2>
+	    <level2 id="ssgzgl" name="实施跟踪管理" imgName="4.jpg" url="/indexData/list?type=QG&amp;id=0"></level2>		
 	</level1>
-	<level1 id="sjgl" name="数据管理" imgName="2.png" hasTri="false">
-		<level2 id="jcxxwh" name="基础信息维护" imgName="1.png" url="/baseinfo/list"></level2>  
-	    <level2 id="sjywh" name="数据源维护" imgName="2.png" url="/dataSource/list"></level2>
-	    <level2 id="sjwh" name="数据维护" imgName="3.png" url="/data/dataMaintain"></level2>
-	    <level2 id="hcwh" name="缓存维护" imgName="4.png" url="/dataCache/list"></level2>
+	<level1 id="sjgl" name="数据管理" imgName="2.png" nameEN="DataManagement" hasTri="false">
+		<level2 id="jcxxwh" name="基础信息维护" imgName="1.jpg" url="/baseinfo/list"></level2>  
+	    <level2 id="sjywh" name="数据源维护" imgName="2.jpg" url="/dataSource/list"></level2>
+	    <level2 id="sjwh" name="数据维护" imgName="3.jpg" url="/data/dataMaintain"></level2>
+	    <level2 id="hcwh" name="缓存维护" imgName="4.jpg" url="/dataCache/list"></level2>
 	</level1>
 </menutree>
