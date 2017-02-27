@@ -352,6 +352,18 @@
 			index : [ "石油产量", "天然气产量", "煤层气产量" ]
 		};
 		resetSelectDOM(data1, "#query");
+		
+		var layoutParams = new SpaceAnalysisInfo({
+			target : "layout",
+			params : {
+				company : "中石油",
+				year : 2016,
+				index : "oilReserve"
+			}
+		});
+		getTargetOrLayoutInfo(layoutParams, projectPoint);
+		while(!mapManager.map.getLayer("basin"))
+			mapManager.map.getLayer("basin").setVisibility(false);
 		/* ajax({
 			url : "url",
 			params : {}
