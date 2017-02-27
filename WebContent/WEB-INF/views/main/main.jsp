@@ -4,7 +4,7 @@
 <title>油气资源规划管理系统</title>
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false"
-		style="height: 200px; padding: 0px">
+		style="height: 258px; padding: 0px">
 		<IFRAME width="100%" height="100%" frameBorder=0 id=main_top
 			name=main_top src="<%=path%>/main/top"></IFRAME>
 	</div>
@@ -13,17 +13,17 @@
 
 		<IFRAME width="100%" height="100%" frameBorder=0 id=main_left
 			name=main_left src="<%=path%>/main/left"></IFRAME>
-	</div>
+	</div>  
 	<div data-options="region:'center'">
 		<IFRAME width="100%" height="100%" frameBorder=0 id=main_center
 			name=main_center src="<%=path%>/main/center"></IFRAME>
 	</div>
-	<!--<div data-options="region:'south',border:false"
-		style="height: 32px;">
+	<div data-options="region:'south',border:false"
+		style="height: 100px;">
 
 		<IFRAME width="100%" height="100%" frameBorder=0 id=main_bottom
 			name=main_bottom src="<%=path%>/main/bottom"></IFRAME>
-	</div>-->
+	</div>
 </body>
 <script>
 
@@ -54,7 +54,7 @@
 			            			showMenu($(this).attr("class"));
 			            		});
 			            	}
-			            	if(left=="true"){
+			            /*	if(left=="true"){
 			            		$("#main_left").contents().find("#sider-nav").children("ul").append("<li><a class='"+id+"'>"+name+"</a></li>");
 			            		$("#main_left").contents().find("#sider-nav ."+id).click(function(){
 			            			$("#main_top").contents().find('#nav li').removeClass('current');
@@ -82,7 +82,8 @@
 				            			});
 			            			}
 			            		
-			            	}
+			            	}  
+			            	*/
 			            });
 		         }
 		}) ;

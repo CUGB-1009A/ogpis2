@@ -27,8 +27,8 @@ html, body {
 <link rel="stylesheet" type="text/css" href="<%=path %>/resource/easyui-1.5/themes/bootstrap/easyui.css">
 <!-- FontAwesome 4.3.0 -->
 <link href="<%=path %>/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-<!-- Theme style -->
-<link href="<%=path %>/dist/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+<!-- Theme style
+<link href="<%=path %>/dist/css/AdminLTE.css" rel="stylesheet" type="text/css" />  -->
 <link href="<%=path %>/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="<%=path %>/resource/easyui-1.5/jquery.min.js"></script>

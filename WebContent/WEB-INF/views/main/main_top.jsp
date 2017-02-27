@@ -4,50 +4,28 @@
 
 <style>
 	#backdiv{
-		overflow: hidden; 
 		height: 100%;
 		position:relative;
-        background: url(<%=path %>/image/banner.png) #0050A3 no-repeat  center;
+        background: url(<%=path%>/image/newimg/background.png) no-repeat  center;
         background-size:100% 100%;
         color: #fff; 
-        font-family:"楷体";
+        text-align:center;
 	}
 	img{
-		max-height:100px;
-		max-width:100px;
-		position:absolute;
-		left:15%;
-		top:15px
-	}
-	#topic1{
-		font-size:45px;
-		font-weight:bold;
-		padding-top:35px;
-		display:block;
-		position:absolute;
-		left:20.5%;
-	}
-	#topic2{
-		font-size:15px;
-		font-family:"lucida console",Arial;
-		padding-top:92px;
-		display:block;
-		position:absolute;
-		left:21%;
+		margin-top:55px;
 	}
 	#nav{
-		background-color:#0066CC;
-		height:50px;
+		background-color:rgba(0,0,0,0.2);
+		height:45px;
 		width:100%;
 		position:absolute;
 		bottom:0px
 	}
 	#nav ul{
-		margin: 0 0 0 13%; 
+		margin-top:10px;
+		margin-bottom:0px;
 		padding: 0px; 
 		font-size: 16px; 
-		color: #FFF; 
-		line-height: 50px; 
 		white-space: nowrap; 
 	}
 	#nav li{
@@ -59,26 +37,25 @@
 		text-decoration: none; 
 		font-family: "Microsoft YaHei",Arial, Helvetica, sans-serif; 
 		font-weight: bold;
-		padding: 15px 33px; 
-		margin:0 15px;
-		color: #FFF; 
+		padding: 10px 3% 10px;
+		border-bottom-width:3px;
+		border-bottom-style:solid;
+		border-bottom-color:rgba(0,0,0,0.1); 
 	} 
-
 	#nav li.current a {
-		background-color: #27577F;
+		background-color:rgba(0,0,0,0.2);
+		border-bottom-color:#f19149;
 	}
 </style>
 <div  id="backdiv" >
-    <img  src="<%=path%>/image/logo2.png">
-    <span id="topic1"> 油气资源规划信息管理系统</span>
-    <span id="topic2"> Oil and Gas Resources Planning Information Management System</span>
+    <img  src="<%=path%>/image/newimg/logo.png">
     <div id="nav">
     	<ul>
     		<li class="current">
     			<a id="mainPage">首页</a>
     		</li>
     	</ul>
-    </div>
+    </div>  
 </div>
 <script>
 
