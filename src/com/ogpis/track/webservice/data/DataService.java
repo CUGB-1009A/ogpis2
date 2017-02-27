@@ -25,15 +25,19 @@ public class DataService {
 		if(result==null){
 			try{
 				WebServiceParams params=parse(paramJson);
+				System.out.println("执行了getDataByParam查询");
 				results=WebService.GetData(params);
+				System.out.println("results");
 			}catch(Exception e){
+				System.out.println("执行了getDataBySql查询");
 				results=WebService.GetData(paramJson);
+				System.out.println("results");
 			}finally{
-				if(results[0]=="调用成功!"){
+				if(results!=null&&results[0]=="调用成功!"){
 					TestEntity entity=new TestEntity(paramJson,results[1]);
 					myTestDao.insert(entity);
 					return results[1];
-				}	
+				}
 				else
 					return "error";
 			}

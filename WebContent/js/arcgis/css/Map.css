@@ -74,6 +74,13 @@ html, body, .fullBox, #map {
 	width: 115px;
 	height: 35px;
 }
+.label{
+	margin-left:10px
+}
+.input {
+	width: 70px;
+	height: 35px;
+}
 
 .myTabItem {
 	font-size: 20px;
@@ -81,6 +88,7 @@ html, body, .fullBox, #map {
 
 .inline-block {
 	display: inline-block;
+	text-align: center;
 }
 
 .border {
@@ -165,9 +173,9 @@ html, body, .fullBox, #map {
 	border: 2px solid #95B8E7;
 	background-color: white;
 	padding-bottom: 25px;
-	filter: alpha(opacity = 80); /*支持 IE 浏览器*/ 
-	-moz-opacity : 0.80;/*支持 FireFox 浏览器*/ 
-	opacity : 0.75; /*支持 Chrome, Opera, Safari 等浏览器*/
+	filter: alpha(opacity = 80); /*支持 IE 浏览器*/
+	-moz-opacity: 0.80; /*支持 FireFox 浏览器*/
+	opacity: 0.75; /*支持 Chrome, Opera, Safari 等浏览器*/
 }
 
 .mapInfoPanel-head {
@@ -191,7 +199,7 @@ html, body, .fullBox, #map {
 
 .dialog-lable {
 	display: inline-block;
-	width: 200px;
+	width: 150px;
 	font-size: 20px;
 	text-align: right
 }
@@ -200,9 +208,4 @@ html, body, .fullBox, #map {
 	display: inline-block;
 	width: 300px;
 	font-size: 20px;
-}
-
-td, th {
-	height: 45px;
-	text-align: center
 }

@@ -5,6 +5,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ogpis.track.dao.MyTestDaoImpl;
+import com.ogpis.track.dao.base.MyTestDao;
+import com.ogpis.track.entity.TestEntity;
+import com.ogpis.track.entity.TrackUser;
 import com.ogpis.track.tools.TempTools;
 import com.ogpis.track.webservice.WebServiceParam;
 import com.ogpis.track.webservice.WebServiceParams;
@@ -15,7 +19,7 @@ import org.dom4j.Document;
 import org.json.JSONObject;
 import org.junit.Ignore;
 import org.junit.Test;
-
+import org.springframework.context.ApplicationContext;
 
 public class TestTools {
 
@@ -50,7 +54,6 @@ public class TestTools {
 		params.add(param);
 		System.out.println(params.toString());
 	}
-	@Ignore
 	@Test
 	public void testDao(){
 		/*TrackUser user=new TrackUser();
@@ -63,7 +66,7 @@ public class TestTools {
 		ApplicationContext context=new XML
 		MyTestDao dao=new MyTestDaoImpl();
 		dao.insert(entity);*/
-		StringBuilder sb=new StringBuilder();
+		/*StringBuilder sb=new StringBuilder();
 		sb.append("[");
 		Integer length=20000;
 		for(int i=0;i<length;++i){
@@ -73,15 +76,6 @@ public class TestTools {
 		}
 		sb.append("]");
 		JSONArray array=JSONArray.fromObject(sb.toString());
-		System.out.println(array.toString());
+		System.out.println(array.toString());*/
 	}
-	
-	@Test
-	public void testJson(){
-		String test="{'isTrue':''}";
-		JSONObject obj=new JSONObject(test);
-		Boolean bool=obj.getBoolean("isTrue");
-		System.out.println(bool);
-	}
-
 }

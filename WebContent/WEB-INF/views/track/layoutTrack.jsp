@@ -19,15 +19,11 @@
 </script>
 
 <!-- 加载ArcGIS API  -->
-<script type="text/javascript" src="/arcgis/library/3.9/3.9/init.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="/arcgis/library/3.9/3.9/esri/css/esri.css"></link>
-<!-- 加载自定义ArcGIS API  -->
-<script type="text/javascript" src="../js/arcgis/globalOptions.js"></script>
+<%@ include file="ArcGISAPI.jsp"%>
+<!-- 加载自定义自定义tools函数  -->
+<%@ include file="tools.jsp"%>
+<!-- 加载自定义自定义echart函数 -->
 <script type="text/javascript" src="../js/arcgis/echartOptions.js"></script>
-<script type="text/javascript" src="../js/arcgis/globalFunction.js"></script>
-<script type="text/javascript" src="../js/arcgis/globalVariable.js"></script>
-<script type="text/javascript" src="../js/arcgis/initPage.js"></script>
 <!-- 加载自定义样式 -->
 <link rel="stylesheet" type="text/css" href="../js/arcgis/css/Map.css">
 </head>
@@ -36,36 +32,35 @@
 		<div id="tab1" class="easyui-tabs" style="height: 84px"
 			data-options="border:false,region:'north'">
 			<div title="查询统计">
-				<div class="padding">
+				<div id="query" class="padding">
 					<div class="inline-block">
-						<label id="field1">油气田名称:</label> <select id="field1Value"
-							class="select">
-							<option>公司1</option>
-							<option>公司2</option>
-							<option>公司3</option>
+						<label>查询条件:</label>
+					</div>
+					<div class="inline-block">
+						<select name="field" class="select">
+							<option>资源类型</option>
+							<option>油气田名称</option>
+							<option>年份</option>
 						</select>
 					</div>
 					<div class="inline-block">
-						<label id="field2">年度:</label> <select id="field2Value"
-							class="select">
-							<option>2013</option>
-							<option>2014</option>
-							<option>2015</option>
-							<option>2016</option>
-							<option>2017</option>
+						<select name="relation" class="select">
+							<option>全部</option>
+							<option>大于</option>
+							<option>大于或等于</option>
+							<option>等于</option>
+							<option>小于等于</option>
+							<option>小于或等于</option>
+							<option>不等于</option>
+							<option>包含</option>
+							<option>不包含</option>
 						</select>
 					</div>
 					<div class="inline-block">
-						<label id="field3">指标:</label> <select id="field3Value"
-							class="select">
-							<option>石油储量</option>
-							<option>石油产量</option>
-							<option>天然气储量</option>
-							<option>天然气产量</option>
-						</select>
+						<input type="text" class="select" placeholder="空值" name="value" />
 					</div>
 					<div class="inline-block">
-						<button class="select" onclick="queryTest();">查询</button>
+						<button class="select" onclick="queryTest(this);">查询</button>
 					</div>
 					<!-- <div class="inline-block">
 						<button class="select" onclick="recQuery();">框选</button>
@@ -75,30 +70,30 @@
 					</div> -->
 				</div>
 			</div>
-			<div title="警戒设置" closable="true">
-				<div class="padding">
-					<div class="inline-block">
-						<label id="field1">警戒条件1:</label> <select id="field1Value"
-							class="select">
+			<div title="渲染设置" closable="true">
+				<div id="render" class="padding">
+					<!-- <div class="inline-block">
+						<label>警戒条件1:</label> <select id="index" class="select">
+							<option value="company">公司</option>
+							<option>条件2</option>
+							<option>条件3</option>
+						</select>
+					</div> -->
+					<!-- <div class="inline-block">
+						<label id="field2">警戒条件2:</label> <select id="year" class="select">
 							<option>条件1</option>
 							<option>条件2</option>
 							<option>条件3</option>
 						</select>
-					</div>
+					</div> -->
 					<div class="inline-block">
-						<label id="field2">警戒条件2:</label> <select id="field2Value"
+						<label id="field3">渲染字段:</label> <select id="index"
 							class="select">
-							<option>条件1</option>
-							<option>条件2</option>
-							<option>条件3</option>
-						</select>
-					</div>
-					<div class="inline-block">
-						<label id="field3">警戒条件3:</label> <select id="field3Value"
-							class="select">
-							<option>条件1</option>
-							<option>条件2</option>
-							<option>条件3</option>
+							<option value="type">资源类型</option>
+							<option value="company">公司名称</option>
+							<option value="value">指标值</option>
+							<!-- <option>按</option> -->
+							<!-- 目前只有油气田的位置信息，没有指标信息 -->
 						</select>
 					</div>
 					<div class="inline-block">
@@ -213,8 +208,9 @@
 			</div>
 			<div title="图表" class="easyui-layout"
 				style="width: 100%; min-width: 800px; height: 100%;">
-				<div class="border" data-options="region:'center',border:false,onResize:panelResize">
-					<div id="test" style="width: 600px; height: 400px"></div>
+				<div class="border"
+					data-options="region:'center',border:false,onResize:panelResize">
+					<div id="test" class="echart" style="width: 600px; height: 400px"></div>
 				</div>
 				<div data-options="region:'west',split:true"
 					style="width: 30%; max-width: 600px;">
@@ -264,13 +260,26 @@
 	</div>
 </body>
 <script type="text/javascript">
-	function queryTest() {
+	function queryTest(obj) {
+		var params = createParamsByDom(obj);
+		var layoutParams = new SpaceAnalysisInfo({
+			target : "layout",
+			params : {
+				company : "中石油",
+				year : 2016,
+				index : "oilReserve"
+			}
+		});
+		getTargetOrLayoutInfo(layoutParams, projectPoint);
+		updateTable("#table", params);
+		/* mapManager.age="asd";
+		console.log(mapManager);
 		var options = {
 			url : "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer",
 			layerId : 0,
 			sql : "FID < 900 and FID > 890"
 		}
-		queryTask(mapManager, options);
+		queryTask(mapManager, options); */
 	}
 	function recQuery() {
 		require([ "esri/toolbars/draw" ], function(Draw) {
@@ -278,8 +287,40 @@
 		})
 	}
 	function render() {
-		initRender(mapManager,renderLayerId);
+		/* initRender(mapManager, renderLayerId); */
+		/* var info = new PolygonRenderInfo({
+			layerId : "basin",
+			matchField1 : "Name",
+			renderField : "renderValue",
+			matchField2 : "basinName",
+			valueField : "oilProduce",
+			values : [ 1, 10, 20, 30,40 ],
+			params : {
+				company : "中石油",
+				year : 2015,
+				index : "oilProduce"
+			}
+		}); */
+		var info = new PointRenderInfo({
+			symbols : Symbols.toArray("PointSymbol"),
+			levels : 5,
+			values : [ 1000, 2000, 3000, 4000, 5000, 6000 ],
+			renderField : "mGasReserve"
+		});
+		renderPoint(info);
+		/* require([ "esri/renderers/ClassBreaksRenderer",
+				"esri/renderers/SimpleRenderer", "esri/layers/FeatureLayer",
+				"dojo/_base/lang" ], function(ClassBreaksRenderer,
+				SimpleRenderer, FeatureLayer, lang) {
+			var graphics = mapManager.map.graphics.graphics;
+			for (var i = 0; i < graphics.length; ++i) {
+				var g = graphics[i];
+				var v = g.attributes[""]
+				g.setSymbol(info.symbols[(i % 4)]);
+			}
+		}); */
 	}
+
 	$(function() {
 		$("#tt").tabs({
 			onSelect : function(title) {
@@ -290,29 +331,42 @@
 		})
 	})
 
+	var options = setChartOption(options1, {
+		title : "油气资源布局跟踪",
+		xAxisData : [ 2011, 2012, 2013, 2014, 2015, 2016 ],
+		yAxisName : "万吨",
+		yAxisData : [ 1000, 2000, 3000, 4000, 5000, 4500 ]
+	});
+	bindOptionToDiv("test", options);
 	function panelResize(width, height) {
-		$(this).children("div")[0].style.width = $(this).width()-17;
-		$(this).children("div")[0].style.height = $(this).height();
-		var chart=$(this).children("div")[0].chart;
-		if(chart==null)
-			chart=getChart();
-		chart.resize();
+		$(this).children("div.echart")[0].style.width = $(this).width() - 17;
+		$(this).children("div.echart")[0].style.height = $(this).height();
+		echartResize($(this).children("div.echart")[0]);
 	}
-	function getChart(){
-		var myChart = echarts.init(document.getElementById("test"));
-		setOptions1(options1, "油气资源规模跟踪", {
-			type : "category",
-			name : "年份",
-			data : [ 2001, 2002, 2003, 2004, 2005, 2006 ]
-		}, {
-			type : "value",
-			name : "万吨",
-			data : [ 1000, 2000, 3000, 4000, 5000, 4500 ]
-		}, "bar");
-		myChart.setOption(options1);
-		document.getElementById("test").chart=myChart;
-		return myChart;
-	}
+	//初始化查询、渲染的查询条件
+	$(function() {
+		append2("#render", "等级", null);
+		var data1 = {
+			company : [ "中石油", "中石化", "中海油" ],
+			year : [ 2012, 2013, 2014, 2015, 2016 ],
+			index : [ "石油产量", "天然气产量", "煤层气产量" ]
+		};
+		resetSelectDOM(data1, "#query");
+		/* ajax({
+			url : "url",
+			params : {}
+		}, resetSelectDOM, "#query"); */
 
+		/* var data2 = {
+			company : [ "中石油", "中石化", "中海油" ],
+			year : [ 2012, 2013, 2014, 2015, 2016 ],
+			index : [ "石油产量", "天然气产量", "煤层气产量" ]
+		}; */
+		/* ajax({
+		url : "url",
+		params : {}
+		}, resetSelectDOM, "#query"); */
+		/* resetSelectDOM(data2, "#render"); */
+	});
 </script>
 </html>

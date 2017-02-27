@@ -7,6 +7,9 @@ function MapSymbol() {
 }
 function MapManager(options) {
 	this.map;
+	this.getMap=function(){
+		return this.map;
+	}
 	this.mapDom;
 	this.layers;
 	this.layersDom;

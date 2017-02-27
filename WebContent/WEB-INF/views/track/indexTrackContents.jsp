@@ -20,6 +20,7 @@ td, th {
 	text-align: center
 }
 </style>
+<script type="text/javascript" src="../js/arcgis/echartOptions.js"></script>
 <!-- 加载自定义样式 -->
 <link rel="stylesheet" type="text/css" href="../js/arcgis/css/Map.css">
 </head>
@@ -100,11 +101,10 @@ td, th {
 						</tr>
 					</tbody>
 				</table>
-				<div id="pp" class="easyui-pagination" style="height: 25px"
+				<div id="pp" class="easyui-pagination" style="height: 25px;"
 					style="background: #efefef; border: 1px solid #ccc;"
 					data-options="total:2000,pageSize:10,displayMsg:''"></div>
 			</div>
-
 		</div>
 	</div>
 </body>
