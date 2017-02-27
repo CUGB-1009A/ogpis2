@@ -15,8 +15,7 @@
 			.navbox {
             height: 0;
             width: 0;
-            top:40px;
-            margin:0 10% 20px 80%;
+            margin:0 5% 20px 80%;
 	        }
 	        ul.nav {
 	            list-style: none;
@@ -79,10 +78,9 @@
 	        }
 		</style>
 	</head>
-<body>
+<body>	 
 	<!-- 头部 -->
 	<div id="thisHead" style="height:40%">
-
 	<!-- <div style="width:100%"> -->
 		<div align="center"><span style="font-size:24px;font-family:微软雅黑">规划概览</span></div>
 		<div style="width:50%;float:left">
@@ -99,40 +97,46 @@
 			</p>
 		</div>
 	</div> 
-	
+	<br>
+	<br>
+	<!-- 规划背景 -->
+	<div id="description" class="description">
+		<div style="text-align: center;">
+			<div style="text-align: center;width: 100%">
+				<h1>规划背景</h1>
+			</div>
+			<div style="width: 80%;">
+				<script id="container" name="planDescription"  type="text/plain" style="height:auto;">${plan.planDescription}</script>
+				<!-- 配置文件 -->
+				<script type="text/javascript" src="<%=request.getContextPath()%>/assets/ueditor/ueditor.config.js"></script>
+				<!-- 编辑器源码文件 -->
+				<script type="text/javascript" src="<%=request.getContextPath()%>/assets/ueditor/ueditor.all.js"></script>
+				<!-- 实例化编辑器 -->
+				<script type="text/javascript">
+					var ue=UE.getEditor('container', {
+						toolbars:[],
+						wordCount:false,
+						elementPathEnabled:false,
+						readOnly:true
+					});
+				</script>
+			</div>
+		</div>
+	</div>
 	<!-- 导航 -->
 	<div class="navbox">
         <ul class="nav">
+        	<li><a href="" class="disconcern"><i class=" fa fa-heart">取消收藏</i></a></li>
+        	<li><a href="" class="concern"><i class="fa fa-heart-o">收藏</i></a></li>
             <li><a href="#description">规划背景</a></li>
             <li><a href="#target">规划目标</a></li>
             <li><a href="#tarAndFin">规划总体情况</a></li>
             <li><a href="#storage">油气储量</a></li>
             <li><a href="#output">油气产量</a></li>
             <li><a href="#thisHead">回到顶部</a></li>
+            
         </ul>
     </div>
-	<!-- 规划背景 -->
-	<div id="description">
-		<div style="width: 100%">
-			<div style="text-align: center;">
-				<h1>规划背景</h1>
-			</div>
-			<script id="container" name="planDescription"  type="text/plain" style="height:auto;">${plan.planDescription}</script>
-			<!-- 配置文件 -->
-			<script type="text/javascript" src="<%=request.getContextPath()%>/assets/ueditor/ueditor.config.js"></script>
-			<!-- 编辑器源码文件 -->
-			<script type="text/javascript" src="<%=request.getContextPath()%>/assets/ueditor/ueditor.all.js"></script>
-			<!-- 实例化编辑器 -->
-			<script type="text/javascript">
-				var ue=UE.getEditor('container', {
-					toolbars:[],
-					wordCount:false,
-					elementPathEnabled:false,
-					readOnly:true
-				});
-			</script>
-		</div>
-	</div>
 	<!-- 规划目标 -->
 	<div id="target" style="width: 100%">
 		<div style="text-align: center;">
@@ -266,11 +270,17 @@
 	
 	<script type="text/javascript">
 		
+		var isconcered='${isconcered}';
 		/*侧边栏停靠  */
 		jQuery(function($) {
 	        $(document).ready( function() {
 	            $('.navbox').stickUp();
-	            $(".exportExcel").hide();	            
+	            $(".exportExcel").hide();	
+	            if(isconcered){
+	            	$('.disconcern').hide();
+	            }else{
+	            	$('.concern').hide();
+	            }
 	        });
 	    });		
 		
@@ -290,6 +300,49 @@
 	        });
 		}
 		
+		
+		/* 关注、取消关注按钮 */
+		var planId='${plan.id}';
+		$('.concern').bind("click",function(event){
+			event.preventDefault();
+			event.stopPropagation();
+			var getTimestamp=new Date().getTime();
+			$.ajax({
+				url:"<%=request.getContextPath()%>/plan/concern?time="+getTimestamp,
+				dataType:"json",
+				async:true,
+				data:{"planId":planId},
+				type:"GET",
+				success:function(result){
+					$(".concern").hide();
+					$(".disconcern").show();
+					alert("收藏成功");
+				},
+				error:function(){
+					alert("出意外错误了");
+				}
+			})
+		});
+		$('.disconcern').bind("click",function(event){
+			event.preventDefault();
+			event.stopPropagation();
+			var getTimestamp=new Date().getTime();
+			$.ajax({
+				url:"<%=request.getContextPath()%>/plan/disconcern?time="+getTimestamp,
+				dataType:"json",
+				async:true,
+				data:{"planId":planId},
+				type:"GET",
+				success:function(result){
+					$(".concern").show();
+					$(".disconcern").hide();
+					alert("取消收藏成功");
+				},
+				error:function(){
+					alert("出意外错误了");
+				}
+			})
+		});
 		
 		var startYear='${plan.startTime}';
 		var endYear='${plan.endTime}';

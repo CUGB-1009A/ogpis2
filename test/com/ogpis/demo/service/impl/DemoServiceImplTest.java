@@ -2,6 +2,7 @@ package com.ogpis.demo.service.impl;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import net.sf.json.JSONObject;
 import org.junit.Ignore;
@@ -15,6 +16,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.ogpis.data.service.DimensionService;
 import com.ogpis.demo.entity.Demo;
 import com.ogpis.demo.service.DemoService;
+import com.ogpis.plan.entity.IndexManagement;
+import com.ogpis.plan.service.IndexManagementService;
 import com.ogpis.track.webservice.WebServiceParam;
 import com.ogpis.track.webservice.WebServiceParams;
 
@@ -66,8 +69,14 @@ public class DemoServiceImplTest {
 		demo.setField1("111");
 		demoService.update(demo);
 	}
+	
+	@Autowired
+	IndexManagementService indexManagementService;
+
 	@Test
 	public void testDao(){
+		List<IndexManagement> indexList = indexManagementService.findAllIndexByPriority("QG");
+		System.out.println(indexList.size());
 		/*TrackUser user=new TrackUser();
 		user.setName("zwx2");
 		user.setPassword("asd1233");

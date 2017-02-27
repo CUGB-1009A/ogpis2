@@ -117,7 +117,7 @@
 	    <level2 id="ghzb" name="规划指标" imgName="2.png" url="/indexData/list?type=QG&amp;id=0"></level2>  
 	    <level2 id="ssqk" name="实施情况" imgName="3.png" url="/plan/list?type=All&amp;condition="></level2>
 	    <level2 id="zlgl" name="规划资料" imgName="4.png" url="/document/list"></level2>
-	    <level2 id="scgl" name="收藏管理" imgName="5.png" url="/plan/list?type=All&amp;condition="></level2>
+	    <level2 id="scgl" name="我的收藏" imgName="5.png" url="/plan/myConcern"></level2>
 	</level1>	      
 	<level1 id="ghgzpg" name="规划跟踪评估" top="true" left="true" center="true" imgName="ghgzpg.png" hasTri="false">
 		<level2 id="zbgz" name="指标跟踪" url="/track/indexTrackContents" imgName="1.png" ></level2>

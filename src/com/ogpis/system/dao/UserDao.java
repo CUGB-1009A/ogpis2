@@ -12,6 +12,8 @@ public interface UserDao {
 	public User save(User user);
 
 	public User updateByUpdater(Updater<User> updater);
+	
+	public User update(User user);
 
 	public User findById(String id);
 

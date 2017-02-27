@@ -12,7 +12,7 @@
 <body>
 	<div>
 		<div style="margin:10px 10px 10px 10px;">
-			<span style="font-size:24px;font-family:微软雅黑">完成情况管理</span>
+			<span style="font-size:24px;font-family:微软雅黑">指标完成情况管理</span>
 		</div>
 		<div style="margin-left:20px; ">
 			<span>指标类型：</span>

@@ -27,11 +27,12 @@ public class MainAction {
 		 * AttributePrincipal principal=(AttributePrincipal)reuqest.getUserPrincipal();
 		 * String loginName=principal.getName();
 		 * 
-		 * String loginName=request.getParameter("username");*/
+		 * */
+		String loginName=request.getParameter("username");
 		String userRole="管理员";
-		String loginName="admin";
+		//String loginName="admin";
 		CookieUtils.addCookie(response, ConstantsUtils.LOGIN_NAME, loginName, 
-				ConstantsUtils.USER_TYPE,userRole,3600);
+				ConstantsUtils.USER_TYPE,userRole,36000000);
 		
 		return "main/main";
 	}
