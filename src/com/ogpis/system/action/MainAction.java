@@ -24,6 +24,16 @@ public class MainAction {
 	public String main_center() {
 		return "main/main_center";
 	}
+	
+	@RequestMapping(value = "/main/center1", method = RequestMethod.GET)
+	public String main_center1() {
+		return "main/main_center1";
+	}
+	
+	@RequestMapping(value = "/main/center2", method = RequestMethod.GET)
+	public String main_center2() {
+		return "main/main_center2";
+	}
 
 	@RequestMapping(value = "/main/left", method = RequestMethod.GET)
 	public String main_left() {
