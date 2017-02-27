@@ -108,8 +108,6 @@ public class PlanAction extends BaseAction {
 		model.addAttribute("type", type);
 		model.addAttribute("condition", condition);
 		model.addAttribute("planType", PlanType.values());
-		
-		
 		if(isManager)
 			return "/plan/planAdmin/list";
 		else{

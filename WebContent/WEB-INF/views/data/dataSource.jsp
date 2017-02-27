@@ -215,7 +215,7 @@ td, th {
 									data-target="dimensionValueList" data-resume="select"
 									onchange="changeDimension(this)">
 									<option value="null">未选择</option>
-									<c:forEach items="${dimensions}" var="item">
+									<c:forEach items="${dimensions1}" var="item">
 										<option value="${item.id}">${item.name}</option>
 									</c:forEach>
 								</select>
@@ -226,7 +226,7 @@ td, th {
 					<div class="item-div">
 						<label class="dialog-lable">维度值列表:</label>
 						<div class="dialog-input" id="dimensionList">
-							<c:forEach items="${dimensions}" var="item">
+							<c:forEach items="${dimensions2}" var="item">
 								<div data-paramtype="object" data-prefix="DataSourceField[]">
 									<input type="checkbox" name="dimension.id" value="${item.id}"
 										data-submit="no" data-old='no' data-resume="unchecked" /> <label

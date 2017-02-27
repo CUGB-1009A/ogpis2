@@ -1,5 +1,6 @@
 var DataSourceManager = {
 	columns : null,
+	id:null,
 	queryParamModel : {
 		DataSource : {
 			name : "",
@@ -31,7 +32,7 @@ var DataSourceManager = {
 			isMulti : "true/false",
 			tableColumns : {
 				id : "",
-				$name_CN : ""
+				$name : ""
 			},
 			dimension : {
 				id : "",

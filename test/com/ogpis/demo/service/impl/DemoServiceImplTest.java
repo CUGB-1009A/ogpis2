@@ -30,6 +30,8 @@ import com.ogpis.data.service.InterfaceTableService;
 import com.ogpis.data.service.SubjectService;
 import com.ogpis.demo.entity.Demo;
 import com.ogpis.demo.service.DemoService;
+import com.ogpis.plan.entity.IndexManagement;
+import com.ogpis.plan.service.IndexManagementService;
 import com.ogpis.track.webservice.WebServiceParam;
 import com.ogpis.track.webservice.WebServiceParams;
 
@@ -164,8 +166,20 @@ public class DemoServiceImplTest {
 	
 	@Autowired
 	private DimensionService service4;
+	@Ignore
 	@Test
 	public void test23(){
-		
+	
+		List<String> list=new ArrayList();
+		System.out.println(list==null);
+		System.out.println(list.equals(null));
+	}
+	
+	@Autowired
+	IndexManagementService indexManagementService;
+	@Test
+	public void testIndexManagement(){
+		List<IndexManagement> indexList = indexManagementService.findAllIndexByPriority("QG");
+		System.out.println(indexList.size());
 	}
 }

@@ -1,7 +1,6 @@
 package com.ogpis.data.action;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
+import net.sf.json.util.CycleDetectionStrategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,18 +22,18 @@ import com.ogpis.base.action.BaseAction;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.base.common.page.SimplePage;
 import com.ogpis.data.entity.DataSource;
+import com.ogpis.data.entity.DataSourceField;
+import com.ogpis.data.entity.DataSourceMetric;
 import com.ogpis.data.entity.Dimension;
+import com.ogpis.data.entity.DimensionValue;
 import com.ogpis.data.entity.InterfaceTable;
+import com.ogpis.data.entity.MultiDataSourceMetric;
 import com.ogpis.data.entity.Subject;
 import com.ogpis.data.entity.TableColumns;
-
 import com.ogpis.data.service.DataSourceService;
 import com.ogpis.data.service.DimensionService;
-
 import com.ogpis.data.service.InterfaceTableService;
-
 import com.ogpis.data.service.SubjectService;
-
 
 @Controller
 public class DataSourceAction extends BaseAction {
@@ -50,7 +50,8 @@ public class DataSourceAction extends BaseAction {
 	@RequestMapping(value = "/dataSource/list")
 	public String list(HttpServletRequest request, ModelMap model) {
 		model.put("subjects", subjectService.findAll());
-		model.put("dimensions", dimensionService.getAllDimension());
+		model.put("dimensions1", dimensionService.getDimensionMetric());
+		model.put("dimensions2", dimensionService.getDimensionNotMetric());
 		return "data/dataSource";
 	}
 
@@ -85,9 +86,10 @@ public class DataSourceAction extends BaseAction {
 				SimplePage.cpn(pageNumber), pageSize);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
-		System.out.println(this.toJsonTableData(pagination, null, true));
+		String[] filter=new String[]{"parentDataSource","children","dataSourceMetric","table","dataCache","dataSourceFields"};
+		System.out.println(this.toJsonTableData(pagination, filter, true));
 		response.getWriter()
-				.write(this.toJsonTableData(pagination, null, true));
+				.write(this.toJsonTableData(pagination, filter, true));
 	}
 
 	@RequestMapping(value = "/dataSource/getAllDataSource")
@@ -195,5 +197,82 @@ public class DataSourceAction extends BaseAction {
 //			tableColumns=interfaceTableService.getColumnsById(interfaceId);
 //		}
 		
+	}
+	
+	@RequestMapping(value = "dataBrowser/getTabContentByDSId")
+	public void getTabContentByDSId(HttpServletRequest request, HttpServletResponse response ,ModelMap model) throws IOException {
+		StringBuilder result = new StringBuilder();
+		boolean isVirtual = false ; //默认是真实数据源
+		String id= request.getParameter("id");
+		DataSource dataSource = dataSourceService.findById(id);
+		if(dataSource.getTable()==null){//没有表对应的是虚拟数据源
+			isVirtual = true ;
+		}
+		DataSource dataSourceInUse ;
+		//先添加数据源列表 dataSource
+		result.append("{\"dataSource\":{");
+		if(isVirtual){//虚拟数据源处理
+			
+			List<DataSource> childDataSources = dataSource.getChildren();
+			result.append("\"isVirtual\":"+isVirtual+",\"dimensionName\":\""+dataSource.getDimensionName()+"\",");
+			result.append("\"tableEN_name\":\""+dataSource.getChildren().get(0).getTable().getName_EN()+"\",\"dataSources\":[");
+			for(DataSource temp : childDataSources){
+				result.append("{\"id\":\""+temp.getId()+"\",\"dimensionValue\":\""+temp.getDimensionValue()+"\"},");
+			}
+			result.deleteCharAt(result.length()-1);
+			result.append("]},");
+			dataSourceInUse = childDataSources.get(0);
+		}
+		else{//真实数据源处理
+			result.append("\"isVirtual\":"+isVirtual+",");
+			result.append("\"tableEN_name\":\""+dataSource.getTable().getName_EN()+"\"},");
+			dataSourceInUse = dataSource ;
+		}
+		//再添加度量值（可能是单个，可能是多个组合）
+		DataSourceMetric dataSourceMetric = dataSourceInUse.getDataSourceMetric();
+		result.append("\"y\":\"{\"isMulti\":"+dataSourceMetric.isMulti()+",");
+		if(dataSourceMetric.isMulti()){//度量值为多个
+			List<MultiDataSourceMetric> multiDataSourceMetrics =  dataSourceMetric.getMultiDataSourceMetrics();
+			result.append("\"CN_name\":\""+dataSourceMetric.getDimension().getName()+"\",\"value\":[");
+			for(MultiDataSourceMetric temp : multiDataSourceMetrics){
+				result.append("{\"key\":\""+temp.getTableColumns().getCode()+"\",\"value\":\""+temp.getDimensionValue().getDisplayValue()+"\"},");
+			}
+			result.deleteCharAt(result.length()-1);
+			result.append("]},");
+		}
+		else{//度量值为单个
+			result.append("EN_name\":\""+dataSourceMetric.getTableColumns().getCode()+"\"},");
+		}
+		List<DataSourceField> dataSourceFields = dataSourceInUse.getDataSourceFields();
+		DataSourceField dataSourceFieldX = null ;
+		//再添加维度值（其中有x轴的值）
+		result.append("\"condition\":[");
+		for(DataSourceField temp : dataSourceFields){
+			if(temp.isX())
+				dataSourceFieldX = temp ;
+			else{
+					result.append("{\"isYear\":"+temp.getDimension().isYear()+",\"CN_name\":\""+temp.getDimension().getName()+"\",\"EN_name\":\""+temp.getTableColumn().getCode()+"\",");
+					if(temp.getDimension().isYear()){
+						result.deleteCharAt(result.length()-1);
+						result.append("},");
+					}
+					else{
+						result.append("\"value\":[");
+						for(DimensionValue temp1:temp.getDimension().getDimensionValues()){
+							result.append("{\"key\":\""+temp1.getValue()+"\",\"value\":\"value\":\""+temp1.getDisplayValue()+"\"},");
+						}
+						result.deleteCharAt(result.length()-1);
+						result.append("]");
+					}
+					
+			}
+			result.deleteCharAt(result.length()-1);
+			result.append("],");
+		}
+		
+		//再添加X轴的内容
+		result.append("\"x\":{\"isYear\":"+dataSourceFieldX.getDimension().isYear()+",\"EN_name\":\""+dataSourceFieldX.getTableColumn().getCode()+"\"}");
+		result.append("}");
+		System.out.println(result.toString());
 	}
 }

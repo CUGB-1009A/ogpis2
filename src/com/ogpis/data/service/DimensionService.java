@@ -17,4 +17,8 @@ public interface DimensionService {
 
 	List<Dimension> getAllDimension();
 
+	List<Dimension> getDimensionNotMetric();
+
+	List<Dimension> getDimensionMetric();
+
 }

@@ -17,5 +17,9 @@ public interface DimensionDao {
 
 	List<Dimension> getAllDimension();
 
+	List<Dimension> getDimensionNotMetric();
+
+	List<Dimension> getDimensionMetric();
+
 
 }
