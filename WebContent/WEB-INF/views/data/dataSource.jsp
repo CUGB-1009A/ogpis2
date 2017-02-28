@@ -186,8 +186,8 @@ td, th {
 					<div class="item-div">
 						<label class="dialog-lable">计算方法:</label>
 						<div class="dialog-input">
-							<input type="radio" name="metricType" value="false"
-								data-paramtype="sum" data-prefix="DataSourceMetric"
+							<input type="radio" name="metricType" value="sum"
+								data-paramtype="value" data-prefix="DataSourceMetric"
 								data-submit="yes" data-old="yes" data-resume="checked"
 								onchange="radioChange(this)" checked /> <label>求和</label> 
 								<input

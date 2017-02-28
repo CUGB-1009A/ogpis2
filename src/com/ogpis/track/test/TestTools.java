@@ -5,10 +5,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ogpis.plan.entity.PlanType;
 import com.ogpis.track.dao.MyTestDaoImpl;
 import com.ogpis.track.dao.base.MyTestDao;
 import com.ogpis.track.entity.TestEntity;
 import com.ogpis.track.entity.TrackUser;
+import com.ogpis.track.tools.RelationType;
 import com.ogpis.track.tools.TempTools;
 import com.ogpis.track.webservice.WebServiceParam;
 import com.ogpis.track.webservice.WebServiceParams;
@@ -36,7 +38,7 @@ public class TestTools {
 	public void test2() {
 		InputStream in = XMLParse.loadXmlFile(null);
 		Document document = XMLParse.createXmlDoucment(in);
-		org.json.JSONObject json = XMLParse.parseXmlDocument(document);
+		JSONObject json = XMLParse.parseXmlDocument(document);
 		System.out.println(json.toString());
 	}
 	@Ignore
@@ -56,6 +58,12 @@ public class TestTools {
 	}
 	@Test
 	public void testDao(){
+		String json="{name:23.0}";
+		JSONObject obj=new JSONObject(json);
+		/*InputStream in=XMLParse.loadXmlFile("./config/plan.xml");
+		Document doc=XMLParse.createXmlDoucment(in);
+		JSONObject obj=XMLParse.parseXmlDocument(doc);
+		System.out.println(obj.toString());*/
 		/*TrackUser user=new TrackUser();
 		user.setName("zwx");
 		user.setPassword("asd123");

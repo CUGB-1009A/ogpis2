@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ogpis.track.dao.LayoutDao;
 import com.ogpis.track.entity.Layout;
 import com.ogpis.track.service.LayoutService;
+import com.ogpis.track.tools.RelationType;
+import com.ogpis.track.tools.SafeJson;
 
 @Service
 @Transactional
@@ -21,9 +23,21 @@ public class LayoutServiceImpl implements LayoutService{
 	@Override
 	public String find(String json) {
 		// TODO Auto-generated method stub
-		JSONObject params=JSONObject.fromObject(json);
-		List<Layout> result=layoutDao.find(params);
+		List<Layout> result = null;
+		SafeJson param=new SafeJson(json);
+		String planId=param.getString("id");
+		String field=param.getString("field");
+		String relation=RelationType.map(param.getString("relation"));
+		Object value=param.get("value");
+		if(relation==null||relation=="")
+			result=layoutDao.findByPlanId(planId);
+		else{
+			if(relation.equals("like")||relation.equals("not like")){
+				value="%"+value+"%";
+			}
+			
+			result=layoutDao.findByCondition(planId,field,relation,value);
+		}
 		return JSONArray.fromObject(result).toString();
 	}
-
 }

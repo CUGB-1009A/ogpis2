@@ -16,6 +16,7 @@
 			location : "/ogpis2/js/arcgis"
 		} ]
 	};
+	var planId='${param.id}';
 </script>
 
 <!-- 加载ArcGIS API  -->
@@ -261,7 +262,7 @@
 </body>
 <script type="text/javascript">
 	function queryTest(obj) {
-		var params = createParamsByDom(obj);
+		var params = createParamsByDom(obj,planId);
 		var layoutParams = new SpaceAnalysisInfo({
 			target : "layout",
 			params : {
@@ -320,7 +321,7 @@
 			}
 		}); */
 	}
-
+	
 	$(function() {
 		$("#tt").tabs({
 			onSelect : function(title) {
@@ -353,32 +354,20 @@
 		};
 		resetSelectDOM(data1, "#query");
 		
+		/* console.log(createParamsByDom(obj,planId)); */
+		
 		var layoutParams = new SpaceAnalysisInfo({
 			target : "layout",
 			params : {
-				company : "中石油",
-				year : 2016,
-				index : "oilReserve"
+				field : "company",
+				relation : "全部",
+				value : ""
 			}
 		});
 		getTargetOrLayoutInfo(layoutParams, projectPoint);
+		
 		while(!mapManager.map.getLayer("basin"))
 			mapManager.map.getLayer("basin").setVisibility(false);
-		/* ajax({
-			url : "url",
-			params : {}
-		}, resetSelectDOM, "#query"); */
-
-		/* var data2 = {
-			company : [ "中石油", "中石化", "中海油" ],
-			year : [ 2012, 2013, 2014, 2015, 2016 ],
-			index : [ "石油产量", "天然气产量", "煤层气产量" ]
-		}; */
-		/* ajax({
-		url : "url",
-		params : {}
-		}, resetSelectDOM, "#query"); */
-		/* resetSelectDOM(data2, "#render"); */
 	});
 </script>
 </html>

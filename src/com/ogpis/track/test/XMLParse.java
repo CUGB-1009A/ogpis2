@@ -13,7 +13,6 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.json.JSONObject;
-
 public class XMLParse {
 	// 获取输入流
 	public static InputStream loadXmlFile(String path) {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import net.sf.json.util.CycleDetectionStrategy;
@@ -26,6 +26,8 @@ import com.ogpis.demo.entity.Demo;
 import com.ogpis.demo.service.DemoService;
 import com.ogpis.plan.entity.IndexManagement;
 import com.ogpis.plan.service.IndexManagementService;
+import com.ogpis.track.dao.LayoutDao;
+import com.ogpis.track.entity.Layout;
 import com.ogpis.track.webservice.WebServiceParam;
 import com.ogpis.track.webservice.WebServiceParams;
 import com.ogpis.data.entity.DataSource;
@@ -174,6 +176,21 @@ public class DemoServiceImplTest {
 	@Test
 	public void test23(){
 		
+	}
+
+	@Ignore
+	@Test
+	public void testIndexManagement(){
+		List<IndexManagement> indexList = indexManagementService.findAllIndexByPriority("QG");
+		System.out.println(indexList.size());
+	}
+	@Autowired
+	private LayoutDao layoutDao;
+	@Test
+	public void test2(){
+//		List<Layout> layouts=layoutDao.findByCondition("", "", "", "");
+		List<Layout> layouts=layoutDao.findByPlanId("1");
+		System.out.println(JSONArray.fromObject(layouts).toString());
 	}
 
 }

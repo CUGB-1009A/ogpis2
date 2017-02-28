@@ -1,5 +1,10 @@
 package com.ogpis.track.test;
 
+import java.util.List;
+
+import net.sf.json.JsonConfig;
+
+import org.json.JSONArray;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ogpis.track.dao.LayoutDao;
+import com.ogpis.track.entity.Layout;
 import com.ogpis.track.service.LayoutService;
 import com.ogpis.track.service.TargetService;
 import com.ogpis.track.webservice.data.DataService;
@@ -28,9 +35,12 @@ public class SpringTest extends AbstractJUnit4SpringContextTests {
 		dataService.getData(params);
 		System.out.println("ok");
 	}
-	
+	@Autowired
+	private LayoutDao layoutDao;
 	@Test
 	public void test2(){
-		System.out.println(targetService.find("{}"));
+//		List<Layout> layouts=layoutDao.findByCondition("", "", "", "");
+		List<Layout> layouts=layoutDao.findByPlanId("1");
+		System.out.println(new JSONArray(layouts).toString());
 	}
 }
