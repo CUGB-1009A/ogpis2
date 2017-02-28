@@ -41,10 +41,11 @@ public class InterfaceTableAction extends BaseAction {
 			throws IOException {
 		Pagination pagination = interfaceTableService.getAllInterface(
 				SimplePage.cpn(pageNumber), pageSize);
+		String filter[] = new String[]{"dataSource","tableColumns"};
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("utf-8");
-	    System.out.println(this.toJsonTableData(pagination, null, true));
-	    response.getWriter().write(this.toJsonTableData(pagination, null, true));
+	    System.out.println(this.toJsonTableData(pagination, filter, true));
+	    response.getWriter().write(this.toJsonTableData(pagination, filter, true));
 	}
 	
 	@RequestMapping(value = "/interfaceTable/getInterfaceMsg")
@@ -52,7 +53,9 @@ public class InterfaceTableAction extends BaseAction {
 	public void getInterfaceMsg(HttpServletRequest request , HttpServletResponse response) throws IOException{
 		String id = request.getParameter("id");
 		InterfaceTable interfaceTable = interfaceTableService.findById(id);
+		String filter[] = new String[]{"dataSource","subjects"};
 		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.setExcludes(filter);
 		jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
 		JSONObject json = JSONObject.fromObject(interfaceTable,jsonConfig);
 		response.setContentType("application/json");
