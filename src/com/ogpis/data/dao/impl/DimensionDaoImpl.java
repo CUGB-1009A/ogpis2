@@ -47,4 +47,18 @@ public class DimensionDaoImpl extends HibernateBaseDao<Dimension, String> implem
 		return this.find(hql, null);
 	}
 
+	@Override
+	public List<Dimension> getDimensionNotMetric() {
+		// TODO Auto-generated method stub
+		String hql="From Dimension where isMetric = false";
+		return this.find(hql, null);
+	}
+
+	@Override
+	public List<Dimension> getDimensionMetric() {
+		// TODO Auto-generated method stub
+		String hql="From Dimension where isMetric = true";
+		return this.find(hql, null);
+	}
+
 }

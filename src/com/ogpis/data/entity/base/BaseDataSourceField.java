@@ -44,6 +44,14 @@ public class BaseDataSourceField extends BaseEntity{
 		this.tableColumns = tableColumns;
 	}
 
+	public TableColumns getTableColumns() {
+		return tableColumns;
+	}
+
+	public void setTableColumns(TableColumns tableColumns) {
+		this.tableColumns = tableColumns;
+	}
+
 	public Dimension getDimension() {
 		return dimension;
 	}

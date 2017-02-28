@@ -170,8 +170,10 @@ public class DemoServiceImplTest {
 	
 	@Autowired
 	private DimensionService service4;
+	@Ignore
 	@Test
 	public void test23(){
 		
 	}
+
 }

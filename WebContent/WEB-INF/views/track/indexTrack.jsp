@@ -17,16 +17,8 @@
 		} ]
 	};
 </script>
-
-<!-- 加载ArcGIS API  -->
-<script type="text/javascript" src="/arcgis/library/3.9/3.9/init.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="/arcgis/library/3.9/3.9/esri/css/esri.css"></link>
-<!-- 加载自定义ArcGIS API  -->
-<script type="text/javascript" src="../js/arcgis/globalFunction.js"></script>
-<script type="text/javascript" src="../js/arcgis/globalVariable.js"></script>
-<script type="text/javascript" src="../js/arcgis/initPage.js"></script>
-
+<!-- 加载自定义echart函数  -->
+<script type="text/javascript" src="../js/arcgis/echartOptions.js"></script>
 <!-- 加载自定义样式 -->
 <link rel="stylesheet" type="text/css" href="../js/arcgis/css/Map.css">
 <style>
@@ -54,7 +46,8 @@
 .panel.datagrid.easyui-fluid {
 	padding-top: 20px
 }
-.border-b{
+
+.border-b {
 	border-bottom: 1px solid #95B8E7;
 }
 </style>
@@ -63,7 +56,7 @@
 	<div
 		style="width: 100%; height: 100%; dispaly: flex; flex-direction: column;">
 		<div style="height: 8%">
-			<div style="padding: 10px;">十三五规划</div>
+			<div style="padding: 10px;"><a onclick="backToContents()">目录</a><label>:</label><label>十三五规划</label></div>
 		</div>
 		<div style="height: 92%">
 			<div style="height: 100%">
@@ -90,8 +83,8 @@
 							<div class="easyui-panel" style="width: 100%; overflow-y: auto"
 								data-options="fit:true">
 								<div style="height: 400px; margin: 10px">
-									<div title="图表" class="easyui-layout border-b" data-options="fit:true"
-										style="min-width: 800px;">
+									<div title="图表" class="easyui-layout border-b"
+										data-options="fit:true" style="min-width: 800px;">
 										<div data-options="region:'north',border:false" class="title">石油产量</div>
 										<div data-options="region:'west',border:false"
 											style="width: 40%;">
@@ -201,7 +194,8 @@
 									</div>
 								</div>
 								<div style="height: 400px; margin: 10px">
-									<div title="图表" class="easyui-layout" data-options="fit:true,border:false"
+									<div title="图表" class="easyui-layout"
+										data-options="fit:true,border:false"
 										style="width: 100%; min-width: 800px;">
 										<div data-options="region:'north',border:false" class="title">煤层气产量</div>
 										<div data-options="region:'west',border:false"
@@ -275,216 +269,58 @@
 		});
 	})
 
-	var option = {
-		title : {
-			text : '',
-			left : 'center'
-		},
-		tooltip : {
-			trigger : 'axis'
-		},
-		xAxis : [ {
-			type : 'category',
-			/* boundaryGap : false, */
-			name : "年份",
-			data : [ 2011, 2012, 2013, 2014, 2015 ]
-		} ],
-		yAxis : [ {
-			type : 'value',
-			name : '万吨'
-		} ],
-		series : [ {
-			type : 'bar',
-			barWidth : 55,
-			name : '石油产量',
-			itemStyle : {
-				normal : {
-					label : {
-						show : true,
-						position : 'top',
-					}
-				}
-			},
-			data : [ 1215, 8545, 5442, 78854, 4564, 4788 ],
-			markLine : {
-				itemStyle : {
-					normal : {
-						color : "#0000FF"
-					}
-				},
-				color : "#FF0000",
-				data : [ [ {
-					// 固定起点的 x 像素位置，用于模拟一条指向最大值的水平线
-					yAxis : 60000,
-					x : '10%',
-					name : "规划目标值",
-					value : 60000
-				}, {
-					yAxis : 60000,
-					x : '90%'
-				} ] ]
-			}
-		} ]
-	}
-	function setChartOption(单位, 名称, 数据, 目标) {
-		option.yAxis[0].name = 单位;
-		/* option.title.text = 名称; */
-		option.series[0].name = 名称;
-		option.series[0].data = 数据;
-		option.series[0].markLine.data[0][0].yAxis = 目标;
-		option.series[0].markLine.data[0][0].value = 目标;
-		option.series[0].markLine.data[0][1].yAxis = 目标;
-	}
-
-	var totalChartOption = {
-		title : {
-			text : '规划总体完成情况',
-			left : 'center'
-		},
-		tooltip : {
-			trigger : 'axis',
-			axisPointer : { // 坐标轴指示器，坐标轴触发有效
-				type : 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-			}
-		},
-		legend : {
-			top : '9%',
-			data : [ '2011年', '2012年', '2013年', '2014年', '2015年' ]
-		},
-		toolbox : {
-			show : true,
-			feature : {
-				mark : {
-					show : true
-				},
-				dataView : {
-					show : true,
-					readOnly : false
-				},
-				magicType : {
-					show : true,
-					type : [ 'line', 'bar', 'stack', 'tiled' ]
-				},
-				restore : {
-					show : true
-				},
-				saveAsImage : {
-					show : true
-				}
-			}
-		},
-		calculable : true,
-		xAxis : [ {
-			type : 'value',
-			axisLabel : {
-				show : true,
-				interval : 'auto',
-				formatter : '{value} %'
-			}
-		} ],
-		yAxis : [ {
-			type : 'category',
-			data : [ '石油新增探明地质储量', '天然气新增探明地质储量', '煤层气新增探明地质储量', '石油产量',
-					'天然气产量', '煤层气产量' ],
-			axisLabel : {
-				show : true,
-				interval : 0
-			}
-		} ],
-		series : [ {
-			name : '2011年',
-			type : 'bar',
-			stack : '总量',
-			itemStyle : {
-				normal : {
-					label : {
-						show : true,
-						position : 'insideRight',
-						formatter : '{c}%'
-					}
-				}
-			},
-			data : [ 12, 25, 21, 19, 23, 14 ]
-		}, {
-			name : '2012年',
-			type : 'bar',
-			stack : '总量',
-			itemStyle : {
-				normal : {
-					label : {
-						show : true,
-						position : 'insideRight',
-						formatter : '{c}%'
-					}
-				}
-			},
-			data : [ 23, 22, 26, 19, 27, 21 ]
-		}, {
-			name : '2013年',
-			type : 'bar',
-			stack : '总量',
-			itemStyle : {
-				normal : {
-					label : {
-						show : true,
-						position : 'insideRight',
-						formatter : '{c}%'
-					}
-				}
-			},
-			data : [ 28, 23, 26, 24, 29, 30 ]
-		}, {
-			name : '2014年',
-			type : 'bar',
-			stack : '总量',
-			itemStyle : {
-				normal : {
-					label : {
-						show : true,
-						position : 'insideRight',
-						formatter : '{c}%'
-					}
-				}
-			},
-			data : [ 21, 18, 19, 20, 21, 11 ]
-		}, {
-			name : '2015年',
-			type : 'bar',
-			stack : '总量',
-			itemStyle : {
-				normal : {
-					label : {
-						show : true,
-						position : 'insideRight',
-						formatter : '{c}%'
-					}
-				}
-			},
-			data : [ 12, 25, 21, 19, 23, 14 ]
-		} ]
-	};
-
+	var options = setOptions3(options5, "规划总体完成情况", {
+		type : 'value',
+		legend : [ '2011年', '2012年', '2013年', '2014年', '2015年' ],
+		data : [ [ 12, 25, 21, 19, 23, 14 ], [ 23, 22, 26, 19, 27, 21 ],
+				[ 28, 23, 26, 24, 29, 30 ], [ 21, 18, 19, 20, 21, 11 ],
+				[ 12, 25, 21, 19, 23, 14 ] ]
+	}, {
+		type : 'category',
+		data : [ '石油新增探明地质储量', '天然气新增探明地质储量', '煤层气新增探明地质储量', '石油产量', '天然气产量',
+				'煤层气产量' ]
+	}, "bar");
+	bindOptionToDiv("totalChart", options);
 	var totalChart = echarts.init(document.getElementById("totalChart"));
-	/* 	totalChartOption.title.text = "总体完成情况"; */
-	totalChart.setOption(totalChartOption);
+	totalChart.setOption(options);
+
+	var myOptions1=setChartOption(options2,{
+		/* title:"石油产量", */
+		yAxisName:"亿吨",
+		yAxisData:[ 2.03, 2.07, 2.09, 2.11, 2.15 ],
+		target:2.0
+	});
+	bindOptionToDiv("test1", myOptions1);
 	var myChart1 = echarts.init(document.getElementById("test1"));
-	/* option.title.text = "石油产量"; */
-	setChartOption("亿吨", "石油产量", [ 2.03, 2.07, 2.09, 2.11, 2.15 ], 2.0);
-	myChart1.setOption(option);
+	myChart1.setOption(myOptions1);
+	
+	var myOptions2=setChartOption(options2,{
+		/* title:"天然气产量", */
+		yAxisName:"亿立方米",
+		yAxisData:[ 1013.00, 1071.00, 1166.00, 1248.00, 1300 ],
+		target:1385.00
+	});
+	bindOptionToDiv("test2", myOptions2);
 	var myChart2 = echarts.init(document.getElementById("test2"));
-	/* option.title.text = "天然气产量"; */
-	setChartOption("亿立方米", "天然气产量",
-			[ 1013.00, 1071.00, 1166.00, 1248.00, 1300 ], 1385.00);
-	myChart2.setOption(option);
+	myChart2.setOption(myOptions2);
+	
+	var myOptions3=setChartOption(options2,{
+		/* title:"煤层气产量", */
+		yAxisName:"亿立方米",
+		yAxisData:[ 20.70, 25.73, 29.26, 36.90, 42.00 ],
+		target:160.00
+	});
+	bindOptionToDiv("test3", myOptions3);
 	var myChart3 = echarts.init(document.getElementById("test3"));
-	/* option.title.text = "煤层气产量"; */
-	setChartOption("亿立方米", "煤层气产量", [ 20.70, 25.73, 29.26, 36.90, 42.00 ],
-			160.00);
-	myChart3.setOption(option);
+	myChart3.setOption(myOptions3);
+	
 	function changeChartSize() {
 		$("#panel1").panel("resize", {
 			height : $(this).parent().height() - $(this).height()
 		})
 	}
+function backToContents(){
+	window.location = "../track/indexTrackContents";
+}
 </script>
 </html>

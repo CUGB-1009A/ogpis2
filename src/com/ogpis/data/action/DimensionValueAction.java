@@ -70,10 +70,8 @@ public class DimensionValueAction extends BaseAction{
 	
 	@RequestMapping(value = "/dimensionValue/getByDimensionId")
 	public void getByDimensionId(String dimensionId,HttpServletResponse response) {
-		System.out.println(dimensionId);
 		List<DimensionValue> list=dimensionValueService.getByDimensionId(dimensionId);
-		System.out.println("++++++++++++"+list.size());
-		String[] filters=new String[]{"modifiedTime","createTime","orderdDimensionValue"};
+		String[] filters=new String[]{"modifiedTime","createTime","dimension","MultiDataSourceMetrics","orderdDimensionValue"};
 		JSONArray array = JSONArray.fromObject(list, getJsonConfig(filters));
 		responseJson(response, array.toString());
 	}

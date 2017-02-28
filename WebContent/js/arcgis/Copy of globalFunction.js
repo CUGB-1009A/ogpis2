@@ -141,7 +141,7 @@ function queryTask(mapManager, options) {
 				// 返回要素
 				query.returnGeometry = true;
 				// 返回字段
-				query.outFileds = [ "*" ];
+				query.outFields = [ "*" ];
 				// 查询条件
 				query.where = options.sql;
 				// 执行查询
@@ -180,7 +180,7 @@ function queryTaskByGeometry(mapManager, options) {
 				// 返回要素
 				query.returnGeometry = true;
 				// 返回字段
-				query.outFileds = [ "*" ];
+				query.outFields = [ "*" ];
 				// 查询元素
 				query.geometry = options.geometry;
 				// 执行查询

@@ -44,4 +44,16 @@ public class DimensionServiceImpl implements DimensionService{
 		return dimensionDao.getAllDimension();
 	}
 
+	@Override
+	public List<Dimension> getDimensionNotMetric() {
+		// TODO Auto-generated method stub
+		return dimensionDao.getDimensionNotMetric();
+	}
+
+	@Override
+	public List<Dimension> getDimensionMetric() {
+		// TODO Auto-generated method stub
+		return dimensionDao.getDimensionMetric();
+	}
+
 }

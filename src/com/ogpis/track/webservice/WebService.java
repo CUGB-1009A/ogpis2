@@ -39,7 +39,7 @@ public class WebService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return result.split("++");//索引0代表调用结果状态；索引1代表返回的数据结果
+		return result.split("\\++");//索引0代表调用结果状态；索引1代表返回的数据结果
 	}
 
 	// name为表或表联合的标识；json为字段、条件、值的组合，形如{field:石油,symbol:
@@ -47,6 +47,7 @@ public class WebService {
 		String method = GetData;
 		Object[] objIn = new Object[] { params.getTableName(), params.toString() };
 		return service(method, objIn);
+//		return new String[]{"asda","asdada"};
 	}
 
 	// sql为查询数据的SQL语句字符串
@@ -54,5 +55,6 @@ public class WebService {
 		String method = GetDataBySQL;
 		Object[] objIn = new Object[] { sql };
 		return service(method, objIn);
+//		return new String[]{"asda2","asdada2"};
 	}
 }

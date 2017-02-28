@@ -182,6 +182,27 @@ td, th {
 
 				<!-- 添加数据源 第2步 -->
 				<div id="step2" style="display: none">
+					
+					<div class="item-div">
+						<label class="dialog-lable">计算方法:</label>
+						<div class="dialog-input">
+							<input type="radio" name="metricType" value="false"
+								data-paramtype="sum" data-prefix="DataSourceMetric"
+								data-submit="yes" data-old="yes" data-resume="checked"
+								onchange="radioChange(this)" checked /> <label>求和</label> 
+								<input
+								data-paramtype="value" data-prefix="DataSourceMetric"
+								name="metricType" type="radio" value="count"
+								data-submit="no" data-old="no"
+								onchange="radioChange(this)" /> <label>计数</label>
+								<input
+								data-paramtype="value" data-prefix="DataSourceMetric"
+								name="metricType" type="radio" name="isMulti" value="average"
+							 	data-submit="no" data-old="no"
+								onchange="radioChange(this)" /> <label>平均</label>
+						</div>
+					</div>
+					
 					<div class="item-div">
 						<label class="dialog-lable">度量值类型:</label>
 						<div class="dialog-input">
@@ -215,7 +236,7 @@ td, th {
 									data-target="dimensionValueList" data-resume="select"
 									onchange="changeDimension(this)">
 									<option value="null">未选择</option>
-									<c:forEach items="${dimensions}" var="item">
+									<c:forEach items="${dimensions1}" var="item">
 										<option value="${item.id}">${item.name}</option>
 									</c:forEach>
 								</select>
@@ -226,7 +247,7 @@ td, th {
 					<div class="item-div">
 						<label class="dialog-lable">维度值列表:</label>
 						<div class="dialog-input" id="dimensionList">
-							<c:forEach items="${dimensions}" var="item">
+							<c:forEach items="${dimensions2}" var="item">
 								<div data-paramtype="object" data-prefix="DataSourceField[]">
 									<input type="checkbox" name="dimension.id" value="${item.id}"
 										data-submit="no" data-old='no' data-resume="unchecked" /> <label
