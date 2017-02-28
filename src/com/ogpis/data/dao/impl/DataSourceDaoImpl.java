@@ -46,7 +46,7 @@ public class DataSourceDaoImpl extends HibernateBaseDao<DataSource, String> impl
 	@Override
 	public List<DataSource> findRealDSBySujectId(String subjectId) {
 		// TODO Auto-generated method stub
-		String hql = "From DataSource where (dimensionName is null or dimensionName='')  and (dimensionValue is null or dimensionValue='') and subject.id=?";
+		String hql = "From DataSource where  deleted=false and (dimensionName is null or dimensionName='')  and (dimensionValue is null or dimensionValue='') and subject.id=?";
 		List<DataSource> dataSources = this.find(hql, subjectId);
 		return dataSources;
 	}

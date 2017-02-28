@@ -57,14 +57,11 @@ public class DataSourceAction extends BaseAction {
 
 	@RequestMapping(value = "/dataSource/getTableAndRealDS")
 	public void getTableAndRealDS(String subjectId, HttpServletResponse response) {
-		System.out.println(subjectId);
 		String[] filters=new String[]{"modifiedTime","createTime","dataCache","dataSourceFields"};
 		List<InterfaceTable> tableList = subjectService.findById(subjectId).getInterfaceTables();
 		JSONArray tableArray = JSONArray.fromObject(tableList, getJsonConfig(filters));
-		System.out.println(tableArray.toString());
 		List<DataSource> dataSourceList = dataSourceService.findRealDSBySujectId(subjectId);
 		JSONArray dsArray = JSONArray.fromObject(dataSourceList, getJsonConfig(filters));
-		System.out.println(dsArray.toString());
 		JSONObject obj=new JSONObject();
 		obj.put("tableList", tableArray);
 		obj.put("realDSList", dsArray);
