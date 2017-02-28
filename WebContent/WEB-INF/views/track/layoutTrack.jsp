@@ -89,8 +89,8 @@
 					<div class="inline-block">
 						<label id="field3">渲染字段:</label> <select id="index"
 							class="select">
-							<option value="type">资源类型</option>
 							<option value="company">公司名称</option>
+							<option value="type">资源类型</option>
 							<option value="value">指标值</option>
 							<!-- <option>按</option> -->
 							<!-- 目前只有油气田的位置信息，没有指标信息 -->

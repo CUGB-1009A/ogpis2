@@ -352,7 +352,6 @@ function initMap(mapManager, baseMap, layers) {
 				var tempLayers = [];
 				var tiledLayer = new ArcGISDynamicMapServiceLayer(baseMap.url,
 						baseMap.layer);
-				tiledLayer.setVisibleLayers([0,1,4,5,6,7,8,13,14,15],true);
 				tempLayers.push(tiledLayer);
 				for (var i = 0; i < layers.length; ++i) {
 					var layer = new FeatureLayer(layers[i].url, layers[i].layer);

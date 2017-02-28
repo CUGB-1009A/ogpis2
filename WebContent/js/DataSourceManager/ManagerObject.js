@@ -30,6 +30,7 @@ var DataSourceManager = {
 		},
 		DataSourceMetric : {
 			isMulti : "true/false",
+			metricType:"",
 			tableColumns : {
 				id : "",
 				$name : ""

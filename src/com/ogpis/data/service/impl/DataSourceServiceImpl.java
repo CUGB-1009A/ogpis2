@@ -128,6 +128,8 @@ public class DataSourceServiceImpl implements DataSourceService {
 				.getJSONObject("DataSourceMetric");
 		DataSourceMetric dataSourceMetric = new DataSourceMetric();
 		dataSourceMetric.setDataSource(dataSource);
+		String metricType=dataSourceMetricJson.getString("metricType");
+		dataSourceMetric.setMetricType(metricType);
 		Boolean isMulti = dataSourceMetricJson.getBoolean("isMulti");
 		dataSourceMetric.setMulti(isMulti);
 		if (isMulti) {
@@ -168,7 +170,7 @@ public class DataSourceServiceImpl implements DataSourceService {
 		JSONArray dataSourceFieldJsonArray = param
 				.getJSONArray("DataSourceField");
 		Integer length = dataSourceFieldJsonArray.size();
-
+		
 		for (int i = 0; i < length; ++i) {
 			DataSourceField dataSourceField = new DataSourceField();
 			dataSourceField.setDataSource(dataSource);

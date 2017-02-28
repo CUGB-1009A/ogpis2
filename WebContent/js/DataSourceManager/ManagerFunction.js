@@ -112,14 +112,16 @@ function radioChange(obj) {
 	$(obj).data("submit","yes");
 	$(obj).siblings("input[type='radio']").data("submit","no");
 	var target = $("#" + $(obj).data("target"));
-	target.find("input,select").each(function(){
-		$(this).data("submit", "yes");
-	});
-	target.show();
-	target.siblings().find("input,select").each(function(){
-		$(this).data("submit", "no");
-	});
-	target.siblings().hide();
+	if(target){
+		target.find("input,select").each(function(){
+			$(this).data("submit", "yes");
+		});
+		target.show();
+		target.siblings().find("input,select").each(function(){
+			$(this).data("submit", "no");
+		});
+		target.siblings().hide();
+	}
 }
 
 function radioIsX(obj){

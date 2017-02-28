@@ -182,6 +182,27 @@ td, th {
 
 				<!-- 添加数据源 第2步 -->
 				<div id="step2" style="display: none">
+					
+					<div class="item-div">
+						<label class="dialog-lable">计算方法:</label>
+						<div class="dialog-input">
+							<input type="radio" name="metricType" value="false"
+								data-paramtype="sum" data-prefix="DataSourceMetric"
+								data-submit="yes" data-old="yes" data-resume="checked"
+								onchange="radioChange(this)" checked /> <label>求和</label> 
+								<input
+								data-paramtype="value" data-prefix="DataSourceMetric"
+								name="metricType" type="radio" value="count"
+								data-submit="no" data-old="no"
+								onchange="radioChange(this)" /> <label>计数</label>
+								<input
+								data-paramtype="value" data-prefix="DataSourceMetric"
+								name="metricType" type="radio" name="isMulti" value="average"
+							 	data-submit="no" data-old="no"
+								onchange="radioChange(this)" /> <label>平均</label>
+						</div>
+					</div>
+					
 					<div class="item-div">
 						<label class="dialog-lable">度量值类型:</label>
 						<div class="dialog-input">

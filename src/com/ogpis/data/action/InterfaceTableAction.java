@@ -78,8 +78,8 @@ public class InterfaceTableAction extends BaseAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 			List<InterfaceTable> list=subjectService.findById(id).getInterfaceTables();
-			String[] filter=new String[]{"modifiedTime","createTime"};
-			JSONArray array=JSONArray.fromObject(list,getJsonConfig(null));
+			String[] filter=new String[]{"modifiedTime","createTime","dataSource","tableColumns"};
+			JSONArray array=JSONArray.fromObject(list,getJsonConfig(filter));
 			responseJson(response, array.toString());
 	}
 	@RequestMapping(value = "/interfaceTable/getColumnsById")

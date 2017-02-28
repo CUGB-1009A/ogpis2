@@ -23,6 +23,9 @@ public class BaseDataSourceMetric extends BaseEntity{
 	@JoinColumn(name = "dataSourceId")
 	private DataSource dataSource;
 	
+	@Column(name = "metricType")
+	private String metricType;
+	
 	@ManyToOne
 	@JoinColumn(name="tableColumnsId")
 	private TableColumns tableColumns;
@@ -75,6 +78,14 @@ public class BaseDataSourceMetric extends BaseEntity{
 
 	public void setDimension(Dimension dimension) {
 		this.dimension = dimension;
+	}
+
+	public String getMetricType() {
+		return metricType;
+	}
+
+	public void setMetricType(String metricType) {
+		this.metricType = metricType;
 	}
 	
 	

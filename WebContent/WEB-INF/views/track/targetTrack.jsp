@@ -74,13 +74,13 @@
 			<div title="渲染设置" closable="true">
 				<div id="render" class="padding">
 					<div class="inline-block">
-						<label id="field1">渲染字段:</label> <select class="select">
-							<option value="basin">盆地名称</option>
-							<option value="oilProduce">石油产量</option>
+						<label id="field1">渲染字段:</label> <select class="select">	
+							<option value="index">石油产量</option>
 							<option value="tGasProduce">天然气产量</option>
 							<option value="mGasProduce">煤层气产量</option>
 							<option value="yGasProduce">页岩气产量</option>
-							<option>条件3</option>
+							<option value="basin">盆地名称</option>
+							
 						</select>
 					</div>
 					<!-- <div class="inline-block">
