@@ -8,7 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="<%=path%>/resource/dist/echarts.js"></script>
-    <script type="text/javascript" src="<%=path%>/resources/unslider.js"></script>
+	<script type="text/javascript" src="<%=path%>/js/plan/planUser/list.js"></script>
+    <script type="text/javascript" src="<%=path%>/resources/unslider.js"></script>    
     <link type="text/css" rel="stylesheet" href="<%=path %>/resources/unslider.css">
     <style>
     	.unslider-nav ol {display: none}
@@ -118,14 +119,9 @@
 					appendURL+=",";
 				}
 			}
-			console.log("<%=path%>/plan/userDetail?id="+id+"&&listType="+listType+appendURL);
 			window.location.href="<%=path%>/plan/userDetail?id="+id+"&&listType="+listType+appendURL;
 			<%-- window.location.href="<%=path%>/plan/userDetail"; --%>
 		}
-	</script>
-	<script type="text/javascript" src="<%=path%>/js/plan/planUser/list.js"></script>
-	<script type="text/javascript">
-
 	</script>
 </body>
 </html>

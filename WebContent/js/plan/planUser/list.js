@@ -15,9 +15,6 @@
 		document.getElementById('test').addEventListener('click',divclick,true);
     })
 	
-	/*$('.carousel').carousel({
-		interval:3000
-	})*/
 	//完成主图
 	var option = {
 		 title: {
@@ -146,7 +143,7 @@
 				var datamain = $inputsmain[i].value;
 				var objmain = eval("(" + datamain + ")"); 
 				var dataindex = $inputsindex[i].value; 
-				var objindex = eval("(" + dataindex + ")"); 
+				var objindex = eval("(" + dataindex + ")"); 								
 	            var tempYdata = "{\"yData\":[";
 	        	var tempSeries = "{\"series\":["
 					for(var j=0;j<objmain.length;j++)
