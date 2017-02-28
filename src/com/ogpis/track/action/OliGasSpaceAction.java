@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,11 +33,12 @@ public class OliGasSpaceAction {
 	@RequestMapping(value = "/layout")
 	public void layout(String json, HttpServletResponse response) {
 		String result = layoutService.find(json);
+		System.out.println(result);
 		responseJson(result, response);
 	}
 
 	public void responseJson(String result, HttpServletResponse response) {
-		response.setContentType("json/application;charset=utf-8");
+		response.setContentType("application/json;charset=utf-8");
 		try {
 			response.getWriter().write(result.toString());
 		} catch (IOException e) {

@@ -23,8 +23,8 @@ function updateTable(params, id) {
 	$(id).datagrid("reload");才
 }
 
-function createParamsByDom(obj) {
-	var params = {};
+function createParamsByDom(obj,id) {
+	var params = {id:id};
 	var container = $(obj).parents(".padding").find("select");
 	container.each(function(i, ele) {
 		params[ele.id] = $(ele).find(":selected").text().trim();
