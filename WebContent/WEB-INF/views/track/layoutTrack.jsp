@@ -16,6 +16,7 @@
 			location : "/ogpis2/js/arcgis"
 		} ]
 	};
+	var planId='${param.id}';
 </script>
 
 <!-- 加载ArcGIS API  -->
@@ -352,7 +353,7 @@
 			index : [ "石油产量", "天然气产量", "煤层气产量" ]
 		};
 		resetSelectDOM(data1, "#query");
-		
+				
 		var layoutParams = new SpaceAnalysisInfo({
 			target : "layout",
 			params : {
@@ -362,6 +363,7 @@
 			}
 		});
 		getTargetOrLayoutInfo(layoutParams, projectPoint);
+		
 		while(!mapManager.map.getLayer("basin"))
 			mapManager.map.getLayer("basin").setVisibility(false);
 		/* ajax({

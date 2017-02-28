@@ -62,10 +62,11 @@ td, th {
 		</div>
 		<div title="图表"
 			style="width: 100%; height: 88%; display: flex; flex-direction: row; flex-grow: 10; flex-shrink: 1">
-			<table id="table" class="easyui-datagrid table"
+			<table id="table" class="easyui-datagrid table" data-options="singleSelect:true"
 				style="width: 100%; height: 100%; flex-grow: 1; flex-shrink: 1;">
 				<thead>
 					<tr>
+						<th data-options="field:'id'" style="display:none"></th>
 						<th data-options="field:'name'" style="width: 30%">规划名称</th>
 						<th data-options="field:'type'" style="width: 30%">规划类型</th>
 						<th data-options="field:'scale'" style="width: 40%">规划规模跟踪</th>
@@ -132,6 +133,7 @@ td, th {
 	$(function() {
 		$("#table").datagrid({
 			onDblClickCell : function(index, field, value) {
+				
 				if (field == "index")
 					window.location = "../track/indexTrack";
 				if (field == "scale")

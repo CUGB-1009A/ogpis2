@@ -19,6 +19,7 @@ public class Target implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	private String planId;
 	private String basinName;
 	private String year;
 	private String company;
@@ -31,6 +32,12 @@ public class Target implements Serializable {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getPlanId() {
+		return planId;
+	}
+	public void setPlanId(String planId) {
+		this.planId = planId;
 	}
 	public String getYear() {
 		return year;

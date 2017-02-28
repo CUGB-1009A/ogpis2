@@ -19,6 +19,7 @@ public class Layout implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	private String planId;
 	private Double x;
 	private Double y;
 	private String type;
@@ -34,6 +35,12 @@ public class Layout implements Serializable{
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getPlanId() {
+		return planId;
+	}
+	public void setPlanId(String planId) {
+		this.planId = planId;
 	}
 	public String getYear() {
 		return year;

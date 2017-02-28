@@ -1,12 +1,13 @@
 package com.ogpis.track.action;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-
+import org.dom4j.Document;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ogpis.base.action.BaseAction;
+import com.ogpis.track.test.XMLParse;
 import com.ogpis.track.tools.TempTools;
 
 @Controller
 @RequestMapping(value = "/track")
-public class TrackAction {
+public class TrackAction extends BaseAction{
 
 	@RequestMapping(value = "/indexTrackContents")
 	public String indexTrackContents(HttpServletRequest request, ModelMap model) {
@@ -93,5 +96,15 @@ public class TrackAction {
 		System.out.println("test");
 		model.addAttribute("test", "hhel");
 		return "";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/plan")
+	public void plan(HttpServletResponse response, ModelMap model) {
+		InputStream in=XMLParse.loadXmlFile("./config/plan.xml");
+		Document doc=XMLParse.createXmlDoucment(in);
+		JSONObject obj=XMLParse.parseXmlDocument(doc);
+		JSONArray array=obj.getJSONObject("Root").getJSONArray("Record");
+		responseJson(response, array.toString());
 	}
 }
