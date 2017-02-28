@@ -5,6 +5,9 @@ import java.util.List;
 import com.ogpis.base.common.page.Pagination;
 import com.ogpis.forecast.entity.ForecastRecord;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 public interface ForecastRecordService {
 
 	Pagination getRecordByUserId(String userId, boolean finished,int cpn, Integer pageSize);
@@ -16,5 +19,7 @@ public interface ForecastRecordService {
 	void save(ForecastRecord forecastRecord);
 
 	List<ForecastRecord> findByName(String name);
+
+	JSONArray getHistoryData(String sql);
 
 }

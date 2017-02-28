@@ -91,6 +91,7 @@ $(function(){
 var isNew = true;
 var date = new Date();
 var currentYear =  "" + date.getFullYear();
+
 //存储结果，表示进行到了第几步了，总共四步（进行到了第一步，就保存到哪一步的那些信息）
 var tempResult = 
 				{"step":"1",
@@ -522,17 +523,23 @@ var option1 = {
 
 function s2s_previewData(){
 	var myChart = echarts.init(document.getElementById("test1"));
+	console.log($(".year .condition"))
+	var beginYear = $(".year.condition")[0].value;
+	var endYear = $(".year.condition")[1].value;
+	var sql = 'select YearName,DNCL from qgdncl where YearName>'+beginYear+' and YearName<'+endYear;
+	console.log(sql);
 	$.ajax({
 		url:"<%=path%>/forecast/getHistoryData",
 		dataType:"json",
+		data:{"sql":sql},
 		async:true,
 		type:"GET",
 		success:function(result){
 			console.log(result)
 			var temp = {"x":[],"y":[]};
-			for(var i=0;i<result.historyData.length;i++){
-				temp.x[i] = result.historyData[i].year;
-				temp.y[i] = result.historyData[i].value;
+			for(var i=0;i<result.length;i++){
+				temp.x[i] = result[i][0];
+				temp.y[i] = result[i][1];
 				option.xAxis[0].data = temp.x;
 				option.series[0].data= temp.y;
 				myChart.setOption(option);

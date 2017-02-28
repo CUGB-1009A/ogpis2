@@ -43,6 +43,9 @@ import com.ogpis.forecast.util.FileOperate;
 import com.ogpis.forecast.util.ForecastUtil;
 import com.ogpis.system.service.UserService;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 @Controller
 public class ForecastAction extends BaseAction{
 	
@@ -60,7 +63,7 @@ public class ForecastAction extends BaseAction{
 	
 	@RequestMapping(value = "/forecast/getDataSourceByForecastType")
 	public void getDataSourceByForecastType(HttpServletRequest request, ModelMap model,HttpServletResponse response) {
-		
+		periodDefinitionService.findAll();
 	}
 	
 	@RequestMapping(value = "/forecast")
@@ -217,11 +220,12 @@ public class ForecastAction extends BaseAction{
 		@RequestMapping(value = "/forecast/getHistoryData")//检查成果名称是否合法，不允许重复
 		@ResponseBody
 		public void getHistoryData(HttpServletRequest request,HttpServletResponse response) throws IOException{
-			String result = HistoryData.historyData1;
+			String sql = request.getParameter("sql");
+			JSONArray jsonArray = forecastRecordService.getHistoryData(sql);
 			response.setContentType("application/json");
 		    response.setCharacterEncoding("utf-8");
-		    System.out.println(result);
-			response.getWriter().write(result);
+		    System.out.println(jsonArray.toString());
+			response.getWriter().write(jsonArray.toString());
 		}
 		
 		@RequestMapping(value = "/forecast/forecast")//检查成果名称是否合法，不允许重复

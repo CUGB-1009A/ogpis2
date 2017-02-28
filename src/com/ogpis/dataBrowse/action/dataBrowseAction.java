@@ -116,7 +116,8 @@ public class dataBrowseAction {
 					
 			}	
 		}
-		result.deleteCharAt(result.length()-1);
+		if(!(dataSourceFields.size()==1))
+			result.deleteCharAt(result.length()-1);
 		result.append("],");
 		
 		//再添加X轴的内容

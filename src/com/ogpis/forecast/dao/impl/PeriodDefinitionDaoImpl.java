@@ -9,6 +9,8 @@ import com.ogpis.forecast.dao.PeriodDefinitionDao;
 import com.ogpis.forecast.entity.ModelInfo;
 import com.ogpis.forecast.entity.PeriodDefinition;
 
+import net.sf.json.JSONArray;
+
 @Repository
 public class PeriodDefinitionDaoImpl extends HibernateBaseDao<PeriodDefinition, String> implements PeriodDefinitionDao{
 
@@ -19,6 +21,9 @@ public class PeriodDefinitionDaoImpl extends HibernateBaseDao<PeriodDefinition, 
 		String hql = "From PeriodDefinition where deleted=false";
 		@SuppressWarnings("unchecked")
 		List<PeriodDefinition> periodDefinitionList = this.find(hql,null);
+		String sql = "select * from qgdncl where YearName >1955";
+		JSONArray jsonArray = JSONArray.fromObject(getSession().createSQLQuery(sql).list());
+		System.out.println(jsonArray.toString());
 		return periodDefinitionList;
 	}
 

@@ -11,6 +11,9 @@ import com.ogpis.forecast.dao.ForecastRecordDao;
 import com.ogpis.forecast.entity.ForecastRecord;
 import com.ogpis.forecast.entity.ForecastType;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 @Repository
 public class ForecastRecordDaoImpl extends HibernateBaseDao<ForecastRecord, String> implements ForecastRecordDao{
 
@@ -49,6 +52,11 @@ public class ForecastRecordDaoImpl extends HibernateBaseDao<ForecastRecord, Stri
 		@SuppressWarnings("unchecked")
 		List<ForecastRecord> forecastRecord = this.find(hql, null);
 		return forecastRecord;
+	}
+
+	@Override
+	public JSONArray getHistoryData(String sql) {
+		return JSONArray.fromObject(getSession().createSQLQuery(sql).list());
 	}
 
 }

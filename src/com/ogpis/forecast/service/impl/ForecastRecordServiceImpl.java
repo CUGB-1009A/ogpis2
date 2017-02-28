@@ -11,6 +11,9 @@ import com.ogpis.forecast.dao.ForecastRecordDao;
 import com.ogpis.forecast.entity.ForecastRecord;
 import com.ogpis.forecast.service.ForecastRecordService;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 @Service
 @Transactional
 public class ForecastRecordServiceImpl implements ForecastRecordService{
@@ -42,6 +45,12 @@ public class ForecastRecordServiceImpl implements ForecastRecordService{
 	@Override
 	public List<ForecastRecord> findByName(String name) {
 		return forecastRecordDao.findByName(name);
+	}
+
+	@Override
+	public JSONArray getHistoryData(String sql) {
+		// TODO Auto-generated method stub
+		return forecastRecordDao.getHistoryData(sql);
 	}
 
 
