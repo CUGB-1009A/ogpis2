@@ -196,7 +196,7 @@ public class DataSourceAction extends BaseAction {
 		
 	}
 	
-	@RequestMapping(value = "dataBrowser/getTabContentByDSId")
+	@RequestMapping(value = "dataBrowser/getTabContentByDSId123")
 	public void getTabContentByDSId(HttpServletRequest request, HttpServletResponse response ,ModelMap model) throws IOException {
 		StringBuilder result = new StringBuilder();
 		boolean isVirtual = false ; //默认是真实数据源
